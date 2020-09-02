@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro</title>
+</head>
+<body>
+    <h1>Cadastre agora mesmo!</h1>
+    <form action="/users/signup" method="POST">
+
+        <label for="name">Nome</label>
+        <input type="text" name="name" id="name"/>
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email"/>
+        <label for="password">Senha</label>
+        <input type="password" name="password" id="password"/>
+        <label for="bio">Biografia</label>
+        <input type="text" name="bio" id="bio"/>
+
+        <input type="submit" value="Cadastrar">
+    </form>
+</body>
+</html>

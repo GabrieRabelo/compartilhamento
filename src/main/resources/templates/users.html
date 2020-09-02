@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Usuários</title>
+</head>
+<body>
+    <h1>Usuários cadastrados:</h1>
+    <div th:each="user: ${users}">
+        <p th:text="${user.getId()}"></p>
+        <p th:text="${user.getName()}"></p>
+        <p th:text="${user.getEmail()}"></p>
+        <p th:text="${user.getBio()}"></p>
+        <hr/>
+    </div>
+</body>
+</html>
