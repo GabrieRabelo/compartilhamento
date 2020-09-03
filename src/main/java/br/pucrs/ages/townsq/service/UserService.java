@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService implements IUserService{
+public class UserService {
 
     private final UserRepository repository;
     private final BCryptPasswordEncoder bcPasswordEncoder;
