@@ -27,7 +27,7 @@ public class UserService {
     }
 
     public List<User> findAll(){
-        return (List<User>) repository.findAll();
+        return repository.findAll();
     }
 
     public Optional<User> findById(long id){

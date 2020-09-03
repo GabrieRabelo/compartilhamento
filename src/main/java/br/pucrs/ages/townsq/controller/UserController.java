@@ -45,6 +45,11 @@ public class UserController {
         return "signin";
     }
 
+    @GetMapping("/home")
+    public String getHomePage(){
+        return "home";
+    }
+
     @GetMapping("/logout")
     public String getLogout(HttpServletRequest request, HttpServletResponse response){
         HttpSession session = request.getSession();
