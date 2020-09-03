@@ -17,13 +17,13 @@ Se você estiver usando o IntelliJ, recomenda-se instalar o plugin Lombok. Caso 
 
 ## Processo de instalação
 
-####Clonar o projeto:
+#### Clonar o projeto:
 
 Execute o comando a seguir em um prompt de comand / terminal dentro de uma pasta de sua escolha (recomenda-se o uso da pasta $HOME).
 
 `git clone http://tools.ages.pucrs.br/compartilhamento/compartilhamento.git`
 
-####Executar o projeto
+#### Executar o projeto
 
 Em um primeiro momento, abra o terminal da raíz do projeto e rode o comando
 
@@ -46,3 +46,11 @@ Em seguida, para executar a aplicação, rode o seguinte comando
 `./mvnw spring-boot:start`
 
 No IntelliJ, esses comandos podem ser executados utilizando a interface gráfica do programa. O mesmo pode ser feito no VSCode.
+
+#### Limpeza das classes compiladas
+
+Para limpar as classes compiladas, execute `./mvnw clean`
+
+#### IMPORTANTE
+
+Sempre que for desenvolver código novo, utilize uma nova branch. Para isso, rode `git checkout -b <nome-da-branch>`
