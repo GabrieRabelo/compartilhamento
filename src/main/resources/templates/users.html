@@ -6,6 +6,7 @@
     <title>Usuários</title>
 </head>
 <body>
+    <div th:insert="fragments/header.html"></div>
     <h1>Usuários cadastrados:</h1>
     <div th:each="user: ${users}">
         <p th:text="${user.getId()}"></p>

@@ -6,6 +6,7 @@
     <title>Usuário</title>
 </head>
 <body>
+    <div th:insert="fragments/header.html"></div>
     <div th:if="${user}">
         <p th:text="${user.getId()}"></p>
         <p th:text="${user.getName()}"></p>
