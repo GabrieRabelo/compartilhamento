@@ -8,6 +8,7 @@ services:
       POSTGRES_DB: 'TOWNSQ'
       POSTGRES_USER: 'devdbuser'
       POSTGRES_PASSWORD: 'devdbpass'
+      PGDATA: '/var/lib/postgresql/data/pgdata'
     ports:
       - "5432:5432"
     volumes:
