@@ -5,10 +5,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Index</title>
-    <link rel="stylesheet" href="/styles/styles.css"/>
+    <link rel="stylesheet" th:href="@{css/styles.css}">
 </head>
 <body>
-    <h1>Essa é a homepage do sistema</h1>
+    <h1>Essa é a homepage</h1>
     <h2>Pode ser acessada por visitantes e usuários logados</h2>
     <div sec:authorize="isAuthenticated()">
         <p>Fazer uma pergunta.</p>
