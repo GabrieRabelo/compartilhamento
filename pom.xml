@@ -88,6 +88,10 @@
 			<artifactId>liquibase-maven-plugin</artifactId>
 			<version>${liquibase-maven-plugin.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
+		</dependency>
 	</dependencies>
 
 	<profiles>
