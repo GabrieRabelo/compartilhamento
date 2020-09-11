@@ -33,7 +33,3 @@ build/
 .vscode/
 
 postgres-data
-
-docker-compose.yaml
-application-*.yaml
-liquibase-*.properties
