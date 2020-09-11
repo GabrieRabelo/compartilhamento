@@ -6,16 +6,30 @@
     <title>Usuário</title>
 </head>
 <body>
-    <div th:insert="fragments/header.html"></div>
-    <div th:if="${user}">
-        <p th:text="${user.getId()}"></p>
-        <p th:text="${user.getName()}"></p>
-        <p th:text="${user.getEmail()}"></p>
-        <p th:text="${user.getBio()}"></p>
-        <hr/>
-    </div>
-    <div th:if="!${user}">
-        <h1>Usuário não encontrado</h1>
-    </div>
+<h1>Perfil do Usuário</h1>
+<div th:insert="fragments/header.html"></div>
+<div th:if="${user}">
+    <h>Id do usuário:</h>
+    <h th:text="${user.getId()}"></h>
+    <p></p>
+    <h>Nome Completo:</h>
+    <h th:text="${user.getName()}"></h>
+    <p></p>
+    <h>E-Mail:</h>
+    <h th:text="${user.getEmail()}"></h>
+    <p></p>
+    <h>Biografia:</h>
+    <h th:text="${user.getBio()}"></h>
+    <p></p>
+    <h>Pontuação:</h>
+    <h>TODO</h>
+    <p></p>
+    <h>Membro desde:</h>
+    <h>TODO</h>
+    <hr/>
+</div>
+<div th:if="!${user}">
+    <h1>Usuário não encontrado</h1>
+</div>
 </body>
 </html>
