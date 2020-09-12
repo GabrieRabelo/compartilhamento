@@ -8,11 +8,10 @@
     <link rel="stylesheet" th:href="@{css/styles.css}">
 </head>
 <body>
+    <div th:insert="fragments/header.html"></div>
     <h1>Essa é a homepage</h1>
     <h2>Pode ser acessada por visitantes e usuários logados</h2>
-    <div sec:authorize="isAuthenticated()">
-        <p>Fazer uma pergunta.</p>
-    </div>
+
     <div sec:authorize="isAnonymous()">
         <p>Realizar cadastro / login</p>
     </div>

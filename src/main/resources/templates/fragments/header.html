@@ -15,9 +15,11 @@
             <a href="#">Segurança</a>
             <a href="#">Suporte</a>
             <div sec:authorize="isAuthenticated()">
-                <p>Fazer uma pergunta.</p>
+                <button onclick="location.href='/users'" class="ask">Perguntar</button>
             </div>
-            <button class="ask">Perguntar</button>
+            <div sec:authorize="isAnonymous()">
+                <button onclick="location.href='/signup'" class="ask">Cadastrar</button>
+            </div>
         </nav>
     </header>
 </body>
