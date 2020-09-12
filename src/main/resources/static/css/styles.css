@@ -1,3 +1,35 @@
-h1{
-    color: red;
+:root {
+    --dark-green: #8CBA3A;
+    --light-green: #A9C679;
+    --dark-gray: #E0E0E0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+
+h1,h2,h3,h4,h5,a,button,label,p{
+    font-family: Raleway, sans-serif;
+}
+
+button{
+    cursor: pointer;
+}
+
+.form-control{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.form-control input{
+    background-color: var(--dark-gray);
+    height: 40px;
+    width: 280px;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top:10px;
 }
