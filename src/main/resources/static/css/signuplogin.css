@@ -1,0 +1,57 @@
+body {
+    background-color: var(--light-green);
+}
+
+.white-background{
+    background-color: #FFFFFF;
+
+    height: 480px;
+    width: 680px;
+
+    border-radius: 20px;
+    margin: 10% auto;
+
+    display: flex;
+    align-items: center;
+
+    flex-direction: column;
+}
+
+.logo-img{
+    height: 120px;
+    width: 200px;
+}
+
+.white-background form {
+    display: flex;
+    flex-direction: column;
+}
+
+.white-background form button{
+    background-color: var(--dark-green);
+    height: 35px;
+    width: 110px;
+    margin: 5px auto;
+    border-radius: 10px;
+    color: white;
+}
+
+.white-background > p {
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.form-link {
+    display: flex;
+    font-size: 13px;
+    color: #636262;
+    justify-content: center;
+    margin-top:10px;
+}
+
+
+.form-link a{
+    margin-left:5px;
+    font-weight: bold;
+    color: var(--dark-green);
+}

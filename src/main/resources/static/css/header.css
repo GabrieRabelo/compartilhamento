@@ -1,0 +1,25 @@
+header{
+    background-color: var(--dark-green);
+    display: flex;
+    justify-content: center;
+    height: 59px;
+    width: 100%;
+}
+
+header nav {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+header nav a {
+    margin-left: 40px;
+    text-decoration: none;
+    color: white;
+}
+
+.ask{
+    margin-left: 50px;
+    padding: 10px 25px;
+    border-radius: 20px;
+}
