@@ -34,11 +34,24 @@ body {
     margin: 5px auto;
     border-radius: 10px;
     color: white;
+    transition: background-color 0.2s;
+}
+
+.white-background form button:hover{
+    background-color: var(--light-green);
 }
 
 .white-background > p {
     font-size: 15px;
     margin-bottom: 10px;
+}
+
+.error-email {
+    display: flex;
+    font-size: 14px;
+    color: #FF3333;
+    justify-content: center;
+    margin-top: 10px;
 }
 
 .form-link {

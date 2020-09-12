@@ -1,6 +1,8 @@
 package br.pucrs.ages.townsq.model;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -20,12 +22,24 @@ public class User implements UserDetails {
     private long id;
     @Column(name = "name")
     private String name;
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
     @Column(name = "password")
     private String password;
+    @Column(name = "score")
+    private int score;
     @Column(name = "bio")
     private String bio;
+    @Column(name = "image")
+    private String image;
+    @Column(name = "role")
+    private int role;
+    @UpdateTimestamp
+    @Column(name = "updatedAt")
+    private java.sql.Timestamp updatedAt;
+    @CreationTimestamp
+    @Column(name = "createdAt")
+    private java.sql.Timestamp createdAt;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
