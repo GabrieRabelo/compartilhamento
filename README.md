@@ -60,3 +60,12 @@ Sempre que for desenvolver código novo, utilize uma nova branch. Para isso, rod
 Os arquivos de configuração / docker-compose não estão sendo rastreados pelo git. Assim, é preciso fazer o download deles e colocar nas pastas do projeto. O docker-compose.yaml fica na raíz do projeto e os outros arquivos na pasta src/main/resources.
 
 [ignored-files.zip](http://tools.ages.pucrs.br/compartilhamento/compartilhamento-wiki/wikis/uploads/9c3bbb87494af9800c382216ce42cea3/ignored-files.zip)
+
+#### Outras referências
+
+Você pode ver mais comandos e referências nos seguintes links:
+
+* [Configuração](http://tools.ages.pucrs.br/compartilhamento/compartilhamento-wiki/wikis/configuracao)
+* [Versionamento](http://tools.ages.pucrs.br/compartilhamento/compartilhamento-wiki/wikis/versionamento)
+* [Comandos](http://tools.ages.pucrs.br/compartilhamento/compartilhamento-wiki/wikis/comandos)
+* [Padronização](http://tools.ages.pucrs.br/compartilhamento/compartilhamento-wiki/wikis/padronizacao)
