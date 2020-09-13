@@ -4,16 +4,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Usuário</title>
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
     <div th:insert="fragments/header.html"></div>
+<!--    <div th:if="${user}">-->
+<!--        <p th:text="${user.getId()}"></p>-->
+<!--        <p th:text="${user.getName()}"></p>-->
+<!--        <p th:text="${user.getEmail()}"></p>-->
+<!--        <p th:text="${user.getBio()}"></p>-->
+<!--        <hr/>-->
+<!--    </div>-->
+
     <div th:if="${user}">
-        <p th:text="${user.getId()}"></p>
-        <p th:text="${user.getName()}"></p>
-        <p th:text="${user.getEmail()}"></p>
-        <p th:text="${user.getBio()}"></p>
-        <hr/>
+        <div class="container">
+            <div class="row">
+                <div class="col-9" style="background-color: lightblue">este ocupa 75% da largura total</div>
+                <div class="col-3" style="background-color: deepskyblue">e este ocupa 25%...</div>
+            </div>
+            <div class="row">
+                <div class="col-12" style="background-color: lightgreen">já este aqui ocupa todo o espaço...</div>
+            </div>
+        </div>
     </div>
+
     <div th:if="!${user}">
         <h1>Usuário não encontrado</h1>
     </div>

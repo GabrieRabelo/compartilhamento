@@ -9,8 +9,8 @@
     <link rel="stylesheet" th:href="@{css/index.css}">
 </head>
 <body>
+    <div th:insert="fragments/header.html"></div>
     <div class="index-anon" sec:authorize="isAnonymous()">
-        <div th:insert="fragments/header.html"></div>
         <div class="index-anon-text">
             <h1>O melhor condomínio é aqui!</h1>
             <p>

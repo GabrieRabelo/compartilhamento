@@ -5,6 +5,14 @@ header{
     width: 100%;
 }
 
+.header-auth{
+    background-color: var(--dark-green);
+}
+
+.header-anon{
+    background-color: var(--light-green);
+}
+
 header nav {
     padding: 10px;
     display: flex;

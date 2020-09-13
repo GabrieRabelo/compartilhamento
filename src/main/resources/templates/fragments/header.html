@@ -8,7 +8,7 @@
     <link rel="stylesheet" th:href="@{css/header.css}">
 </head>
 <body>
-    <header>
+    <header th:classappend="${#request.userPrincipal} ? 'header-auth' : 'header-anon'">
         <nav>
             <div sec:authorize="isAnonymous()">
                 <img class="logo-img-header" alt="Logo Townsq" src="/img/logo.svg" />
