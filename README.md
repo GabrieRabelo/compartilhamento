@@ -15,6 +15,8 @@ Se você estiver usando o IntelliJ, recomenda-se instalar o plugin Lombok. Caso 
 * Spring Boot Tools
 * thymeleaf
 
+<b>IMPORTANTE:</b> Se você estiver no Windows, utilize o comando `./mvnw.cmd` no lugar de `./mvnw`
+
 ## Processo de instalação
 
 #### Clonar o projeto:
