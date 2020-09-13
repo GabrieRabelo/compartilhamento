@@ -10,7 +10,10 @@
 <body>
     <header>
         <nav>
-            <a href="#">Inicio</a>
+            <div sec:authorize="isAnonymous()">
+                <img class="logo-img-header" alt="Logo Townsq" src="/img/logo.svg" />
+            </div>
+            <a href="/">Inicio</a>
             <a href="#">Por que usar a TownSq?</a>
             <a href="#">Segurança</a>
             <a href="#">Suporte</a>

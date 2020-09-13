@@ -6,14 +6,23 @@
     <meta charset="UTF-8">
     <title>Index</title>
     <link rel="stylesheet" th:href="@{css/styles.css}">
+    <link rel="stylesheet" th:href="@{css/index.css}">
 </head>
 <body>
-    <div th:insert="fragments/header.html"></div>
-    <h1>Essa é a homepage</h1>
-    <h2>Pode ser acessada por visitantes e usuários logados</h2>
-
-    <div sec:authorize="isAnonymous()">
-        <p>Realizar cadastro / login</p>
+    <div class="index-anon" sec:authorize="isAnonymous()">
+        <div th:insert="fragments/header.html"></div>
+        <div class="index-anon-text">
+            <h1>O melhor condomínio é aqui!</h1>
+            <p>
+                Procure ou crie sua dúvida e encontre a melhor solução.
+                Não importa se sua duvida for sobre a pintura do prédio ou vaga de garagem,
+                a TownSq torna mais fácil o acesso às respostas dos seus problemas.
+            </p>
+        </div>
+        <div class="index-anon-buttons">
+            <button onclick="location.href='/signin'">Fazer uma pergunta</button>
+        </div>
     </div>
+
 </body>
 </html>

@@ -1,5 +1,4 @@
 header{
-    background-color: var(--dark-green);
     display: flex;
     justify-content: center;
     height: 59px;
@@ -22,4 +21,9 @@ header nav a {
     margin-left: 50px;
     padding: 10px 25px;
     border-radius: 20px;
+}
+
+.logo-img-header{
+    height: 54px;
+    width: 200px;
 }
