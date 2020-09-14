@@ -77,9 +77,19 @@ button{
     width: 75%;
 }
 
+.col-8 {
+    display: flex;
+    width: 63%;
+}
+
 .col-6 {
     display: flex;
     width: 50%;
+}
+
+.col-4 {
+    display: flex;
+    width: 37%;
 }
 
 .col-3 {
@@ -93,8 +103,9 @@ button{
 }
 
 .container {
-    width: 100%;
+    width: 80%;
     height: 100vh;
+    margin: 0 auto;
 }
 
 .bg-offwhite{

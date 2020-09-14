@@ -4,31 +4,47 @@
 <head>
     <meta charset="UTF-8">
     <title>Usuário</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
-<div th:insert="fragments/header.html"></div>
-<h1>Perfil do Usuário</h1>
-<div th:if="${user}">
-    <h>Id do usuário:</h>
-    <h th:text="${user.getId()}"></h>
-    <p></p>
-    <h>Nome Completo:</h>
-    <h th:text="${user.getName()}"></h>
-    <p></p>
-    <h>E-Mail:</h>
-    <h th:text="${user.getEmail()}"></h>
-    <p></p>
-    <h>Biografia:</h>
-    <h th:text="${user.getBio()}"></h>
-    <p></p>
-    <h>Pontuação:</h>
-    <h>TODO</h>
-    <p></p>
-    <h>Membro desde:</h>
-    <h>TODO</h>
-    <hr/>
-</div>
+    <div th:insert="fragments/header.html"></div>
+    <div class="container">
+        <div class="row" style="width: 100%; height: 100%">
+            <div class="col-4" style="border: 1px solid black">
+                <div class="row" style="height: 20%; width: 100%">
+                    <div class="col-3">
+                        <div style="border-radius: 50%; background-color: gray"></div>
+                    </div>
+                    <div class="col-9" style="border: 1px solid black">
+                            <h th:text="${user.getName()}"></h>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8"></div>
+        </div>
+    </div>
+
+
+<!--<div th:if="${user}">-->
+<!--    <h>Id do usuário:</h>-->
+<!--    <h th:text="${user.getId()}"></h>-->
+<!--    <p></p>-->
+<!--    <h>Nome Completo:</h>-->
+<!--    <h th:text="${user.getName()}"></h>-->
+<!--    <p></p>-->
+<!--    <h>E-Mail:</h>-->
+<!--    <h th:text="${user.getEmail()}"></h>-->
+<!--    <p></p>-->
+<!--    <h>Biografia:</h>-->
+<!--    <h th:text="${user.getBio()}"></h>-->
+<!--    <p></p>-->
+<!--    <h>Pontuação:</h>-->
+<!--    <h>TODO</h>-->
+<!--    <p></p>-->
+<!--    <h>Membro desde:</h>-->
+<!--    <h>TODO</h>-->
+<!--    <hr/>-->
+<!--</div>-->
 <div th:if="!${user}">
     <h1>Usuário não encontrado</h1>
 </div>
