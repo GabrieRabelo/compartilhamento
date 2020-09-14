@@ -1,9 +1,29 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Raleway:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{css/styles.css}">
+    <link rel="stylesheet" th:href="@{css/header.css}">
 </head>
 <body>
-    <a th:href="@{/logout}" th:text="Logout"></a>
+    <header th:classappend="${#request.userPrincipal} ? 'header-dark' : 'header-light'">
+        <nav>
+            <div sec:authorize="isAnonymous()">
+                <img class="logo-img-header" alt="Logo Townsq" src="/img/logo.svg" />
+            </div>
+            <a href="/">Inicio</a>
+            <a href="#">Por que usar a TownSq?</a>
+            <a href="#">Segurança</a>
+            <a href="#">Suporte</a>
+            <div sec:authorize="isAuthenticated()">
+                <button onclick="location.href='/users'" class="ask">Perguntar</button>
+            </div>
+            <div sec:authorize="isAnonymous()">
+                <button onclick="location.href='/signup'" class="ask">Cadastrar</button>
+            </div>
+        </nav>
+    </header>
 </body>
 </html>

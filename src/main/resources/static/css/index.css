@@ -1,0 +1,146 @@
+.index-anon{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+
+    background-color: var(--light-green);
+}
+
+.index-anon-text{
+    display: flex;
+    margin-top: 5%;
+    flex-direction: column;
+    align-items: center;
+    width: 45%;
+}
+
+.index-anon h1, p{
+    color: #FFFFFF;
+    text-align: center;
+    margin-bottom: 48px;
+}
+.index-anon h1{
+    font-weight: 900;
+}
+
+.index-anon-buttons{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 64px;
+}
+
+.index-anon-buttons button{
+    background-color: #FFFFFF;
+    height: 58px;
+    width: 278px;
+    margin: 5px auto;
+    border-radius: 42px;
+    color: #000000;
+    font-weight: bold;
+}
+
+.main-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    margin-top: 48px;
+}
+
+.main-content h1{
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 64px;
+}
+
+.question-card{
+    padding: 16px;
+    display: flex;
+    border-radius: 10px;
+    flex-direction: row;
+    width: 85%;
+    box-shadow: 0px 0px 10px 3px rgba(0,0,0,0.25);
+}
+
+.question-card p{
+    color: var(--dark-green)
+}
+
+.card-left{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-right{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 20%;
+}
+
+.question-title-status{
+    display: inline-flex;
+    justify-content: space-between;
+    height: 1rem;
+    margin-bottom: 16px;
+}
+
+.question-title-status p{
+    color: var(--dark-green);
+}
+
+.question-creator{
+    display: flex;
+    width: 100%;
+}
+
+.question-creator img{
+    width: 32px;
+    height: 32px;
+}
+
+.question-creator p{
+    width: 32px;
+    height: 32px;
+}
+
+.question-text{
+    display: flex;
+    justify-content: start;
+}
+
+.question-text p{
+    color: #000000;
+}
+
+.name-last-access{
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+}
+
+.question-card-divider{
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    height: 75%;
+    border-left:1px solid #BEBEBE;
+    border-right:1px solid #BEBEBE;
+    margin-left: 16px;
+}
+
+.status-pill{
+    border-radius: 500px;
+    display: flex;
+    height: 1.5rem;
+    width: 22%;
+    align-items: center;
+    justify-content: center;
+}
+.status-pill small{
+    color: #FFFFFF;
+    font-weight: bolder;
+}

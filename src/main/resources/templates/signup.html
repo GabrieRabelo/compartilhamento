@@ -4,21 +4,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Cadastro</title>
+    <link rel="stylesheet" th:href="@{css/signuplogin.css}">
 </head>
 <body>
-    <h1>Cadastre agora mesmo!</h1>
-    <form role="form" th:action="@{/signup}" th:method="post" th:object="${user}">
-
-        <label for="name">Nome</label>
-        <input type="text" name="name" id="name"/>
-        <label for="email">Email</label>
-        <input type="email" name="email" id="email"/>
-        <label for="password">Senha</label>
-        <input type="password" name="password" id="password"/>
-        <label for="bio">Biografia</label>
-        <input type="text" name="bio" id="bio"/>
-        <input type="submit" value="Cadastrar">
-
-    </form>
+    <header th:insert="fragments/header.html"></header>
+    <div class="white-background">
+        <img class="logo-img" alt="Logo Townsq" src="/img/logo.svg" />
+        <form role="form" th:action="@{/signup}" th:method="post" th:object="${user}">
+            <div class="form-control">
+                <label for="name">Nome</label>
+                <input type="text" name="name" id="name"/>
+            </div>
+            <div class="form-control">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email"/>
+            </div>
+            <div class="form-control">
+                <label for="password">Senha</label>
+                <input type="password" name="password" id="password"/>
+            </div>
+            <button type="submit">Cadastrar</button>
+            <div class="form-link">
+                <p>Já possui conta?</p>
+                <a href="/signin">Entrar</a>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

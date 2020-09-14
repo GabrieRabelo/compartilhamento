@@ -4,10 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Usuário</title>
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-<h1>Perfil do Usuário</h1>
 <div th:insert="fragments/header.html"></div>
+<h1>Perfil do Usuário</h1>
 <div th:if="${user}">
     <h>Id do usuário:</h>
     <h th:text="${user.getId()}"></h>
