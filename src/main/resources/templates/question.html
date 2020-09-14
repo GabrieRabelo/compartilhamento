@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Pergunta XYZ</title>
 </head>
 <body>
-    <h1>
-        Página que irá conter o template para exibir uma pergunta e suas respostas / comentários.
-    </h1>
+    <div th:insert="fragments/header.html"></div>
+    <div class="container bg-offwhite justify-center">
+        <h1>test</h1>
+    </div>
 </body>
 </html>

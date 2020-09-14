@@ -5,11 +5,11 @@ header{
     width: 100%;
 }
 
-.header-auth{
+.header-dark{
     background-color: var(--dark-green);
 }
 
-.header-anon{
+.header-light{
     background-color: var(--light-green);
 }
 
