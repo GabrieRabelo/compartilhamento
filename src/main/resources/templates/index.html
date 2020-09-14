@@ -5,8 +5,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Index</title>
-    <link rel="stylesheet" th:href="@{css/styles.css}">
-    <link rel="stylesheet" th:href="@{css/index.css}">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/index.css}">
 </head>
 <body>
     <div th:insert="fragments/header.html"></div>
@@ -24,7 +24,8 @@
         </div>
     </div>
     <div class="container row">
-        <aside class="col-3"></aside>
+        <aside class="col-3">
+        </aside>
         <main class="main-content">
             <h1>Confira as perguntas mais recentes</h1>
             <div class="question-card">
@@ -39,8 +40,10 @@
                         <p>Descrição da pergunta</p>
                     </div>
                     <div class="question-creator">
+                        <img src="/img/user"/>
                         <div class="name-last-access">
                             <p>Bruno Almeida</p>
+                            <small>2 horas</small>
                         </div>
                     </div>
                 </div>

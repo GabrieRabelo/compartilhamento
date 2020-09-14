@@ -25,6 +25,10 @@ header nav a {
     color: white;
 }
 
+header nav img{
+    margin-top: 8px;
+}
+
 .ask{
     margin-left: 50px;
     padding: 10px 25px;

@@ -4,7 +4,8 @@
     align-items: center;
     align-content: center;
 
-    background-color: var(--light-green);
+    background: url("/img/question.svg") bottom left no-repeat, url("/img/city.svg") bottom right no-repeat, var(--light-green);
+    background-size: 32em;
 }
 
 .index-anon-text{
@@ -27,7 +28,7 @@
 .index-anon-buttons{
     display: flex;
     flex-direction: row;
-    margin-bottom: 64px;
+    margin-bottom: 80px;
 }
 
 .index-anon-buttons button{
@@ -88,7 +89,7 @@
 }
 
 .question-title-status p{
-    color: var(--dark-green);
+    color: var(--darker-green);
 }
 
 .question-creator{
@@ -102,8 +103,7 @@
 }
 
 .question-creator p{
-    width: 32px;
-    height: 32px;
+    margin: 0;
 }
 
 .question-text{
@@ -120,6 +120,7 @@
     width: 100%;
     height: 100%;
     flex-direction: column;
+    align-items: flex-end;
 }
 
 .question-card-divider{
@@ -143,4 +144,8 @@
 .status-pill small{
     color: #FFFFFF;
     font-weight: bolder;
+}
+
+.anuncio{
+    background-color: #636262;
 }
