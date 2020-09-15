@@ -3,6 +3,7 @@
     --light-green: #A9C679;
     --dark-gray: #E0E0E0;
     --darker-green: #228A19;
+    --darker-gray: #656565;
 }
 
 * {
@@ -104,4 +105,11 @@ button{
 
 .bg-danger{
     background-color: #D83D3D;
+}
+
+@media (max-width: 900px) {
+    html { font-size: 14px; }
+}
+@media (max-width: 400px) {
+    html { font-size: 12px; }
 }
