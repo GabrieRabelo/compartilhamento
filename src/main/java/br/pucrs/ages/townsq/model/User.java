@@ -20,20 +20,20 @@ public class User implements UserDetails {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "name")
+    @Column(name = "name", columnDefinition = "VARCHAR(50)")
     private String name;
-    @Column(name = "email", unique = true)
+    @Column(name = "email", unique = true, columnDefinition = "VARCHAR(256)")
     private String email;
-    @Column(name = "password")
+    @Column(name = "password", columnDefinition = "VARCHAR(256)")
     private String password;
     @Column(name = "score")
     private int score;
-    @Column(name = "bio")
+    @Column(name = "bio", columnDefinition = "VARCHAR(256)")
     private String bio;
-    @Column(name = "image")
+    @Column(name = "image", columnDefinition = "VARCHAR(256)")
     private String image;
-    @Column(name = "role")
-    private int role;
+    @Column(name = "role", columnDefinition = "VARCHAR(30)")
+    private String role;
     @UpdateTimestamp
     @Column(name = "updatedAt")
     private java.sql.Timestamp updatedAt;
