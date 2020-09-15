@@ -14,10 +14,10 @@
             <a href="#">Por que usar a TownSq?</a>
             <a href="#">Segurança</a>
             <a href="#">Suporte</a>
-            <div sec:authorize="isAuthenticated()">
-                <p>Fazer uma pergunta.</p>
-            </div>
             <button class="ask">Perguntar</button>
+            <div sec:authorize="isAuthenticated()">
+                <a href="/logout">Logout</a>
+            </div>
         </nav>
     </header>
 </body>

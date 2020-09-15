@@ -20,11 +20,11 @@ public class User implements UserDetails {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "name", columnDefinition = "VARCHAR(50)")
+    @Column(name = "name", columnDefinition = "VARCHAR(50)", nullable =  false)
     private String name;
-    @Column(name = "email", unique = true, columnDefinition = "VARCHAR(256)")
+    @Column(name = "email", unique = true, columnDefinition = "VARCHAR(256)", nullable =  false)
     private String email;
-    @Column(name = "password", columnDefinition = "VARCHAR(256)")
+    @Column(name = "password", columnDefinition = "VARCHAR(256)", nullable =  false)
     private String password;
     @Column(name = "score")
     private int score;
