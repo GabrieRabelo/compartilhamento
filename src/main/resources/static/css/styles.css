@@ -3,7 +3,7 @@
     --light-green: #A9C679;
     --dark-gray: #E0E0E0;
     --darker-green: #228A19;
-    --darker-gray: #656565;
+    --darker-gray: #4a4a4a;
 }
 
 * {
@@ -13,6 +13,11 @@
     box-sizing: border-box;
 }
 
+@media (min-width: 320px) and (max-width: 480px) {
+    html{
+        font-size: 12px;
+    }
+}
 h1,h2,h3,h4,h5,a,button,label,p{
     font-family: Raleway, sans-serif;
 }
@@ -107,9 +112,6 @@ button{
     background-color: #D83D3D;
 }
 
-@media (max-width: 900px) {
-    html { font-size: 14px; }
-}
-@media (max-width: 400px) {
-    html { font-size: 12px; }
+.bg-success{
+    background-color: #4FAA40;
 }

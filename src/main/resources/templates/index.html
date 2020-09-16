@@ -3,9 +3,8 @@
     xmlns:th="http://www.thymeleaf.org"
     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="UTF-8">
+    <div th:replace="fragments/head :: header"></div>
     <title>Index</title>
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/index.css}">
 </head>
 <body>
@@ -24,90 +23,96 @@
         </div>
     </div>
     <div class="container row">
-        <aside class="col-3">
+        <aside>
         </aside>
         <main class="main-content">
             <h1>Confira as perguntas mais recentes</h1>
             <div class="question-card">
                 <div class="card-left">
-                    <div class="question-title-status">
+                    <div class="status-pill bg-danger">
+                        <small>Não solucionada</small>
+                    </div>
+                    <div class="question-title">
                         <a href="/question">Título da pergunta</a>
-                        <div class="status-pill bg-danger">
-                            <small>Não solucionada</small>
-                        </div>
                     </div>
                     <div class="question-text">
-                        <p>No prédio em que sou síndico está tendo uma discussão durante as reuniões sobre a presença constante do zelador durante o horário de almoço da portaria. O zelador que está trabal...</p>
+                        <p>No prédio em que sou síndico está tendo. O zelador que está trabal...</p>
                     </div>
                     <div class="question-creator">
-                        <img src="img/user.svg"/>
+                        <img src="img/user.svg" alt="Imagem do perfil do usuário"/>
                         <div class="name-last-access">
                             <p>Bruno Almeida</p>
                             <small>2 horas</small>
                         </div>
                     </div>
                 </div>
-                <div class="question-card-divider"></div>
                 <div class="card-right">
-                    <p>0</p>
-                    <p>respostas</p>
-                    <small>0 comentários</small>
+                    <div class="question-card-divider"></div>
+                    <div class="card-right-text">
+                        <p>0</p>
+                        <p>respostas</p>
+                        <small>0 comentários</small>
+                    </div>
                 </div>
             </div>
             <div class="question-card">
                 <div class="card-left">
-                    <div class="question-title-status">
-                        <a href="/question">Título da pergunta</a>
-                        <div class="status-pill bg-danger">
-                            <small>Não solucionada</small>
-                        </div>
+                    <div class="status-pill bg-danger">
+                        <small>Não solucionada</small>
+                    </div>
+                    <div class="question-title">
+                        <a href="/question">Título da pergunta bem legal muito bacana show</a>
                     </div>
                     <div class="question-text">
                         <p>No prédio em que sou síndico está tendo uma discussão durante as reuniões sobre a presença constante do zelador durante o horário de almoço da portaria. O zelador que está trabal...</p>
                     </div>
                     <div class="question-creator">
-                        <img src="img/user.svg"/>
+                        <img src="img/user.svg" alt="Imagem do perfil do usuário"/>
                         <div class="name-last-access">
                             <p>Bruno Almeida</p>
                             <small>2 horas</small>
                         </div>
                     </div>
                 </div>
-                <div class="question-card-divider"></div>
                 <div class="card-right">
-                    <p>0</p>
-                    <p>respostas</p>
-                    <small>0 comentários</small>
+                    <div class="question-card-divider"></div>
+                    <div class="card-right-text">
+                        <p>0</p>
+                        <p>respostas</p>
+                        <small>0 comentários</small>
+                    </div>
                 </div>
             </div>
             <div class="question-card">
                 <div class="card-left">
-                    <div class="question-title-status">
+                    <div class="status-pill bg-success">
+                        <small>Solucionada</small>
+                    </div>
+                    <div class="question-title">
                         <a href="/question">Título da pergunta</a>
-                        <div class="status-pill bg-danger">
-                            <small>Não solucionada</small>
-                        </div>
                     </div>
                     <div class="question-text">
                         <p>No prédio em que sou síndico está tendo uma discussão durante as reuniões sobre a presença constante do zelador durante o horário de almoço da portaria. O zelador que está trabal...</p>
                     </div>
                     <div class="question-creator">
-                        <img src="img/user.svg"/>
+                        <img src="img/user.svg" alt="Imagem do perfil do usuário"/>
                         <div class="name-last-access">
                             <p>Bruno Almeida</p>
                             <small>2 horas</small>
                         </div>
                     </div>
                 </div>
-                <div class="question-card-divider"></div>
                 <div class="card-right">
-                    <p>0</p>
-                    <p>respostas</p>
-                    <small>0 comentários</small>
+                    <div class="question-card-divider"></div>
+                    <div class="card-right-text">
+                        <p>0</p>
+                        <p>respostas</p>
+                        <small>0 comentários</small>
+                    </div>
                 </div>
             </div>
         </main>
-        <aside class="col-3"></aside>
+        <aside></aside>
     </div>
 </body>
 </html>

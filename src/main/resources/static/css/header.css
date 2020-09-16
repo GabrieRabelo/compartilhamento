@@ -1,8 +1,6 @@
 header{
     display: flex;
     justify-content: center;
-    height: 59px;
-    width: 100%;
 }
 
 .header-dark{
@@ -33,9 +31,22 @@ header nav img{
     margin-left: 50px;
     padding: 10px 25px;
     border-radius: 20px;
+    transition: background-color, opacity, color, 400ms ease;
+}
+
+.ask:hover{
+    background-color: var(--darker-green);
+    opacity: 60%;
+    color: #FFFFFF;
 }
 
 .logo-img-header{
-    height: 54px;
-    width: 200px;
+    height: 3em;
+    width: auto;
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+    header{
+        display: none;
+    }
 }
