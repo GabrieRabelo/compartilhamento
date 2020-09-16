@@ -5,22 +5,85 @@
     <meta charset="UTF-8">
     <title>Usuário</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/index.css}">
 </head>
 <body>
     <div th:insert="fragments/header.html"></div>
     <div class="container">
         <div class="row" style="width: 100%; height: 100%">
-            <div class="col-4" style="border: 1px solid black">
-                <div class="row" style="height: 20%; width: 100%">
-                    <div class="col-3">
-                        <div style="border-radius: 50%; background-color: gray"></div>
+            <div class="col-4">
+                <div class="row-4">
+                    <div class="col-4 align-center">
+                        <div style="width: 96px; height: 96px">
+                            <div class="avatar"></div>
+                        </div>
                     </div>
-                    <div class="col-9" style="border: 1px solid black">
-                            <h th:text="${user.getName()}"></h>
+                    <div class="col">
+                        <h2 class="title" th:text="${user.getName()}"></h2>
+                        <h4 class="subtitle" th:text="${user.getName()}"></h4>
+                        <h4 class="subtitle" th:text="${user.getName()}"></h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h2 class="title">Biografia</h2>
+                        <p style="text-align: start; color: black; font-size: 10pt">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
                     </div>
                 </div>
             </div>
-            <div class="col-8"></div>
+            <div class="question-card-divider"></div>
+            <div class="col-8">
+                <div class="row">
+                    <div class="col align-center">
+                        <h2 class="title">Editar Perfil</h2>
+                        <div class="col-9">
+                            <div class="row">
+                                <div class="col-4">
+                                    <div style="width: 120px; height: 120px">
+                                        <div class="avatar"></div>
+                                    </div>
+                                </div>
+                                <div class="col align-center">
+                                    <div class="form-control">
+                                        <div class="form-control">
+                                            <label for="name" style="font-size: 10pt">Email</label>
+                                            <input type="text" name="name" id="name"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-control">
+                                        <div class="form-control">
+                                            <label for="email" style="font-size: 10pt">Email</label>
+                                            <input type="text" name="name" id="email"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-control">
+                                        <div class="form-control">
+                                            <label for="bio" style="font-size: 10pt">Email</label>
+                                            <input type="text" name="name" id="bio"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-control">
+                                        <div class="form-control">
+                                            <label for="currentPassword" style="font-size: 10pt">Email</label>
+                                            <input type="text" name="name" id="currentPassword"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-control">
+                                        <div class="form-control">
+                                            <label for="newPassword" style="font-size: 10pt">Email</label>
+                                            <input type="text" name="name" id="newPassword"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

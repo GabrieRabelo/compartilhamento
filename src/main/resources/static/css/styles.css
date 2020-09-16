@@ -38,6 +38,18 @@ button{
     margin-top:10px;
 }
 
+.title {
+    margin-top: 4px;
+    margin-bottom: 8px;
+    font-size: 18pt;
+}
+
+.subtitle {
+    /*margin-top: 4px;*/
+    margin-bottom: 6px;
+    font-size: 10pt;
+}
+
 .flex {
     display: flex;
 }
@@ -62,43 +74,166 @@ button{
     justify-content: flex-end;
 }
 
+.align-center {
+    display: flex;
+    align-items: center;
+}
+
 .col {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    height: 100%;
 }
 
 .col-12 {
     display: flex;
     width: 100%;
+    flex-direction: column;
+}
+
+.col-11 {
+    display: flex;
+    width: 93%;
+    flex-direction: column;
+}
+
+.col-10 {
+    display: flex;
+    width: 86%;
+    flex-direction: column;
 }
 
 .col-9 {
     display: flex;
     width: 75%;
+    flex-direction: column;
 }
 
 .col-8 {
     display: flex;
     width: 63%;
+    flex-direction: column;
+}
+
+.col-7 {
+    display: flex;
+    width: 57%;
+    flex-direction: column;
 }
 
 .col-6 {
     display: flex;
     width: 50%;
+    flex-direction: column;
+}
+
+.col-5 {
+    display: flex;
+    width: 43%;
+    flex-direction: column;
 }
 
 .col-4 {
     display: flex;
     width: 37%;
+    flex-direction: column;
 }
 
 .col-3 {
     display: flex;
     width: 25%;
+    flex-direction: column;
+}
+
+.col-2 {
+    display: flex;
+    width: 14%;
+    flex-direction: column;
+}
+
+.col-1 {
+    display: flex;
+    width: 7%;
+    flex-direction: column;
 }
 
 .row {
     display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
+.row-12 {
+    display: flex;
+    height: 100%;
+    flex-direction: row;
+}
+
+.row-11 {
+    display: flex;
+    height: 93%;
+    flex-direction: row;
+}
+
+.row-10 {
+    display: flex;
+    height: 86%;
+    flex-direction: row;
+}
+
+.row-9 {
+    display: flex;
+    height: 75%;
+    flex-direction: row;
+}
+
+.row-8 {
+    display: flex;
+    height: 63%;
+    flex-direction: row;
+}
+
+.row-7 {
+    display: flex;
+    height: 57%;
+    flex-direction: row;
+}
+
+.row-6 {
+    display: flex;
+    height: 50%;
+    flex-direction: row;
+}
+
+.row-5 {
+    display: flex;
+    height: 43%;
+    flex-direction: row;
+}
+
+.row-4 {
+    display: flex;
+    height: 37%;
+    flex-direction: row;
+}
+
+.row-3 {
+    display: flex;
+    height: 25%;
+    flex-direction: row;
+}
+
+.row-2 {
+    display: flex;
+    height: 14%;
+    flex-direction: row;
+}
+
+.row-1 {
+    display: flex;
+    height: 7%;
     flex-direction: row;
 }
 
@@ -106,6 +241,7 @@ button{
     width: 80%;
     height: 100vh;
     margin: 0 auto;
+    padding-top: 5%;
 }
 
 .bg-offwhite{

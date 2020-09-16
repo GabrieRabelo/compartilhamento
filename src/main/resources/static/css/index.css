@@ -54,6 +54,13 @@
     margin-bottom: 64px;
 }
 
+.avatar {
+    width: 100%;
+    height: 100%;
+    background-color: lightgray;
+    border-radius: 50%;
+}
+
 .question-card{
     padding: 16px;
     display: flex;
