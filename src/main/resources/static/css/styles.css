@@ -4,6 +4,7 @@
     --dark-gray: #E0E0E0;
     --darker-green: #228A19;
     --darker-gray: #4a4a4a;
+    --strong-green: #25B00E;
 }
 
 * {
@@ -106,6 +107,10 @@ button{
 
 .bg-offwhite{
     background-color: #F4F4F4;
+}
+
+.bg-gray{
+    background-color: #E0E0E0;
 }
 
 .bg-danger{

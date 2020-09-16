@@ -17,10 +17,10 @@
             <a href="#">Segurança</a>
             <a href="#">Suporte</a>
             <div sec:authorize="isAuthenticated()">
-                <button onclick="location.href='/users'" class="ask">Perguntar</button>
+                <button onclick="location.href='/users'" class="button-green-ease">Perguntar</button>
             </div>
             <div sec:authorize="isAnonymous()">
-                <button onclick="location.href='/signup'" class="ask">Cadastrar</button>
+                <button onclick="location.href='/signup'" class="button-green-ease">Cadastrar</button>
             </div>
         </nav>
     </header>

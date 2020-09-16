@@ -27,14 +27,14 @@ header nav img{
     margin-top: 8px;
 }
 
-.ask{
+.button-green-ease{
     margin-left: 50px;
     padding: 10px 25px;
     border-radius: 20px;
     transition: background-color, opacity, color, 400ms ease;
 }
 
-.ask:hover{
+.button-green-ease:hover{
     background-color: var(--darker-green);
     opacity: 60%;
     color: #FFFFFF;

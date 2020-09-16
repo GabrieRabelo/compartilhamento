@@ -1,0 +1,55 @@
+.main-content{
+    flex-direction: column;
+    width: 50vw;
+}
+
+.answer-textarea-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.answer-textarea-container h2{
+    font-size: 1.2rem;
+    font-family: Open Sans;
+    margin-bottom: 1rem;
+}
+
+.answer-textarea-container textarea{
+    border-radius: 8px;
+    padding: 8px;
+    background-color: var(--dark-gray);
+    height: 16em;
+}
+
+.answer-textarea-container button{
+    margin-top: 1rem;
+    align-self: end;
+    width: max-content;
+}
+
+.comment-card{
+    display: flex;
+    flex-direction: row;
+    background-color: var(--dark-gray);
+    padding: 0.3rem;
+    border-radius: 5px;
+    width: 70%;
+    justify-content: space-between;
+}
+
+.comment-left{
+    width: 80%;
+}
+
+.comment-right{
+    color: var(--strong-green);
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+
+    .main-content{
+        width: 100vw;
+        margin: 0 1rem 0 1rem
+    }
+}

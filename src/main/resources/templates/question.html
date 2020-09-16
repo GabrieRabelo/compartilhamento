@@ -5,11 +5,26 @@
 <head>
     <div th:replace="fragments/head :: header"></div>
     <title>Pergunta XYZ</title>
+    <link rel="stylesheet" th:href="@{/css/question.css}">
 </head>
 <body>
     <div th:insert="fragments/header.html"></div>
     <div class="container bg-offwhite justify-center">
-        <h1>test</h1>
+        <main class="main-content">
+            <div class="answer-textarea-container">
+                <h2>Digite sua resposta</h2>
+                <textarea th:disabled="!${#request.userPrincipal}"></textarea>
+                <button class="button-green-ease bg-gray">Enviar</button>
+            </div>
+            <div class="comment-card">
+                <div class="comment-left">
+                    <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed varius mi facilisis felis dapibus commodo. Quisque fringilla elit sed augue ultrices tempor. Proin eu metus.</small>
+                </div>
+                <div class="comment-right">
+                    <small>Bruno Silva</small>
+                </div>
+            </div>
+        </main>
     </div>
 </body>
 </html>
