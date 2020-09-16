@@ -1,55 +1,55 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+>
 <head>
     <div th:replace="fragments/head :: header"></div>
     <link rel="stylesheet" th:href="@{/css/question.css}">
     <title>Pergunta XYZ</title>
 </head>
 <body>
-    <div th:insert="fragments/header.html"></div>
-    <div class="justify-center">
-        <main class="main-content">
-            <div class="question-page-card">
-                <div class="card-left">
-                    <img src="img/user.svg" alt="Imagem do perfil do usuário"/>
-                    <div class="name-last-access">
-                        <p>Bruno Almeida</p>
-                        <small>2 horas</small>
-                    </div>
-                </div>
-                <div class="card-right">
-                    <div class="question-title">
-                        <a href="/question">Título da pergunta</a>
-                    </div>
-                    <div class="question-text">
-                        <p>No prédio em que sou síndico está tendo uma discussão durante as reuniões sobre a presença
-                            constante do zelador durante o horário de almoço da portaria. O zelador que está trabalNo prédio
-                            em que sou síndico está tendo uma discussão durante as reuniões sobre a presença constante do
-                            zelador durante o horário de almoço da portaria. O zelador que está trabal...No prédio em que
-                            sou síndico está tendo uma discussão durante as reuniões sobre a presença constante do zelador
-                            durante o horário de almoço da portaria. O zelador que está trabal...No prédio em que sou
-                            síndico está tendo uma discussão durante as reuniões sobre a presença constante do zelador
-                            durante o horário de almoço da portaria. O zelador que está trabal...</p>
-                    </div>
+<div th:insert="fragments/header.html"></div>
+<div class="justify-center">
+    <main class="main-content">
+        <div class="question-page-card">
+            <div class="card-left">
+                <img alt="Imagem do perfil do usuário" src="img/user.svg"/>
+                <div class="name-last-access">
+                    <p>Bruno Almeida</p>
+                    <small>2 horas</small>
                 </div>
             </div>
-            <div class="answer-textarea-container">
-                <h2>Digite sua resposta</h2>
-                <textarea th:disabled="!${#request.userPrincipal}"></textarea>
-                <button class="button-green-ease bg-gray">Enviar</button>
-            </div>
-            <div class="comment-card">
-                <div class="comment-left">
-                    <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed varius mi facilisis felis dapibus
-                        commodo. Quisque fringilla elit sed augue ultrices tempor. Proin eu metus.</small>
+            <div class="card-right">
+                <div class="question-title">
+                    <a href="/question">Título da pergunta</a>
                 </div>
-                <div class="comment-right">
-                    <small>Bruno Silva</small>
+                <div class="question-text">
+                    <p>No prédio em que sou síndico está tendo uma discussão durante as reuniões sobre a presença
+                        constante do zelador durante o horário de almoço da portaria. O zelador que está trabalNo prédio
+                        em que sou síndico está tendo uma discussão durante as reuniões sobre a presença constante do
+                        zelador durante o horário de almoço da portaria. O zelador que está trabal...No prédio em que
+                        sou síndico está tendo uma discussão durante as reuniões sobre a presença constante do zelador
+                        durante o horário de almoço da portaria. O zelador que está trabal...No prédio em que sou
+                        síndico está tendo uma discussão durante as reuniões sobre a presença constante do zelador
+                        durante o horário de almoço da portaria. O zelador que está trabal...</p>
                 </div>
             </div>
-        </main>
-    </div>
+        </div>
+        <div class="answer-textarea-container">
+            <h2>Digite sua resposta</h2>
+            <textarea th:disabled="!${#request.userPrincipal}"></textarea>
+            <button class="button-green-ease bg-gray">Enviar</button>
+        </div>
+        <div class="comment-card">
+            <div class="comment-left">
+                <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed varius mi facilisis felis dapibus
+                    commodo. Quisque fringilla elit sed augue ultrices tempor. Proin eu metus.</small>
+            </div>
+            <div class="comment-right">
+                <small>Bruno Silva</small>
+            </div>
+        </div>
+    </main>
+</div>
 </body>
 </html>
