@@ -5,11 +5,31 @@
 <head>
     <div th:replace="fragments/head :: header"></div>
     <title>Pergunta XYZ</title>
+    <link rel="stylesheet" th:href="@{/css/question.css}" >
 </head>
 <body>
     <div th:insert="fragments/header.html"></div>
     <div class="container bg-offwhite justify-center">
-        <h1>test</h1>
+        <div class="col-6" >
+            <div class="question-page-card">
+                <div class="card-left">
+                    <img src="img/user.svg" alt="Imagem do perfil do usuário"/>
+                    <div class="name-last-access">
+                        <p>Bruno Almeida</p>
+                        <small>2 horas</small>
+                    </div>
+                </div>
+
+                <div class="card-right">
+                    <div class="question-title">
+                        <a href="/question">Título da pergunta</a>
+                    </div>
+                    <div class="question-text">
+                        <p>No prédio em que sou síndico está tendo uma discussão durante as reuniões sobre a presença constante do zelador durante o horário de almoço da portaria. O zelador que está trabalNo prédio em que sou síndico está tendo uma discussão durante as reuniões sobre a presença constante do zelador durante o horário de almoço da portaria. O zelador que está trabal...No prédio em que sou síndico está tendo uma discussão durante as reuniões sobre a presença constante do zelador durante o horário de almoço da portaria. O zelador que está trabal...No prédio em que sou síndico está tendo uma discussão durante as reuniões sobre a presença constante do zelador durante o horário de almoço da portaria. O zelador que está trabal...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
-</html>
+</html>w
