@@ -38,6 +38,15 @@ button{
     margin-top:10px;
 }
 
+.form-control textarea{
+    background-color: var(--dark-gray);
+    height: 40px;
+    width: 280px;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top:10px;
+}
+
 .title {
     margin-top: 4px;
     margin-bottom: 8px;
