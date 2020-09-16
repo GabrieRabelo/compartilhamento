@@ -65,22 +65,17 @@ public class UserController {
         return "users";
     }
 
-    @GetMapping(value = {"/users/{id}", "users/{id}/{slug}"})
-    public String getUserById(HttpServletRequest request,
-                              @PathVariable long id,
-                              @PathVariable(required = false) String slug,
-                              Model model){
+    @GetMapping(value = {"/users/{id}"})
+    public String getUserById(HttpServletRequest request, @PathVariable long id,Model model){
         User user = service.findById(id).orElse(null);
-        if(user != null){
-            String userSlug = Slugify.toSlug(user.getName());
-            if(slug == null || !slug.equals(userSlug)){
-                request.setAttribute(View.RESPONSE_STATUS_ATTRIBUTE, HttpStatus.MOVED_PERMANENTLY);
-                return "redirect:/users/" + id + "/" + userSlug;
-            }
-            model.addAttribute("user", user);
-            return "user";
-        }
+        model.addAttribute("user", user);
         return "user";
     }
 
+    @GetMapping(value = {"/users/{id}/edit"})
+    public String getUserEditById(HttpServletRequest request, @PathVariable long id,Model model){
+        User user = service.findById(id).orElse(null);
+        model.addAttribute("user", user);
+        return "userEdit";
+    }
 }
