@@ -246,6 +246,10 @@ button{
     flex-direction: row;
 }
 
+.link:hover {
+    cursor: pointer;
+}
+
 .container {
     width: 80%;
     height: 100vh;
