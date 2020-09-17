@@ -5,90 +5,50 @@
     <meta charset="UTF-8">
     <title>Usuário</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/user.css}">
 </head>
 <body>
 <div th:insert="fragments/header.html"></div>
-<div th:if="${user == null}">
-    <h1>Usuário não encontrado</h1>
-</div>
-<div class="container" th:if="${user}">
-    <div class="row">
-        <div class="col-4">
-            <div class="row-4">
-                <div class="col-4 align-center">
-                    <div style="width: 7vw; height: 7vw">
-                        <div class="avatar"></div>
+<div class="background" th:if="${user}">
+
+    <div class="profile">
+        <div class="profile-info">
+            <img class="profile-picture" alt="Imagem de perfil" src="/img/profilePic.svg"/>
+
+            <div class="test">
+                <div class="info">
+                    <h1 th:text="${user.getName()}"></h1>
+                    <div class="align-center">
+                        <h4>Pontuação:</h4>
+                        <p>50 pontos</p>
+                    </div>
+                    <div class="align-center">
+                        <h4>Membro desde:</h4>
+                        <p>20/09/2020</p>
                     </div>
                 </div>
-                <div class="col">
-                    <h2 class="title" th:text="${user.getName()}">Teste</h2>
-                    <small class="subtitle"><b>Pontuação: </b><span>20 pontos</span></small>
-                    <small class="subtitle"><b>Membro desde: </b><span>16/09/2020</span></small>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <h2 class="title">Biografia</h2>
-                    <small th:text="${user.getBio()}"></small>
+
+                <div class="tags">
+                    <div class="status-pill bg-answer mx-3">
+                        <small>21 respostas</small>
+                    </div>
+                    <div class="status-pill bg-question">
+                        <small>7 perguntas</small>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="question-card-divider"></div>
-        <div class="col-8">
-            <div class="row">
-                <div class="col align-center">
-                    <h2 class="title">Editar Perfil</h2>
-                    <div class="col-9">
-                        <div class="row">
-                            <div class="col-4">
-                                <div style="width: 9vw; height: 9vw">
-                                    <div class="avatar justify-center align-center link">
-                                        <img width="40%" src="/img/newpicture.svg" alt="Adicionar nova foto">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col align-center">
-                                <div class="form-control">
-                                    <div class="form-control">
-                                        <label for="name" style="font-size: 10pt">Nome</label>
-                                        <input type="text" name="name" id="name"/>
-                                    </div>
-                                </div>
-
-                                <div class="form-control">
-                                    <div class="form-control">
-                                        <label for="email" style="font-size: 10pt">Email</label>
-                                        <input type="text" name="name" id="email"/>
-                                    </div>
-                                </div>
-
-                                <div class="form-control">
-                                    <div class="form-control">
-                                        <label for="bio" style="font-size: 10pt">Bio</label>
-                                        <textarea type="text" name="name" id="bio"></textarea>
-                                    </div>
-                                </div>
-
-                                <div class="form-control">
-                                    <div class="form-control">
-                                        <label for="currentPassword" style="font-size: 10pt">Senha atual</label>
-                                        <input type="text" name="name" id="currentPassword"/>
-                                    </div>
-                                </div>
-
-                                <div class="form-control">
-                                    <div class="form-control">
-                                        <label for="newPassword" style="font-size: 10pt">Nova senha</label>
-                                        <input type="text" name="name" id="newPassword"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="line"></div>
+        <div class="bio">
+            <h1>Biografia</h1>
+            <p th:text="${user.getBio()}"></p>
         </div>
     </div>
+
+</div>
+</div>
+<div th:if="${user == null}">
+    <h1>Usuário não encontrado</h1>
 </div>
 
 </body>
