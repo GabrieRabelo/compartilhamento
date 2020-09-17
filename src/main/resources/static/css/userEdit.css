@@ -1,0 +1,8 @@
+.form-control input, textarea{
+    /*background-color: var(--dark-gray);*/
+    /*height: 40px;*/
+    width: auto !important;
+    /*border-radius: 5px;*/
+    /*padding: 10px;*/
+    /*margin-top: 10px;*/
+}
