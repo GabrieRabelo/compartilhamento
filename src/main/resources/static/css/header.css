@@ -41,6 +41,7 @@ header nav img{
 }
 
 .logo-img-header{
+    margin: 0.5rem 0 0.5rem 0;
     height: 3em;
     width: auto;
 }
@@ -48,5 +49,21 @@ header nav img{
 @media (min-width: 320px) and (max-width: 480px) {
     header{
         display: none;
+    }
+}
+
+@media (max-width: 1025px) {
+
+    header{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    header nav{
+        flex-direction: row;
+    }
+
+    header nav a .button-green-ease{
+        margin: 0;
     }
 }

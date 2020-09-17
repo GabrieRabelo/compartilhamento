@@ -57,7 +57,7 @@ aside{
     flex-direction: column;
     align-items: center;
     margin-top: 48px;
-    width: 100vw;
+    width: 100%;
 }
 
 .main-content h1{

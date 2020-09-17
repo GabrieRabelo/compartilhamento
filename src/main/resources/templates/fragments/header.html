@@ -8,10 +8,10 @@
 </head>
 <body>
     <header th:classappend="${#request.userPrincipal} ? 'header-dark' : 'header-light'">
+        <div sec:authorize="isAnonymous()">
+            <img class="logo-img-header" alt="Logo Townsq" src="/img/logo.svg" />
+        </div>
         <nav>
-            <div sec:authorize="isAnonymous()">
-                <img class="logo-img-header" alt="Logo Townsq" src="/img/logo.svg" />
-            </div>
             <a href="/">Inicio</a>
             <a href="#">Por que usar a TownSq?</a>
             <a href="#">Segurança</a>

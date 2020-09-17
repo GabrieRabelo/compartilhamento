@@ -14,11 +14,22 @@
     box-sizing: border-box;
 }
 
+html{
+    font-size: 16px;
+}
+
 @media (min-width: 320px) and (max-width: 480px) {
     html{
         font-size: 12px;
     }
 }
+
+@media (min-width: 481px) and (max-width: 1025px) {
+    html{
+        font-size: 14px;
+    }
+}
+
 h1,h2,h3,h4,h5,a,button,label,p{
     font-family: Raleway, sans-serif;
 }

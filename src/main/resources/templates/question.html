@@ -11,34 +11,23 @@
 <div th:insert="fragments/header.html"></div>
 <div class="justify-center">
     <main class="main-content">
-        <div class="question-page-card">
-            <div class="card-left">
+        <div class="question-page-main-card">
+            <div class="main-card-left">
                 <img alt="Imagem do perfil do usuário" src="img/user.svg"/>
                 <div class="name-last-access">
                     <p>Bruno Almeida</p>
                     <small>2 horas</small>
                 </div>
             </div>
-            <div class="card-right">
+            <div class="main-card-right">
                 <div class="question-title">
                     <a href="/question">Título da pergunta</a>
                 </div>
                 <div class="question-text">
                     <p>No prédio em que sou síndico está tendo uma discussão durante as reuniões sobre a presença
-                        constante do zelador durante o horário de almoço da portaria. O zelador que está trabalNo prédio
-                        em que sou síndico está tendo uma discussão durante as reuniões sobre a presença constante do
-                        zelador durante o horário de almoço da portaria. O zelador que está trabal...No prédio em que
-                        sou síndico está tendo uma discussão durante as reuniões sobre a presença constante do zelador
-                        durante o horário de almoço da portaria. O zelador que está trabal...No prédio em que sou
-                        síndico está tendo uma discussão durante as reuniões sobre a presença constante do zelador
-                        durante o horário de almoço da portaria. O zelador que está trabal...</p>
+                        q...</p>
                 </div>
             </div>
-        </div>
-        <div class="answer-textarea-container">
-            <h2>Digite sua resposta</h2>
-            <textarea th:disabled="!${#request.userPrincipal}"></textarea>
-            <button class="button-green-ease bg-gray">Enviar</button>
         </div>
         <div class="comment-card">
             <div class="comment-left">
@@ -48,6 +37,11 @@
             <div class="comment-right">
                 <small>Bruno Silva</small>
             </div>
+        </div>
+        <div class="answer-textarea-container">
+            <h2>Digite sua resposta</h2>
+            <textarea th:disabled="!${#request.userPrincipal}"></textarea>
+            <button class="button-green-ease bg-gray">Enviar</button>
         </div>
     </main>
 </div>
