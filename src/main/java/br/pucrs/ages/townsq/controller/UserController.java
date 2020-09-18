@@ -35,8 +35,13 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public String postUserSignup(@ModelAttribute User user){
-        service.save(user);
+    public String postUserSignup(@ModelAttribute User user, Model model){
+        try {
+            service.save(user);
+        } catch (Exception e) {
+            model.addAttribute("error", "E-mail já cadastrado");
+            return "signup";
+        }
         return "redirect:/signin";
     }
 

@@ -24,6 +24,11 @@
                 <input type="password" name="password" id="password"/>
             </div>
             <button type="submit">Cadastrar</button>
+
+            <div class="error-email" th:if="${error}">
+                <p th:text="${error}"></p>
+            </div>
+
             <div class="form-link">
                 <p>Já possui conta?</p>
                 <a href="/signin">Entrar</a>

@@ -29,17 +29,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/signup/**", "/signin/**", "/css/**","/img/**", "/", "/question").permitAll()
+                .antMatchers("/css/**","/img/**", "/", "/question").permitAll()
+                .antMatchers("/signup/**", "/signin/**").anonymous()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/signin")
                 .usernameParameter("email")
                 .defaultSuccessUrl("/", true)
+                    .and()
+                .logout()
                 .permitAll()
                 .and()
-                .logout()
-                .permitAll();
+                .exceptionHandling().accessDeniedPage("/");
     }
 
     @Autowired

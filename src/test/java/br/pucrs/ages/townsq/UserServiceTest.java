@@ -16,7 +16,7 @@ public class UserServiceTest {
     private UserService service;
 
     @Test
-    void testCreateAndSaveUser(){
+    void testCreateAndSaveUser() throws Exception {
         User testUser = new User();
         testUser.setName("fulano silva");
         testUser.setPassword("1234qwe");
