@@ -1,20 +1,120 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:th="http://www.thymeleaf.org"
-    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <div th:replace="fragments/head :: header"></div>
     <title>Index</title>
-    <link rel="stylesheet" th:href="@{css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/index.css}">
 </head>
 <body>
-    <h1>Essa é a homepage</h1>
-    <h2>Pode ser acessada por visitantes e usuários logados</h2>
-    <div sec:authorize="isAuthenticated()">
-        <p>Fazer uma pergunta.</p>
+<div th:insert="fragments/header.html"></div>
+<div class="index-anon" sec:authorize="isAnonymous()">
+    <div class="index-anon-text">
+        <h1>O melhor condomínio é aqui!</h1>
+        <p>
+            Procure ou crie sua dúvida e encontre a melhor solução.
+            Não importa se sua duvida for sobre a pintura do prédio ou vaga de garagem,
+            a TownSq torna mais fácil o acesso às respostas dos seus problemas.
+        </p>
     </div>
-    <div sec:authorize="isAnonymous()">
-        <p>Realizar cadastro / login</p>
+    <div class="index-anon-buttons">
+        <button onclick="location.href='/signin'">Fazer uma pergunta</button>
     </div>
+</div>
+<div class="row">
+    <aside>
+    </aside>
+    <main class="main-content">
+        <h1>Confira as perguntas mais recentes</h1>
+        <div class="question-card">
+            <div class="card-left">
+                <div class="status-pill bg-danger">
+                    <small>Não solucionada</small>
+                </div>
+                <div class="question-title">
+                    <a href="/question">Lorem ipsum dolor sit amet, consectetur tincidunt.</a>
+                </div>
+                <div class="question-text">
+                    <p>No prédio em que sou síndico está tendo. O zelador que está trabal...</p>
+                </div>
+                <div class="question-creator">
+                    <img alt="Imagem do perfil do usuário" src="img/user.svg"/>
+                    <div class="name-last-access">
+                        <p>Bruno Almeida</p>
+                        <small>2 horas</small>
+                    </div>
+                </div>
+            </div>
+            <div class="card-right">
+                <div class="question-card-divider"></div>
+                <div class="card-right-text">
+                    <p>0</p>
+                    <p>respostas</p>
+                    <small>0 comentários</small>
+                </div>
+            </div>
+        </div>
+        <div class="question-card">
+            <div class="card-left">
+                <div class="status-pill bg-danger">
+                    <small>Não solucionada</small>
+                </div>
+                <div class="question-title">
+                    <a href="/question">Lorem ipsum dolor sit amet, consectetur tincidunt.</a>
+                </div>
+                <div class="question-text">
+                    <p>No prédio em que sou síndico está tendo uma discussão durante as reuniões sobre a presença
+                        constante do zelador durante o horário de almoço da portaria. O zelador que está trabal...</p>
+                </div>
+                <div class="question-creator">
+                    <img alt="Imagem do perfil do usuário" src="img/user.svg"/>
+                    <div class="name-last-access">
+                        <p>Bruno Almeida</p>
+                        <small>2 horas</small>
+                    </div>
+                </div>
+            </div>
+            <div class="card-right">
+                <div class="question-card-divider"></div>
+                <div class="card-right-text">
+                    <p>0</p>
+                    <p>respostas</p>
+                    <small>0 comentários</small>
+                </div>
+            </div>
+        </div>
+        <div class="question-card">
+            <div class="card-left">
+                <div class="status-pill bg-success">
+                    <small>Solucionada</small>
+                </div>
+                <div class="question-title">
+                    <a href="/question">Lorem ipsum dolor sit amet, consectetur tincidunt.</a>
+                </div>
+                <div class="question-text">
+                    <p>No prédio em que sou síndico está tendo uma discussão durante as reuniões sobre a presença
+                        constante do zelador durante o horário de almoço da portaria. O zelador que está trabal...</p>
+                </div>
+                <div class="question-creator">
+                    <img alt="Imagem do perfil do usuário" src="img/user.svg"/>
+                    <div class="name-last-access">
+                        <p>Bruno Almeida</p>
+                        <small>2 horas</small>
+                    </div>
+                </div>
+            </div>
+            <div class="card-right">
+                <div class="question-card-divider"></div>
+                <div class="card-right-text">
+                    <p>0</p>
+                    <p>respostas</p>
+                    <small>0 comentários</small>
+                </div>
+            </div>
+        </div>
+    </main>
+    <aside></aside>
+</div>
 </body>
 </html>

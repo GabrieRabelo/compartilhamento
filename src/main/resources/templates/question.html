@@ -1,12 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+>
 <head>
-    <meta charset="UTF-8">
+    <div th:replace="fragments/head :: header"></div>
+    <link rel="stylesheet" th:href="@{/css/question.css}">
     <title>Pergunta XYZ</title>
 </head>
 <body>
-    <h1>
-        Página que irá conter o template para exibir uma pergunta e suas respostas / comentários.
-    </h1>
+<div th:insert="fragments/header.html"></div>
+<div class="justify-center">
+    <main class="main-content">
+        <div class="question-page-main-card">
+            <div class="main-card-left">
+                <img alt="Imagem do perfil do usuário" src="img/user.svg"/>
+                <div class="name-last-access">
+                    <p>Bruno Almeida</p>
+                    <small>2 horas</small>
+                </div>
+            </div>
+            <div class="main-card-right">
+                <div class="question-title">
+                    <a href="/question">Título da pergunta</a>
+                </div>
+                <div class="question-text">
+                    <p>No prédio em que sou síndico está tendo uma discussão durante as reuniões sobre a presença
+                        q...</p>
+                </div>
+            </div>
+        </div>
+        <div class="comment-card">
+            <div class="comment-left">
+                <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed varius mi facilisis felis dapibus
+                    commodo. Quisque fringilla elit sed augue ultrices tempor. Proin eu metus.</small>
+            </div>
+            <div class="comment-right">
+                <small>Bruno Silva</small>
+            </div>
+        </div>
+        <div class="answer-textarea-container">
+            <h2>Digite sua resposta</h2>
+            <textarea th:disabled="!${#request.userPrincipal}"></textarea>
+            <button class="button-green-ease bg-gray">Enviar</button>
+        </div>
+    </main>
+</div>
 </body>
 </html>

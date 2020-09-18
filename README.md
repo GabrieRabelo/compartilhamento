@@ -29,9 +29,11 @@ Em um primeiro momento, abra o terminal da raíz do projeto e rode o comando
 
 `./mvnw package`
 
-Se você preferir, abra o diretório do projeto no IntelliJ e aguarde as dependências do Maven e o classpath ser atualizado. Isso poder demorar alguns bons minutos.
+Se você preferir, abra o diretório do projeto no IntelliJ e aguarde as dependências do Maven e o classpath ser atualizado.
+Isso poder demorar alguns bons minutos.
 
-Após a instalação das dependências e plugins do Maven, vamos subir os containers do Docker. Para isso, novamente na raiz do projeto, execute o seguinte comando
+Após a instalação das dependências e plugins do Maven, vamos subir os containers do Docker. 
+Para isso, novamente na raiz do projeto, execute o seguinte comando
 
 `docker-compose up -d`
 
@@ -54,3 +56,7 @@ Para limpar as classes compiladas, execute `./mvnw clean`
 #### IMPORTANTE
 
 Sempre que for desenvolver código novo, utilize uma nova branch. Para isso, rode `git checkout -b <nome-da-branch>`
+
+#### ERROR PORT:5432 IN USE
+No linux, use o comando 'sudo lsof -t -i :5432' e depois 'sudo kill <PID>'. PID é o numero que vai aparecer após o primeiro comando.
+No Windows, abra o gerenciador de tarefas do windows e finaliza o Postgress.
