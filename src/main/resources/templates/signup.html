@@ -10,6 +10,7 @@
     <header th:insert="fragments/header.html"></header>
     <div class="white-background">
         <img class="logo-img" alt="Logo Townsq" src="/img/logo.svg" />
+        <p>Cadastrar</p>
         <form role="form" th:action="@{/signup}" th:method="post" th:object="${user}">
             <div class="form-control">
                 <label for="name">Nome</label>

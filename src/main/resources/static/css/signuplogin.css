@@ -68,3 +68,21 @@ body {
     font-weight: bold;
     color: var(--dark-green);
 }
+
+@media (max-width: 480px) {
+    header{
+        display: none;
+    }
+
+    .white-background{
+        background-color: #FFFFFF;
+        height: 80%;
+        width: 90%;
+        border-radius: 20px;
+        margin: 10% 10%;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+
+}
