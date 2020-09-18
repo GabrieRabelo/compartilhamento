@@ -13,18 +13,19 @@
 
     <div class="profile">
         <div class="profile-info">
-            <img class="profile-picture" alt="Imagem de perfil" src="/img/profilePic.svg"/>
+            <img class="profile-picture" th:if="!${user.getImage()}" src="/img/profilePic.svg" alt="Adicionar nova foto">
+            <img class="profile-picture" th:if="${user.getImage()}" th:src="${user.getImage()}" alt="Adicionar nova foto">
 
             <div class="test">
                 <div class="info">
                     <h1 th:text="${user.getName()}"></h1>
                     <div class="align-center">
                         <h4>Pontuação:</h4>
-                        <p>50 pontos</p>
+                        <p th:text="${user.getScore()} + ' pontos'"></p>
                     </div>
                     <div class="align-center">
                         <h4>Membro desde:</h4>
-                        <p>20/09/2020</p>
+                        <p th:text="${#dates.format(user.getCreatedAt(), 'dd/MM/yyyy')}"></p>
                     </div>
                 </div>
 
