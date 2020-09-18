@@ -57,6 +57,18 @@ button{
     margin-top:10px;
 }
 
+.button-green-ease{
+    padding: 10px 25px;
+    border-radius: 20px;
+    transition: background-color, opacity, color, 400ms ease;
+}
+
+.button-green-ease:hover{
+    background-color: var(--darker-green);
+    opacity: 60%;
+    color: #FFFFFF;
+}
+
 .flex {
     display: flex;
 }

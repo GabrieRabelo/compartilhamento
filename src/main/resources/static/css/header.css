@@ -15,10 +15,12 @@ header nav {
     padding: 10px;
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
 }
 
 header nav a {
-    margin-left: 40px;
     text-decoration: none;
     color: white;
 }
@@ -27,21 +29,8 @@ header nav img{
     margin-top: 8px;
 }
 
-.button-green-ease{
-    margin-left: 50px;
-    padding: 10px 25px;
-    border-radius: 20px;
-    transition: background-color, opacity, color, 400ms ease;
-}
-
-.button-green-ease:hover{
-    background-color: var(--darker-green);
-    opacity: 60%;
-    color: #FFFFFF;
-}
-
 .logo-img-header{
-    margin: 0.5rem 0 0.5rem 0;
+    margin: 0.5rem 10px 0.5rem 0;
     height: 3em;
     width: auto;
 }
@@ -63,7 +52,15 @@ header nav img{
         flex-direction: row;
     }
 
+    header nav a:first-of-type{
+        margin-left: 0;
+    }
+
     header nav a .button-green-ease{
         margin: 0;
+    }
+
+    .logo-img-header{
+        margin: 0.5rem 0 0.5rem 0;
     }
 }
