@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Usuário</title>
@@ -43,6 +43,9 @@
         <div class="bio">
             <h1>Biografia</h1>
             <p th:text="${user.getBio()}"></p>
+        </div>
+        <div>
+            <a th:if="${#authentication.getPrincipal().id == user.getId()}" th:href="@{/user/edit}">Editar Perfil</a>
         </div>
     </div>
 

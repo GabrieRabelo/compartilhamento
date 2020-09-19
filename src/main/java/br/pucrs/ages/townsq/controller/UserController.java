@@ -5,6 +5,8 @@ import br.pucrs.ages.townsq.service.UserService;
 import br.pucrs.ages.townsq.utils.Slugify;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.AuthenticatedPrincipal;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
 
 @Controller
 public class UserController {
@@ -70,16 +73,16 @@ public class UserController {
         return "users";
     }
 
-    @GetMapping(value = {"/users/{id}"})
-    public String getUserById(HttpServletRequest request, @PathVariable long id,Model model){
+    @GetMapping(value = {"/user/{id}"})
+    public String getUserById(HttpServletRequest request, @PathVariable long id,Model model, HttpSession session){
         User user = service.findById(id).orElse(null);
         model.addAttribute("user", user);
         return "user";
     }
 
-    @GetMapping(value = {"/users/{id}/edit"})
-    public String getUserEditById(HttpServletRequest request, @PathVariable long id,Model model){
-        User user = service.findById(id).orElse(null);
+    @GetMapping(value = {"/user/edit"})
+    public String getUserEditById(HttpServletRequest request, Model model, Authentication auth){
+        User user = service.findByEmail(auth.getName()).orElse(null);
         model.addAttribute("user", user);
         return "userEdit";
     }
