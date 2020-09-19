@@ -263,6 +263,11 @@
     color: #32BA2F;
 }
 
+hr{
+    border: 1px solid #C7C7C7;
+    margin-top: 1rem;
+}
+
 @media (min-width: 481px) and (max-width: 1025px) {
     .main-content{
         width: 80vw;
