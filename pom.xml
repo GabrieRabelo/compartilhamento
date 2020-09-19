@@ -110,9 +110,9 @@
 			</properties>
 		</profile>
 		<profile>
-			<id>prod</id>
+			<id>staging</id>
 			<properties>
-				<activeProfile>prod</activeProfile>
+				<activeProfile>staging</activeProfile>
 			</properties>
 		</profile>
 	</profiles>
