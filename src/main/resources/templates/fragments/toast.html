@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+    <div th:fragment="toasts" class="container-toast">
+        <div th:if="${success}" th:classappend="${success} ? 'toast-show' : ''" class="toast toast-success">
+            <img src="/img/icons/done.svg" alt="done logo" />
+            <p th:text="${success}"></p>
+        </div>
+        <div th:if="${error}" th:classappend="${error} ? 'toast-show' : ''" class="toast toast-error">
+            <img src="/img/icons/error.svg" alt="error logo" />
+            <p th:text="${error}"></p>
+        </div>
+        <div th:if="${info}" th:classappend="${info} ? 'toast-show' : ''" class="toast toast-info">
+            <img src="/img/icons/help.svg" alt="help logo" />
+            <p th:text="${info}"></p>
+        </div>
+        <script th:inline="javascript">
+            var error = [[${error}]];
+            var success = [[${success}]];
+            var info = [[${info}]];
+            window.onload = function() {
+                if(!error && !success && !info)
+                    return;
+                let allShowed = document.querySelector(".toast-show");
+                if (allShowed) {
+                    setInterval(() => {
+                        allShowed.classList.remove("toast-show");
+                    }, 4450)
+                }
+            };
+        </script>
+    </div>
+</body>
+</html>

@@ -6,7 +6,9 @@
     <title>Home</title>
 </head>
 <body>
-    <div th:insert="fragments/header.html"></div>
+    <header th:replace="fragments/header.html :: header"></header>
+    <div th:replace="fragments/toast.html :: toasts" onload="test2">
+    </div>
     <h1>Home</h1>
     <h2>Welcome to the jungle!</h2>
 </body>

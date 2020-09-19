@@ -90,11 +90,12 @@ header .logo-img-header {
 @media (max-width: 750px) {
     .white-background{
         width: 90%;
+
     }
 }
 
 @media (max-width: 480px) {
     .white-background {
-        margin: 25% auto;
+        margin: 28% auto;
     }
 }

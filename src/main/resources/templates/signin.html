@@ -7,8 +7,9 @@
     <link rel="stylesheet" th:href="@{css/signuplogin.css}">
 </head>
 <body>
-<header th:insert="fragments/header.html"></header>
-
+<header th:replace="fragments/header.html :: header"></header>
+<div th:replace="fragments/toast.html :: toasts" onload="test2">
+</div>
 <div class="white-background">
     <img class="logo-img" alt="Logo Townsq" src="/img/logo.svg" />
     <p>Fazer Login</p>

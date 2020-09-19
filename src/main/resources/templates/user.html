@@ -7,7 +7,9 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
-    <div th:insert="fragments/header.html"></div>
+    <header th:replace="fragments/header.html :: header"></header>
+    <div th:replace="fragments/toast.html :: toasts" onload="test2">
+    </div>
 <!--    <div th:if="${user}">-->
 <!--        <p th:text="${user.getId()}"></p>-->
 <!--        <p th:text="${user.getName()}"></p>-->

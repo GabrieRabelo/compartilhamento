@@ -7,7 +7,9 @@
     <link rel="stylesheet" th:href="@{css/signuplogin.css}">
 </head>
 <body>
-    <header th:insert="fragments/header.html"></header>
+    <header th:replace="fragments/header.html :: header"></header>
+    <div th:replace="fragments/toast.html :: toasts" onload="test2">
+    </div>
     <div class="white-background">
         <img class="logo-img" alt="Logo Townsq" src="/img/logo.svg" />
         <form role="form" th:action="@{/signup}" th:method="post" th:object="${user}">
@@ -24,10 +26,6 @@
                 <input required type="password" name="password" id="password"/>
             </div>
             <button type="submit">Cadastrar</button>
-
-            <div class="error-email" th:if="${error}">
-                <p th:text="${error}"></p>
-            </div>
 
             <div class="form-link">
                 <p>Já possui conta?</p>

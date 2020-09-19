@@ -8,7 +8,9 @@
     <link rel="stylesheet" th:href="@{/css/index.css}">
 </head>
 <body>
-<div th:insert="fragments/header.html"></div>
+<header th:replace="fragments/header.html :: header"></header>
+<div th:replace="fragments/toast.html :: toasts" onload="test2">
+</div>
 <div class="index-anon" sec:authorize="isAnonymous()">
     <div class="index-anon-text">
         <h1>O melhor condomínio é aqui!</h1>
