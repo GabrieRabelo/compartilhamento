@@ -44,8 +44,9 @@
             <h1>Biografia</h1>
             <p th:text="${user.getBio()}"></p>
         </div>
-        <div>
-            <a th:if="${#authentication.getPrincipal().id == user.getId()}" th:href="@{/user/edit}">Editar Perfil</a>
+        <div th:if="${#authentication.getPrincipal().id == user.getId()}">
+            <button onclick="document.querySelector('#link').click()">Editar perfil</button>
+            <a id="link" th:href="@{/user/edit}"></a>
         </div>
     </div>
 
