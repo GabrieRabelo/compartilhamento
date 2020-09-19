@@ -7,8 +7,7 @@
 </head>
 <body>
     <header th:replace="fragments/header.html :: header"></header>
-    <div th:replace="fragments/toast.html :: toasts">
-    </div>
+
     <h1>Usuários cadastrados:</h1>
     <div th:each="user: ${users}">
         <p th:text="${user.getId()}"></p>
@@ -16,6 +15,8 @@
         <p th:text="${user.getEmail()}"></p>
         <p th:text="${user.getBio()}"></p>
         <hr/>
+    </div>
+    <div th:replace="fragments/toast.html :: toasts">
     </div>
 </body>
 </html>

@@ -8,8 +8,7 @@
 </head>
 <body>
 <header th:replace="fragments/header.html :: header"></header>
-<div th:replace="fragments/toast.html :: toasts">
-</div>
+
 <div class="white-background">
     <img class="logo-img" alt="Logo Townsq" src="/img/logo.svg" />
     <p>Fazer Login</p>
@@ -28,6 +27,8 @@
             <a href="/signup">Cadastre-se</a>
         </div>
     </form>
+</div>
+<div th:replace="fragments/toast.html :: toasts">
 </div>
 </body>
 </html>

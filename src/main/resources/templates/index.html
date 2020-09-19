@@ -9,8 +9,7 @@
 </head>
 <body>
 <header th:replace="fragments/header.html :: header"></header>
-<div th:replace="fragments/toast.html :: toasts">
-</div>
+
 <div class="index-anon" sec:authorize="isAnonymous()">
     <div class="index-anon-text">
         <h1>O melhor condomínio é aqui!</h1>
@@ -117,6 +116,8 @@
         </div>
     </main>
     <aside></aside>
+</div>
+<div th:replace="fragments/toast.html :: toasts">
 </div>
 </body>
 </html>

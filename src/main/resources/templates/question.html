@@ -9,8 +9,7 @@
 </head>
 <body>
 <header th:replace="fragments/header.html :: header"></header>
-<div th:replace="fragments/toast.html :: toasts">
-</div>
+
 <div class="justify-center">
     <main class="main-content">
         <div class="question-page-main-card">
@@ -46,6 +45,8 @@
             <button class="button-green-ease bg-gray">Enviar</button>
         </div>
     </main>
+</div>
+<div th:replace="fragments/toast.html :: toasts">
 </div>
 </body>
 </html>
