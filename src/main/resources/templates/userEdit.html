@@ -53,8 +53,8 @@
             <h2 class="title justify-center">Editar Perfil</h2>
             <br>
             <div class="row">
-                <div class="row px-4">
-                    <form role="form" th:action="@{/user/edit}" th:method="post" th:object="${user}">
+                <form role="form" th:action="@{/user/edit}" th:method="post" th:object="${user}">
+                    <div class="row px-4">
                         <div class="col-5">
                             <div style="width: 7vw; height: 7vw" class="avatar justify-center align-center link">
                                 <img th:if="!${user.getImage()}" width="40%" src="/img/newpicture.svg"
@@ -63,12 +63,13 @@
                                      alt="Adicionar nova foto">
                             </div>
                         </div>
-
                         <div class="col px-4">
                             <div class="row justify-space-between">
-                                <div class="form-control">
-                                    <label for="name">Nome</label>
-                                    <input type="text" name="name" id="name" th:value="${user.getName()}"/>
+                                <div class="col-12">
+                                    <div class="form-control">
+                                        <label for="name">Nome</label>
+                                        <input type="text" name="name" id="name" th:value="${user.getName()}"/>
+                                    </div>
                                 </div>
                                 <!--<div class="form-control">
                                     <label for="email">Email</label>
@@ -101,52 +102,19 @@
                                     <label for="curr-password">Senha atual</label>
                                     <input type="password" name="curr-password" id="curr-password"/>
                                 </div>-->
-                                <div class="form-control">
-                                    <label for="password">Nova senha</label>
-                                    <input type="password" name="password" id="password"/>
+                                <div class="col-12">
+                                    <div class="form-control">
+                                        <label for="password">Nova senha</label>
+                                        <input type="password" name="password" id="password"/>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
-
-                        <!--                        <div class="col align-center">-->
-                        <!--                            <div class="form-control">-->
-                        <!--                                <div class="form-control">-->
-                        <!--                                    <label for="name" style="font-size: 10pt">Nome</label>-->
-                        <!--                                    <input type="text" name="name" id="name"/>-->
-                        <!--                                </div>-->
-                        <!--                            </div>-->
-
-                        <!--                            <div class="form-control">-->
-                        <!--                                <div class="form-control">-->
-                        <!--                                    <label for="email" style="font-size: 10pt">Email</label>-->
-                        <!--                                    <input type="text" name="name" id="email"/>-->
-                        <!--                                </div>-->
-                        <!--                            </div>-->
-
-                        <!--                            <div class="form-control">-->
-                        <!--                                <div class="form-control">-->
-                        <!--                                    <label for="bio" style="font-size: 10pt">Bio</label>-->
-                        <!--                                    <textarea type="text" name="name" id="bio"></textarea>-->
-                        <!--                                </div>-->
-                        <!--                            </div>-->
-
-                        <!--                            <div class="form-control">-->
-                        <!--                                <div class="form-control">-->
-                        <!--                                    <label for="currentPassword" style="font-size: 10pt">Senha atual</label>-->
-                        <!--                                    <input type="text" name="name" id="currentPassword"/>-->
-                        <!--                                </div>-->
-                        <!--                            </div>-->
-
-                        <!--                            <div class="form-control">-->
-                        <!--                                <div class="form-control">-->
-                        <!--                                    <label for="newPassword" style="font-size: 10pt">Nova senha</label>-->
-                        <!--                                    <input type="text" name="name" id="newPassword"/>-->
-                        <!--                                </div>-->
-                        <!--                            </div>-->
+                    </div>
+                    <div class="row justify-center">
                         <button type="submit">Cadastrar</button>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
