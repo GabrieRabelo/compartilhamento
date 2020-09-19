@@ -14,7 +14,10 @@
             </div>
             <a href="/" id="index-anchor">Início</a>
             <a href="/user/edit" id="ask-anchor">Perguntar</a>
-            <a sec:authorize="isAuthenticated()" href="/logout" id="profile-anchor"><img src="img/user.svg"/></a>
+            <a sec:authorize="isAnonymous()" href="/user/edit" id="profile-anchor-link">Perfil</a>
+            <a sec:authorize="isAuthenticated()" href="/user/edit" id="profile-anchor">
+                <img src="img/user.svg" alt="Imagem de perfil"/>
+            </a>
             <div sec:authorize="isAuthenticated()">
                 <button onclick="location.href='/users'" class="button-green-ease">Perguntar</button>
             </div>

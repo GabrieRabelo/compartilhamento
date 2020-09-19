@@ -9,23 +9,30 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    margin-top: 1rem;
     margin-bottom: 3rem;
 }
 
 .answer-textarea-container h2{
     font-size: 1.2rem;
-    font-family: Open Sans;
+    font-family: Open Sans, sans-serif;
     margin-bottom: 1rem;
 }
 
-.answer-textarea-container textarea{
+.answer-textarea-button{
+    display: flex;
+    flex-direction: column;
+}
+
+.answer-textarea-button textarea{
     border-radius: 8px;
     padding: 8px;
     background-color: var(--dark-gray);
     height: 16em;
+    resize: none;
 }
 
-.answer-textarea-container button{
+.answer-textarea-button button{
     margin-top: 1rem;
     align-self: center;
     width: max-content;
@@ -57,7 +64,7 @@
     display: flex;
     border-radius: 10px;
     flex-direction: row;
-    box-shadow: 0px 0px 10px 3px rgba(0,0,0,0.25);
+    box-shadow: 0 0 10px 3px rgba(0,0,0,0.25);
     margin-bottom: 1em;
     justify-content: space-between;
 }
@@ -196,7 +203,7 @@
     display: flex;
     border-radius: 10px;
     flex-direction: row;
-    box-shadow: 0px 0px 10px 3px rgba(0,0,0,0.25);
+    box-shadow: 0 0 10px 3px rgba(0,0,0,0.25);
     margin: 3rem 0 1rem 0;
     justify-content: space-between;
 }
@@ -233,6 +240,29 @@
     padding: 4px;
 }
 
+.required-login-banner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3em;
+    border-radius: 5px;
+    text-align: center;
+    background-color: #9DDEBB;
+}
+
+.required-login-banner h1, h2{
+    margin-bottom: 1rem;
+    font-family: Open Sans, sans-serif;
+}
+
+.required-login-banner h1{
+    font-size: 1.8rem;
+}
+
+.required-login-banner h2{
+    color: #32BA2F;
+}
+
 @media (min-width: 481px) and (max-width: 1025px) {
     .main-content{
         width: 80vw;
@@ -251,6 +281,19 @@
     }
 
     .main-card-left img{
+        max-width: 32px;
+    }
+
+    .answer-card{
+        flex-direction: column;
+        padding: 8px;
+    }
+
+    .answer-card-left{
+        flex-direction: row;
+    }
+
+    .answer-card-left img{
         max-width: 32px;
     }
 

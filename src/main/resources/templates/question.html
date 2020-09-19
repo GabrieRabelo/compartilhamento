@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
 <head>
     <div th:replace="fragments/head :: header"></div>
@@ -51,8 +52,14 @@
         </div>
         <div class="answer-textarea-container">
             <h2>Digite sua resposta</h2>
-            <textarea th:disabled="!${#request.userPrincipal}"></textarea>
-            <button class="button-default bg-light-green" th:disabled="!${#request.userPrincipal}">Responder pergunta</button>
+            <div sec:authorize="${!isAnonymous()}" class="answer-textarea-button">
+                <textarea th:disabled="!${#request.userPrincipal}"></textarea>
+                <button class="button-default bg-light-green" th:disabled="!${#request.userPrincipal}">Responder pergunta</button>
+            </div>
+            <div sec:authorize="${isAnonymous()}" class="required-login-banner">
+                <h1>Você não está logado.</h1>
+                <h2>Entre com sua conta ou cadastre-se para responder.</h2>
+            </div>
         </div>
         <div class="question-answers">
             <div class="answer-card">
