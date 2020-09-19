@@ -64,11 +64,11 @@
                         <div class="row justify-space-between">
                             <div class="form-control">
                                 <label for="name">Nome</label>
-                                <input type="text" name="name" id="name"/>
+                                <input type="text" name="name" id="name" th:value="${user.getName()}"/>
                             </div>
                             <div class="form-control">
                                 <label for="email">Email</label>
-                                <input type="text" name="email" id="email"/>
+                                <input type="text" name="email" id="email" th:value="${user.getEmail()}"/>
                             </div>
                         </div>
 
@@ -87,7 +87,7 @@
                             <div class="col">
                                 <div class="form-control">
                                     <label for="bio">Bio</label>
-                                    <textarea type="text" name="bio" id="bio"></textarea>
+                                    <textarea type="text" name="bio" id="bio" th:text="${user.getBio()}" ></textarea>
                                 </div>
                             </div>
                         </div>
