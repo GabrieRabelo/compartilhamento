@@ -26,6 +26,17 @@ public class UserService {
         return repository.save(u);
     }
 
+    public User update(User u, String authEmail){
+        User user = findByEmail(authEmail).orElse(null);
+        if(user != null){
+            user.setName(u.getName());
+            user.setEmail(u.getEmail());
+            user.setBio(u.getBio());
+            repository.save(user);
+        }
+        return user;
+    }
+
     public List<User> findAll(){
         return repository.findAll();
     }

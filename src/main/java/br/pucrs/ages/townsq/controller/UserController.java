@@ -48,6 +48,17 @@ public class UserController {
         return "redirect:/signin";
     }
 
+    @PostMapping("/user/edit")
+    public String postUserUpdate(@ModelAttribute User user, Model model, Authentication auth){
+        try {
+            service.update(user, auth.getName());
+        } catch (Exception e) {
+            model.addAttribute("error", "Erro");
+            return "users";
+        }
+        return "redirect:/user/edit";
+    }
+
     @GetMapping("/signin")
     public String getUserSigninPage(){
         return "signin";
