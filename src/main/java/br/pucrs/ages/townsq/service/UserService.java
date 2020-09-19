@@ -30,8 +30,11 @@ public class UserService {
         User user = findByEmail(authEmail).orElse(null);
         if(user != null){
             user.setName(u.getName());
-            user.setEmail(u.getEmail());
             user.setBio(u.getBio());
+            /*user.setEmail(u.getEmail());*/
+            if(!u.getPassword().equals("")){
+                user.setPassword(bcPasswordEncoder.encode(u.getPassword()));
+            }
             repository.save(user);
         }
         return user;
