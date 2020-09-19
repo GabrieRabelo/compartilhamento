@@ -7,6 +7,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Collection;
 
 @Entity
@@ -20,12 +22,18 @@ public class User implements UserDetails {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @NotNull(message = "Nome não pode ser nulo.")
+    @NotEmpty(message = "Nome não pode ser vazio.")
     @Column(name = "name", columnDefinition = "VARCHAR(50)", nullable =  false)
     private String name;
-    @Column(name = "email", unique = true, columnDefinition = "VARCHAR(256)", nullable =  false)
-    private String email;
+    @NotNull(message = "Senha não pode ser nula.")
+    @NotEmpty(message = "Senha não pode ser vazia.")
     @Column(name = "password", columnDefinition = "VARCHAR(256)", nullable =  false)
     private String password;
+    @NotNull(message = "E-mail não pode ser nulo.")
+    @NotEmpty(message = "E-mail não pode ser vazio.")
+    @Column(name = "email", unique = true, columnDefinition = "VARCHAR(256)", nullable =  false)
+    private String email;
     @Column(name = "score")
     private int score;
     @Column(name = "bio", columnDefinition = "VARCHAR(256)")
