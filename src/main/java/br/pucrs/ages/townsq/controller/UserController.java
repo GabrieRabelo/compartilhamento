@@ -49,6 +49,10 @@ public class UserController {
             model.addAttribute("error", c.getMessage());
             return "signup";
         }
+        catch (IllegalArgumentException e) {
+            model.addAttribute("error", e.getMessage());
+            return "signup";
+        }
         catch (Exception e) {
             System.out.println(e.toString());
             model.addAttribute("error", "Erro ao processar cadastro.");
