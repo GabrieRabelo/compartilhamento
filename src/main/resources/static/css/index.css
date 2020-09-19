@@ -179,6 +179,7 @@ aside{
 .card-right-text{
     display: flex;
     flex-direction: column;
+    white-space: nowrap;
 }
 
 .status-pill{
@@ -198,6 +199,13 @@ aside{
     text-align: center;
     color: #FFFFFF;
     font-weight: bolder;
+}
+
+#mobile-icon{
+    display: none;
+    width: 12rem;
+    height: auto;
+    margin-bottom: 2rem;
 }
 
 @media (max-width: 1500px) {
@@ -238,5 +246,9 @@ aside{
 
     .name-last-access{
         margin: 0;
+    }
+
+    #mobile-icon{
+        display: block;
     }
 }

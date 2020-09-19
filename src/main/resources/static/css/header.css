@@ -35,10 +35,23 @@ header nav img{
     width: auto;
 }
 
+#profile-anchor{
+    position: absolute;
+    right: 20px;
+}
+
+#profile-anchor img{
+    margin: 0;
+    border-radius: 500px;
+    border-width: 4px;
+    border-style: solid;
+    border-color: #FFFFFF;
+}
+
 @media (min-width: 320px) and (max-width: 480px) {
 
     header{
-        box-shadow: 0px 0px 5px 6px #ccc;
+        box-shadow: 0px 0px 5px 3px #ccc;
     }
 
     header nav{

@@ -12,10 +12,9 @@
             <div sec:authorize="isAnonymous()">
                 <img class="logo-img-header" alt="Logo Townsq" src="/img/logo.svg" />
             </div>
-            <a href="/">Inicio</a>
-            <a href="#">Perguntar</a>
-            <a href="#">Perfil</a>
-            <a href="#">Suporte</a>
+            <a href="/" id="index-anchor">Início</a>
+            <a href="/user/edit" id="ask-anchor">Perguntar</a>
+            <a sec:authorize="isAuthenticated()" href="/logout" id="profile-anchor"><img src="img/user.svg"/></a>
             <div sec:authorize="isAuthenticated()">
                 <button onclick="location.href='/users'" class="button-green-ease">Perguntar</button>
             </div>
