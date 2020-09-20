@@ -36,7 +36,7 @@ public class UserController {
 
     /**
      * POST route that redirects the user to the login page after signup
-     * @param <User> user data to be saved.
+     * @param user <User> data to be saved.
      * @return redirect to sigin page
      */
     @PostMapping("/signup")
@@ -77,8 +77,8 @@ public class UserController {
 
     /**
      * Logout route for GET requests.
-     * @param <HttpServletRequest> request The GET request
-     * @param <HttpServletResponse> response The returned response
+     * @param request <HttpServletRequest> The GET request
+     * @param response <HttpServletResponse> The returned response
      * @return redirect to the login page.
      */
     @GetMapping("/logout")
