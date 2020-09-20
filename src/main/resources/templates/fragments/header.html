@@ -10,7 +10,7 @@
                 <img class="logo-img-header" alt="Logo Townsq" src="/img/logo.svg" />
             </div>
             <a href="/" id="index-anchor">Início</a>
-            <a href="#" id="ask-anchor">Perguntar</a>
+            <a href="#" id="ask-anchor" th:classappend="${#request.userPrincipal} ? 'show-only-mobile' : ''">Perguntar</a>
             <a sec:authorize="isAnonymous()" href="/user/edit" id="profile-anchor-link">Perfil</a>
             <a sec:authorize="isAuthenticated()" th:href="'/user/' + ${#authentication.getPrincipal().getId()}" id="profile-anchor">
                 <img src="/img/user.svg" alt="Imagem de perfil"/>
