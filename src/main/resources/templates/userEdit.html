@@ -8,11 +8,10 @@
     <link rel="stylesheet" th:href="@{/css/userEdit.css}">
 </head>
 <body>
-<div th:insert="fragments/header.html"></div>
+<header th:replace="fragments/header.html :: header"></header>
 <div th:if="${user == null}">
     <h1>Usuário não encontrado</h1>
 </div>
-
 <div class="container" th:if="${user}">
     <div class="row-12">
         <div class="col-4">
@@ -115,7 +114,8 @@
         </div>
     </div>
 </div>
-
+<div th:replace="fragments/toast.html :: toasts">
+</div>
 </body>
 <script>
     function storeImg() {
