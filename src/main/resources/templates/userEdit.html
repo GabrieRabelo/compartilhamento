@@ -56,12 +56,17 @@
                 <form role="form" th:action="@{/user/edit}" th:method="post" th:object="${user}">
                     <div class="row px-4">
                         <div class="col-5">
-                            <div style="width: 7vw; height: 7vw" class="avatar justify-center align-center link">
-                                <img th:if="!${user.getImage()}" width="40%" src="/img/newpicture.svg"
+                            <div style="width: 7vw; height: 7vw" class="avatar justify-center align-center link"
+                                 onclick="document.querySelector('#fileinput').click()">
+                                <img th:if="!${user.getImage()}"
+                                     src="/img/newpicture.svg"
+                                     class="avatar newpicture"
                                      alt="Adicionar nova foto">
-                                <img class="avatar" th:if="${user.getImage()}" th:src="${user.getImage()}"
+                                <img class="avatar newpicture" th:if="${user.getImage()}" th:src="${user.getImage()}"
                                      alt="Adicionar nova foto">
                             </div>
+                            <input id="fileinput" onchange="storeImg()" accept="image/*" type="file" style="display: none">
+                            <input type="text" name="image" id="image" th:value="${user.getImage()}"/>
                         </div>
                         <div class="col px-4">
                             <div class="row justify-space-between">
@@ -121,4 +126,28 @@
 </div>
 
 </body>
+<script>
+    function imgUrl() {
+        const file = document.querySelector('#fileinput').files[0]
+        const reader = new FileReader();
+        if (file) {
+            reader.readAsArrayBuffer(file);
+            reader.onload = e => {
+                const result = reader.result;
+                const base = new Uint8Array(result).reduce(
+                    (data, byte) => data + String.fromCharCode(byte),
+                    ""
+                );
+
+                const str = btoa(base);
+                const url = `data:image/jpg;charset=utf-8;base64, ${str}`
+
+                const elements = Array.from(document.querySelectorAll('.newpicture'))
+                    .filter(e => e.tagName == 'IMG')
+                elements.forEach(e => e.setAttribute('src', url))
+                document.getElementById('image').setAttribute('value', url)
+            }
+        }
+    }
+</script>
 </html>
