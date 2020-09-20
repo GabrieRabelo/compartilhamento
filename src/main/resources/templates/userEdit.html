@@ -85,11 +85,11 @@
                             <div class="row justify-space-between">
                                 <div class="form-control">
                                     <label for="company">Empresa</label>
-                                    <input type="text" name="company" id="company"/>
+                                    <input type="text" name="company" id="company" th:value="${user.getCompany()}"/>
                                 </div>
                                 <div class="form-control">
                                     <label for="website">Site</label>
-                                    <input type="text" name="website" id="website"/>
+                                    <input type="text" name="website" id="website" th:value="${user.getWebsite()}"/>
                                 </div>
                             </div>
 

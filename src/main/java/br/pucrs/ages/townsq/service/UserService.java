@@ -32,6 +32,8 @@ public class UserService {
         if(user != null){
             user.setName(u.getName());
             user.setBio(u.getBio());
+            user.setCompany(u.getCompany());
+            user.setWebsite(u.getWebsite());
             if(!StringUtils.isEmpty(u.getImage())){
                 user.setImage(u.getImage());
             }
