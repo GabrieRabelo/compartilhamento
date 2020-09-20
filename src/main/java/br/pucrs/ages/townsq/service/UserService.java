@@ -5,6 +5,7 @@ import br.pucrs.ages.townsq.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,11 +32,11 @@ public class UserService {
         if(user != null){
             user.setName(u.getName());
             user.setBio(u.getBio());
-            if(!u.getImage().equals("")){
+            if(!StringUtils.isEmpty(u.getImage())){
                 user.setImage(u.getImage());
             }
             /*user.setEmail(u.getEmail());*/
-            if(!u.getPassword().equals("")){
+            if(!StringUtils.isEmpty(u.getImage())){
                 user.setPassword(bcPasswordEncoder.encode(u.getPassword()));
             }
             repository.save(user);
