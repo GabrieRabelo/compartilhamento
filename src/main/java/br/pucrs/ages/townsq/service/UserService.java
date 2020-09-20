@@ -22,6 +22,7 @@ public class UserService {
     }
 
     public User save(User u){
+        if (u.getPassword() == null || u.getPassword().isEmpty() || u.getPassword().isBlank() ) throw new IllegalArgumentException("A senha é obrigatória.");
         u.setPassword(bcPasswordEncoder.encode(u.getPassword()));
         return repository.save(u);
     }

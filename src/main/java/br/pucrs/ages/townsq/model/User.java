@@ -1,10 +1,14 @@
 package br.pucrs.ages.townsq.model;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Collection;
 
 @Entity
@@ -18,14 +22,32 @@ public class User implements UserDetails {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "name")
+    @NotNull(message = "Nome não pode ser nulo.")
+    @NotEmpty(message = "Nome não pode ser vazio.")
+    @Column(name = "name", columnDefinition = "VARCHAR(50)", nullable =  false)
     private String name;
-    @Column(name = "email")
-    private String email;
-    @Column(name = "password")
+    @NotNull(message = "Senha não pode ser nula.")
+    @NotEmpty(message = "Senha não pode ser vazia.")
+    @Column(name = "password", columnDefinition = "VARCHAR(256)", nullable =  false)
     private String password;
-    @Column(name = "bio")
+    @NotNull(message = "E-mail não pode ser nulo.")
+    @NotEmpty(message = "E-mail não pode ser vazio.")
+    @Column(name = "email", unique = true, columnDefinition = "VARCHAR(256)", nullable =  false)
+    private String email;
+    @Column(name = "score")
+    private int score;
+    @Column(name = "bio", columnDefinition = "VARCHAR(256)")
     private String bio;
+    @Column(name = "image", columnDefinition = "VARCHAR(256)")
+    private String image;
+    @Column(name = "role", columnDefinition = "VARCHAR(30)")
+    private String role;
+    @UpdateTimestamp
+    @Column(name = "updatedAt")
+    private java.sql.Timestamp updatedAt;
+    @CreationTimestamp
+    @Column(name = "createdAt")
+    private java.sql.Timestamp createdAt;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

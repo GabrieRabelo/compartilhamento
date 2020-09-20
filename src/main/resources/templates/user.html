@@ -7,7 +7,8 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
-    <div th:insert="fragments/header.html"></div>
+    <header th:replace="fragments/header.html :: header"></header>
+
 <!--    <div th:if="${user}">-->
 <!--        <p th:text="${user.getId()}"></p>-->
 <!--        <p th:text="${user.getName()}"></p>-->
@@ -30,6 +31,8 @@
 
     <div th:if="!${user}">
         <h1>Usuário não encontrado</h1>
+    </div>
+    <div th:replace="fragments/toast.html :: toasts">
     </div>
 </body>
 </html>

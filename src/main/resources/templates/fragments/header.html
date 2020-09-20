@@ -3,11 +3,8 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       lang="br">
-<head>
-    <link rel="stylesheet" th:href="@{/css/header.css}">
-</head>
 <body>
-    <header th:classappend="${#request.userPrincipal} ? 'header-dark' : 'header-light'">
+    <header th:fragment="header" th:classappend="${#request.userPrincipal} ? 'header-dark' : 'header-light'">
         <nav>
             <div sec:authorize="isAnonymous()">
                 <img class="logo-img-header" alt="Logo Townsq" src="/img/logo.svg" />

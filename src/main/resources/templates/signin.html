@@ -7,7 +7,7 @@
     <link rel="stylesheet" th:href="@{css/signuplogin.css}">
 </head>
 <body>
-<header th:insert="fragments/header.html"></header>
+<header th:replace="fragments/header.html :: header"></header>
 
 <div class="white-background">
     <img class="logo-img" alt="Logo Townsq" src="/img/logo.svg" />
@@ -24,9 +24,11 @@
         <button type="submit">Entrar</button>
         <div class="form-link">
             <p>Não possui uma conta?</p>
-            <a href="/signup">Cadastra-se</a>
+            <a href="/signup">Cadastre-se</a>
         </div>
     </form>
+</div>
+<div th:replace="fragments/toast.html :: toasts">
 </div>
 </body>
 </html>
