@@ -52,6 +52,10 @@ header nav img{
     display: none;
 }
 
+.show-only-mobile{
+    display: none;
+}
+
 @media (min-width: 320px) and (max-width: 480px) {
 
     header{
@@ -78,6 +82,10 @@ header nav img{
     }
 
     #profile-anchor-link{
+        display: block;
+    }
+
+    .show-only-mobile{
         display: block;
     }
 }

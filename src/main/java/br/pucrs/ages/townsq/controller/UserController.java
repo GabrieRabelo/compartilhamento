@@ -2,16 +2,18 @@ package br.pucrs.ages.townsq.controller;
 
 import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.service.UserService;
-import br.pucrs.ages.townsq.utils.Slugify;
 import org.hibernate.validator.internal.engine.ConstraintViolationImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.View;
+import org.springframework.security.core.AuthenticatedPrincipal;
+import org.springframework.security.core.Authentication;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -96,22 +98,29 @@ public class UserController {
         return "users";
     }
 
-    @GetMapping(value = {"/users/{id}", "users/{id}/{slug}"})
-    public String getUserById(HttpServletRequest request,
-                              @PathVariable long id,
-                              @PathVariable(required = false) String slug,
-                              Model model){
+    @GetMapping(value = {"/user/{id}"})
+    public String getUserById(HttpServletRequest request, @PathVariable long id,Model model, HttpSession session){
         User user = service.findById(id).orElse(null);
-        if(user != null){
-            String userSlug = Slugify.toSlug(user.getName());
-            if(slug == null || !slug.equals(userSlug)){
-                request.setAttribute(View.RESPONSE_STATUS_ATTRIBUTE, HttpStatus.MOVED_PERMANENTLY);
-                return "redirect:/users/" + id + "/" + userSlug;
-            }
-            model.addAttribute("user", user);
-            return "user";
-        }
+        model.addAttribute("user", user);
         return "user";
+    }
+
+    @GetMapping(value = {"/user/edit"})
+    public String getUserEditById(HttpServletRequest request, Model model, Authentication auth){
+        User user = service.findByEmail(auth.getName()).orElse(null);
+        model.addAttribute("user", user);
+        return "userEdit";
+    }
+
+    @PostMapping("/user/edit")
+    public String postUserUpdate(@ModelAttribute User user, Model model, Authentication auth){
+        try {
+            service.update(user, auth.getName());
+        } catch (Exception e) {
+            model.addAttribute("error", "Erro");
+            return "redirect:/users";
+        }
+        return "redirect:/user/edit";
     }
 
 }
