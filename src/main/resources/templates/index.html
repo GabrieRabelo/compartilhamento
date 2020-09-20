@@ -8,7 +8,8 @@
     <link rel="stylesheet" th:href="@{/css/index.css}">
 </head>
 <body>
-<div th:insert="fragments/header.html"></div>
+<header th:replace="fragments/header.html :: header"></header>
+
 <div class="index-anon" sec:authorize="isAnonymous()">
     <div class="index-anon-text">
         <h1>O melhor condomínio é aqui!</h1>
@@ -30,7 +31,7 @@
         <h1>Confira as perguntas mais recentes</h1>
         <div class="question-card">
             <div class="card-left">
-                <div class="status-pill bg-danger">
+                <div class="status-pill-index bg-danger">
                     <small>Não solucionada</small>
                 </div>
                 <div class="question-title">
@@ -58,7 +59,7 @@
         </div>
         <div class="question-card">
             <div class="card-left">
-                <div class="status-pill bg-danger">
+                <div class="status-pill-index bg-danger">
                     <small>Não solucionada</small>
                 </div>
                 <div class="question-title">
@@ -87,7 +88,7 @@
         </div>
         <div class="question-card">
             <div class="card-left">
-                <div class="status-pill bg-success">
+                <div class="status-pill-index bg-success">
                     <small>Solucionada</small>
                 </div>
                 <div class="question-title">
@@ -116,6 +117,8 @@
         </div>
     </main>
     <aside></aside>
+</div>
+<div th:replace="fragments/toast.html :: toasts">
 </div>
 </body>
 </html>

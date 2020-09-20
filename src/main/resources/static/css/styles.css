@@ -385,6 +385,7 @@ button:hover{
     align-items: center;
     justify-content: center;
 }
+
 .status-pill small{
     color: #FFFFFF;
     font-weight: bolder;
@@ -401,4 +402,20 @@ button:hover{
 
 .bg-danger{
     background-color: #D83D3D;
+}
+
+.bg-success {
+    background-color: #4FAA40;
+}
+
+.bg-question {
+    background-color: #8833CB;
+}
+
+.bg-answer {
+    background-color: #48CB33;
+}
+
+.bg-light-green {
+    background-color: var(--light-green);
 }

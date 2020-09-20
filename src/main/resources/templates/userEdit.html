@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <div th:replace="fragments/head :: header"></div>
     <title>Usuário</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/userEdit.css}">
@@ -66,7 +66,6 @@
                                      alt="Adicionar nova foto">
                             </div>
                             <input id="fileinput" onchange="storeImg()" accept="image/*" type="file" style="display: none">
-                            <input type="text" name="image" id="image" th:value="${user.getImage()}"/>
                         </div>
                         <div class="col px-4">
                             <div class="row justify-space-between">
@@ -76,10 +75,6 @@
                                         <input type="text" name="name" id="name" th:value="${user.getName()}"/>
                                     </div>
                                 </div>
-                                <!--<div class="form-control">
-                                    <label for="email">Email</label>
-                                    <input type="text" name="email" id="email" th:value="${user.getEmail()}"/>
-                                </div>-->
                             </div>
 
                             <div class="row justify-space-between">
@@ -103,10 +98,6 @@
                             </div>
 
                             <div class="row justify-space-between">
-                                <!--<div class="form-control">
-                                    <label for="curr-password">Senha atual</label>
-                                    <input type="password" name="curr-password" id="curr-password"/>
-                                </div>-->
                                 <div class="col-12">
                                     <div class="form-control">
                                         <label for="password">Nova senha</label>
@@ -127,7 +118,7 @@
 
 </body>
 <script>
-    function imgUrl() {
+    function storeImg() {
         const file = document.querySelector('#fileinput').files[0]
         const reader = new FileReader();
         if (file) {

@@ -191,7 +191,7 @@ aside {
     white-space: nowrap;
 }
 
-.status-pill {
+.status-pill-index {
     border-radius: 500px;
     display: flex;
     flex-direction: column;
@@ -204,7 +204,7 @@ aside {
     margin-bottom: 0.5rem;
 }
 
-.status-pill small {
+.status-pill-index small {
     text-align: center;
     color: #FFFFFF;
     font-weight: bolder;

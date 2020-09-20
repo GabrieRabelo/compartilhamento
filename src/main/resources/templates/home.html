@@ -6,8 +6,10 @@
     <title>Home</title>
 </head>
 <body>
-    <div th:insert="fragments/header.html"></div>
+    <header th:replace="fragments/header.html :: header"></header>
+    </div>
     <h1>Home</h1>
     <h2>Welcome to the jungle!</h2>
+    <div th:replace="fragments/toast.html :: toasts"></div>
 </body>
 </html>

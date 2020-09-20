@@ -9,7 +9,8 @@
     <title>Pergunta XYZ</title>
 </head>
 <body>
-<div th:insert="fragments/header.html"></div>
+<header th:replace="fragments/header.html :: header"></header>
+
 <div class="justify-center">
     <main class="main-content">
         <div class="question-page-main-card">
@@ -29,7 +30,7 @@
                 </div>
             </div>
         </div>
-        <div class="status-pill bg-danger">
+        <div class="status-pill-question bg-danger">
             <small>Não solucionada</small>
         </div>
         <div class="comments">
@@ -111,6 +112,8 @@
             </div>
         </div>
     </main>
+</div>
+<div th:replace="fragments/toast.html :: toasts">
 </div>
 </body>
 </html>

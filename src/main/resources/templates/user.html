@@ -13,8 +13,8 @@
 
     <div class="profile">
         <div class="profile-info">
-            <img class="profile-picture" th:if="!${user.getImage()}" src="/img/profilePic.svg" alt="Adicionar nova foto">
-            <img class="profile-picture" th:if="${user.getImage()}" th:src="${user.getImage()}" alt="Adicionar nova foto">
+            <img class="profile-picture" th:if="!${user.getImage()}" src="/img/profilePic.svg" alt="Foto do usuário">
+            <img class="profile-picture" th:if="${user.getImage()}" th:src="${user.getImage()}" alt="Foto do usuário">
 
             <div class="test">
                 <div class="info">
@@ -55,6 +55,7 @@
 <div th:if="${user == null}">
     <h1>Usuário não encontrado</h1>
 </div>
-
+<div th:replace="fragments/toast.html :: toasts">
+</div>
 </body>
 </html>

@@ -179,7 +179,7 @@
     width: 50%;
 }
 
-.status-pill{
+.status-pill-question{
     border-radius: 500px;
     display: flex;
     flex-direction: column;
@@ -192,7 +192,7 @@
     margin-bottom: 0.5rem;
 }
 
-.status-pill small{
+.status-pill-question small{
     text-align: center;
     color: #FFFFFF;
     font-weight: bolder;

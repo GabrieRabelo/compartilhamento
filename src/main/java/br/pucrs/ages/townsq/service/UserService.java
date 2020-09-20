@@ -23,6 +23,7 @@ public class UserService {
     }
 
     public User save(User u){
+        if (u.getPassword() == null || u.getPassword().isEmpty() || u.getPassword().isBlank() ) throw new IllegalArgumentException("A senha é obrigatória.");
         u.setPassword(bcPasswordEncoder.encode(u.getPassword()));
         return repository.save(u);
     }
@@ -34,11 +35,7 @@ public class UserService {
             user.setBio(u.getBio());
             user.setCompany(u.getCompany());
             user.setWebsite(u.getWebsite());
-            if(!StringUtils.isEmpty(u.getImage())){
-                user.setImage(u.getImage());
-            }
-            /*user.setEmail(u.getEmail());*/
-            if(!StringUtils.isEmpty(u.getImage())){
+            if(!StringUtils.isEmpty(u.getPassword())){
                 user.setPassword(bcPasswordEncoder.encode(u.getPassword()));
             }
             repository.save(user);
