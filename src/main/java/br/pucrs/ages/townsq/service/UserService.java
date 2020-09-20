@@ -31,7 +31,9 @@ public class UserService {
         if(user != null){
             user.setName(u.getName());
             user.setBio(u.getBio());
-            user.setImage(u.getImage());
+            if(!u.getPassword().equals("")){
+                user.setImage(u.getImage());
+            }
             /*user.setEmail(u.getEmail());*/
             if(!u.getPassword().equals("")){
                 user.setPassword(bcPasswordEncoder.encode(u.getPassword()));
