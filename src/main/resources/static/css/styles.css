@@ -14,31 +14,31 @@
     box-sizing: border-box;
 }
 
-html{
+html {
     font-size: 16px;
 }
 
 @media (min-width: 320px) and (max-width: 480px) {
-    html{
+    html {
         font-size: 12px;
     }
 }
 
 @media (min-width: 481px) and (max-width: 1025px) {
-    html{
+    html {
         font-size: 14px;
     }
 }
 
-h1,h2,h3,h4,h5,a,button,label,p{
+h1, h2, h3, h4, h5, a, button, label, p {
     font-family: Raleway, sans-serif;
 }
 
-small{
+small {
     font-family: Open Sans, sans-serif;
 }
 
-.white-background button{
+.white-background button {
     background-color: var(--dark-green);
     height: 35px;
     width: 110px;
@@ -48,11 +48,11 @@ small{
     transition: background-color 0.2s;
 }
 
-.white-background button:hover{
+.white-background button:hover {
     background-color: var(--light-green);
 }
 
-button:hover{
+button:hover {
     cursor: pointer;
     background-color: var(--light-green);
 }
@@ -64,38 +64,38 @@ button:hover{
     border-radius: 50%;
 }
 
-.question-card-divider{
+.question-card-divider {
     display: flex;
     flex-direction: column;
     align-self: center;
     height: 75%;
-    border-left:1px solid #BEBEBE;
-    border-right:1px solid #BEBEBE;
+    border-left: 1px solid #BEBEBE;
+    border-right: 1px solid #BEBEBE;
     margin-left: 16px;
 }
 
-.form-control{
+.form-control {
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
 }
 
-.form-control input{
+.form-control input {
     background-color: var(--dark-gray);
     height: 40px;
     width: 280px;
     border-radius: 5px;
     padding: 10px;
-    margin-top:10px;
+    margin-top: 10px;
 }
 
-.form-control textarea{
+.form-control textarea {
     background-color: var(--dark-gray);
     height: 40px;
     width: 280px;
     border-radius: 5px;
     padding: 10px;
-    margin-top:10px;
+    margin-top: 10px;
 }
 
 .title {
@@ -115,18 +115,18 @@ button:hover{
     font-weight: bold;
 }
 
-.button-default{
+.button-default {
     padding: 10px 25px;
     border-radius: 20px;
 }
 
-.button-green-ease{
+.button-green-ease {
     padding: 10px 25px;
     border-radius: 20px;
     transition: background-color, opacity, color, 400ms ease;
 }
 
-.button-green-ease:hover{
+.button-green-ease:hover {
     background-color: var(--darker-green);
     opacity: 60%;
     color: #FFFFFF;
@@ -141,7 +141,7 @@ button:hover{
     justify-content: end;
 }
 
-.justify-center{
+.justify-center {
     display: flex;
     justify-content: center;
 }
@@ -377,28 +377,45 @@ button:hover{
     padding-top: 5%;
 }
 
-.status-pill{
+.status-pill {
     border-radius: 500px;
     display: flex;
     height: 1.5rem;
-    width: 6vw;
+    width: 9em;
     align-items: center;
     justify-content: center;
 }
-.status-pill small{
+
+.status-pill small {
     color: #FFFFFF;
     font-weight: bolder;
     font-size: 0.7rem;
 }
 
-.bg-offwhite{
+.bg-offwhite {
     background-color: #F4F4F4;
 }
 
-.bg-gray{
+.bg-gray {
     background-color: #E0E0E0;
 }
 
-.bg-danger{
+.bg-danger {
     background-color: #D83D3D;
+}
+
+.bg-success {
+    background-color: #4FAA40;
+}
+
+.bg-question {
+    background-color: #8833CB;
+}
+
+.bg-answer {
+    background-color: #48CB33;
+}
+
+.bg-light-green {
+    background-color: var(--light-green);
 }
