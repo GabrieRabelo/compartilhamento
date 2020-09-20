@@ -380,7 +380,7 @@ button:hover{
 
 .container {
     width: 80%;
-    height: 100vh;
+    height: 80vh;
     margin: 0 auto;
     padding-top: 5%;
 }
@@ -389,7 +389,7 @@ button:hover{
     border-radius: 500px;
     display: flex;
     height: 1.5rem;
-    width: 6vw;
+    width: 9em;
     align-items: center;
     justify-content: center;
 }
