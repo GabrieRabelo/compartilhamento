@@ -4,12 +4,10 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-
 ### STS ###
 .apt_generated
 .classpath
 .factorypath
-
 .project
 .settings
 .springBeans
@@ -35,3 +33,7 @@ build/
 .vscode/
 
 postgres-data
+
+docker-compose.yaml
+application-*.yaml
+liquibase-*.properties
