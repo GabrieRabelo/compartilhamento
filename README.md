@@ -15,6 +15,8 @@ Se você estiver usando o IntelliJ, recomenda-se instalar o plugin Lombok. Caso 
 * Spring Boot Tools
 * thymeleaf
 
+<b>IMPORTANTE:</b> Se você estiver no Windows, utilize o comando `./mvnw.cmd` no lugar de `./mvnw`
+
 ## Processo de instalação
 
 #### Clonar o projeto:
@@ -29,9 +31,11 @@ Em um primeiro momento, abra o terminal da raíz do projeto e rode o comando
 
 `./mvnw package`
 
-Se você preferir, abra o diretório do projeto no IntelliJ e aguarde as dependências do Maven e o classpath ser atualizado. Isso poder demorar alguns bons minutos.
+Se você preferir, abra o diretório do projeto no IntelliJ e aguarde as dependências do Maven e o classpath ser atualizado.
+Isso poder demorar alguns bons minutos.
 
-Após a instalação das dependências e plugins do Maven, vamos subir os containers do Docker. Para isso, novamente na raiz do projeto, execute o seguinte comando
+Após a instalação das dependências e plugins do Maven, vamos subir os containers do Docker. 
+Para isso, novamente na raiz do projeto, execute o seguinte comando
 
 `docker-compose up -d`
 
@@ -54,3 +58,22 @@ Para limpar as classes compiladas, execute `./mvnw clean`
 #### IMPORTANTE
 
 Sempre que for desenvolver código novo, utilize uma nova branch. Para isso, rode `git checkout -b <nome-da-branch>`
+
+#### ERROR PORT:5432 IN USE
+No linux, use o comando 'sudo lsof -t -i :5432' e depois 'sudo kill <PID>'. PID é o numero que vai aparecer após o primeiro comando.
+No Windows, abra o gerenciador de tarefas do windows e finaliza o Postgress.
+
+#### ARQUIVOS FALTANTES
+
+Os arquivos de configuração / docker-compose não estão sendo rastreados pelo git. Assim, é preciso fazer o download deles e colocar nas pastas do projeto. O docker-compose.yaml fica na raíz do projeto e os outros arquivos na pasta src/main/resources.
+
+[ignored-files.zip](http://tools.ages.pucrs.br/compartilhamento/compartilhamento-wiki/wikis/uploads/9c3bbb87494af9800c382216ce42cea3/ignored-files.zip)
+
+#### Outras referências
+
+Você pode ver mais comandos e referências nos seguintes links:
+
+* [Configuração](http://tools.ages.pucrs.br/compartilhamento/compartilhamento-wiki/wikis/configuracao)
+* [Versionamento](http://tools.ages.pucrs.br/compartilhamento/compartilhamento-wiki/wikis/versionamento)
+* [Comandos](http://tools.ages.pucrs.br/compartilhamento/compartilhamento-wiki/wikis/comandos)
+* [Padronização](http://tools.ages.pucrs.br/compartilhamento/compartilhamento-wiki/wikis/padronizacao)

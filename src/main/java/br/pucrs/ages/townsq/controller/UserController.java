@@ -37,6 +37,11 @@ public class UserController {
         return "signup";
     }
 
+    /**
+     * POST route that redirects the user to the login page after signup
+     * @param <User> user data to be saved.
+     * @return redirect to sigin page
+     */
     @PostMapping("/signup")
     public String postUserSignup(@ModelAttribute User user, Model model){
         try {
@@ -62,11 +67,6 @@ public class UserController {
     @GetMapping("/signin")
     public String getUserSigninPage(){
         return "signin";
-    }
-
-    @GetMapping("/home")
-    public String getHomePage(){
-        return "home";
     }
 
     @GetMapping("/logout")

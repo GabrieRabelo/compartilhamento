@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="br">
 <head>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Raleway:wght@300;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/header.css}">
 </head>
 <body>
@@ -13,15 +12,17 @@
             <div sec:authorize="isAnonymous()">
                 <img class="logo-img-header" alt="Logo Townsq" src="/img/logo.svg" />
             </div>
-            <a href="/">Inicio</a>
-            <a href="#">Por que usar a TownSq?</a>
-            <a href="#">Segurança</a>
-            <a href="#">Suporte</a>
+            <a href="/" id="index-anchor">Início</a>
+            <a href="#" id="ask-anchor">Perguntar</a>
+            <a sec:authorize="isAnonymous()" href="/user/edit" id="profile-anchor-link">Perfil</a>
+            <a sec:authorize="isAuthenticated()" href="/user/edit" id="profile-anchor">
+                <img src="img/user.svg" alt="Imagem de perfil"/>
+            </a>
             <div sec:authorize="isAuthenticated()">
-                <button onclick="location.href='/users'" class="ask">Perguntar</button>
+                <button onclick="location.href='/users'" class="button-green-ease">Perguntar</button>
             </div>
             <div sec:authorize="isAnonymous()">
-                <button onclick="location.href='/signup'" class="ask">Cadastrar</button>
+                <button onclick="location.href='/signup'" class="button-green-ease">Cadastrar</button>
             </div>
         </nav>
     </header>

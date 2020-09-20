@@ -2,6 +2,9 @@
     --dark-green: #8CBA3A;
     --light-green: #A9C679;
     --dark-gray: #E0E0E0;
+    --darker-green: #228A19;
+    --darker-gray: #4a4a4a;
+    --strong-green: #25B00E;
 }
 
 * {
@@ -9,6 +12,22 @@
     padding: 0;
     border: 0;
     box-sizing: border-box;
+}
+
+html{
+    font-size: 16px;
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+    html{
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 1025px) {
+    html{
+        font-size: 14px;
+    }
 }
 
 h1,h2,h3,h4,h5,a,button,label,p{
@@ -93,6 +112,23 @@ button:hover{
 .form-control label {
     font-size: 10pt;
     font-weight: bold;
+}
+
+.button-default{
+    padding: 10px 25px;
+    border-radius: 20px;
+}
+
+.button-green-ease{
+    padding: 10px 25px;
+    border-radius: 20px;
+    transition: background-color, opacity, color, 400ms ease;
+}
+
+.button-green-ease:hover{
+    background-color: var(--darker-green);
+    opacity: 60%;
+    color: #FFFFFF;
 }
 
 .flex {
@@ -358,14 +394,10 @@ button:hover{
     background-color: #F4F4F4;
 }
 
+.bg-gray{
+    background-color: #E0E0E0;
+}
+
 .bg-danger{
     background-color: #D83D3D;
-}
-
-.bg-question{
-    background-color: #8833CB;
-}
-
-.bg-answer{
-    background-color: #48CB33;
 }
