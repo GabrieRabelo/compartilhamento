@@ -34,6 +34,11 @@ public class UserController {
         return "signup";
     }
 
+    /**
+     * POST route that redirects the user to the login page after signup
+     * @param <User> user data to be saved.
+     * @return redirect to sigin page
+     */
     @PostMapping("/signup")
     public String postUserSignup(@ModelAttribute User user, Model model){
         try {
@@ -58,6 +63,10 @@ public class UserController {
         return "redirect:/signin";
     }
 
+    /**
+     * GET route that returns the application login page
+     * @return signin page
+     */
     @GetMapping("/signin")
     public String getUserSigninPage(@RequestParam(required = false) String error, Model model){
         if (error != null && error.equals("credentials")) {
@@ -66,11 +75,12 @@ public class UserController {
         return "signin";
     }
 
-    @GetMapping("/home")
-    public String getHomePage(){
-        return "home";
-    }
-
+    /**
+     * Logout route for GET requests.
+     * @param <HttpServletRequest> request The GET request
+     * @param <HttpServletResponse> response The returned response
+     * @return redirect to the login page.
+     */
     @GetMapping("/logout")
     public String getLogout(HttpServletRequest request, HttpServletResponse response){
         HttpSession session = request.getSession();

@@ -57,6 +57,11 @@ button{
     margin-top:10px;
 }
 
+.button-default{
+    padding: 10px 25px;
+    border-radius: 20px;
+}
+
 .button-green-ease{
     padding: 10px 25px;
     border-radius: 20px;
@@ -142,4 +147,8 @@ button{
 
 .bg-success{
     background-color: #4FAA40;
+}
+
+.bg-light-green{
+    background-color: var(--light-green);
 }

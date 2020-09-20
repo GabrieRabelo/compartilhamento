@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
 <head>
     <div th:replace="fragments/head :: header"></div>
@@ -25,24 +26,90 @@
                     <a href="/question">Título da pergunta</a>
                 </div>
                 <div class="question-text">
-                    <p>No prédio em que sou síndico está tendo uma discussão durante as reuniões sobre a presença
-                        q...</p>
+                    <p>No prédio em que sou síndico está tendo uma discussão durante as reuniões sobre a presença q...</p>
                 </div>
             </div>
         </div>
-        <div class="comment-card">
-            <div class="comment-left">
-                <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed varius mi facilisis felis dapibus
-                    commodo. Quisque fringilla elit sed augue ultrices tempor. Proin eu metus.</small>
+        <div class="status-pill bg-danger">
+            <small>Não solucionada</small>
+        </div>
+        <div class="comments">
+            <div class="comment-card">
+                <div class="comment-left">
+                    <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</small>
+                </div>
+                <div class="comment-right">
+                    <small>Bruno Silva</small>
+                </div>
             </div>
-            <div class="comment-right">
-                <small>Bruno Silva</small>
+            <div class="comment-card">
+                <div class="comment-left">
+                    <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</small>
+                </div>
+                <div class="comment-right">
+                    <small>Fulano Jr.</small>
+                </div>
             </div>
         </div>
+        <hr>
         <div class="answer-textarea-container">
             <h2>Digite sua resposta</h2>
-            <textarea th:disabled="!${#request.userPrincipal}"></textarea>
-            <button class="button-green-ease bg-gray">Enviar</button>
+            <div sec:authorize="${!isAnonymous()}" class="answer-textarea-button">
+                <textarea th:disabled="!${#request.userPrincipal}"></textarea>
+                <button class="button-default bg-light-green" th:disabled="!${#request.userPrincipal}">Responder pergunta</button>
+            </div>
+            <div sec:authorize="${isAnonymous()}" class="required-login-banner">
+                <h1>Você não está logado.</h1>
+                <h2>Entre com sua conta ou cadastre-se para responder.</h2>
+            </div>
+        </div>
+        <div class="question-answers">
+            <div class="answer-card">
+                <div class="answer-card-left">
+                    <img alt="Imagem do perfil do usuário" src="img/user.svg"/>
+                    <div class="name-last-access">
+                        <p>Bruno Almeida</p>
+                        <small>2 horas</small>
+                    </div>
+                </div>
+                <div class="answer-card-right">
+                    <div class="question-text">
+                        <p>No prédio em que sou síndico está tendo uma discussão durante as reuniões sobre a presença q...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="comments">
+                <div class="comment-card">
+                    <div class="comment-left">
+                        <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</small>
+                    </div>
+                    <div class="comment-right">
+                        <small>Bruno Silva</small>
+                    </div>
+                </div>
+                <div class="comment-card">
+                    <div class="comment-left">
+                        <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</small>
+                    </div>
+                    <div class="comment-right">
+                        <small>Fulano Jr.</small>
+                    </div>
+                </div>
+            </div>
+            <div class="answer-card">
+                <div class="answer-card-left">
+                    <img alt="Imagem do perfil do usuário" src="img/user.svg"/>
+                    <div class="name-last-access">
+                        <p>Bruno Almeida</p>
+                        <small>2 horas</small>
+                    </div>
+                </div>
+                <div class="answer-card-right">
+                    <div class="question-text">
+                        <p>No prédio em que sou síndico está tendo uma discussão durante as reuniões sobre a presença q...</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 </div>

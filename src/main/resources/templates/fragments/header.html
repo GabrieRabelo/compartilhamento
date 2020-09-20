@@ -5,14 +5,16 @@
       lang="br">
 <body>
     <header th:fragment="header" th:classappend="${#request.userPrincipal} ? 'header-dark' : 'header-light'">
-        <div sec:authorize="isAnonymous()">
-            <img class="logo-img-header" alt="Logo Townsq" src="/img/logo.svg" />
-        </div>
         <nav>
-            <a href="/">Inicio</a>
-            <a href="#">Por que usar a TownSq?</a>
-            <a href="#">Segurança</a>
-            <a href="#">Suporte</a>
+            <div sec:authorize="isAnonymous()">
+                <img class="logo-img-header" alt="Logo Townsq" src="/img/logo.svg" />
+            </div>
+            <a href="/" id="index-anchor">Início</a>
+            <a href="#" id="ask-anchor">Perguntar</a>
+            <a sec:authorize="isAnonymous()" href="/user/edit" id="profile-anchor-link">Perfil</a>
+            <a sec:authorize="isAuthenticated()" href="/user/edit" id="profile-anchor">
+                <img src="img/user.svg" alt="Imagem de perfil"/>
+            </a>
             <div sec:authorize="isAuthenticated()">
                 <button onclick="location.href='/users'" class="button-green-ease">Perguntar</button>
             </div>
