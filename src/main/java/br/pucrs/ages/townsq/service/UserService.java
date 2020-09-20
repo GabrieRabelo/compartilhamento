@@ -31,7 +31,7 @@ public class UserService {
         if(user != null){
             user.setName(u.getName());
             user.setBio(u.getBio());
-            if(!u.getPassword().equals("")){
+            if(!u.getImage().equals("")){
                 user.setImage(u.getImage());
             }
             /*user.setEmail(u.getEmail());*/
