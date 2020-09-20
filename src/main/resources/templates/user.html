@@ -2,19 +2,60 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <div th:replace="fragments/head :: header"></div>
     <title>Usuário</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/user.css}">
 </head>
 <body>
-    <div th:if="${user}">
-        <p th:text="${user.getId()}"></p>
-        <p th:text="${user.getName()}"></p>
-        <p th:text="${user.getEmail()}"></p>
-        <p th:text="${user.getBio()}"></p>
-        <hr/>
+<header th:replace="fragments/header.html :: header"></header>
+<div class="background" th:if="${user}">
+
+    <div class="profile">
+        <div class="profile-info">
+            <img class="profile-picture" th:if="!${user.getImage()}" src="/img/profilePic.svg" alt="Foto do usuário">
+            <img class="profile-picture" th:if="${user.getImage()}" th:src="${user.getImage()}" alt="Foto do usuário">
+
+            <div class="test">
+                <div class="info">
+                    <h1 th:text="${user.getName()}"></h1>
+                    <div class="align-center">
+                        <h4>Pontuação:</h4>
+                        <p th:text="${user.getScore()} + ' pontos'"></p>
+                    </div>
+                    <div class="align-center">
+                        <h4>Membro desde:</h4>
+                        <p th:text="${#dates.format(user.getCreatedAt(), 'dd/MM/yyyy')}"></p>
+                    </div>
+                </div>
+
+                <div class="tags">
+                    <div class="status-pill bg-answer mx-3">
+                        <small>21 respostas</small>
+                    </div>
+                    <div class="status-pill bg-question">
+                        <small>7 perguntas</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="line"></div>
+        <div class="bio">
+            <h1>Biografia</h1>
+            <p th:text="${user.getBio()}"></p>
+        </div>
+        <div th:if="${#authentication.getPrincipal().id == user.getId()}" class="white-background">
+            <button onclick="document.querySelector('#link').click()">Editar perfil</button>
+            <a id="link" th:href="@{/user/edit}"></a>
+        </div>
     </div>
-    <div th:if="!${user}">
-        <h1>Usuário não encontrado</h1>
-    </div>
+
+</div>
+</div>
+<div th:if="${user == null}">
+    <h1>Usuário não encontrado</h1>
+</div>
+<div th:replace="fragments/toast.html :: toasts">
+</div>
 </body>
 </html>

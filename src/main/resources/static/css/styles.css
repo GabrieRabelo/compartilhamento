@@ -1,0 +1,446 @@
+:root {
+    --dark-green: #8CBA3A;
+    --light-green: #A9C679;
+    --dark-gray: #E0E0E0;
+    --darker-green: #228A19;
+    --darker-gray: #4a4a4a;
+    --strong-green: #25B00E;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+
+html{
+    font-size: 16px;
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+    html{
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 1025px) {
+    html{
+        font-size: 14px;
+    }
+}
+
+h1,h2,h3,h4,h5,a,button,label,p{
+    font-family: Raleway, sans-serif;
+}
+
+small{
+    font-family: Open Sans, sans-serif;
+}
+
+.white-background button{
+    background-color: var(--dark-green);
+    height: 35px;
+    width: 110px;
+    margin: 5px auto;
+    border-radius: 10px;
+    color: white;
+    transition: background-color 0.2s;
+}
+
+.white-background button:hover{
+    background-color: var(--light-green);
+}
+
+button:hover{
+    cursor: pointer;
+    background-color: var(--light-green);
+}
+
+.avatar {
+    width: 100%;
+    height: 100%;
+    background-color: lightgray;
+    border-radius: 50%;
+}
+
+.question-card-divider{
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    height: 75%;
+    border-left:1px solid #BEBEBE;
+    border-right:1px solid #BEBEBE;
+    margin-left: 16px;
+}
+
+.form-control{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.form-control input{
+    background-color: var(--dark-gray);
+    height: 40px;
+    width: 280px;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top:10px;
+}
+
+.form-control textarea{
+    background-color: var(--dark-gray);
+    height: 40px;
+    width: 280px;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top:10px;
+}
+
+.title {
+    margin-top: 4px;
+    margin-bottom: 8px;
+    font-size: 18pt;
+}
+
+.subtitle {
+    /*margin-top: 4px;*/
+    margin-bottom: 6px;
+    font-size: 10pt;
+}
+
+.form-control label {
+    font-size: 10pt;
+    font-weight: bold;
+}
+
+.button-default{
+    padding: 10px 25px;
+    border-radius: 20px;
+}
+
+.button-green-ease{
+    padding: 10px 25px;
+    border-radius: 20px;
+    transition: background-color, opacity, color, 400ms ease;
+}
+
+.button-green-ease:hover{
+    background-color: var(--darker-green);
+    opacity: 60%;
+    color: #FFFFFF;
+}
+
+.flex {
+    display: flex;
+}
+
+.justify-end {
+    display: flex;
+    justify-content: end;
+}
+
+.justify-center{
+    display: flex;
+    justify-content: center;
+}
+
+.justify-flex-start {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.justify-flex-end {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.justify-space-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+.justify-space-around {
+    display: flex;
+    justify-content: space-around;
+}
+
+.align-start {
+    display: flex;
+    align-items: start;
+}
+
+.align-center {
+    display: flex;
+    align-items: center;
+}
+
+.self-start{
+    align-self: flex-start;
+}
+
+.self-end{
+    align-self: flex-end;
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+.col-12 {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.col-11 {
+    display: flex;
+    width: 93%;
+    flex-direction: column;
+}
+
+.col-10 {
+    display: flex;
+    width: 86%;
+    flex-direction: column;
+}
+
+.col-9 {
+    display: flex;
+    width: 75%;
+    flex-direction: column;
+}
+
+.col-8 {
+    display: flex;
+    width: 63%;
+    flex-direction: column;
+}
+
+.col-7 {
+    display: flex;
+    width: 57%;
+    flex-direction: column;
+}
+
+.col-6 {
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+}
+
+.col-5 {
+    display: flex;
+    width: 43%;
+    flex-direction: column;
+}
+
+.col-4 {
+    display: flex;
+    width: 37%;
+    flex-direction: column;
+}
+
+.col-3 {
+    display: flex;
+    width: 25%;
+    flex-direction: column;
+}
+
+.col-2 {
+    display: flex;
+    width: 14%;
+    flex-direction: column;
+}
+
+.col-1 {
+    display: flex;
+    width: 7%;
+    flex-direction: column;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    /*height: auto;*/
+}
+
+.row-12 {
+    display: flex;
+    height: 100%;
+    flex-direction: row;
+}
+
+.row-11 {
+    display: flex;
+    height: 93%;
+    flex-direction: row;
+}
+
+.row-10 {
+    display: flex;
+    height: 86%;
+    flex-direction: row;
+}
+
+.row-9 {
+    display: flex;
+    height: 75%;
+    flex-direction: row;
+}
+
+.row-8 {
+    display: flex;
+    height: 63%;
+    flex-direction: row;
+}
+
+.row-7 {
+    display: flex;
+    height: 57%;
+    flex-direction: row;
+}
+
+.row-6 {
+    display: flex;
+    height: 50%;
+    flex-direction: row;
+}
+
+.row-5 {
+    display: flex;
+    height: 43%;
+    flex-direction: row;
+}
+
+.row-4 {
+    display: flex;
+    height: 37%;
+    flex-direction: row;
+}
+
+.row-3 {
+    display: flex;
+    height: 25%;
+    flex-direction: row;
+}
+
+.row-2 {
+    display: flex;
+    height: 14%;
+    flex-direction: row;
+}
+
+.row-1 {
+    display: flex;
+    height: 7%;
+    flex-direction: row;
+}
+
+.px-1 {
+    padding: 0 4px
+}
+
+.px-2 {
+    padding: 0 8px
+}
+
+.px-3 {
+    padding: 0 12px
+}
+
+.px-4 {
+    padding: 0 16px
+}
+
+.mx-1 {
+    margin: 0 4px
+}
+
+.mx-2 {
+    margin: 0 8px
+}
+
+.mx-3 {
+    margin: 0 12px
+}
+
+.mx-4 {
+    margin: 0 16px
+}
+
+.link:hover {
+    cursor: pointer;
+}
+
+.container {
+    width: 80%;
+    height: 80vh;
+    margin: 0 auto;
+    padding-top: 5%;
+}
+
+.status-pill{
+    border-radius: 500px;
+    display: flex;
+    height: 1.5rem;
+    width: 9em;
+    align-items: center;
+    justify-content: center;
+}
+.status-pill small{
+    color: #FFFFFF;
+    font-weight: bolder;
+    font-size: 0.7rem;
+}
+
+.status-pill-questions {
+    border-radius: 500px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    height: 1rem;
+    width: 9em;
+    margin-bottom: 0.5rem;
+}
+
+.status-pill-questions small {
+    text-align: center;
+    color: #FFFFFF;
+    font-weight: bolder;
+}
+
+.bg-offwhite{
+    background-color: #F4F4F4;
+}
+
+.bg-gray{
+    background-color: #E0E0E0;
+}
+
+.bg-danger{
+    background-color: #D83D3D;
+}
+
+.bg-success {
+    background-color: #4FAA40;
+}
+
+.bg-question {
+    background-color: #8833CB;
+}
+
+.bg-answer {
+    background-color: #48CB33;
+}
+
+.bg-light-green {
+    background-color: var(--light-green);
+}

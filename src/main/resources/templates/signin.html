@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/head :: header"></div>
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{css/signuplogin.css}">
+</head>
+<body>
+<header th:replace="fragments/header.html :: header"></header>
+
+<div class="white-background">
+    <img class="logo-img" alt="Logo Townsq" src="/img/logo.svg" />
+    <p>Fazer Login</p>
+    <form role="form" th:action="@{/signin}" th:method="post">
+        <div class="form-control">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email"/>
+        </div>
+        <div class="form-control">
+            <label for="password">Senha</label>
+            <input type="password" name="password" id="password"/>
+        </div>
+        <button type="submit">Entrar</button>
+        <div class="form-link">
+            <p>Não possui uma conta?</p>
+            <a href="/signup">Cadastre-se</a>
+        </div>
+    </form>
+</div>
+<div th:replace="fragments/toast.html :: toasts">
+</div>
+</body>
+</html>

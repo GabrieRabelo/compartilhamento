@@ -2,23 +2,36 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <div th:replace="fragments/head :: header"></div>
     <title>Cadastro</title>
+    <link rel="stylesheet" th:href="@{css/signuplogin.css}">
 </head>
 <body>
-    <h1>Cadastre agora mesmo!</h1>
-    <form action="/users/signup" method="POST">
+    <header th:replace="fragments/header.html :: header"></header>
+    <div class="white-background">
+        <img class="logo-img" alt="Logo Townsq" src="/img/logo.svg" />
+        <form role="form" th:action="@{/signup}" th:method="post" th:object="${user}">
+            <div class="form-control">
+                <label for="name">Nome</label>
+                <input autofocus required type="text" name="name" id="name"/>
+            </div>
+            <div class="form-control">
+                <label for="email">Email</label>
+                <input required type="email" name="email" id="email"/>
+            </div>
+            <div class="form-control">
+                <label for="password">Senha</label>
+                <input required type="password" name="password" id="password"/>
+            </div>
+            <button type="submit">Cadastrar</button>
 
-        <label for="name">Nome</label>
-        <input type="text" name="name" id="name"/>
-        <label for="email">Email</label>
-        <input type="email" name="email" id="email"/>
-        <label for="password">Senha</label>
-        <input type="password" name="password" id="password"/>
-        <label for="bio">Biografia</label>
-        <input type="text" name="bio" id="bio"/>
-
-        <input type="submit" value="Cadastrar">
-    </form>
+            <div class="form-link">
+                <p>Já possui conta?</p>
+                <a href="/signin">Entrar</a>
+            </div>
+        </form>
+    </div>
+    <div th:replace="fragments/toast.html :: toasts"></div>
 </body>
+
 </html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/head :: header"></div>
+    <title>Usuário</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/userEdit.css}">
+</head>
+<body>
+<header th:replace="fragments/header.html :: header"></header>
+<div th:if="${user == null}">
+    <h1>Usuário não encontrado</h1>
+</div>
+<div class="container" th:if="${user}">
+    <div class="row-12">
+        <div class="col-4">
+            <div class="row-3">
+                <div class="col-4 align-center">
+                    <div style="width: 7vw; height: 7vw">
+                        <img class="avatar" th:if="!${user.getImage()}" src="/img/profilePic.svg"
+                             alt="Adicionar nova foto">
+                        <img class="avatar" th:if="${user.getImage()}" th:src="${user.getImage()}"
+                             alt="Adicionar nova foto">
+                    </div>
+                </div>
+                <div class="col px-2">
+                    <h2 class="title" th:text="${user.getName()}"></h2>
+                    <small class="subtitle"><b>Pontuação: </b><span th:text="${user.getScore()}"></span></small>
+                    <small class="subtitle"><b>Membro desde: </b><span
+                            th:text="${#dates.format(user.getCreatedAt(), 'dd/MM/yyyy')}"></span></small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h2 class="title">Biografia</h2>
+                    <small th:text="${user.getBio()}"></small>
+                </div>
+            </div>
+            <br>
+            <div class="row justify-center">
+                <div class="status-pill bg-answer mx-3">
+                    <small>21 respostas</small>
+                </div>
+                <div class="status-pill bg-question">
+                    <small>7 perguntas</small>
+                </div>
+            </div>
+        </div>
+        <div class="question-card-divider"></div>
+        <div class="col-8">
+            <h2 class="title justify-center">Editar Perfil</h2>
+            <br>
+            <div class="row">
+                <form role="form" th:action="@{/user/edit}" th:method="post" th:object="${user}">
+                    <div class="row px-4">
+                        <div class="col-5">
+                            <div style="width: 7vw; height: 7vw" class="avatar justify-center align-center link"
+                                 onclick="document.querySelector('#fileinput').click()">
+                                <img th:if="!${user.getImage()}"
+                                     src="/img/newpicture.svg"
+                                     class="avatar newpicture"
+                                     alt="Adicionar nova foto">
+                                <img class="avatar newpicture" th:if="${user.getImage()}" th:src="${user.getImage()}"
+                                     alt="Adicionar nova foto">
+                            </div>
+                            <input id="fileinput" onchange="storeImg()" accept="image/*" type="file" style="display: none">
+                        </div>
+                        <div class="col px-4">
+                            <div class="row justify-space-between">
+                                <div class="col-12">
+                                    <div class="form-control">
+                                        <label for="name">Nome</label>
+                                        <input type="text" name="name" id="name" th:value="${user.getName()}"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row justify-space-between">
+                                <div class="form-control">
+                                    <label for="company">Empresa</label>
+                                    <input type="text" name="company" id="company" th:value="${user.getCompany()}"/>
+                                </div>
+                                <div class="form-control">
+                                    <label for="website">Site</label>
+                                    <input type="text" name="website" id="website" th:value="${user.getWebsite()}"/>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-control">
+                                        <label for="bio">Bio</label>
+                                        <textarea type="text" name="bio" id="bio" th:text="${user.getBio()}"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row justify-space-between">
+                                <div class="col-12">
+                                    <div class="form-control">
+                                        <label for="password">Nova senha</label>
+                                        <input type="password" name="password" id="password"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row white-background">
+                                <button type="submit">Atualizar</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/toast.html :: toasts">
+</div>
+</body>
+<script>
+    function storeImg() {
+        const file = document.querySelector('#fileinput').files[0]
+        const reader = new FileReader();
+        if (file) {
+            reader.readAsArrayBuffer(file);
+            reader.onload = e => {
+                const result = reader.result;
+                const base = new Uint8Array(result).reduce(
+                    (data, byte) => data + String.fromCharCode(byte),
+                    ""
+                );
+
+                const str = btoa(base);
+                const url = `data:image/jpg;charset=utf-8;base64, ${str}`
+
+                const elements = Array.from(document.querySelectorAll('.newpicture'))
+                    .filter(e => e.tagName == 'IMG')
+                elements.forEach(e => e.setAttribute('src', url))
+                document.getElementById('image').setAttribute('value', url)
+            }
+        }
+    }
+</script>
+</html>

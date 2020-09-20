@@ -1,0 +1,101 @@
+body {
+    background-color: var(--light-green);
+}
+
+header .logo-img-header {
+    display: none
+}
+
+.white-background{
+    background-color: #FFFFFF;
+
+    height: 450px;
+    width: 730px;
+
+    border-radius: 20px;
+    margin: 10% auto;
+
+    display: flex;
+    align-items: center;
+
+    flex-direction: column;
+}
+
+.logo-img{
+    height: 120px;
+    width: 200px;
+}
+
+.white-background form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.white-background form button{
+    background-color: var(--dark-green);
+    font-size: 14px;
+    height: 45px;
+    width: 150px;
+    margin: 5px auto;
+    border-radius: 10px;
+    color: white;
+    transition: background-color 0.2s;
+}
+
+.white-background form button:hover{
+    background-color: var(--light-green);
+}
+
+.white-background .form-control {
+    width: 55%;
+    align-items: flex-start;
+    align-self: center;
+}
+
+.white-background .form-control input {
+    width: 100%;
+}
+
+.white-background > p {
+    color: var(--darker-gray);
+    font-size: 22px;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.error-email {
+    display: flex;
+    font-size: 14px;
+    color: #FF3333;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.form-link {
+    display: flex;
+    font-size: 13px;
+    color: #636262;
+    justify-content: center;
+    margin-top:10px;
+}
+
+
+.form-link a{
+    margin-left:5px;
+    font-weight: bold;
+    color: var(--dark-green);
+}
+
+@media (max-width: 750px) {
+    .white-background{
+        width: 90%;
+
+    }
+}
+
+@media (max-width: 480px) {
+    .white-background {
+        margin: 28% auto;
+    }
+}
