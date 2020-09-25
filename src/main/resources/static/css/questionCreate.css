@@ -1,0 +1,28 @@
+.question-create-wrapper{
+    margin-top:32px;
+    width: 100%
+}
+
+.form-control input, textarea, select{
+    width: 70vw !important;
+    margin-top: 5px;
+    resize: none;
+}
+
+label{
+    margin-top: 32px;
+}
+
+textarea{
+    height: 280px !important;
+}
+
+.question-create-button{
+    display: flex;
+    align-self: flex-end;
+    margin-top: 10px;
+}
+
+.white-background button{
+    width: 170px !important;
+}

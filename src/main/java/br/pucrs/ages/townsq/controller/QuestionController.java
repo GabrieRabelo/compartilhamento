@@ -14,5 +14,9 @@ public class QuestionController {
     public String getQuestionPage(){
         return "question";
     }
+    @GetMapping("/question/create")
+    public String getQuestionCreatePage(){
+        return "questionCreate";
+    }
 
 }

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/head :: header"></div>
+    <title>Usuário</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/questionCreate.css}">
+</head>
+<body>
+<header th:replace="fragments/header.html :: header"></header>
+<div class="question-create-wrapper align-center justify-center col">
+<h1>Crie uma nova pergunta</h1>
+<form class="form-control">
+    <label for="question-title">Título da Pergunta</label>
+    <input id= "question-title" type="text" name="question-title"/>
+
+    <label for="question-topic">Tópico da Pergunta</label>
+    <select id="question-topic" name="question-topic">
+        <option>Selecione uma Opção</option>
+        <option>Bla</option>
+        <option>Bla2</option>
+    </select>
+
+    <label for="question-description">Descreva sua Pergunta</label>
+    <textarea id= "question-description" name="question-description"></textarea>
+    <hr/>
+    <div class="white-background question-create-button">
+        <button type="submit">Enviar Pergunta</button>
+    </div>
+</form>
+</div>
+</body>
+</html>

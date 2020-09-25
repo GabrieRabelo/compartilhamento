@@ -34,6 +34,11 @@ h1,h2,h3,h4,h5,a,button,label,p{
     font-family: Raleway, sans-serif;
 }
 
+hr{
+    border: 1px solid #C7C7C7;
+    margin-top: 1rem;
+}
+
 small{
     font-family: Open Sans, sans-serif;
 }
@@ -81,6 +86,15 @@ button:hover{
 }
 
 .form-control input{
+    background-color: var(--dark-gray);
+    height: 40px;
+    width: 280px;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top:10px;
+}
+
+.form-control select{
     background-color: var(--dark-gray);
     height: 40px;
     width: 280px;
