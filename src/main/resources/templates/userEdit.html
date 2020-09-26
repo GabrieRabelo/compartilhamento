@@ -96,19 +96,39 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="row justify-space-between">
-                                <div class="col-12">
-                                    <div class="form-control">
-                                        <label for="password">Nova senha</label>
-                                        <input type="password" name="password" id="password"/>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="row white-background">
                                 <button type="submit">Atualizar</button>
                             </div>
                         </div>
+                    </div>
+                </form>
+                <form role="form" th:action="@{/user/editPassword}" th:method="post" th:object="${user}">
+                    <div class="row justify-space-between">
+                        <div class="col-12">
+                            <div class="form-control">
+                                <label for="Password">Senha atual</label>
+                                <input type="password" name="Password" id="Password"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-space-between">
+                        <div class="col-12">
+                            <div class="form-control">
+                                <label for="newPassword">Nova senha</label>
+                                <input type="password" name="newPassword" id="newPassword"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-space-between">
+                        <div class="col-12">
+                            <div class="form-control">
+                                <label for="confirmNewPassword">Digite novamente a nova senha</label>
+                                <input type="password" name="confirmNewPassword" id="confirmNewPassword"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row white-background">
+                        <button type="submit">Atualizar</button>
                     </div>
                 </form>
             </div>

@@ -123,4 +123,14 @@ public class UserController {
         return "redirect:/user/edit";
     }
 
+    @PostMapping("/user/editPassword")
+    public String postUserUpdatePassword(@ModelAttribute User user, Model model, Authentication auth){
+        try {
+            service.updatePassword(user, auth.getName());
+        } catch (Exception e) {
+            model.addAttribute("error", "Erro");
+            return "redirect:/users";
+        }
+        return "redirect:/user/edit";
+    }
 }

@@ -53,6 +53,12 @@ public class User implements UserDetails {
     @Column(name = "createdAt")
     private java.sql.Timestamp createdAt;
 
+    @Transient
+    private String newPassword;
+
+    @Transient
+    private String confirmNewPassword;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;

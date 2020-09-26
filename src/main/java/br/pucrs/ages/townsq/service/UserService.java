@@ -43,6 +43,19 @@ public class UserService {
         return user;
     }
 
+    public User updatePassword(User u, String authEmail) {
+        User user = findByEmail(authEmail).orElse(null);
+        if (user != null) {
+            if (u.getNewPassword().equals(u.getConfirmNewPassword())) {
+                if (bcPasswordEncoder.matches(u.getPassword(), user.getPassword())) {
+                    user.setPassword(bcPasswordEncoder.encode(u.getNewPassword()));
+                }
+            }
+            repository.save(user);
+        }
+        return user;
+    }
+
     public List<User> findAll(){
         return repository.findAll();
     }
