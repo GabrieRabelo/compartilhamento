@@ -3,18 +3,13 @@
     width: 100%
 }
 
-.form-control input, textarea, select{
-    width: 70vw !important;
-    margin-top: 5px;
-    resize: none;
+form{
+    display: flex;
+    flex-direction: column;
 }
 
 label{
     margin-top: 32px;
-}
-
-textarea{
-    height: 280px !important;
 }
 
 .question-create-button{
@@ -24,5 +19,29 @@ textarea{
 }
 
 .white-background button{
-    width: 170px !important;
+    width: 170px;
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+
+    .question-create-button{
+        align-self: center;
+    }
+
+    hr{
+        display: none;
+    }
+
+    .form-big input{
+        width: 80vw;
+    }
+
+    .form-big select{
+        width: 80vw;
+    }
+
+    .form-big textarea{
+        width: 80vw;
+    }
+
 }

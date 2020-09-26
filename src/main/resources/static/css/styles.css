@@ -129,6 +129,22 @@ button:hover{
     font-weight: bold;
 }
 
+.form-big input{
+    width: 70vw;
+}
+
+.form-big select{
+    width: 70vw;
+}
+
+.form-big textarea{
+    width: 70vw;
+}
+
+.form-big textarea{
+    height: 270px;
+}
+
 .button-default{
     padding: 10px 25px;
     border-radius: 20px;
