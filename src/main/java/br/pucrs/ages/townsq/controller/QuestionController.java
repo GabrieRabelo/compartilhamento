@@ -2,8 +2,8 @@ package br.pucrs.ages.townsq.controller;
 
 import br.pucrs.ages.townsq.model.Question;
 import br.pucrs.ages.townsq.model.User;
-import br.pucrs.ages.townsq.repository.TopicRepository;
 import br.pucrs.ages.townsq.service.QuestionService;
+import br.pucrs.ages.townsq.service.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class QuestionController {
 
-    private TopicRepository topicRepository;
-    private QuestionService service;
+    private TopicService topicService;
+    private QuestionService questionService;
 
     @Autowired
-    public QuestionController(TopicRepository topicRepository, QuestionService service){
-        this.topicRepository = topicRepository;
-        this.service = service;
+    public QuestionController(TopicService topicService, QuestionService questionService){
+        this.topicService = topicService;
+        this.questionService = questionService;
     }
 
     /**
@@ -40,14 +40,14 @@ public class QuestionController {
      */
     @GetMapping("/question/create")
     public String getQuestionCreatePage(Model m){
-        m.addAttribute("topics", topicRepository.findAllByStatus(1));
+        m.addAttribute("topics", topicService.getAllTopicsByStatus(1));
         return "questionCreate";
     }
 
     @PostMapping("/question/create")
     public String postQuestionCreate(@AuthenticationPrincipal User user, @ModelAttribute Question question, Model model){
         question.setUser(user);
-        service.save(question);
+        questionService.save(question);
         return "question";
     }
 

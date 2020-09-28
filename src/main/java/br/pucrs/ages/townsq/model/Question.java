@@ -31,7 +31,7 @@ public class Question {
     @Column(name = "description", columnDefinition = "VARCHAR(512)", nullable =  false)
     private String description;
     @Column(name = "isActive")
-    private int isActive;
+    private int isActive = 1;
     @UpdateTimestamp
     @Column(name = "updatedAt")
     private java.sql.Timestamp updatedAt;
