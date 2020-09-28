@@ -14,19 +14,20 @@
     <form class="question-form">
         <div class="form-control form-big">
             <label for="question-title">Título da Pergunta</label>
-            <input id= "question-title" type="text" name="question-title"/>
+            <input id= "question-title" type="text" name="question-title" required/>
         </div>
         <div class="form-control form-big">
             <label for="question-topic">Tópico da Pergunta</label>
-            <select id="question-topic" name="question-topic">
-                <option>Selecione uma Opção</option>
-                <option>Bla</option>
-                <option>Bla2</option>
+            <select id="question-topic" name="question-topic" required>
+                <option disabled value="" selected hidden>Selecione um tópico...</option>
+                <th:block th:each="topic : ${topics}">
+                    <option th:id="${topic.getId()}" th:text="${topic.getName()}"></option>
+                </th:block>
             </select>
         </div>
         <div class="form-control form-big">
             <label for="question-description">Descreva sua Pergunta</label>
-            <textarea id= "question-description" name="question-description"></textarea>
+            <textarea id= "question-description" name="question-description" required></textarea>
         </div>
         <hr/>
         <div class="white-background question-create-button">
