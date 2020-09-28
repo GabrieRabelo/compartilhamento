@@ -38,10 +38,12 @@ public class Question {
     @CreationTimestamp
     @Column(name = "createdAt")
     private java.sql.Timestamp createdAt;
-    @NotNull(message = "userID não pode ser nulo.")
-    @NotEmpty(message = "userID não pode ser vazia.")
-    @Column(name = "userId")
-    private int userId;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "userId", nullable = false)
+    private User user;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "topicId", nullable = false)
+    private Topic topic;
     @Column(name = "status")
     private int status;
 

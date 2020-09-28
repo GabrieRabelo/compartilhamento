@@ -11,23 +11,23 @@
 <header th:replace="fragments/header.html :: header"></header>
     <div class="question-create-wrapper align-center justify-center col">
     <h1>Crie uma nova pergunta</h1>
-    <form class="question-form">
+    <form class="question-form" th:method="post" th:object="${question}" th:action="@{/question/create}">
         <div class="form-control form-big">
-            <label for="question-title">Título da Pergunta</label>
-            <input id= "question-title" type="text" name="question-title" required/>
+            <label for="title">Título da Pergunta</label>
+            <input id= "title" type="text" name="title" required/>
         </div>
         <div class="form-control form-big">
-            <label for="question-topic">Tópico da Pergunta</label>
-            <select id="question-topic" name="question-topic" required>
+            <label for="topic">Tópico da Pergunta</label>
+            <select id="topic" name="topic" required>
                 <option disabled value="" selected hidden>Selecione um tópico...</option>
                 <th:block th:each="topic : ${topics}">
-                    <option th:id="${topic.getId()}" th:text="${topic.getName()}"></option>
+                    <option th:value="${topic.getId()}" th:text="${topic.getName()}"></option>
                 </th:block>
             </select>
         </div>
         <div class="form-control form-big">
-            <label for="question-description">Descreva sua Pergunta</label>
-            <textarea id= "question-description" name="question-description" required></textarea>
+            <label for="description">Descreva sua Pergunta</label>
+            <textarea id= "description" name="description" required></textarea>
         </div>
         <hr/>
         <div class="white-background question-create-button">
