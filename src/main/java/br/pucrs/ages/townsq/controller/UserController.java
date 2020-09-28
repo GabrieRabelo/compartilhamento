@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.ConstraintViolationException;
+import java.net.MalformedURLException;
 
 @Controller
 public class UserController {
@@ -116,6 +117,10 @@ public class UserController {
     public String postUserUpdate(@ModelAttribute User user, Model model, Authentication auth){
         try {
             service.update(user, auth.getName());
+        } catch (MalformedURLException e) {
+            model.addAttribute("error", "URL inválida!");
+            model.addAttribute("user", service.findByEmail(auth.getName()).orElse(null));
+            return "userEdit";
         } catch (Exception e) {
             model.addAttribute("error", "Erro");
             return "redirect:/users";
