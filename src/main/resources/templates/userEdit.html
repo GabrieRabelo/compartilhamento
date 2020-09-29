@@ -58,7 +58,7 @@
             <h2 class="title justify-center">Editar Perfil</h2>
             <br>
             <div class="row">
-                <form role="form" th:action="@{/user/edit}" th:method="post" th:object="${user}">
+                <form role="form" th:action="@{/user/edit}" th:method="post" th:object="${user}" enctype="multipart/form-data">
                     <div class="row px-4">
                         <div class="col-5">
                             <div style="width: 7vw; height: 7vw" class="avatar justify-center align-center link"
@@ -70,7 +70,7 @@
                                 <img class="avatar newpicture" th:if="${user.getImage()}" th:src="${user.getImage()}"
                                      alt="Adicionar nova foto">
                             </div>
-                            <input id="fileinput" onchange="storeImg()" accept="image/*" type="file" style="display: none">
+                            <input id="fileinput" name="fileimage" onchange="showImg()" accept="image/*" type="file" style="display: none">
                         </div>
                         <div class="col px-4">
                             <div class="row justify-space-between">
@@ -125,26 +125,20 @@
 </div>
 </body>
 <script>
-    function storeImg() {
-        const file = document.querySelector('#fileinput').files[0]
-        const reader = new FileReader();
-        if (file) {
-            reader.readAsArrayBuffer(file);
-            reader.onload = e => {
-                const result = reader.result;
-                const base = new Uint8Array(result).reduce(
-                    (data, byte) => data + String.fromCharCode(byte),
-                    ""
-                );
+    function showImg() {
+        file = document.getElementById('fileinput').files[0]
 
-                const str = btoa(base);
-                const url = `data:image/jpg;charset=utf-8;base64, ${str}`
+        const reader = new FileReader()
+        reader.readAsArrayBuffer(file)
+        reader.onload = () => {
+            const result = reader.result;
+            const base = new Uint8Array(result).reduce(
+                (data, byte) => data + String.fromCharCode(byte),
+                ""
+            )
 
-                const elements = Array.from(document.querySelectorAll('.newpicture'))
-                    .filter(e => e.tagName == 'IMG')
-                elements.forEach(e => e.setAttribute('src', url))
-                document.getElementById('image').setAttribute('value', url)
-            }
+            const url = `data:image/jpg;charset=utf-8;base64, ${btoa(base)}`
+            Array.from(document.querySelectorAll('.newpicture')).forEach(e => e.setAttribute('src', url))
         }
     }
 </script>

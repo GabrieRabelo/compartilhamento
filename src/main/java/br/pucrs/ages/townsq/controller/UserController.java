@@ -11,15 +11,21 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.View;
 import org.springframework.security.core.AuthenticatedPrincipal;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.ConstraintViolationException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Controller
 public class UserController {
@@ -113,14 +119,48 @@ public class UserController {
     }
 
     @PostMapping("/user/edit")
-    public String postUserUpdate(@ModelAttribute User user, Model model, Authentication auth){
+    public String postUserUpdate(@RequestParam("fileimage") MultipartFile file, @ModelAttribute User user, Model model, Authentication auth){
+        if (!file.isEmpty()) {
+            String path = singleFileUpload(file, user);
+            user.setImage(path);
+        }
         try {
             service.update(user, auth.getName());
         } catch (Exception e) {
             model.addAttribute("error", "Erro");
-            return "redirect:/users";
+            return "redirect:/user/edit";
         }
         return "redirect:/user/edit";
+    }
+
+    // //new annotation since 4.3
+    public String singleFileUpload(@RequestParam("file") MultipartFile file, User user) {
+        String ROOT_TO_STATIC = "./src/main/resources/static";
+        String STATIC = "/img/users/";
+
+        if (file.isEmpty()) {
+            return ROOT_TO_STATIC + STATIC + "defaultUser.svg";
+        }
+
+        Path path = null;
+        String strPath = ROOT_TO_STATIC + STATIC + "user" + user.getId() + getFileExtension(file.getOriginalFilename());
+        try {
+
+            // Get the file and save it somewhere
+            byte[] bytes = file.getBytes();
+            path = Paths.get(strPath);
+            Files.write(path, bytes);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return STATIC + "user" + user.getId() + getFileExtension(file.getOriginalFilename());
+    }
+
+    private String getFileExtension(String filename) {
+        String[] arr = filename.split("\\.");
+        return "." + arr[arr.length - 1];
     }
 
 }
