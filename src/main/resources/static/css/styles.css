@@ -417,6 +417,10 @@ button:hover{
     font-weight: bolder;
 }
 
+.company-values{
+    font-weight: lighter
+}
+
 .bg-offwhite{
     background-color: #F4F4F4;
 }

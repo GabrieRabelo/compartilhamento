@@ -32,6 +32,12 @@
                 </div>
             </div>
             <div class="row">
+                <h3>Empresa:&nbsp </h3> <h3 class="company-values" th:text="${user.getCompany()}"></h3>
+            </div>
+            <div class="row">
+                <h3>Site:&nbsp</h3> <h3 class="company-values" ><a th:href="@{{id}(id=${user.getWebsite()})}" target="_blank" th:text="${user.getWebsite()}"></a></h3>
+            </div>
+            <div class="row">
                 <div class="col">
                     <h2 class="title">Biografia</h2>
                     <small th:text="${user.getBio()}"></small>
@@ -84,6 +90,7 @@
                                 <div class="form-control">
                                     <label for="website">Site</label>
                                     <input type="text" name="website" id="website" th:value="${user.getWebsite()}"/>
+                                    <label id="example" for="bio">Ex.: https://www.seusite.com </label>
                                 </div>
                             </div>
 
