@@ -3,6 +3,7 @@ package br.pucrs.ages.townsq.model;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -40,6 +41,7 @@ public class User implements UserDetails {
     private String bio;
     @Column(name = "company", columnDefinition = "VARCHAR(256)")
     private String company;
+    @URL
     @Column(name = "website", columnDefinition = "VARCHAR(256)")
     private String website;
     @Column(name = "image", columnDefinition = "VARCHAR(256)")

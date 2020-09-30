@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.net.MalformedURLException;
 
 @Controller
 public class UserController {
@@ -126,6 +127,10 @@ public class UserController {
         }
         try {
             service.update(user, auth.getName());
+        } catch (MalformedURLException e) {
+            model.addAttribute("error", "URL inválida!");
+            model.addAttribute("user", service.findByEmail(auth.getName()).orElse(null));
+            return "userEdit";
         } catch (Exception e) {
             model.addAttribute("error", "Erro ao atualizar perfil.");
             return "userEdit";

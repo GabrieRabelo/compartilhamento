@@ -7,6 +7,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,12 +30,15 @@ public class UserService {
         return repository.save(u);
     }
 
-    public User update(User u, String authEmail){
+    public User update(User u, String authEmail) throws MalformedURLException {
         User user = findByEmail(authEmail).orElse(null);
         if(user != null){
             user.setName(u.getName());
             user.setBio(u.getBio());
             user.setCompany(u.getCompany());
+            if(!StringUtils.isEmpty(u.getWebsite())){
+                new URL(u.getWebsite());
+            }
             user.setWebsite(u.getWebsite());
             if (u.getImage() != null && !u.getImage().equals(user.getImage()))
                 user.setImage(u.getImage());
