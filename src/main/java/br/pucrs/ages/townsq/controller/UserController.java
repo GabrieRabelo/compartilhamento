@@ -127,10 +127,11 @@ public class UserController {
         try {
             service.update(user, auth.getName());
         } catch (Exception e) {
-            model.addAttribute("error", "Erro");
-            return "redirect:/user/edit";
+            model.addAttribute("error", "Erro ao atualizar perfil.");
+            return "userEdit";
         }
-        return "redirect:/user/edit";
+        model.addAttribute("success", "Perfil atualizado!");
+        return "userEdit";
     }
 
     // //new annotation since 4.3
