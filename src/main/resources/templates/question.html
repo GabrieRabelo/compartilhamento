@@ -13,33 +13,45 @@
 
 <div class="justify-center">
     <main class="main-content">
-        <div class="question-page-main-card">
-            <div class="main-card-left">
-                <img alt="Imagem do perfil do usuário" src="img/user.svg"/>
-                <div class="name-last-access">
-                    <p>Bruno Almeida</p>
-                    <small>2 horas</small>
+        <div class="question-card-actions">
+            <div class="question-page-main-card">
+                <div class="main-card-left">
+                    <img alt="Imagem do perfil do usuário" src="img/user.svg"/>
+                    <div class="name-last-access">
+                        <p>Bruno Almeida</p>
+                        <small>2 horas</small>
+                    </div>
+                </div>
+                <div class="main-card-right">
+                    <div class="question-title">
+                        <a href="/question">Título da pergunta</a>
+                    </div>
+                    <div class="question-text">
+                        <p>No prédio em que sou síndico está tendo uma discussão durante as reuniões sobre a presença q...</p>
+                    </div>
                 </div>
             </div>
-            <div class="main-card-right">
-                <div class="question-title">
-                    <a href="/question">Título da pergunta</a>
-                </div>
-                <div class="question-text">
-                    <p>No prédio em que sou síndico está tendo uma discussão durante as reuniões sobre a presença q...</p>
-                </div>
+            <div class="action-icons">
+                <a href="#"><img th:src="@{/img/icons/lapis.svg}"/></a>
+                <a href="#"><img th:src="@{/img/icons/lixeira.svg}"/></a>
             </div>
         </div>
         <div class="status-pill-questions self-end bg-danger">
             <small>Não solucionada</small>
         </div>
         <div class="comments">
-            <div class="comment-card">
-                <div class="comment-left">
-                    <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</small>
+            <div class="comment-actions">
+                <div class="comment-card">
+                    <div class="comment-left">
+                        <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</small>
+                    </div>
+                    <div class="comment-right">
+                        <small>Bruno Silva</small>
+                    </div>
                 </div>
-                <div class="comment-right">
-                    <small>Bruno Silva</small>
+                <div class="action-icons-comment">
+                    <a href="#"><img th:src="@{/img/icons/lapis.svg}"/></a>
+                    <a href="#"><img th:src="@{/img/icons/lixeira.svg}"/></a>
                 </div>
             </div>
             <div class="comment-card">
