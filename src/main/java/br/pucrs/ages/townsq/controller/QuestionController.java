@@ -25,6 +25,16 @@ public class QuestionController {
     }
 
     /**
+     * Returns the index page without being logged in.
+     * @param model
+     * @return
+     */
+    @GetMapping("/")
+    public String getIndexAnonymous(Model model){
+        return "index";
+    }
+
+    /**
      * Returns the Question page with it's contents. Will be implemented on future sprints.
      * @return question page
      */
