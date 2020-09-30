@@ -11,7 +11,7 @@
 <header th:replace="fragments/header.html :: header"></header>
     <div class="question-create-wrapper align-center justify-center col">
     <h1>Crie uma nova pergunta</h1>
-    <form class="question-form" th:method="post" th:object="${question}" th:action="@{/question/create}">
+    <form class="question-form" th:method="post" th:object="${question}" th:action="@{/question/save}">
         <div class="form-control form-big">
             <label for="title">Título da Pergunta</label>
             <input id= "title" type="text" name="title" required/>

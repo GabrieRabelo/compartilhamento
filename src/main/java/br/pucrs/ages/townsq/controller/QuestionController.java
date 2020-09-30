@@ -4,19 +4,13 @@ import br.pucrs.ages.townsq.model.Question;
 import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.service.QuestionService;
 import br.pucrs.ages.townsq.service.TopicService;
-import br.pucrs.ages.townsq.utils.Slugify;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.View;
-
-import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class QuestionController {
@@ -47,10 +41,11 @@ public class QuestionController {
     @GetMapping("/question/create")
     public String getQuestionCreatePage(Model m){
         m.addAttribute("topics", topicService.getAllTopicsByStatus(1));
-        return "questionCreate";
+        m.addAttribute("question", new Question());
+        return "questionForm";
     }
 
-    @PostMapping("/question/create")
+    @PostMapping("/question/save")
     public String postQuestionCreate(@AuthenticationPrincipal User user, @ModelAttribute Question question, Model model){
         question.setUser(user);
         questionService.save(question);
