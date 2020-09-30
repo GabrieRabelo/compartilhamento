@@ -5,6 +5,8 @@ import br.pucrs.ages.townsq.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class QuestionService {
 
@@ -17,6 +19,10 @@ public class QuestionService {
 
     public Question save(Question question){
         return repository.save(question);
+    }
+
+    public List<Question> getIndexQuestions() {
+        return repository.findTop10ByOrderByCreatedAtDesc();
     }
 
 }

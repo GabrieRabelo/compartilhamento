@@ -26,11 +26,11 @@ public class QuestionController {
 
     /**
      * Returns the index page without being logged in.
-     * @param model
-     * @return
+     * @return index page
      */
     @GetMapping("/")
-    public String getIndexAnonymous(Model model){
+    public String getIndex(Model model){
+        model.addAttribute("questions", questionService.getIndexQuestions());
         return "index";
     }
 
