@@ -40,6 +40,8 @@ public class UserService {
                 new URL(u.getWebsite());
             }
             user.setWebsite(u.getWebsite());
+            if (u.getImage() != null && !u.getImage().equals(user.getImage()))
+                user.setImage(u.getImage());
             if(!StringUtils.isEmpty(u.getPassword())){
                 user.setPassword(bcPasswordEncoder.encode(u.getPassword()));
             }
