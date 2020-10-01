@@ -17,6 +17,7 @@ import org.springframework.security.core.AuthenticatedPrincipal;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -49,7 +50,8 @@ public class UserController {
      * @return redirect to sigin page
      */
     @PostMapping("/signup")
-    public String postUserSignup(@ModelAttribute User user, Model model){
+    public String postUserSignup(@ModelAttribute User user, Model model, HttpServletRequest request){
+        String pass = user.getPassword();
         try {
             service.save(user);
         } catch (DataIntegrityViolationException error) {
@@ -69,7 +71,13 @@ public class UserController {
             model.addAttribute("error", "Erro ao processar cadastro.");
             return "signup";
         }
-        return "redirect:/signin";
+        try {
+            request.login(user.getUsername(), pass);
+        } catch (ServletException e) {
+            model.addAttribute("error", e.getMessage());
+        }
+        model.addAttribute("success", "Cadastro realizado com sucesso!");
+        return "users";
     }
 
     /**
