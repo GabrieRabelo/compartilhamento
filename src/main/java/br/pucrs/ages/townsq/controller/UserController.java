@@ -77,7 +77,7 @@ public class UserController {
             model.addAttribute("error", e.getMessage());
         }
         model.addAttribute("success", "Cadastro realizado com sucesso!");
-        return "users";
+        return "index";
     }
 
     /**
