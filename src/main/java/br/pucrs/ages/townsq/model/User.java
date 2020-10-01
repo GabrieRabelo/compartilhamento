@@ -21,7 +21,7 @@ public class User implements UserDetails {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     @NotNull(message = "Nome não pode ser nulo.")
     @NotEmpty(message = "Nome não pode ser vazio.")
     @Column(name = "name", columnDefinition = "VARCHAR(50)", nullable =  false)

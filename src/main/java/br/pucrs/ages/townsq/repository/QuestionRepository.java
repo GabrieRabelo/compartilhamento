@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, Long> {
 
-	List<Question> findTop10ByOrderByCreatedAtDesc();
+	List<Question> findTop10ByStatusEqualsOrderByCreatedAtDesc(int status);
 }

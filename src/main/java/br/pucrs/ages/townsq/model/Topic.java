@@ -22,7 +22,7 @@ public class Topic {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(name = "name", unique = true)
     @NotEmpty

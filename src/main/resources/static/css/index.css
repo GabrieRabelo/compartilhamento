@@ -20,7 +20,7 @@ aside {
     width: 50%;
 }
 
-.index-anon h1, p {
+.index-anon h1, .index-anon p {
     color: #FFFFFF;
     text-align: center;
     margin-bottom: 48px;
@@ -189,6 +189,7 @@ aside {
     display: flex;
     flex-direction: column;
     white-space: nowrap;
+    text-align: center;
 }
 
 #mobile-icon {

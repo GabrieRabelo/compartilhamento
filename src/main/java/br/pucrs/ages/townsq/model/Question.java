@@ -21,7 +21,7 @@ public class Question {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     @NotNull(message = "Título não pode ser nulo.")
     @NotEmpty(message = "Título não pode ser vazio.")
     @Column(name = "title", columnDefinition = "VARCHAR(50)", nullable =  false)
@@ -45,6 +45,12 @@ public class Question {
     @JoinColumn(name = "topicId", nullable = false)
     private Topic topic;
     @Column(name = "status")
-    private int status;
+    private int status = 1;
+
+    public void setUser(User u){
+        if(this.user == null){
+            this.user = u;
+        }
+    }
 
 }
