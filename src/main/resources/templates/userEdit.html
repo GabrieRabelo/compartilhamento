@@ -59,6 +59,7 @@
             <br>
             <div class="row">
                 <form role="form" th:action="@{/user/edit}" th:method="post" th:object="${user}" enctype="multipart/form-data">
+                    <input type="hidden" name="id" th:value="${user.getId()}" />
                     <div class="row px-4">
                         <div class="col-5">
                             <div style="width: 7vw; height: 7vw" class="avatar justify-center align-center link"
