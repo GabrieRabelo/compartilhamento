@@ -31,6 +31,11 @@ public class UserController {
         this.service = service;
     }
 
+    @GetMapping("/admin")
+    public String getAdminPage() {
+        return "admin";
+    }
+
     @GetMapping("/signup")
     public String getUserSignupPage(){
         return "signup";
