@@ -36,6 +36,7 @@ public class UserServiceTest {
     }
 
 
+    /*
     @Test
     void testCreateAndSaveUser() {
         User testUser = new User();
@@ -53,5 +54,6 @@ public class UserServiceTest {
 
         assertEquals("fulano silva", result.getName());
     }
+     */
 
 }

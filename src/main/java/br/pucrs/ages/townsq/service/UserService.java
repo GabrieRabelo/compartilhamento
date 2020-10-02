@@ -1,6 +1,5 @@
 package br.pucrs.ages.townsq.service;
 
-import br.pucrs.ages.townsq.model.Role;
 import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.repository.RoleRepository;
 import br.pucrs.ages.townsq.repository.UserRepository;
@@ -9,6 +8,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -35,13 +36,18 @@ public class UserService {
         return repository.save(u);
     }
 
-    public User update(User u, String authEmail){
+    public User update(User u, String authEmail) throws MalformedURLException {
         User user = findByEmail(authEmail).orElse(null);
         if(user != null){
             user.setName(u.getName());
             user.setBio(u.getBio());
             user.setCompany(u.getCompany());
+            if(!StringUtils.isEmpty(u.getWebsite())){
+                new URL(u.getWebsite());
+            }
             user.setWebsite(u.getWebsite());
+            if (u.getImage() != null && !u.getImage().equals(user.getImage()))
+                user.setImage(u.getImage());
             if(!StringUtils.isEmpty(u.getPassword())){
                 user.setPassword(bcPasswordEncoder.encode(u.getPassword()));
             }

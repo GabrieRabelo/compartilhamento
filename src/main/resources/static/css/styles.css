@@ -61,8 +61,10 @@ button:hover{
 .avatar {
     width: 100%;
     height: 100%;
+    object-fit: cover;
     background-color: lightgray;
     border-radius: 50%;
+    border-width: 0px !important;
 }
 
 .question-card-divider{
@@ -416,6 +418,10 @@ button:hover{
     text-align: center;
     color: #FFFFFF;
     font-weight: bolder;
+}
+
+.company-values{
+    font-weight: lighter
 }
 
 .bg-offwhite{
