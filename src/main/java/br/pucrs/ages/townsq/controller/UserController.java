@@ -5,15 +5,11 @@ import br.pucrs.ages.townsq.service.UserService;
 import org.hibernate.validator.internal.engine.ConstraintViolationImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.View;
-import org.springframework.security.core.AuthenticatedPrincipal;
-import org.springframework.security.core.Authentication;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -99,7 +95,7 @@ public class UserController {
     }
 
     @GetMapping(value = {"/user/{id}"})
-    public String getUserById(HttpServletRequest request, @PathVariable long id,Model model, HttpSession session){
+    public String getUserById(HttpServletRequest request, @PathVariable long id, Model model, HttpSession session){
         User user = service.findById(id).orElse(null);
         model.addAttribute("user", user);
         return "user";

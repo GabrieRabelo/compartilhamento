@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <div th:replace="fragments/head :: header"></div>
     <title>Usuário</title>
@@ -44,7 +45,7 @@
             <h1>Biografia</h1>
             <p th:text="${user.getBio()}"></p>
         </div>
-        <div th:if="${#authentication.getPrincipal().id == user.getId()}" class="white-background">
+        <div sec:authorize="isAuthenticated()" th:if="${#authentication.getPrincipal().id == user.getId()}" class="white-background">
             <button onclick="document.querySelector('#link').click()">Editar perfil</button>
             <a id="link" th:href="@{/user/edit}"></a>
         </div>

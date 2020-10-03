@@ -31,10 +31,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests().regexMatchers("\\/question\\/\\d+(\\/.*)?").permitAll()
                 .and()
-                .authorizeRequests().antMatchers("/signin/**", "/", "/signup/**").anonymous()
+                .authorizeRequests().antMatchers("/signin/**", "/signup/**").anonymous()
                 .and()
-
-                .authorizeRequests().antMatchers("/css/**","/img/**").permitAll()
+                .authorizeRequests().antMatchers("/user/edit").authenticated()
+                .and()
+                .authorizeRequests().antMatchers("/css/**", "/img/**", "/", "/user/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

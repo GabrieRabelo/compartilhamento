@@ -43,7 +43,7 @@
                 <div class="question-creator">
                     <img alt="Imagem do perfil do usuário" src="img/user.svg"/>
                     <div class="name-last-access">
-                        <p th:text="${question.getUser().getName()}"></p>
+                        <a th:href="@{/user/{id}(id=${question.getUser().getId()})}" th:text="${question.getUser().getName()}"></a>
                         <small th:text="${question.getCreatedAtString()}"></small>
                     </div>
                 </div>

@@ -145,8 +145,10 @@ aside {
     height: 100%;
 }
 
-.question-creator p {
+.question-creator p, .question-creator a {
     margin: 0;
+    text-decoration: none;
+    color: #000000;
 }
 
 .question-text {
