@@ -24,11 +24,30 @@ public class QuestionService {
      * @param question The Question object
      * @param user The User (creator)
      * @return Question
-     * @throws Exception
      */
     public Question save(Question question, User user){
         question.setUser(user);
         return repository.save(question);
+    }
+
+    /**
+     * Edits a question if it belongs to the user
+     * @param question The question
+     * @param user The user
+     * @return Question
+     * @throws Exception Invalid operation
+     */
+    public Question edit(Question question, User user) throws Exception{
+        Question currentQuestion = repository.findById(question.getId()).orElse(null);
+
+        if(currentQuestion == null || !currentQuestion.getUser().getId().equals(user.getId()))
+            throw new IllegalArgumentException("A pergunta não pertence ao usuário.");
+
+        currentQuestion.setTitle(question.getTitle());
+        currentQuestion.setTopic((question.getTopic()));
+        currentQuestion.setDescription(question.getDescription());
+
+        return repository.save(currentQuestion);
     }
 
     /**
@@ -54,7 +73,7 @@ public class QuestionService {
      * @param questionId The question id
      * @return boolean
      */
-    public boolean deleteQuestionOfUser(long userId, long questionId) {
+    public boolean delete(long userId, long questionId) {
         Question question = repository.findById(questionId).orElse(null);
         if(question != null){
             if(question.getUser().getId() == userId && question.getStatus() == 1){

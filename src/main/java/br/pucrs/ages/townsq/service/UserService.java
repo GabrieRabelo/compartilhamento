@@ -29,7 +29,7 @@ public class UserService {
     }
 
     public User update(User u, String authEmail){
-        User user = findByEmail(authEmail).orElse(null);
+        User user = repository.findByEmail(authEmail).orElse(null);
         if(user != null){
             user.setName(u.getName());
             user.setBio(u.getBio());
@@ -43,15 +43,15 @@ public class UserService {
         return user;
     }
 
-    public List<User> findAll(){
+    public List<User> getAll(){
         return repository.findAll();
     }
 
-    public Optional<User> findById(long id){
+    public Optional<User> getUserById(long id){
         return repository.findById(id);
     }
 
-    public Optional<User> findByEmail(String email){
+    public Optional<User> getUserByEmail(String email){
         return repository.findByEmail(email);
     }
 

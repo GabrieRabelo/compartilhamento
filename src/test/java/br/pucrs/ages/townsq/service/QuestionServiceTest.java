@@ -9,16 +9,12 @@ import org.junit.jupiter.api.Test;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -76,7 +72,7 @@ class QuestionServiceTest {
 		when(questionRepository.save(question))
 				.thenReturn(question);
 
-		boolean deleted = questionService.deleteQuestionOfUser(1L, 1L);
+		boolean deleted = questionService.delete(1L, 1L);
 
 		assertTrue(deleted);
 	}

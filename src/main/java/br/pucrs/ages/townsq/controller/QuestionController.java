@@ -66,21 +66,15 @@ public class QuestionController {
         try {
             Long questionId = null;
             if(question.getId() != null) {
-                Question currentQuestion = questionService.getQuestionById(question.getId()).orElse(null);
-                if (currentQuestion != null) {
-                    currentQuestion.setTitle(question.getTitle());
-                    currentQuestion.setTopic((question.getTopic()));
-                    currentQuestion.setDescription(question.getDescription());
-                    questionService.save(currentQuestion, user);
-                    questionId = currentQuestion.getId();
-                    redirectAttributes.addFlashAttribute("success", "Pergunta editada com sucesso!");
-                }
+                questionId = questionService.edit(question, user).getId();
+                redirectAttributes.addFlashAttribute("success", "Pergunta editada com sucesso!");
             } else{
                 questionId = questionService.save(question, user).getId();
                 redirectAttributes.addFlashAttribute("success", "Pergunta cadastrada com sucesso!");
             }
             return "redirect:/question/" + questionId + "/" + Slugify.toSlug(question.getTitle());
         } catch (Exception e) {
+            System.out.println(e);
             redirectAttributes.addFlashAttribute("error", "Não foi possível cadastrar ou editar a pergunta.");
             return "redirect:/";
         }
@@ -97,7 +91,7 @@ public class QuestionController {
     public String getDeleteQuestionRoute(@AuthenticationPrincipal User user,
                                          @PathVariable long questionId,
                                          final RedirectAttributes redirectAttributes){
-        boolean hasDeleted = questionService.deleteQuestionOfUser(user.getId(), questionId);
+        boolean hasDeleted = questionService.delete(user.getId(), questionId);
         if(hasDeleted)
             redirectAttributes.addFlashAttribute("success", "Pergunta deletada com sucesso!");
         else
@@ -147,8 +141,9 @@ public class QuestionController {
             if(question != null && question.getUser().getId().equals(user.getId())){
                 model.addAttribute("topics", topicService.getAllTopics());
                 model.addAttribute("question", question);
+                return "questionForm";
             }
-        return "questionForm";
+        return "redirect:/";
     }
 
 }

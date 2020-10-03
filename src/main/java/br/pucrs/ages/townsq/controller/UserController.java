@@ -90,20 +90,20 @@ public class UserController {
 
     @GetMapping("/users")
     public String getAllUsers(Model model){
-        model.addAttribute("users", service.findAll());
+        model.addAttribute("users", service.getAll());
         return "users";
     }
 
     @GetMapping(value = {"/user/{id}"})
     public String getUserById(HttpServletRequest request, @PathVariable long id, Model model, HttpSession session){
-        User user = service.findById(id).orElse(null);
+        User user = service.getUserById(id).orElse(null);
         model.addAttribute("user", user);
         return "user";
     }
 
     @GetMapping(value = {"/user/edit"})
     public String getUserEditById(HttpServletRequest request, Model model, Authentication auth){
-        User user = service.findByEmail(auth.getName()).orElse(null);
+        User user = service.getUserByEmail(auth.getName()).orElse(null);
         model.addAttribute("user", user);
         return "userEdit";
     }
