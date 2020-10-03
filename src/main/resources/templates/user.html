@@ -42,7 +42,8 @@
         <div class="line"></div>
         <div class="bio">
             <h1>Biografia</h1>
-            <p th:text="${user.getBio()}"></p>
+<!--        <p th:text="${user.getBio()}"></p>-->
+            <p>Biografia "mokada". A bio do usuário será exibida aqui.</p>
         </div>
         <div th:if="${#authentication.getPrincipal().id == user.getId()}" class="white-background">
             <button onclick="document.querySelector('#link').click()">Editar perfil</button>
