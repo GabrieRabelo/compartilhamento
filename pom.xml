@@ -97,6 +97,11 @@
 			<groupId>org.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-springsecurity5</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.ocpsoft.prettytime</groupId>
+			<artifactId>prettytime</artifactId>
+			<version>4.0.6.Final</version>
+		</dependency>
 	</dependencies>
 
 	<profiles>

@@ -19,7 +19,7 @@
                     <img alt="Imagem do perfil do usuário" src="/img/user.svg"/>
                     <div class="name-last-access">
                         <p th:text="${question.getUser().getName()}"></p>
-                        <small>2 horas</small>
+                        <small th:text="${question.getCreatedAtString()}"></small>
                     </div>
                 </div>
                 <div class="main-card-right">

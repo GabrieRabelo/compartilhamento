@@ -1,5 +1,6 @@
 package br.pucrs.ages.townsq.model;
 
+import br.pucrs.ages.townsq.utils.Chronos;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -51,6 +52,10 @@ public class Question {
         if(this.user == null){
             this.user = u;
         }
+    }
+
+    public String getCreatedAtString(){
+        return Chronos.dateToPrettyTimeString(this.createdAt);
     }
 
 }

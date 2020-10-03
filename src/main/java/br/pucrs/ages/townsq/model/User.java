@@ -1,5 +1,6 @@
 package br.pucrs.ages.townsq.model;
 
+import br.pucrs.ages.townsq.utils.Chronos;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -81,5 +82,9 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public String getCreatedAtString(){
+        return Chronos.dateToPrettyTimeString(this.createdAt);
     }
 }
