@@ -31,7 +31,7 @@ class QuestionServiceTest {
 		questionService = new QuestionService(questionRepository);
 	}
 
-	@DisplayName("Save the question in repository and should return the saved question")
+	@DisplayName("Salva uma pergunta no repositorio e deve retornar a mesma")
 	@Test
 	void testSaveQuestion() {
 		Question question = new Question(1L, "Olá", "essa fera ai meu", 1, new Timestamp(1), new Timestamp(1), null, null, 1);
@@ -45,6 +45,7 @@ class QuestionServiceTest {
 		assertEquals("Olá", result.getTitle());
 	}
 
+	@DisplayName("Deve retornar uma lista de perguntas do repositorio")
 	@Test
 	void testGetIndexQuestions() {
 		List<Question> questionList = new ArrayList<>();
