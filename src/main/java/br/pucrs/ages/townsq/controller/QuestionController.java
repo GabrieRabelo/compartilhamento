@@ -92,9 +92,8 @@ public class QuestionController {
         return "redirect:/";
     }
 
-
     @GetMapping(value = {"/question/{id}", "question/{id}/{slug}"})
-    public String getUserById(HttpServletRequest request,
+    public String getQuestionById(HttpServletRequest request,
                               @PathVariable long id,
                               @PathVariable(required = false) String slug,
                               Model model){
@@ -109,6 +108,14 @@ public class QuestionController {
             return "question";
         }
         return "question";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/question/edit/{id}")
+    public String editQuestionById(@AuthenticationPrincipal User user,
+                                   @PathVariable long questionId){
+        Question question = questionService.getQuestionById(questionId).orElse(null);
+
     }
 
 }
