@@ -13,34 +13,6 @@
 
     <div class="profile">
         <div class="profile-info">
-            <!--
-            <img class="profile-picture" th:if="!${user.getImage()}" src="/img/profilePic.svg" alt="Foto do usuário">
-            <img class="profile-picture" th:if="${user.getImage()}" th:src="${user.getImage()}" alt="Foto do usuário">
-
-            <div class="test">
-                <div class="info">
-                    <h1 th:text="${user.getName()}"></h1>
-                    <div class="align-center">
-                        <h4>Pontuação:</h4>
-                        <p th:text="${user.getScore()} + ' pontos'"></p>
-                    </div>
-                    <div class="align-center">
-                        <h4>Membro desde:</h4>
-                        <p th:text="${#dates.format(user.getCreatedAt(), 'dd/MM/yyyy')}"></p>
-                    </div>
-                </div>
-
-                <div class="tags">
-                    <div class="status-pill bg-answer mx-3">
-                        <small>21 respostas</small>
-                    </div>
-                    <div class="status-pill bg-question">
-                        <small>7 perguntas</small>
-                    </div>
-                </div>
-            </div>
-            -->
-
             <div class="image-profile">
                 <img class="profile-picture" th:if="!${user.getImage()}" src="/img/profilePic.svg" alt="Foto do usuário">
                 <img class="profile-picture" th:if="${user.getImage()}" th:src="${user.getImage()}" alt="Foto do usuário">
@@ -63,8 +35,6 @@
 
             </div>
         </div>
-
-
 
         <div class="line"></div>
         <div class="bio">
