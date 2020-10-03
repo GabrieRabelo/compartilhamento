@@ -13,6 +13,7 @@
 
     <div class="profile">
         <div class="profile-info">
+            <!--
             <img class="profile-picture" th:if="!${user.getImage()}" src="/img/profilePic.svg" alt="Foto do usuário">
             <img class="profile-picture" th:if="${user.getImage()}" th:src="${user.getImage()}" alt="Foto do usuário">
 
@@ -38,7 +39,33 @@
                     </div>
                 </div>
             </div>
+            -->
+
+            <div class="image-profile">
+                <img class="profile-picture" th:if="!${user.getImage()}" src="/img/profilePic.svg" alt="Foto do usuário">
+                <img class="profile-picture" th:if="${user.getImage()}" th:src="${user.getImage()}" alt="Foto do usuário">
+
+                <p>Administrador</p>
+            </div>
+
+            <div class="info-items">
+                <div class="name-items">
+                    <p class="name">TownSQ</p>
+                    <p class="member-since">Membro desde: </p>
+                    <p class="creation-date">20/09/2020</p>
+                </div>
+
+                <div class="tags-user">
+                    <p>Pontuação: 20 pontos</p>
+                    <p>7 perguntas </p>
+                    <p>13 respostas</p>
+                </div>
+
+            </div>
         </div>
+
+
+
         <div class="line"></div>
         <div class="bio">
             <h1>Biografia</h1>
