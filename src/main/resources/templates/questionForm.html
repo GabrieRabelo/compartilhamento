@@ -29,8 +29,9 @@
         </div>
         <div class="form-control form-big">
             <label for="description">Descreva sua Pergunta</label>
-            <textarea th:text="*{description}" id= "description" name="description" required></textarea>
+            <textarea th:text="*{description}" id= "description" name="description" required maxlength="512"></textarea>
         </div>
+        <p></p>
         <hr/>
         <div class="white-background question-create-button">
             <button th:if="${question.getId() == null}" type="submit">Criar Pergunta</button>
