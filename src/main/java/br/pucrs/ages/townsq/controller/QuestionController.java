@@ -65,6 +65,7 @@ public class QuestionController {
                                      @ModelAttribute Question question,
                                      final RedirectAttributes redirectAttributes){
         try {
+            Long questionId = null;
             if(question.getId() != null) {
                 Question currentQuestion = questionService.getQuestionById(question.getId()).orElse(null);
                 if (currentQuestion != null) {
@@ -72,20 +73,22 @@ public class QuestionController {
                     currentQuestion.setTopic((question.getTopic()));
                     currentQuestion.setDescription(question.getDescription());
                     questionService.save(currentQuestion, user);
+                    questionId = currentQuestion.getId();
                     redirectAttributes.addFlashAttribute("success", "Pergunta editada com sucesso!");
                 }
             } else{
-                questionService.save(question, user);
+                questionId = questionService.save(question, user).getId();
                 redirectAttributes.addFlashAttribute("success", "Pergunta cadastrada com sucesso!");
             }
+            return "redirect:/question/" + questionId + "/" + Slugify.toSlug(question.getTitle());
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Não foi possível cadastrar a pergunta.");
+            redirectAttributes.addFlashAttribute("error", "Não foi possível cadastrar ou editar a pergunta.");
+            return "redirect:/";
         }
-        return "redirect:/";
     }
 
     /**
-     *
+     * Route to soft delete a question
      * @param user The authenticated user
      * @param questionId The question id (long)
      * @return Page
@@ -103,6 +106,14 @@ public class QuestionController {
         return "redirect:/";
     }
 
+    /**
+     * Returns the question page
+     * @param request Incoming request
+     * @param id The question's id
+     * @param slug The question's slug (optional)
+     * @param model The view Model
+     * @return String
+     */
     @GetMapping(value = {"/question/{id}", "question/{id}/{slug}"})
     public String getQuestionById(HttpServletRequest request,
                               @PathVariable long id,
@@ -121,6 +132,13 @@ public class QuestionController {
         return "question";
     }
 
+    /**
+     * Returns the question editing form
+     * @param user The user
+     * @param id The question id
+     * @param model The view Model
+     * @return String
+     */
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/question/edit/{id}")
     public String editQuestionById(@AuthenticationPrincipal User user,

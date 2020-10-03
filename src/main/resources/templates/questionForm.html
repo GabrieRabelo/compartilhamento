@@ -10,7 +10,8 @@
 <body>
 <header th:replace="fragments/header.html :: header"></header>
     <div class="question-create-wrapper align-center justify-center col">
-    <h1>Crie uma nova pergunta</h1>
+    <h1 th:if="${question.getId() == null}">Crie uma nova pergunta</h1>
+    <h1 th:if="${question.getId() != null}">Edite a sua pergunta</h1>
     <form class="question-form" th:method="post" th:object="${question}" th:action="@{/question/save}">
         <div class="form-control form-big">
             <label for="title">Título da Pergunta</label>
