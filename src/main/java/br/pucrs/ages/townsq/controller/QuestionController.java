@@ -65,8 +65,19 @@ public class QuestionController {
                                      @ModelAttribute Question question,
                                      final RedirectAttributes redirectAttributes){
         try {
-            questionService.save(question, user);
-            redirectAttributes.addFlashAttribute("success", "Pergunta cadastrada com sucesso!");
+            if(question.getId() != null) {
+                Question currentQuestion = questionService.getQuestionById(question.getId()).orElse(null);
+                if (currentQuestion != null) {
+                    currentQuestion.setTitle(question.getTitle());
+                    currentQuestion.setTopic((question.getTopic()));
+                    currentQuestion.setDescription(question.getDescription());
+                    questionService.save(currentQuestion, user);
+                    redirectAttributes.addFlashAttribute("success", "Pergunta editada com sucesso!");
+                }
+            } else{
+                questionService.save(question, user);
+                redirectAttributes.addFlashAttribute("success", "Pergunta cadastrada com sucesso!");
+            }
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Não foi possível cadastrar a pergunta.");
         }
@@ -113,9 +124,16 @@ public class QuestionController {
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/question/edit/{id}")
     public String editQuestionById(@AuthenticationPrincipal User user,
-                                   @PathVariable long questionId){
-        Question question = questionService.getQuestionById(questionId).orElse(null);
-
+                                   @PathVariable long id,
+                                   Model model){
+        Question question = questionService.getQuestionById(id).orElse(null);
+        if(question != null){
+            if(question.getUser().getId().equals(user.getId())){
+                model.addAttribute("topics", topicService.getAllTopics());
+                model.addAttribute("question", question);
+            }
+        }
+        return "questionForm";
     }
 
 }

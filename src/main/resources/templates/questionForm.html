@@ -14,24 +14,26 @@
     <form class="question-form" th:method="post" th:object="${question}" th:action="@{/question/save}">
         <div class="form-control form-big">
             <label for="title">Título da Pergunta</label>
-            <input id= "title" type="text" name="title" required/>
+            <input th:value="*{title}" id= "title" type="text" name="title" required/>
         </div>
         <div class="form-control form-big">
             <label for="topic">Tópico da Pergunta</label>
             <select id="topic" name="topic" required>
                 <option disabled value="" selected hidden>Selecione um tópico...</option>
                 <th:block th:each="topic : ${topics}">
-                    <option th:value="${topic.getId()}" th:text="${topic.getName()}"></option>
+                    <option th:if="${question.getId() == null}" th:value="${topic.getId()}" th:text="${topic.getName()}"></option>
+                    <option th:if="${question.getId() != null}" th:selected="${topic.getId() == question.getTopic().getId()}" th:value="${topic.getId()}" th:text="${topic.getName()}"></option>
                 </th:block>
             </select>
         </div>
         <div class="form-control form-big">
             <label for="description">Descreva sua Pergunta</label>
-            <textarea id= "description" name="description" required></textarea>
+            <textarea th:text="*{description}" id= "description" name="description" required></textarea>
         </div>
         <hr/>
         <div class="white-background question-create-button">
-            <button type="submit">Enviar Pergunta</button>
+            <button th:if="${question.getId() == null}" type="submit">Criar Pergunta</button>
+            <button th:if="${question.getId() != null}" type="submit">Editar Pergunta</button>
         </div>
 
         <input th:type="hidden" id="id" th:field="*{id}">
