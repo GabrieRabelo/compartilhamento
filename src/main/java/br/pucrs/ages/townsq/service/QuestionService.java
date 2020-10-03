@@ -26,7 +26,7 @@ public class QuestionService {
      * @return Question
      * @throws Exception
      */
-    public Question save(Question question, User user) throws Exception{
+    public Question save(Question question, User user){
         question.setUser(user);
         return repository.save(question);
     }
@@ -44,7 +44,9 @@ public class QuestionService {
      * @param id The question's id
      * @return Optional of Question
      */
-    public Optional<Question> getQuestionById(long id) { return repository.findById(id); }
+    public Optional<Question> getQuestionById(long id) {
+        return repository.findById(id);
+    }
 
     /**
      * Performs a soft delete of a question if the user is it's creator

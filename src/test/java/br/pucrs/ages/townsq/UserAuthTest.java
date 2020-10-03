@@ -3,7 +3,6 @@ package br.pucrs.ages.townsq;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import br.pucrs.ages.townsq.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -19,16 +18,16 @@ public class UserAuthTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private UserService userService;
-
     /**
      * Tests the request to get the homepage of the application.
      * @throws Exception
      */
     @Test
     public void testGetIndexPage() throws Exception {
-        this.mockMvc.perform(get("/")).andExpect(status().isOk()).andExpect(view().name("index"));
+        this.mockMvc
+                .perform(get("/"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("index"));
     }
 
     /**
@@ -37,17 +36,10 @@ public class UserAuthTest {
      */
     @Test
     public void testGetUsersPageAsAnon() throws Exception {
-        this.mockMvc.perform(get("/users")).andExpect(status().is3xxRedirection()).andExpect(redirectedUrl("http://localhost/signin"));
-    }
-
-
-    /**
-     * Tests the request to get the question page.
-     * @throws Exception
-     */
-    @Test
-    public void testGetQuestionPage() throws Exception {
-        this.mockMvc.perform(get("/question")).andExpect(status().isOk()).andExpect(view().name("question"));
+        this.mockMvc
+                .perform(get("/users"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("http://localhost/signin"));
     }
 
     /**
@@ -56,7 +48,9 @@ public class UserAuthTest {
      */
     @Test
     public void testGetSigninPage() throws Exception {
-        this.mockMvc.perform(get("/signin")).andExpect(status().isOk()).andExpect(view().name("signin"));
+        this.mockMvc
+                .perform(get("/signin"))
+                .andExpect(status().isOk()).andExpect(view().name("signin"));
     }
 
     /**
@@ -65,7 +59,10 @@ public class UserAuthTest {
      */
     @Test
     public void testGetSignupPage() throws Exception {
-        this.mockMvc.perform(get("/signup")).andExpect(status().isOk()).andExpect(view().name("signup"));
+        this.mockMvc
+                .perform(get("/signup"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("signup"));
     }
 
 }

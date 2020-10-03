@@ -145,12 +145,10 @@ public class QuestionController {
                                    @PathVariable long id,
                                    Model model){
         Question question = questionService.getQuestionById(id).orElse(null);
-        if(question != null){
-            if(question.getUser().getId().equals(user.getId())){
+            if(question != null && question.getUser().getId().equals(user.getId())){
                 model.addAttribute("topics", topicService.getAllTopics());
                 model.addAttribute("question", question);
             }
-        }
         return "questionForm";
     }
 
