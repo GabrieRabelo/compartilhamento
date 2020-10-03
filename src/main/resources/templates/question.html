@@ -6,7 +6,7 @@
 <head>
     <div th:replace="fragments/head :: header"></div>
     <link rel="stylesheet" th:href="@{/css/question.css}">
-    <title>Pergunta XYZ</title>
+    <title th:text="${question.getTitle()} + ' - Townsq'"></title>
 </head>
 <body>
 <header th:replace="fragments/header.html :: header"></header>
