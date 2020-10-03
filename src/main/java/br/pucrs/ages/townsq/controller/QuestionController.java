@@ -4,14 +4,18 @@ import br.pucrs.ages.townsq.model.Question;
 import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.service.QuestionService;
 import br.pucrs.ages.townsq.service.TopicService;
+import br.pucrs.ages.townsq.utils.Slugify;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
+import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -34,15 +38,6 @@ public class QuestionController {
     public String getIndex(Model model){
         model.addAttribute("questions", questionService.getIndexQuestions());
         return "index";
-    }
-
-    /**
-     * Returns the Question page with it's contents. Will be implemented on future sprints.
-     * @return question page
-     */
-    @GetMapping("/question")
-    public String getQuestionPage(){
-        return "question";
     }
 
     /**
@@ -97,23 +92,23 @@ public class QuestionController {
         return "redirect:/";
     }
 
-    /*
+
     @GetMapping(value = {"/question/{id}", "question/{id}/{slug}"})
     public String getUserById(HttpServletRequest request,
                               @PathVariable long id,
                               @PathVariable(required = false) String slug,
                               Model model){
-        Question question = questionService.findById(id).orElse(null);
+        Question question = questionService.getQuestionById(id).orElse(null);
         if(question != null){
             String questionSlug = Slugify.toSlug(question.getTitle());
             if(slug == null || !slug.equals(questionSlug)){
                 request.setAttribute(View.RESPONSE_STATUS_ATTRIBUTE, HttpStatus.MOVED_PERMANENTLY);
-                return "redirect:/users/" + id + "/" + questionSlug;
+                return "redirect:/question/" + id + "/" + questionSlug;
             }
             model.addAttribute("question", question);
             return "question";
         }
         return "question";
-    }*/
+    }
 
 }

@@ -18,22 +18,22 @@
                 <div class="main-card-left">
                     <img alt="Imagem do perfil do usuário" src="img/user.svg"/>
                     <div class="name-last-access">
-                        <p>Bruno Almeida</p>
+                        <p th:text="${question.getUser().getName()}"></p>
                         <small>2 horas</small>
                     </div>
                 </div>
                 <div class="main-card-right">
                     <div class="question-title">
-                        <a href="/question">Título da pergunta</a>
+                        <p th:text="${question.getTitle()}"></p>
                     </div>
                     <div class="question-text">
-                        <p>No prédio em que sou síndico está tendo uma discussão durante as reuniões sobre a presença q...</p>
+                        <p th:text="${question.getDescription()}"></p>
                     </div>
                 </div>
             </div>
-            <div class="action-icons">
-                <a href="#"><img th:src="@{/img/icons/lapis.svg}"/></a>
-                <a href="#"><img th:src="@{/img/icons/lixeira.svg}"/></a>
+            <div sec:authorize="isAuthenticated()" th:if="${#authentication.getPrincipal().id==question.getUser().getId()}" class="action-icons">
+                <a href="#"><img alt="editar" th:src="@{/img/icons/lapis.svg}"/></a>
+                <a th:href="@{/question/delete/{id}(id=${question.getId()})}"><img alt="deletar" th:src="@{/img/icons/lixeira.svg}"/></a>
             </div>
         </div>
         <div class="status-pill-questions self-end bg-danger">
