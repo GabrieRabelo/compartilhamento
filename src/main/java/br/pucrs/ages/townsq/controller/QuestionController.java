@@ -16,13 +16,12 @@ import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @Controller
 public class QuestionController {
 
-    private TopicService topicService;
-    private QuestionService questionService;
+    private final TopicService topicService;
+    private final QuestionService questionService;
 
     @Autowired
     public QuestionController(TopicService topicService, QuestionService questionService){
