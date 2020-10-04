@@ -58,6 +58,7 @@ header nav img{
 .dropdown {
     position: relative;
     display: inline-block;
+
 }
 
 .dropdown-content {
@@ -80,8 +81,6 @@ header nav img{
 .dropdown-content a:hover {background-color: #FFFFFF;}
 
 .dropdown:hover .dropdown-content {display: block;}
-
-.dropdown:hover .dropbtn {background-color: #3e8e41;}
 
 @media (min-width: 320px) and (max-width: 480px) {
 
@@ -114,6 +113,10 @@ header nav img{
 
     .show-only-mobile{
         display: block;
+    }
+
+    .dropdown-content {
+        position:absolute; left:-120px;
     }
 }
 
