@@ -1,4 +1,4 @@
-package br.pucrs.ages.townsq.config;
+package br.pucrs.ages.townsq.components;
 
 import br.pucrs.ages.townsq.model.Topic;
 import br.pucrs.ages.townsq.repository.TopicRepository;

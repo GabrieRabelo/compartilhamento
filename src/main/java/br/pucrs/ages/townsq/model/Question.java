@@ -1,5 +1,6 @@
 package br.pucrs.ages.townsq.model;
 
+import br.pucrs.ages.townsq.components.QuestionListener;
 import br.pucrs.ages.townsq.utils.Chronos;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,6 +14,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@EntityListeners(QuestionListener.class)
 @Table(name = "questions")
 @NoArgsConstructor
 @AllArgsConstructor
