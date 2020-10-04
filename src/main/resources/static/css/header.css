@@ -78,7 +78,10 @@ header nav img{
     font-size: small;
 }
 
-.dropdown-content a:hover {background-color: #FFFFFF;}
+.dropdown-content a:hover {
+    background-color: #FFFFFF;
+    font-weight: bold;
+}
 
 .dropdown:hover .dropdown-content {display: block;}
 
@@ -118,6 +121,7 @@ header nav img{
     .dropdown-content {
         position:absolute; left:-120px;
     }
+
 }
 
 @media (max-width: 1025px) {
