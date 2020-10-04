@@ -36,13 +36,12 @@ header nav img{
 }
 
 #profile-anchor{
-    position: absolute;
-    right: 20px;
+
 }
 
 #profile-anchor img{
     margin: 0;
-    border-radius: 500px;
+    border-radius: 50%;
     border-width: 4px;
     border-style: solid;
     border-color: #FFFFFF;
@@ -55,6 +54,33 @@ header nav img{
 .show-only-mobile{
     display: none;
 }
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {background-color: #FFFFFF;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
 
 @media (min-width: 320px) and (max-width: 480px) {
 
