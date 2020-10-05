@@ -1,7 +1,7 @@
-package br.pucrs.ages.townsq.components;
+package br.pucrs.ages.townsq.listeners;
 
-import br.pucrs.ages.townsq.model.Question;
-import br.pucrs.ages.townsq.service.ReputationLogService;
+import br.pucrs.ages.townsq.model.ReputationLog;
+import br.pucrs.ages.townsq.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -10,17 +10,17 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PostPersist;
 
 @Component
-public class QuestionListener {
+public class ReputationLogListener {
 
     @PersistenceContext
     private EntityManager entityManager;
 
     @Autowired
-    private ReputationLogService reputationService;
+    private UserService userService;
 
     @PostPersist
-    public void updateQuestionCreatorScore(Question question){
-        reputationService.createdQuestionLog(question);
+    public void updateUserScore(ReputationLog repLog){
+        userService.updateUserScore(repLog.getToUser(), repLog.getPoints());
     }
 
 }

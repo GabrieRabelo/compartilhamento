@@ -1,6 +1,6 @@
 package br.pucrs.ages.townsq.model;
 
-import br.pucrs.ages.townsq.components.ReputationLogListener;
+import br.pucrs.ages.townsq.listeners.ReputationLogListener;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

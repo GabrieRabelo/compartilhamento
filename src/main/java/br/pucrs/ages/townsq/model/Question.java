@@ -1,6 +1,6 @@
 package br.pucrs.ages.townsq.model;
 
-import br.pucrs.ages.townsq.components.QuestionListener;
+import br.pucrs.ages.townsq.listeners.QuestionListener;
 import br.pucrs.ages.townsq.utils.Chronos;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
