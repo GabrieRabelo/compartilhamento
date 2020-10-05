@@ -61,6 +61,7 @@ public class QuestionController {
             } else{
                 questionId = questionService.save(question, user).getId();
                 redirectAttributes.addFlashAttribute("success", "Pergunta cadastrada com sucesso!");
+                redirectAttributes.addFlashAttribute("success", "Você ganhou 20 pontos!");
             }
             return "redirect:/question/" + questionId + "/" + Slugify.toSlug(question.getTitle());
         } catch (Exception e) {
