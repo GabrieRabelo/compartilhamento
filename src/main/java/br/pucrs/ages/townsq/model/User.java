@@ -1,6 +1,5 @@
 package br.pucrs.ages.townsq.model;
 
-import br.pucrs.ages.townsq.components.UserListener;
 import br.pucrs.ages.townsq.utils.Chronos;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -15,7 +14,6 @@ import javax.validation.constraints.NotNull;
 import java.util.Collection;
 
 @Entity
-@EntityListeners(UserListener.class)
 @Table(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
@@ -57,6 +55,8 @@ public class User implements UserDetails {
     @CreationTimestamp
     @Column(name = "createdAt")
     private java.sql.Timestamp createdAt;
+    @Column(name = "hasCompletedProfile", columnDefinition = "SMALLINT")
+    private Integer hasCompletedProfile = 0;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -16,12 +16,14 @@ public class UserServiceTest {
     private UserService service;
     private UserRepository userRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private ReputationLogService reputationLogService;
 
     @BeforeEach
     void setUp(){
         userRepository = mock(UserRepository.class);
         bCryptPasswordEncoder = mock(BCryptPasswordEncoder.class);
-        this.service = new UserService(userRepository, bCryptPasswordEncoder);
+
+        this.service = new UserService(userRepository, bCryptPasswordEncoder, reputationLogService);
     }
 
     @Test

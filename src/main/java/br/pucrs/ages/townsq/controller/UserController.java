@@ -168,7 +168,7 @@ public class UserController {
             Files.write(path, bytes);
 
             String oldImage = user.getImage();
-            if(!oldImage.equals(ROOT_TO_STATIC + STATIC + "defaultUser.svg")){
+            if(oldImage != null && !oldImage.equals(ROOT_TO_STATIC + STATIC + "defaultUser.svg")){
                 Files.delete(Paths.get(ROOT_TO_STATIC + oldImage));
             }
 

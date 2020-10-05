@@ -32,8 +32,8 @@ class QuestionServiceTest {
 	@DisplayName("Salva uma pergunta no repositorio e deve retornar a mesma")
 	@Test
 	void testSaveQuestion() {
-		Question question = new Question(1L, "Olá", "essa fera ai meu", 1, new Timestamp(1), new Timestamp(1), null, null, 1);
-		User user = new User(1L, "Rabelo", "rabelo", "rabelo@rab.elo", 1, null, null, null, null, null, null, null);
+		Question question = new Question(null, "Olá", "essa fera ai meu", 1, new Timestamp(1), new Timestamp(1), null, null, 1);
+		User user = new User(1L, "Rabelo", "rabelo", "rabelo@rab.elo", 1, null, null, null, null, null, null, null, null);
 
 		when(questionRepository.save(any(Question.class)))
 				.thenReturn(question);
@@ -63,7 +63,7 @@ class QuestionServiceTest {
 	@DisplayName("Deve realizar um soft delete de uma pergunta")
 	@Test
 	void testDeleteQuestionOfUser() {
-		User user = new User(1L, "Rabelo", "rabelo", "rabelo@rab.elo", 1, null, null, null, null, null, null, null);
+		User user = new User(1L, "Rabelo", "rabelo", "rabelo@rab.elo", 1, null, null, null, null, null, null, null, null);
 		Question question = new Question(1L, "Olá", "essa fera ai meu", 1, new Timestamp(1L), new Timestamp(1L), user, null, 1);
 
 		when(questionRepository.findById(1L))

@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import javax.transaction.Transactional;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
@@ -17,11 +18,13 @@ public class UserService {
 
     private final UserRepository repository;
     private final BCryptPasswordEncoder bcPasswordEncoder;
+    private final ReputationLogService reputationLogService;
 
     @Autowired
-    public UserService(UserRepository repo, BCryptPasswordEncoder encoder){
+    public UserService(UserRepository repo, BCryptPasswordEncoder encoder, ReputationLogService repService){
         bcPasswordEncoder = encoder;
         repository = repo;
+        reputationLogService = repService;
     }
 
     public User save(User u){
@@ -43,6 +46,11 @@ public class UserService {
                 editUser.setImage(u.getImage());
             if(!StringUtils.isEmpty(u.getPassword())){
                 editUser.setPassword(bcPasswordEncoder.encode(u.getPassword()));
+            }
+            if(!StringUtils.isEmpty(editUser.getBio()) && !StringUtils.isEmpty(editUser.getImage())
+                    && editUser.getHasCompletedProfile() == 0){
+                editUser.setHasCompletedProfile(1);
+                reputationLogService.createUserProfileLog(editUser);
             }
             repository.save(editUser);
         }

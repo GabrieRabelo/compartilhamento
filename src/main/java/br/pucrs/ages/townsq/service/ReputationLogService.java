@@ -4,17 +4,21 @@ import br.pucrs.ages.townsq.model.Question;
 import br.pucrs.ages.townsq.model.ReputationLog;
 import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.repository.ReputationLogRepository;
+import br.pucrs.ages.townsq.repository.UserRepository;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ReputationLogService {
 
-    private ReputationLogRepository repository;
+    private ReputationLogRepository reputationRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public ReputationLogService(ReputationLogRepository repo){
-        this.repository = repo;
+    public ReputationLogService(ReputationLogRepository reputationRepository, UserRepository userRepo){
+        this.reputationRepository = reputationRepository;
+        this.userRepository = userRepo;
     }
 
     public ReputationLog createdQuestionLog(Question question){
@@ -28,7 +32,18 @@ public class ReputationLogService {
                 .fromUser(question.getUser())
                 .build();
 
-        return repository.save(toPersist);
+        return reputationRepository.save(toPersist);
+    }
+
+    public void createUserProfileLog(User user){
+        ReputationLog toPersist = ReputationLog.builder()
+                .eventType("COMPLETED_PROFILE")
+                .points(20)
+                .isActive(1)
+                .toUser(user)
+                .fromUser(user)
+                .build();
+        reputationRepository.save(toPersist);
     }
 
 }
