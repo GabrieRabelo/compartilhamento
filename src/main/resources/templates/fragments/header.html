@@ -11,13 +11,19 @@
             </div>
             <a href="/" id="index-anchor">Início</a>
             <a href="#" id="ask-anchor" th:classappend="${#request.userPrincipal} ? 'show-only-mobile' : ''">Perguntar</a>
-            <a sec:authorize="isAnonymous()" href="/user/edit" id="profile-anchor-link">Perfil</a>
-            <a sec:authorize="isAuthenticated()" th:href="'/user/' + ${#authentication.getPrincipal().getId()}" id="profile-anchor">
+            <div sec:authorize="isAuthenticated()" id="profile-anchor">
+            <div class="dropdown">
                 <img th:if="${#authentication.getPrincipal().getImage() == null}" src="/img/user.svg" alt="Imagem de perfil"/>
                 <div style="width: 40px; height: 40px" th:if="${#authentication.getPrincipal().getImage() != null}">
                     <img class="avatar" th:src="${#authentication.getPrincipal().getImage()}" alt="Imagem de perfil"/>
                 </div>
-            </a>
+                <div class="dropdown-content">
+                    <a th:href="'/user/' + ${#authentication.getPrincipal().getId()}">Ver Perfil</a>
+                    <a th:href="'/'">Alterar Senha</a>
+                    <a th:href="'/logout'"> Sair </a>
+                </div>
+            </div>
+            </div>
             <div sec:authorize="isAuthenticated()">
                 <button onclick="location.href='/users'" class="button-green-ease">Perguntar</button>
             </div>

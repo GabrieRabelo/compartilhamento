@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +29,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.net.MalformedURLException;
+import java.util.UUID;
 
 @Controller
 public class UserController {
@@ -114,7 +116,7 @@ public class UserController {
     }
 
     @GetMapping(value = {"/user/{id}"})
-    public String getUserById(HttpServletRequest request, @PathVariable long id,Model model, HttpSession session){
+    public String getUserById(HttpServletRequest request, @PathVariable long id, Model model, HttpSession session){
         User user = service.findById(id).orElse(null);
         model.addAttribute("user", user);
         return "user";
@@ -128,16 +130,25 @@ public class UserController {
     }
 
     @PostMapping("/user/edit")
-    public String postUserUpdate(@RequestParam("fileimage") MultipartFile file, @ModelAttribute User user, Model model, Authentication auth){
+    public String postUserUpdate(@RequestParam("fileimage") MultipartFile file, @ModelAttribute User user, Model model, @AuthenticationPrincipal User userPrincipal){
+
+        User userEdit = service.findById(user.getId()).orElse(null);
+
+        if(userEdit == null){
+            model.addAttribute("error", "Erro ao localizar usuário");
+            return "userEdit";
+        }
+
         if (!file.isEmpty()) {
-            String path = singleFileUpload(file, user);
+            String path = singleFileUpload(file, userEdit);
             user.setImage(path);
         }
         try {
-            service.update(user, auth.getName());
+            service.update(user, userEdit);
+            userPrincipal.setImage(user.getImage());
         } catch (MalformedURLException e) {
             model.addAttribute("error", "URL inválida!");
-            model.addAttribute("user", service.findByEmail(auth.getName()).orElse(null));
+            model.addAttribute("user", service.findByEmail(userEdit.getEmail()).orElse(null));
             return "userEdit";
         } catch (Exception e) {
             model.addAttribute("error", "Erro ao atualizar perfil.");
@@ -151,25 +162,29 @@ public class UserController {
     public String singleFileUpload(@RequestParam("file") MultipartFile file, User user) {
         String ROOT_TO_STATIC = "./src/main/resources/static";
         String STATIC = "/img/users/";
-
+        String uniqueID = UUID.randomUUID().toString();
         if (file.isEmpty()) {
             return ROOT_TO_STATIC + STATIC + "defaultUser.svg";
         }
 
         Path path = null;
-        String strPath = ROOT_TO_STATIC + STATIC + "user" + user.getId() + getFileExtension(file.getOriginalFilename());
+        String strPath = STATIC + uniqueID + getFileExtension(file.getOriginalFilename());
         try {
-
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
-            path = Paths.get(strPath);
+            path = Paths.get(ROOT_TO_STATIC + strPath);
             Files.write(path, bytes);
+
+            String oldImage = user.getImage();
+            if(!oldImage.equals(ROOT_TO_STATIC + STATIC + "defaultUser.svg")){
+                Files.delete(Paths.get(ROOT_TO_STATIC + oldImage));
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return STATIC + "user" + user.getId() + getFileExtension(file.getOriginalFilename());
+        return strPath;
     }
 
     private String getFileExtension(String filename) {

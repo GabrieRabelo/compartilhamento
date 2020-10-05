@@ -30,24 +30,23 @@ public class UserService {
         return repository.save(u);
     }
 
-    public User update(User u, String authEmail) throws MalformedURLException {
-        User user = findByEmail(authEmail).orElse(null);
-        if(user != null){
-            user.setName(u.getName());
-            user.setBio(u.getBio());
-            user.setCompany(u.getCompany());
+    public User update(User u, User editUser) throws MalformedURLException {
+        if(editUser != null){
+            editUser.setName(u.getName());
+            editUser.setBio(u.getBio());
+            editUser.setCompany(u.getCompany());
             if(!StringUtils.isEmpty(u.getWebsite())){
                 new URL(u.getWebsite());
             }
-            user.setWebsite(u.getWebsite());
-            if (u.getImage() != null && !u.getImage().equals(user.getImage()))
-                user.setImage(u.getImage());
+            editUser.setWebsite(u.getWebsite());
+            if (u.getImage() != null && !u.getImage().equals(editUser.getImage()))
+                editUser.setImage(u.getImage());
             if(!StringUtils.isEmpty(u.getPassword())){
-                user.setPassword(bcPasswordEncoder.encode(u.getPassword()));
+                editUser.setPassword(bcPasswordEncoder.encode(u.getPassword()));
             }
-            repository.save(user);
+            repository.save(editUser);
         }
-        return user;
+        return editUser;
     }
 
     public List<User> findAll(){
