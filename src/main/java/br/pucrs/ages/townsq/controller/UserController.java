@@ -137,15 +137,15 @@ public class UserController {
             user.setImage(path);
         }
         try {
-            service.update(user, userEdit);
+            user = service.update(user, userEdit);
             userPrincipal.setImage(user.getImage());
+            model.addAttribute("user", user);
         } catch (MalformedURLException e) {
-            model.addAttribute("error", "URL inválida!");
-            model.addAttribute("user", service.getUserByEmail(userEdit.getEmail()).orElse(null));
-            return "userEdit";
+            redirectAttributes.addFlashAttribute("error", "URL inválida!");
+            return "redirect:/user/edit";
         } catch (Exception e) {
-            model.addAttribute("error", "Erro ao atualizar perfil.");
-            return "userEdit";
+            redirectAttributes.addFlashAttribute("error", "Erro ao atualizar perfil.");
+            return "redirect:/user/edit";
         }
         model.addAttribute("success", "Perfil atualizado!");
         return "userEdit";
