@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -109,13 +110,14 @@ public class UserController {
     }
 
     @PostMapping("/user/edit")
-    public String postUserUpdate(@ModelAttribute User user, Model model, Authentication auth){
+    public String postUserUpdate(@ModelAttribute User user, Model model, Authentication auth, final RedirectAttributes redirectAttributes){
         try {
             service.update(user, auth.getName());
         } catch (Exception e) {
-            model.addAttribute("error", "Erro");
-            return "redirect:/users";
+            redirectAttributes.addFlashAttribute("error", "Não foi possível atualizar o seu perfil.");
+            return "redirect:/";
         }
+        redirectAttributes.addFlashAttribute("success", "Perfil atualizado com sucesso!");
         return "redirect:/user/edit";
     }
 

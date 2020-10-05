@@ -1,5 +1,6 @@
 package br.pucrs.ages.townsq.model;
 
+import br.pucrs.ages.townsq.components.ReputationLogListener;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,6 +12,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@EntityListeners(ReputationLogListener.class)
 @Table(name = "reputation_logs")
 @NoArgsConstructor
 @AllArgsConstructor

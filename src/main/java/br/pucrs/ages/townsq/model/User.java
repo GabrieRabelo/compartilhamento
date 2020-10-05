@@ -1,5 +1,6 @@
 package br.pucrs.ages.townsq.model;
 
+import br.pucrs.ages.townsq.components.UserListener;
 import br.pucrs.ages.townsq.utils.Chronos;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -13,6 +14,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Collection;
 
 @Entity
+@EntityListeners(UserListener.class)
 @Table(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor

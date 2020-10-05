@@ -30,16 +30,6 @@ public class QuestionController {
     }
 
     /**
-     * Returns the index page without being logged in.
-     * @return index page
-     */
-    @GetMapping("/")
-    public String getIndex(Model model){
-        model.addAttribute("questions", questionService.getIndexQuestions());
-        return "index";
-    }
-
-    /**
      * Returns the question creation page with the topics from the database
      * @param m The UI Model
      * @return String
