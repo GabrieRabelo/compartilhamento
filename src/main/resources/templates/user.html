@@ -41,6 +41,14 @@
             </div>
         </div>
         <div class="line"></div>
+        <div class="company-info">
+            <div class="row" th:if="${user.getCompany()}">
+                <h3>Empresa:&nbsp</h3> <h3 class="company-values" th:text="${user.getCompany()}"></h3>
+            </div>
+            <div class="row" th:if="${user.getWebsite()}">
+                <h3>Site:&nbsp</h3> <h3 class="company-values" ><a th:href="@{{id}(id=${user.getWebsite()})}" target="_blank" th:text="${user.getWebsite()}"></a></h3>
+            </div>
+        </div>
         <div class="bio">
             <h1>Biografia</h1>
             <p th:text="${user.getBio()}"></p>

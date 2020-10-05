@@ -55,6 +55,11 @@
     position: relative;
 }
 
+.company-info {
+    width: 1100px;
+    margin-top: 20px;
+}
+
 .bio {
     width: 1100px;
     margin-top: 20px;

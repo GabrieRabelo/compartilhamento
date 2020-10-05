@@ -7,6 +7,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,19 +30,23 @@ public class UserService {
         return repository.save(u);
     }
 
-    public User update(User u, String authEmail){
-        User user = repository.findByEmail(authEmail).orElse(null);
-        if(user != null){
-            user.setName(u.getName());
-            user.setBio(u.getBio());
-            user.setCompany(u.getCompany());
-            user.setWebsite(u.getWebsite());
-            if(!StringUtils.isEmpty(u.getPassword())){
-                user.setPassword(bcPasswordEncoder.encode(u.getPassword()));
+    public User update(User u, User editUser) throws MalformedURLException {
+        if(editUser != null){
+            editUser.setName(u.getName());
+            editUser.setBio(u.getBio());
+            editUser.setCompany(u.getCompany());
+            if(!StringUtils.isEmpty(u.getWebsite())){
+                new URL(u.getWebsite());
             }
-            repository.save(user);
+            editUser.setWebsite(u.getWebsite());
+            if (u.getImage() != null && !u.getImage().equals(editUser.getImage()))
+                editUser.setImage(u.getImage());
+            if(!StringUtils.isEmpty(u.getPassword())){
+                editUser.setPassword(bcPasswordEncoder.encode(u.getPassword()));
+            }
+            repository.save(editUser);
         }
-        return user;
+        return editUser;
     }
 
     public List<User> getAll(){

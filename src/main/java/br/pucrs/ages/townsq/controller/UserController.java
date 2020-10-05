@@ -6,10 +6,15 @@ import org.hibernate.validator.internal.engine.ConstraintViolationImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.View;
+import org.springframework.security.core.AuthenticatedPrincipal;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.Cookie;
@@ -17,6 +22,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.ConstraintViolationException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.net.MalformedURLException;
+import java.util.UUID;
 
 @Controller
 public class UserController {
@@ -110,15 +121,67 @@ public class UserController {
     }
 
     @PostMapping("/user/edit")
-    public String postUserUpdate(@ModelAttribute User user, Model model, Authentication auth, final RedirectAttributes redirectAttributes){
-        try {
-            service.update(user, auth.getName());
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Não foi possível atualizar o seu perfil.");
+    public String postUserUpdate(@RequestParam("fileimage") MultipartFile file,
+                                 @ModelAttribute User user,
+                                 Model model,
+                                 @AuthenticationPrincipal User userPrincipal,
+                                 final RedirectAttributes redirectAttributes){
+
+        User userEdit = service.getUserById(user.getId()).orElse(null);
+        if(userEdit == null){
+            redirectAttributes.addFlashAttribute("error", "Erro ao editar o usuário.");
             return "redirect:/";
         }
-        redirectAttributes.addFlashAttribute("success", "Perfil atualizado com sucesso!");
-        return "redirect:/user/edit";
+        if (!file.isEmpty()) {
+            String path = singleFileUpload(file, userEdit);
+            user.setImage(path);
+        }
+        try {
+            service.update(user, userEdit);
+            userPrincipal.setImage(user.getImage());
+        } catch (MalformedURLException e) {
+            model.addAttribute("error", "URL inválida!");
+            model.addAttribute("user", service.getUserByEmail(userEdit.getEmail()).orElse(null));
+            return "userEdit";
+        } catch (Exception e) {
+            model.addAttribute("error", "Erro ao atualizar perfil.");
+            return "userEdit";
+        }
+        model.addAttribute("success", "Perfil atualizado!");
+        return "userEdit";
+    }
+
+    public String singleFileUpload(@RequestParam("file") MultipartFile file, User user) {
+        String ROOT_TO_STATIC = "./src/main/resources/static";
+        String STATIC = "/img/users/";
+        String uniqueID = UUID.randomUUID().toString();
+        if (file.isEmpty()) {
+            return ROOT_TO_STATIC + STATIC + "defaultUser.svg";
+        }
+
+        Path path = null;
+        String strPath = STATIC + uniqueID + getFileExtension(file.getOriginalFilename());
+        try {
+            // Get the file and save it somewhere
+            byte[] bytes = file.getBytes();
+            path = Paths.get(ROOT_TO_STATIC + strPath);
+            Files.write(path, bytes);
+
+            String oldImage = user.getImage();
+            if(!oldImage.equals(ROOT_TO_STATIC + STATIC + "defaultUser.svg")){
+                Files.delete(Paths.get(ROOT_TO_STATIC + oldImage));
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return strPath;
+    }
+
+    private String getFileExtension(String filename) {
+        String[] arr = filename.split("\\.");
+        return "." + arr[arr.length - 1];
     }
 
 }
