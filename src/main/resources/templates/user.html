@@ -13,7 +13,7 @@
 
     <div class="profile">
         <div class="row">
-            <div>
+            <div class="picture-info">
                 <img class="profile-picture" th:if="!${user.getImage()}" src="/img/profilePic.svg" alt="Foto do usuário">
                 <img class="profile-picture" th:if="${user.getImage()}" th:src="${user.getImage()}" alt="Foto do usuário">
                 <p>Administrador</p>
@@ -22,6 +22,12 @@
             <div class="col justify-center">
                     <h2 th:text="${user.getName()}"></h2>
                     <small> <b>Membro desde:&nbsp </b> <span th:text="${#dates.format(user.getCreatedAt(), 'dd/MM/yyyy')}"></span></small>
+
+                <div class="items-info">
+                    <p class="pontuacao">Pontuação: 20 pontos</p>
+                    <p>7 perguntas</p>
+                    <p>6 respostas</p>
+                </div>
             </div>
         </div>
 
