@@ -7,13 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.ConstraintViolationException;
 import java.io.IOException;
@@ -39,7 +43,8 @@ public class UserController {
      * @return redirect to sigin page
      */
     @PostMapping("/signup")
-    public String postUserSignup(@ModelAttribute User user, Model model){
+    public String postUserSignup(@ModelAttribute User user, Model model, HttpServletRequest request, final RedirectAttributes redirectAttributes){
+        String pass = user.getPassword();
         try {
             service.save(user);
         } catch (DataIntegrityViolationException error) {
@@ -59,7 +64,13 @@ public class UserController {
             model.addAttribute("error", "Erro ao processar cadastro.");
             return "signup";
         }
-        return "redirect:/signin";
+        try {
+            request.login(user.getUsername(), pass);
+        } catch (ServletException e) {
+            model.addAttribute("error", e.getMessage());
+        }
+        redirectAttributes.addFlashAttribute("success", "Cadastro realizado com sucesso!");
+        return "redirect:/";
     }
 
     @GetMapping("/users")
