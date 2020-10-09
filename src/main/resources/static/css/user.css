@@ -105,14 +105,26 @@
     margin-top: 20px;
 }
 
-.bio {
+.item {
     width: 100%;
     margin-top: 20px;
+}
+
+.info {
+    flex-direction: column;
+    align-self: start;
+    width: 100%;
+    text-align: justify;
+    word-break: break-all;
 }
 
 .bio p {
     margin-top: 40px;
     font-size: 17px;
+}
+
+.white-background {
+    margin-top: 20px;
 }
 
 @media (max-width: 630px) {
