@@ -1,0 +1,47 @@
+.question-create-wrapper{
+    margin-top:32px;
+    width: 100%
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+}
+
+label{
+    margin-top: 32px;
+}
+
+.question-create-button{
+    display: flex;
+    align-self: flex-end;
+    margin-top: 10px;
+}
+
+.white-background button{
+    width: 170px;
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+
+    .question-create-button{
+        align-self: center;
+    }
+
+    hr{
+        display: none;
+    }
+
+    .form-big input{
+        width: 80vw;
+    }
+
+    .form-big select{
+        width: 80vw;
+    }
+
+    .form-big textarea{
+        width: 80vw;
+    }
+
+}

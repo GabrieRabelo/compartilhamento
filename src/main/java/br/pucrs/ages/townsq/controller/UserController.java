@@ -5,7 +5,6 @@ import br.pucrs.ages.townsq.service.UserService;
 import org.hibernate.validator.internal.engine.ConstraintViolationImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,9 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.View;
-import org.springframework.security.core.AuthenticatedPrincipal;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.ServletException;
@@ -41,18 +37,13 @@ public class UserController {
         this.service = service;
     }
 
-    @GetMapping("/signup")
-    public String getUserSignupPage(){
-        return "signup";
-    }
-
     /**
      * POST route that redirects the user to the login page after signup
      * @param user <User> data to be saved.
      * @return redirect to sigin page
      */
     @PostMapping("/signup")
-    public String postUserSignup(@ModelAttribute User user, Model model, HttpServletRequest request){
+    public String postUserSignup(@ModelAttribute User user, Model model, HttpServletRequest request, final RedirectAttributes redirectAttributes){
         String pass = user.getPassword();
         try {
             service.save(user);
@@ -78,87 +69,61 @@ public class UserController {
         } catch (ServletException e) {
             model.addAttribute("error", e.getMessage());
         }
-        model.addAttribute("success", "Cadastro realizado com sucesso!");
-        return "index";
-    }
-
-    /**
-     * GET route that returns the application login page
-     * @return signin page
-     */
-    @GetMapping("/signin")
-    public String getUserSigninPage(@RequestParam(required = false) String error, Model model){
-        if (error != null && error.equals("credentials")) {
-            model.addAttribute("error", "E-mail ou senha inválidos.");
-        }
-        return "signin";
-    }
-
-    /**
-     * Logout route for GET requests.
-     * @param request <HttpServletRequest> The GET request
-     * @param response <HttpServletResponse> The returned response
-     * @return redirect to the login page.
-     */
-    @GetMapping("/logout")
-    public String getLogout(HttpServletRequest request, HttpServletResponse response){
-        HttpSession session = request.getSession();
-        SecurityContextHolder.clearContext();
-        if(session != null) session.invalidate();
-        for(Cookie cookie : request.getCookies()) cookie.setMaxAge(0);
-        return "redirect:/signin";
+        redirectAttributes.addFlashAttribute("success", "Cadastro realizado com sucesso!");
+        return "redirect:/";
     }
 
     @GetMapping("/users")
     public String getAllUsers(Model model){
-        model.addAttribute("users", service.findAll());
+        model.addAttribute("users", service.getAll());
         return "users";
     }
 
     @GetMapping(value = {"/user/{id}"})
     public String getUserById(HttpServletRequest request, @PathVariable long id, Model model, HttpSession session){
-        User user = service.findById(id).orElse(null);
+        User user = service.getUserById(id).orElse(null);
         model.addAttribute("user", user);
         return "user";
     }
 
     @GetMapping(value = {"/user/edit"})
     public String getUserEditById(HttpServletRequest request, Model model, Authentication auth){
-        User user = service.findByEmail(auth.getName()).orElse(null);
+        User user = service.getUserByEmail(auth.getName()).orElse(null);
         model.addAttribute("user", user);
         return "userEdit";
     }
 
     @PostMapping("/user/edit")
-    public String postUserUpdate(@RequestParam("fileimage") MultipartFile file, @ModelAttribute User user, Model model, @AuthenticationPrincipal User userPrincipal){
+    public String postUserUpdate(@RequestParam("fileimage") MultipartFile file,
+                                 @ModelAttribute User user,
+                                 Model model,
+                                 @AuthenticationPrincipal User userPrincipal,
+                                 final RedirectAttributes redirectAttributes){
 
-        User userEdit = service.findById(user.getId()).orElse(null);
-
+        User userEdit = service.getUserById(user.getId()).orElse(null);
         if(userEdit == null){
-            model.addAttribute("error", "Erro ao localizar usuário");
-            return "userEdit";
+            redirectAttributes.addFlashAttribute("error", "Erro ao editar o usuário.");
+            return "redirect:/";
         }
-
         if (!file.isEmpty()) {
             String path = singleFileUpload(file, userEdit);
             user.setImage(path);
         }
         try {
-            service.update(user, userEdit);
+            user = service.update(user, userEdit);
             userPrincipal.setImage(user.getImage());
+            model.addAttribute("user", user);
         } catch (MalformedURLException e) {
-            model.addAttribute("error", "URL inválida!");
-            model.addAttribute("user", service.findByEmail(userEdit.getEmail()).orElse(null));
-            return "userEdit";
+            redirectAttributes.addFlashAttribute("error", "URL inválida!");
+            return "redirect:/user/edit";
         } catch (Exception e) {
-            model.addAttribute("error", "Erro ao atualizar perfil.");
-            return "userEdit";
+            redirectAttributes.addFlashAttribute("error", "Erro ao atualizar perfil.");
+            return "redirect:/user/edit";
         }
         model.addAttribute("success", "Perfil atualizado!");
         return "userEdit";
     }
 
-    // //new annotation since 4.3
     public String singleFileUpload(@RequestParam("file") MultipartFile file, User user) {
         String ROOT_TO_STATIC = "./src/main/resources/static";
         String STATIC = "/img/users/";
@@ -176,7 +141,7 @@ public class UserController {
             Files.write(path, bytes);
 
             String oldImage = user.getImage();
-            if(!oldImage.equals(ROOT_TO_STATIC + STATIC + "defaultUser.svg")){
+            if(oldImage != null && !oldImage.equals(ROOT_TO_STATIC + STATIC + "defaultUser.svg")){
                 Files.delete(Paths.get(ROOT_TO_STATIC + oldImage));
             }
 

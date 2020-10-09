@@ -25,7 +25,7 @@
             </div>
             </div>
             <div sec:authorize="isAuthenticated()">
-                <button onclick="location.href='/users'" class="button-green-ease">Perguntar</button>
+                <button onclick="location.href='/question/create'" class="button-green-ease">Perguntar</button>
             </div>
             <div sec:authorize="isAnonymous()">
                 <button onclick="location.href='/signup'" class="button-green-ease">Cadastrar</button>

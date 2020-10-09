@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import javax.transaction.Transactional;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
@@ -17,11 +18,13 @@ public class UserService {
 
     private final UserRepository repository;
     private final BCryptPasswordEncoder bcPasswordEncoder;
+    private final ReputationLogService reputationLogService;
 
     @Autowired
-    public UserService(UserRepository repo, BCryptPasswordEncoder encoder){
+    public UserService(UserRepository repo, BCryptPasswordEncoder encoder, ReputationLogService repService){
         bcPasswordEncoder = encoder;
         repository = repo;
+        reputationLogService = repService;
     }
 
     public User save(User u){
@@ -44,21 +47,34 @@ public class UserService {
             if(!StringUtils.isEmpty(u.getPassword())){
                 editUser.setPassword(bcPasswordEncoder.encode(u.getPassword()));
             }
+            if(!StringUtils.isEmpty(editUser.getBio()) && !StringUtils.isEmpty(editUser.getImage())
+                    && editUser.getHasCompletedProfile() == 0){
+                editUser.setHasCompletedProfile(1);
+                reputationLogService.createUserProfileLog(editUser);
+            }
             repository.save(editUser);
         }
         return editUser;
     }
 
-    public List<User> findAll(){
+    public List<User> getAll(){
         return repository.findAll();
     }
 
-    public Optional<User> findById(long id){
+    public Optional<User> getUserById(long id){
         return repository.findById(id);
     }
 
-    public Optional<User> findByEmail(String email){
+    public Optional<User> getUserByEmail(String email){
         return repository.findByEmail(email);
+    }
+
+    public User updateUserScore(User user, int score){
+        if(user == null || user.getId() == null){
+            return null;
+        }
+        user.setScore(user.getScore() + score);
+        return repository.save(user);
     }
 
 }
