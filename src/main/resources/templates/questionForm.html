@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/head :: header"></div>
+    <title>Usuário</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/questionCreate.css}">
+</head>
+<body>
+<header th:replace="fragments/header.html :: header"></header>
+    <div class="question-create-wrapper align-center justify-center col">
+    <h1 th:if="${question.getId() == null}">Crie uma nova pergunta</h1>
+    <h1 th:if="${question.getId() != null}">Edite a sua pergunta</h1>
+    <form class="question-form" th:method="post" th:object="${question}" th:action="@{/question/save}">
+        <div class="form-control form-big">
+            <label for="title">Título da Pergunta</label>
+            <input th:value="*{title}" id= "title" type="text" name="title" required/>
+        </div>
+        <div class="form-control form-big">
+            <label for="topic">Tópico da Pergunta</label>
+            <select id="topic" name="topic" required>
+                <option disabled value="" selected hidden>Selecione um tópico...</option>
+                <th:block th:each="topic : ${topics}">
+                    <option th:if="${question.getId() == null}" th:value="${topic.getId()}" th:text="${topic.getName()}"></option>
+                    <option th:if="${question.getId() != null}" th:selected="${topic.getId() == question.getTopic().getId()}" th:value="${topic.getId()}" th:text="${topic.getName()}"></option>
+                </th:block>
+            </select>
+        </div>
+        <div class="form-control form-big">
+            <label for="description">Descreva sua Pergunta</label>
+            <textarea th:text="*{description}" id= "description" name="description" required maxlength="512"></textarea>
+        </div>
+        <p></p>
+        <hr/>
+        <div class="white-background question-create-button">
+            <button th:if="${question.getId() == null}" type="submit">Criar Pergunta</button>
+            <button th:if="${question.getId() != null}" type="submit">Editar Pergunta</button>
+        </div>
+
+        <input th:type="hidden" id="id" th:field="*{id}">
+    </form>
+    </div>
+</body>
+</html>

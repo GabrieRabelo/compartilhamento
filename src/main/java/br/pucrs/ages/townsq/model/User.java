@@ -1,5 +1,6 @@
 package br.pucrs.ages.townsq.model;
 
+import br.pucrs.ages.townsq.utils.Chronos;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -22,7 +23,7 @@ public class User implements UserDetails {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     @NotNull(message = "Nome não pode ser nulo.")
     @NotEmpty(message = "Nome não pode ser vazio.")
     @Column(name = "name", columnDefinition = "VARCHAR(50)", nullable =  false)
@@ -54,6 +55,8 @@ public class User implements UserDetails {
     @CreationTimestamp
     @Column(name = "createdAt")
     private java.sql.Timestamp createdAt;
+    @Column(name = "hasCompletedProfile", columnDefinition = "SMALLINT")
+    private Integer hasCompletedProfile = 0;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -83,5 +86,9 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public String getCreatedAtString(){
+        return Chronos.dateToPrettyTimeString(this.createdAt);
     }
 }
