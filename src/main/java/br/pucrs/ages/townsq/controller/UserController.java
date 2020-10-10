@@ -5,17 +5,12 @@ import br.pucrs.ages.townsq.service.UserService;
 import org.hibernate.validator.internal.engine.ConstraintViolationImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.View;
-import org.springframework.security.core.AuthenticatedPrincipal;
-import org.springframework.security.core.Authentication;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -40,7 +35,12 @@ public class UserController {
 
     @GetMapping("/admin")
     public String getAdminPage() {
-        return "admin";
+        return  "redirect:/admin/banner";
+    }
+
+    @GetMapping("/admin/banner")
+    public String getAdminBannerPage() {
+        return  "adminBanner";
     }
 
     @GetMapping("/signup")

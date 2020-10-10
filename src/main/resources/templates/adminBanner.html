@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/head :: header"></div>
+    <title>Administrador</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+<body>
+<header th:replace="fragments/header.html :: header"></header>
+<div class="container">
+    <div class="col-6">
+        <div class="line"></div>
+        <div class="tabs">
+            <a href="/admin/banner">Editar Propaganda</a>
+            <a href="#">Gerenciar Moderadores</a>
+        </div>
+        <div class="propaganda">
+            <h1 class="title">Atualize a propaganda</h1>
+            <div class="form-control">
+                <label for="name">Titulo do anuncio</label>
+                <input type="text" name="name" id="name"/>
+            </div>
+            <div class="form-control">
+                <label for="name">Texto do anuncio</label>
+                <textarea type="text" name="bio" id="bio"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="question-card-divider"></div>
+    <div class="col-6"></div>
+
+</div>
+
+<div th:replace="fragments/toast.html :: toasts">
+</div>
+</body>
+</html>
