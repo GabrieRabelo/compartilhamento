@@ -6,6 +6,7 @@
 <head>
     <div th:replace="fragments/head :: header"></div>
     <link rel="stylesheet" th:href="@{/css/question.css}">
+
     <title th:text="${question.getTitle()} + ' - Townsq'"></title>
 </head>
 <body>
@@ -38,6 +39,10 @@
         </div>
         <div class="status-pill-questions self-end bg-danger">
             <small>Não solucionada</small>
+        </div>
+        <div class="add-comment self-end">
+            <img alt="Adicionar Comentário" th:src="@{/img/icons/add_comment.svg}"/>
+            <small>Adicionar um Comentário</small>
         </div>
         <div class="comments">
             <div class="comment-actions">

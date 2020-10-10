@@ -285,6 +285,20 @@ hr{
     margin-top: 1rem;
 }
 
+.add-comment{
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-items: center;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.add-comment small{
+    margin-left: 4px;
+}
+
+
 @media (min-width: 481px) and (max-width: 1025px) {
     .main-content{
         width: 80vw;
@@ -340,4 +354,6 @@ hr{
     .comment-card{
         width: 80%;
     }
+
+
 }
