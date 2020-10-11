@@ -59,6 +59,12 @@ public class User implements UserDetails {
     @Column(name = "hasCompletedProfile", columnDefinition = "SMALLINT")
     private Integer hasCompletedProfile = 0;
 
+    @Transient
+    private String newPassword;
+
+    @Transient
+    private String confirmNewPassword;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;

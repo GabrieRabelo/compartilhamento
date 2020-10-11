@@ -157,4 +157,20 @@ public class UserController {
         return "." + arr[arr.length - 1];
     }
 
+    @PostMapping("/user/editPassword")
+    public String postUserUpdatePassword(@ModelAttribute User user, Model model, Authentication auth){
+        try {
+            service.updatePassword(user, auth.getName());
+            model.addAttribute("success", "Senha alterada com sucesso!");
+            model.addAttribute("user", service.getUserByEmail(auth.getName()).orElse(null));
+            return "userEdit";
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("error", e.getMessage());
+            model.addAttribute("user", service.getUserByEmail(auth.getName()).orElse(null));
+            return "userEdit";
+        } catch (Exception e) {
+            model.addAttribute("error", "Erro");
+            return "redirect:/users";
+        }
+    }
 }

@@ -27,7 +27,7 @@ class QuestionRepositoryTest {
 
 	@BeforeEach
 	void setUp() {
-		User user = new User(null, "Rabelo", "rabelo", "rabelo@rab.elo", 1, null, null, null, null, null, null, null, 0);
+		User user = new User(null, "Rabelo", "rabelo", "rabelo@rab.elo", 1, null, null, null, null, null, null, null, 0, null, null);
 		userRepository.save(user);
 		Topic topic = new Topic(1L, "Seguranca", new Timestamp(1), new Timestamp(1), 1);
 		topicRepository.save(topic);

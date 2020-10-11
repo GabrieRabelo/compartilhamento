@@ -6,6 +6,8 @@
     <title>Usuário</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/userEdit.css}">
+    <link rel="stylesheet" th:href="@{/css/modal.css}">
+
 </head>
 <body>
 <header th:replace="fragments/header.html :: header"></header>
@@ -50,6 +52,12 @@
                 </div>
                 <div class="status-pill bg-question">
                     <small>7 perguntas</small>
+                </div>
+            </div>
+            <br>
+            <div class="modal-button">
+                <div class="row white-background">
+                    <button type="button"><a href="#abrirModal">Anterar senha</a></button>
                 </div>
             </div>
         </div>
@@ -104,21 +112,53 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="row justify-space-between">
-                                <div class="col-12">
-                                    <div class="form-control">
-                                        <label for="password">Nova senha</label>
-                                        <input type="password" name="password" id="password"/>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="row white-background">
                                 <button type="submit">Atualizar</button>
                             </div>
                         </div>
                     </div>
                 </form>
+
+
+                <div id="abrirModal" class="modal">
+                    <div class="modal-background">
+
+                        <a href="#close" title="close" class="close">X</a>
+
+                        <form role="form" th:action="@{/user/editPassword}" th:method="post" th:object="${user}">
+
+                            <div class="row justify-space-between">
+                                <div class="col-12">
+                                    <div class="form-control">
+                                        <label for="Password">Senha atual</label>
+                                        <input type="password" name="Password" id="Password"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row justify-space-between">
+                                <div class="col-12">
+                                    <div class="form-control">
+                                        <label for="newPassword">Nova senha</label>
+                                        <input type="password" name="newPassword" id="newPassword"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row justify-space-between">
+                                <div class="col-12">
+                                    <div class="form-control">
+                                        <label for="confirmNewPassword">Digite novamente a nova senha</label>
+                                        <input type="password" name="confirmNewPassword" id="confirmNewPassword"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row white-background">
+                                <button type="submit">Atualizar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
