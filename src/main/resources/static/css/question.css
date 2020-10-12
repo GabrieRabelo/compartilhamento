@@ -290,6 +290,7 @@ hr{
     align-items: center;
     font-size: 14px;
     margin-top: 4px;
+    cursor: pointer;
 }
 
 .add-comment small{
