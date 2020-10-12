@@ -15,10 +15,11 @@
 <div class="modal clickable">
     <div class="modal-background">
         <p class="close" th:onclick="closeModal()">X</p>
-        <form id="comment-form" role="form" th:action="@{/comment/create}" th:method="post">
+        <form id="comment-form" role="form" th:action="''" th:method="post">
             <div class="row justify-space-between">
                 <div class="col-12">
                     <div class="form-control">
+                        <input type="hidden" th:value="${question.getId()}" th:name="question" th:id="question" />
                         <label for="text-input">Comentário</label>
                         <input type="text" name="text" id="text-input"/>
                     </div>
@@ -164,6 +165,7 @@
         const form = document.querySelector('#comment-form');
 
         const split = referer.split(';');
+        form.action = `/comment/create/${split[0]}/${split[1]}`
 
         if(modal.style.opacity === '1') {
             modal.style.opacity = '0'
@@ -183,6 +185,9 @@
         const modal = document.querySelector(".modal");
         const header = document.querySelector("header");
         const mainDiv = document.querySelector("#contentDiv");
+        const form = document.querySelector('#comment-form');
+
+        form.action = ''
 
         modal.style.opacity = '0'
         modal.style.zIndex = '-99999';
