@@ -30,11 +30,12 @@
     background-color: var(--dark-gray);
     height: 16em;
     resize: none;
+    width: 100%;
 }
 
 .answer-textarea-button button{
     margin-top: 1rem;
-    align-self: center;
+    float:right;
     width: max-content;
 }
 

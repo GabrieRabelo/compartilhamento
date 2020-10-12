@@ -74,11 +74,15 @@
         <hr>
         <div class="answer-textarea-container">
             <h2>Digite sua resposta</h2>
+
             <div sec:authorize="${!isAnonymous()}" class="answer-textarea-button">
-                <textarea th:disabled="!${#request.userPrincipal}"></textarea>
-                <button class="button-default bg-light-green" th:disabled="!${#request.userPrincipal}">Responder
-                    pergunta
-                </button>
+                <form th:method="post" th:object="${answer}" th:action="@{/answer/create}">
+                    <input th:type="hidden" th:id="question" th:name="question" th:value="${question.getId()}"/>
+                    <textarea th:disabled="!${#request.userPrincipal}" name="text" id="text"> </textarea>
+                    <button type="submit" class="button-default bg-light-green" th:disabled="!${#request.userPrincipal}">Responder
+                        pergunta
+                    </button>
+                </form>
             </div>
             <div sec:authorize="${isAnonymous()}" class="required-login-banner">
                 <h1>Você não está logado.</h1>

@@ -1,6 +1,8 @@
 package br.pucrs.ages.townsq.service;
 
 import br.pucrs.ages.townsq.model.Answer;
+import br.pucrs.ages.townsq.model.Question;
+import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.repository.AnswerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,5 +20,9 @@ public class AnswerService {
      * @param a Answer
      * @return Answer
      */
-    public Answer saveAnswer(Answer a) { return this.answerRepository.save(a); }
+    public Answer saveAnswer(Answer answer, User user, Question question) {
+        answer.setQuestion(question);
+        answer.setUser(user);
+        return this.answerRepository.save(answer);
+    }
 }

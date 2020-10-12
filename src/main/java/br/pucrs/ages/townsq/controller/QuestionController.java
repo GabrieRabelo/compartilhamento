@@ -1,5 +1,6 @@
 package br.pucrs.ages.townsq.controller;
 
+import br.pucrs.ages.townsq.model.Answer;
 import br.pucrs.ages.townsq.model.Question;
 import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.service.QuestionService;
@@ -111,6 +112,7 @@ public class QuestionController {
                 return "redirect:/question/" + id + "/" + questionSlug;
             }
             model.addAttribute("question", question);
+            model.addAttribute("answer", new Answer());
             return "question";
         }
         return "question";
