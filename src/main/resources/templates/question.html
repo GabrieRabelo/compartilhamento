@@ -85,22 +85,23 @@
                 <h2>Entre com sua conta ou cadastre-se para responder.</h2>
             </div>
         </div>
-        <div class="answer-card-actions">
+        <div th:each="answer:${question.getAnswers()}" class="answer-card-actions">
             <div class="answer-page-main-card">
                 <div class="answer-card-left">
                     <img alt="Imagem do perfil do usuário" src="/img/user.svg"/>
                     <div class="name-last-access">
-                        <p>Matheus Tosin</p>
-                        <small>3 horas</small>
+                        <p th:text="${answer.getUser().getName()}"></p>
+                        <small th:text="${answer.getCreatedAtString()}"></small>
                     </div>
                 </div>
                 <div class="answer-card-right">
                     <div class="question-text">
-                        <p>Muito boa essa pergunta, queria saber a resposta!</p>
+                        <p th:text="${answer.getText()}"></p>
                     </div>
                 </div>
             </div>
-            <div class="action-icons">
+            <div sec:authorize="isAuthenticated()"
+                 th:if="${#authentication.getPrincipal().id==answer.getUser().getId()}" class="action-icons">
                 <a href="#"><img th:src="@{/img/icons/lapis.svg}"/></a>
                 <a href="#"><img th:src="@{/img/icons/lixeira.svg}"/></a>
             </div>

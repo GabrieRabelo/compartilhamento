@@ -1,5 +1,6 @@
 package br.pucrs.ages.townsq.model;
 
+import br.pucrs.ages.townsq.utils.Chronos;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -51,5 +52,9 @@ public class Answer {
     @ManyToOne(optional = true)
     @JoinColumn(name = "questionId", nullable = false)
     private Question question;
+
+    public String getCreatedAtString(){
+        return Chronos.dateToPrettyTimeString(this.createdAt);
+    }
 
 }
