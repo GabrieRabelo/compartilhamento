@@ -64,26 +64,18 @@
                 <small>Adicionar um Comentário</small>
             </div>
         <div class="comments">
-            <div class="comment-actions">
+            <div class="comment-actions" th:each="comment : ${question.getComments()}">
                 <div class="comment-card">
                     <div class="comment-left">
-                        <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</small>
+                        <small th:text="${comment.getText()}"></small>
                     </div>
                     <div class="comment-right">
-                        <small>Bruno Silva</small>
+                        <a th:href="'/user/' + ${comment.getUser().getId()}"><small th:text="${comment.getUser().getName()}"></small></a>
                     </div>
                 </div>
-                <div class="action-icons-comment">
+                <div class="action-icons-comment" sec:authorize="isAuthenticated()" th:if="${#authentication.getPrincipal().id == comment.getUser().getId()}">
                     <a href="#"><img th:src="@{/img/icons/lapis.svg}"/></a>
-                    <a href="#"><img th:src="@{/img/icons/lixeira.svg}"/></a>
-                </div>
-            </div>
-            <div class="comment-card">
-                <div class="comment-left">
-                    <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</small>
-                </div>
-                <div class="comment-right">
-                    <small>Fulano Jr.</small>
+                    <a th:href="'/comment/delete/' + ${question.getId()}"><img th:src="@{/img/icons/lixeira.svg}"/></a>
                 </div>
             </div>
         </div>

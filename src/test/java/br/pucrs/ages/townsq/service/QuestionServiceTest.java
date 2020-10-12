@@ -32,7 +32,7 @@ class QuestionServiceTest {
 	@DisplayName("Salva uma pergunta no repositorio e deve retornar a mesma")
 	@Test
 	void testSaveQuestion() {
-		Question question = new Question(null, "Olá", "essa fera ai meu", 1, new Timestamp(1), new Timestamp(1), null, null, 1);
+		Question question = new Question(null, "Olá", "essa fera ai meu", 1, new Timestamp(1), new Timestamp(1), null, null, 1, null);
 		User user = new User(1L, "Rabelo", "rabelo", "rabelo@rab.elo", 1, null, null, null, null, null, null, null, null, null, null);
 
 		when(questionRepository.save(any(Question.class)))
@@ -48,11 +48,11 @@ class QuestionServiceTest {
 	void testGetIndexQuestions() {
 		List<Question> questionList = new ArrayList<>();
 		for(long i = 0; i<10; i++){
-			Question question = new Question(i, "Olá", "essa fera ai meu", 1, new Timestamp(i), new Timestamp(i), null, null, 1);
+			Question question = new Question(i, "Olá", "essa fera ai meu", 1, new Timestamp(i), new Timestamp(i), null, null, 1, null);
 			questionList.add(question);
 		}
 
-		when(questionRepository.findTop10ByStatusEqualsOrderByCreatedAtDesc(1))
+		when(questionRepository.findTop10ByStatusEqualsOrderByCreatedAtDesc(1)) 
 				.thenReturn(questionList);
 
 		var result = questionService.getIndexQuestions();
@@ -64,7 +64,7 @@ class QuestionServiceTest {
 	@Test
 	void testDeleteQuestionOfUser() {
 		User user = new User(1L, "Rabelo", "rabelo", "rabelo@rab.elo", 1, null, null, null, null, null, null, null, null, null, null);
-		Question question = new Question(1L, "Olá", "essa fera ai meu", 1, new Timestamp(1L), new Timestamp(1L), user, null, 1);
+		Question question = new Question(1L, "Olá", "essa fera ai meu", 1, new Timestamp(1L), new Timestamp(1L), user, null, 1, null);
 
 		when(questionRepository.findById(1L))
 				.thenReturn(Optional.of(question));

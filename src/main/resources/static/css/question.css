@@ -59,6 +59,11 @@
     color: var(--strong-green);
 }
 
+.comment-right a{
+    text-decoration: none;
+    cursor: pointer;
+}
+
 .question-card-actions{
     display: flex;
     flex-direction: row;
