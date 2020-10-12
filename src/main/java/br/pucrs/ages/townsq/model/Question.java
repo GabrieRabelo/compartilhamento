@@ -9,6 +9,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @EntityListeners(QuestionListener.class)
@@ -47,6 +50,8 @@ public class Question {
     private Topic topic;
     @Column(name = "status")
     private int status = 1;
+    @OneToMany(targetEntity = Answer.class, cascade = CascadeType.ALL, mappedBy = "question")
+    private List<Answer> answers;
 
     public void setUser(User u){
         if(this.user == null){
