@@ -6,13 +6,31 @@
 <head>
     <div th:replace="fragments/head :: header"></div>
     <link rel="stylesheet" th:href="@{/css/question.css}">
+    <link rel="stylesheet" th:href="@{/css/modal.css}">
 
     <title th:text="${question.getTitle()} + ' - Townsq'"></title>
 </head>
 <body>
 <header th:replace="fragments/header.html :: header"></header>
-
-<div class="justify-center">
+<div class="modal clickable">
+    <div class="modal-background">
+        <p class="close" th:onclick="closeModal()">X</p>
+        <form id="comment-form" role="form" th:action="@{/comment/create}" th:method="post">
+            <div class="row justify-space-between">
+                <div class="col-12">
+                    <div class="form-control">
+                        <label for="text-input">Comentário</label>
+                        <input type="text" name="text" id="text-input"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row white-background">
+                <button type="submit" onclick="submitCommentForm()">Cadastrar</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div id="contentDiv" class="justify-center relative">
     <main class="main-content">
         <div class="question-card-actions">
             <div class="question-page-main-card">
@@ -40,10 +58,10 @@
         <div class="status-pill-questions self-end bg-danger">
             <small>Não solucionada</small>
         </div>
-        <div class="add-comment self-end">
-            <img alt="Adicionar Comentário" th:src="@{/img/icons/add_comment.svg}"/>
-            <small>Adicionar um Comentário</small>
-        </div>
+            <div class="add-comment self-end" th:onclick="|toggleModal('question;${question.id}')|">
+                <img alt="Adicionar Comentário" th:src="@{/img/icons/add_comment.svg}"/>
+                <small>Adicionar um Comentário</small>
+            </div>
         <div class="comments">
             <div class="comment-actions">
                 <div class="comment-card">
@@ -132,5 +150,53 @@
 </div>
 <div th:replace="fragments/toast.html :: toasts">
 </div>
+<script defer>
+
+    document.querySelector('#comment-form').addEventListener('submit', function (e){
+        e.preventDefault()
+    })
+
+    function toggleModal(referer) {
+
+        const modal = document.querySelector(".modal");
+        const header = document.querySelector("header");
+        const mainDiv = document.querySelector("#contentDiv");
+        const form = document.querySelector('#comment-form');
+
+        const split = referer.split(';');
+
+        form.action = `/comment/create/${split[0]}/${split[1]}`
+
+
+        if(modal.style.opacity === '1') {
+            modal.style.opacity = '0'
+            modal.style.zIndex = '-99999';
+            mainDiv.style.zIndex = '1';
+            header.style.zIndex = '1';
+        }
+        else
+            modal.style.opacity = '1'
+            modal.style.zIndex = '99999'
+            modal.style.pointerEvents = 'auto'
+            mainDiv.style.zIndex = '-1';
+            header.style.zIndex = '-1';
+    }
+
+    function closeModal() {
+        const modal = document.querySelector(".modal");
+        const header = document.querySelector("header");
+        const mainDiv = document.querySelector("#contentDiv");
+
+        modal.style.opacity = '0'
+        modal.style.zIndex = '-1';
+        modal.style.pointerEvents = 'none'
+        mainDiv.style.zIndex = '1';
+        header.style.zIndex = '1';
+    }
+
+    function submitCommentForm(){
+        document.querySelector('#comment-form').submit()
+    }
+</script>
 </body>
 </html>

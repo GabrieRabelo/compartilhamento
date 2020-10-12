@@ -417,6 +417,10 @@ button:hover{
     padding-top: 5%;
 }
 
+.relative{
+    position: relative;
+}
+
 .status-pill{
     border-radius: 500px;
     display: flex;

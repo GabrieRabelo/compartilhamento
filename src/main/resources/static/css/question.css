@@ -288,8 +288,6 @@ hr{
 .add-comment{
     display: flex;
     align-items: center;
-    align-content: center;
-    justify-items: center;
     font-size: 14px;
     margin-top: 4px;
 }
