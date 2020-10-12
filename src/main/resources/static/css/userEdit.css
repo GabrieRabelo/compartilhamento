@@ -8,13 +8,79 @@
     /*margin-top: 10px;*/
 }
 
+.line {
+    display: none;
+}
+
 #annotation{
     font-size: 11px;
     color: #FF3333;
 }
 
+.container {
+    display: flex;
+}
+
+.profile-info-container {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: row;
+}
+
+.img-container {
+    width: 120px;
+    height: 120px;
+    display: flex;
+}
+
+.profile-edit {
+    width: 60%;
+}
+
+.info-container {
+    padding: 10px 0 0 10px;
+}
 
 #example{
     font-size: 11px;
     color: #000000;
+}
+
+@media (max-width: 600px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .profile-info {
+        width: 100%;
+    }
+
+    .profile-edit {
+        width: 100%;
+        height: 70%;
+    }
+
+    .img-container {
+        width: 96px;
+        height: 96px;
+        display: flex;
+    }
+
+    .pontuacao {
+        padding: 10px 15px;
+        font-size: 10pt;
+    }
+
+    .line {
+        display: block;
+    }
+
+    .question-card-divider {
+        display: none;
+    }
 }
