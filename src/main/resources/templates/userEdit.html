@@ -36,9 +36,9 @@
                 <h3>Empresa</h3>
                 <p th:text="${user.getCompany()}"></p>
             </div>
-            <div th:if="${user.getWebsite()}" id="website" class="bio-item">
-                <h3>Site</h3>
-                <p th:text="${user.getWebsite()}"></p>
+            <div th:if="${user.getWebsite()}" class="bio-item">
+                <h2>Site</h2>
+                <p><a th:href="@{{id}(id=${user.getWebsite()})}" target="_blank" th:text="${user.getWebsite()}"></a></p>
             </div>
             <div th:if="${user.getBio()}" id="biography" class="bio-item">
                 <h2>Biografia</h2>
@@ -48,48 +48,56 @@
     </div>
     <div class="line"></div>
     <div class="question-card-divider"></div>
-    <div class="profile-edit">
+    <form role="form" th:action="@{/user/edit}" th:method="post" th:object="${user}" enctype="multipart/form-data" class="profile-edit">
+        <input type="hidden" name="id" th:value="${user.getId()}" />
         <div class="newpicture">
             <p class="title pic-title">Editar Perfil</p>
-            <div class="img-container">
-                <img class="avatar" th:if="!${user.getImage()}" src="/img/newpicture.png" alt="Foto do usuário">
-                <img class="avatar" th:if="${user.getImage()}" th:src="${user.getImage()}" alt="Foto do usuário">
+            <div class="avatar img-container link">
+                <div onclick="document.querySelector('#fileinput').click()">
+                    <img th:if="!${user.getImage()}"
+                         src="/img/newpicture.png"
+                         class="avatar newpic"
+                         alt="Adicionar nova foto">
+                    <img class="avatar newpic" th:if="${user.getImage()}" th:src="${user.getImage()}"
+                         alt="Adicionar nova foto">
+                </div>
+                <input id="fileinput" name="fileimage" onchange="showImg()" accept="image/*" type="file" style="display: none">
             </div>
         </div>
         <div class="form">
-            <p class="title edit-title">Editar Perfil</p>
+                <p class="title edit-title">Editar Perfil</p>
 
-            <div class="form-group">
-                <div class="form-control">
-                    <label for="name">Nome</label>
-                    <input type="text" name="name" id="name" th:value="${user.getName()}"/>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="form-control">
-                    <label for="name">Empresa</label>
-                    <input type="text" name="company" th:value="${user.getCompany()}"/>
+                <div class="form-group">
+                    <div class="form-control">
+                        <label for="name">Nome</label>
+                        <input type="text" name="name" id="name" th:value="${user.getName()}"/>
+                    </div>
                 </div>
 
-                <div class="form-control">
-                    <label for="name">Site</label>
-                    <input type="text" name="site" id="site" th:value="${user.getWebsite()}"/>
-                    <label id="example" for="site">Ex.: https://www.seusite.com </label>
-                </div>
-            </div>
+                <div class="form-group">
+                    <div class="form-control">
+                        <label for="name">Empresa</label>
+                        <input type="text" name="company" th:value="${user.getCompany()}"/>
+                    </div>
 
-            <div class="form-group">
-                <div class="form-control">
-                    <label for="name">Bio</label>
-                    <textarea type="text" name="bio" th:value="${user.getBio()}"></textarea>
+                    <div class="form-control">
+                        <label for="name">Site</label>
+                        <input type="text" name="website" id="website" th:value="${user.getWebsite()}"/>
+                        <label id="example" for="website">Ex.: https://www.seusite.com </label>
+                    </div>
                 </div>
-            </div>
-            <div class="row white-background">
-                <button type="submit">Atualizar</button>
-            </div>
+
+                <div class="form-group">
+                    <div class="form-control">
+                        <label for="name">Bio</label>
+                        <textarea type="text" name="bio" id="bio" th:text="${user.getBio()}"></textarea>
+                    </div>
+                </div>
+                <div class="row white-background">
+                    <button type="submit">Atualizar</button>
+                </div>
         </div>
-    </div>
+    </form>
 </div>
 
 <div th:replace="fragments/toast.html :: toasts">
@@ -109,7 +117,7 @@
             )
 
             const url = `data:image/jpg;charset=utf-8;base64, ${btoa(base)}`
-            Array.from(document.querySelectorAll('.newpicture')).forEach(e => e.setAttribute('src', url))
+            Array.from(document.querySelectorAll('.newpic')).forEach(e => e.setAttribute('src', url))
         }
     }
 </script>
