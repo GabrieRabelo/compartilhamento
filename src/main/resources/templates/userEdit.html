@@ -32,15 +32,15 @@
             </div>
         </div>
         <div class="bio">
-            <div th:if="${user.getCompany()}" id="company" class="item">
+            <div th:if="${user.getCompany()}" id="company" class="bio-item">
                 <h3>Empresa</h3>
                 <p th:text="${user.getCompany()}"></p>
             </div>
-            <div th:if="${user.getWebsite()}" id="website" class="item">
+            <div th:if="${user.getWebsite()}" id="website" class="bio-item">
                 <h3>Site</h3>
                 <p th:text="${user.getWebsite()}"></p>
             </div>
-            <div th:if="${user.getBio()}" id="biography" class="item">
+            <div th:if="${user.getBio()}" id="biography" class="bio-item">
                 <h2>Biografia</h2>
                 <p th:text="${user.getBio()}"></p>
             </div>

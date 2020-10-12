@@ -46,6 +46,14 @@
     padding: 10px 0 0 10px;
 }
 
+.bio {
+    padding-top: 10px;
+}
+
+.bio-item {
+    margin-top: 10px;
+}
+
 #example{
     font-size: 11px;
     color: #000000;
@@ -56,7 +64,7 @@
         flex-direction: column;
     }
 
-    .profile-info {
+    .profile-info-container {
         width: 100%;
     }
 
