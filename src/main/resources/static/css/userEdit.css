@@ -8,8 +8,13 @@
     /*margin-top: 10px;*/
 }
 
+.form-control {
+    width: 100%;
+}
+
 .line {
     display: none;
+    margin-top: 20px
 }
 
 #annotation{
@@ -57,13 +62,13 @@
 
 .newpicture {
     padding-top: 20px;
-    width: 30%;
+    width: 25%;
     height: 100%;
 }
 
 .form {
-    width: 70%;
-    height: 100%;
+    width: 80%;
+    height: 75%;
 }
 
 .question-card-divider {
@@ -72,6 +77,10 @@
 
 .pic-title {
     display: none;
+}
+
+.form-group {
+    display: flex;
 }
 
 #example{
@@ -130,5 +139,9 @@
 
     .question-card-divider {
         display: none;
+    }
+
+    .form-group {
+        flex-direction: column;
     }
 }
