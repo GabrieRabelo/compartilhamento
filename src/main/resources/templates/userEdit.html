@@ -48,7 +48,22 @@
     </div>
     <div class="line"></div>
     <div class="question-card-divider"></div>
-    <div class="profile-edit" style="background-color: #9DDEBB"></div>
+    <div class="profile-edit">
+        <div class="newpicture">
+            <p class="title pic-title">Editar Perfil</p>
+            <div class="img-container">
+                <img class="avatar" th:if="!${user.getImage()}" src="/img/newpicture.png" alt="Foto do usuário">
+                <img class="avatar" th:if="${user.getImage()}" th:src="${user.getImage()}" alt="Foto do usuário">
+            </div>
+        </div>
+        <div class="form" style="background-color: #2D839E">
+            <p class="title edit-title">Editar Perfil</p>
+
+            <div class="form-group">
+
+            </div>
+        </div>
+    </div>
 </div>
 
 <div th:replace="fragments/toast.html :: toasts">
