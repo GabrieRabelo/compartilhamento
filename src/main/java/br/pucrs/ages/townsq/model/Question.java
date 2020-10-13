@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @EntityListeners(QuestionListener.class)
@@ -59,6 +60,10 @@ public class Question {
 
     public String getCreatedAtString(){
         return Chronos.dateToPrettyTimeString(this.createdAt);
+    }
+
+    public List<Comment> getAllActiveComments(){
+        return comments.stream().filter(e -> e.getIsActive() == 1).collect(Collectors.toList());
     }
 
 }

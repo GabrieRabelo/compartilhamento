@@ -11,8 +11,8 @@ import org.springframework.util.StringUtils;
 @Service
 public class CommentService {
 
-    private CommentRepository commentRepository;
-    private QuestionService questionService;
+    private final CommentRepository commentRepository;
+    private final QuestionService questionService;
 
     @Autowired
     public CommentService(CommentRepository commentRepository, QuestionService questionService){
@@ -42,6 +42,16 @@ public class CommentService {
             comment.setUser(user);
         }
         return commentRepository.save(comment);
+    }
+
+    public boolean deleteComment(long commentId, User user){
+        Comment comment = commentRepository.findById(commentId).orElse(null);
+        if(comment != null && comment.getUser().getId().equals(user.getId())){
+            comment.setIsActive(0);
+            commentRepository.save(comment);
+            return true;
+        }
+        return false;
     }
 
 }

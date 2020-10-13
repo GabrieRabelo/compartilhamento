@@ -26,6 +26,12 @@ public class CommentController {
 
     /**
      * Post route to create a comment
+     * @param user User
+     * @param comment Comment
+     * @param question Question
+     * @param referer String
+     * @param refererId long
+     * @param redirectAttributes RedirectAttributes
      * @return String
      */
     @PostMapping("/comment/create/{referer}/{refererId}")
@@ -49,11 +55,23 @@ public class CommentController {
         return "redirect:/question/" + questionOfComment.getId() + "/" + Slugify.toSlug(questionOfComment.getTitle());
     }
 
+    /**
+     * Get route to delete comment
+     * @param user User
+     * @param id Long, comment id
+     * @param redirectAttributes RedirectAttributes
+     * @return String
+     */
     @GetMapping("/comment/delete/{id}")
     public String getDeleteComment(@AuthenticationPrincipal User user,
-                                   @PathVariable Long id){
-        //call service to delete comment
-        //redirect to question page
+                                   @PathVariable Long id,
+                                   final RedirectAttributes redirectAttributes){
+        if(commentService.deleteComment(id, user)){
+            redirectAttributes.addFlashAttribute("success", "Comentário deletado com sucesso!");
+        }
+        else{
+            redirectAttributes.addFlashAttribute("error", "Não foi possível deletar o comentário.");
+        }
         return "redirect:/";
     }
 
