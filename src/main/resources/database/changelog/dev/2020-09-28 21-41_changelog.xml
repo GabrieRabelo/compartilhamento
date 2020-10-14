@@ -1,0 +1,16 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.0.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+    <changeSet author="gabri (generated)" id="1601329308612-1">
+        <addColumn tableName="questions">
+            <column name="topic_id" type="int8">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="gabri (generated)" id="1601329308612-2">
+        <addForeignKeyConstraint baseColumnNames="topic_id" baseTableName="questions" constraintName="FKdb5p6ukb0v76he4pq87cbymhg" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="topics" validate="true"/>
+    </changeSet>
+    <changeSet author="gabri (generated)" id="1601329308612-3">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="questions" constraintName="FKjoo8hp6d3gfwctr68dl2iaemj" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="users" validate="true"/>
+    </changeSet>
+</databaseChangeLog>

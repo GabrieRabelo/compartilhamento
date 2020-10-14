@@ -6,40 +6,52 @@
 <head>
     <div th:replace="fragments/head :: header"></div>
     <link rel="stylesheet" th:href="@{/css/question.css}">
-    <title>Pergunta XYZ</title>
+    <title th:text="${question.getTitle()} + ' - Townsq'"></title>
 </head>
 <body>
 <header th:replace="fragments/header.html :: header"></header>
 
 <div class="justify-center">
     <main class="main-content">
-        <div class="question-page-main-card">
-            <div class="main-card-left">
-                <img alt="Imagem do perfil do usuário" src="img/user.svg"/>
-                <div class="name-last-access">
-                    <p>Bruno Almeida</p>
-                    <small>2 horas</small>
+        <div class="question-card-actions">
+            <div class="question-page-main-card">
+                <div class="main-card-left">
+                    <img alt="Imagem do perfil do usuário" src="/img/user.svg"/>
+                    <div class="name-last-access">
+                        <p th:text="${question.getUser().getName()}"></p>
+                        <small th:text="${question.getCreatedAtString()}"></small>
+                    </div>
+                </div>
+                <div class="main-card-right">
+                    <div class="question-title">
+                        <p th:text="${question.getTitle()}"></p>
+                    </div>
+                    <div class="question-text">
+                        <p th:text="${question.getDescription()}"></p>
+                    </div>
                 </div>
             </div>
-            <div class="main-card-right">
-                <div class="question-title">
-                    <a href="/question">Título da pergunta</a>
-                </div>
-                <div class="question-text">
-                    <p>No prédio em que sou síndico está tendo uma discussão durante as reuniões sobre a presença q...</p>
-                </div>
+            <div sec:authorize="isAuthenticated()" th:if="${#authentication.getPrincipal().id==question.getUser().getId()}" class="action-icons">
+                <a th:href="@{/question/edit/{id}(id=${question.getId()})}"><img alt="editar" th:src="@{/img/icons/lapis.svg}"/></a>
+                <a th:href="@{/question/delete/{id}(id=${question.getId()})}"><img alt="deletar" th:src="@{/img/icons/lixeira.svg}"/></a>
             </div>
         </div>
         <div class="status-pill-questions self-end bg-danger">
             <small>Não solucionada</small>
         </div>
         <div class="comments">
-            <div class="comment-card">
-                <div class="comment-left">
-                    <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</small>
+            <div class="comment-actions">
+                <div class="comment-card">
+                    <div class="comment-left">
+                        <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</small>
+                    </div>
+                    <div class="comment-right">
+                        <small>Bruno Silva</small>
+                    </div>
                 </div>
-                <div class="comment-right">
-                    <small>Bruno Silva</small>
+                <div class="action-icons-comment">
+                    <a href="#"><img th:src="@{/img/icons/lapis.svg}"/></a>
+                    <a href="#"><img th:src="@{/img/icons/lixeira.svg}"/></a>
                 </div>
             </div>
             <div class="comment-card">
@@ -66,7 +78,7 @@
         <div class="question-answers">
             <div class="answer-card">
                 <div class="answer-card-left">
-                    <img alt="Imagem do perfil do usuário" src="img/user.svg"/>
+                    <img alt="Imagem do perfil do usuário" src="/img/user.svg"/>
                     <div class="name-last-access">
                         <p>Bruno Almeida</p>
                         <small>2 horas</small>
@@ -98,7 +110,7 @@
             </div>
             <div class="answer-card">
                 <div class="answer-card-left">
-                    <img alt="Imagem do perfil do usuário" src="img/user.svg"/>
+                    <img alt="Imagem do perfil do usuário" src="/img/user.svg"/>
                     <div class="name-last-access">
                         <p>Bruno Almeida</p>
                         <small>2 horas</small>

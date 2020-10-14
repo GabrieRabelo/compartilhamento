@@ -7,6 +7,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import javax.transaction.Transactional;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,11 +18,13 @@ public class UserService {
 
     private final UserRepository repository;
     private final BCryptPasswordEncoder bcPasswordEncoder;
+    private final ReputationLogService reputationLogService;
 
     @Autowired
-    public UserService(UserRepository repo, BCryptPasswordEncoder encoder){
+    public UserService(UserRepository repo, BCryptPasswordEncoder encoder, ReputationLogService repService){
         bcPasswordEncoder = encoder;
         repository = repo;
+        reputationLogService = repService;
     }
 
     public User save(User u){
@@ -28,31 +33,48 @@ public class UserService {
         return repository.save(u);
     }
 
-    public User update(User u, String authEmail){
-        User user = findByEmail(authEmail).orElse(null);
-        if(user != null){
-            user.setName(u.getName());
-            user.setBio(u.getBio());
-            user.setCompany(u.getCompany());
-            user.setWebsite(u.getWebsite());
-            if(!StringUtils.isEmpty(u.getPassword())){
-                user.setPassword(bcPasswordEncoder.encode(u.getPassword()));
+    public User update(User u, User editUser) throws MalformedURLException {
+        if(editUser != null){
+            editUser.setName(u.getName());
+            editUser.setBio(u.getBio());
+            editUser.setCompany(u.getCompany());
+            if(!StringUtils.isEmpty(u.getWebsite())){
+                new URL(u.getWebsite());
             }
-            repository.save(user);
+            editUser.setWebsite(u.getWebsite());
+            if (u.getImage() != null && !u.getImage().equals(editUser.getImage()))
+                editUser.setImage(u.getImage());
+            if(!StringUtils.isEmpty(u.getPassword())){
+                editUser.setPassword(bcPasswordEncoder.encode(u.getPassword()));
+            }
+            if(!StringUtils.isEmpty(editUser.getBio()) && !StringUtils.isEmpty(editUser.getImage())
+                    && editUser.getHasCompletedProfile() == 0){
+                editUser.setHasCompletedProfile(1);
+                reputationLogService.createUserProfileLog(editUser);
+            }
+            repository.save(editUser);
         }
-        return user;
+        return editUser;
     }
 
-    public List<User> findAll(){
+    public List<User> getAll(){
         return repository.findAll();
     }
 
-    public Optional<User> findById(long id){
+    public Optional<User> getUserById(long id){
         return repository.findById(id);
     }
 
-    public Optional<User> findByEmail(String email){
+    public Optional<User> getUserByEmail(String email){
         return repository.findByEmail(email);
+    }
+
+    public User updateUserScore(User user, int score){
+        if(user == null || user.getId() == null){
+            return null;
+        }
+        user.setScore(user.getScore() + score);
+        return repository.save(user);
     }
 
 }

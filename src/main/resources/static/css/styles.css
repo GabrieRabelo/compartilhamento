@@ -34,6 +34,11 @@ h1,h2,h3,h4,h5,a,button,label,p{
     font-family: Raleway, sans-serif;
 }
 
+hr{
+    border: 1px solid #C7C7C7;
+    margin-top: 1rem;
+}
+
 small{
     font-family: Open Sans, sans-serif;
 }
@@ -60,8 +65,10 @@ button:hover{
 .avatar {
     width: 100%;
     height: 100%;
+    object-fit: cover;
     background-color: lightgray;
     border-radius: 50%;
+    border-width: 0px !important;
 }
 
 .question-card-divider{
@@ -81,6 +88,15 @@ button:hover{
 }
 
 .form-control input{
+    background-color: var(--dark-gray);
+    height: 40px;
+    width: 280px;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top:10px;
+}
+
+.form-control select{
     background-color: var(--dark-gray);
     height: 40px;
     width: 280px;
@@ -113,6 +129,22 @@ button:hover{
 .form-control label {
     font-size: 10pt;
     font-weight: bold;
+}
+
+.form-big input{
+    width: 70vw;
+}
+
+.form-big select{
+    width: 70vw;
+}
+
+.form-big textarea{
+    width: 70vw;
+}
+
+.form-big textarea{
+    height: 270px;
 }
 
 .button-default{
@@ -417,6 +449,10 @@ button:hover{
     font-weight: bolder;
 }
 
+.company-values{
+    font-weight: lighter
+}
+
 .bg-offwhite{
     background-color: #F4F4F4;
 }
@@ -443,4 +479,8 @@ button:hover{
 
 .bg-light-green {
     background-color: var(--light-green);
+}
+
+.bold{
+    font-weight: bold;
 }

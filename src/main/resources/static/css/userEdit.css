@@ -7,3 +7,14 @@
     /*padding: 10px;*/
     /*margin-top: 10px;*/
 }
+
+#annotation{
+    font-size: 11px;
+    color: #FF3333;
+}
+
+
+#example{
+    font-size: 11px;
+    color: #000000;
+}

@@ -12,38 +12,41 @@
 <div class="background" th:if="${user}">
 
     <div class="profile">
-        <div class="profile-info">
-            <img class="profile-picture" th:if="!${user.getImage()}" src="/img/profilePic.svg" alt="Foto do usuário">
-            <img class="profile-picture" th:if="${user.getImage()}" th:src="${user.getImage()}" alt="Foto do usuário">
-
-            <div class="test">
-                <div class="info">
-                    <h1 th:text="${user.getName()}"></h1>
-                    <div class="align-center">
-                        <h4>Pontuação:</h4>
-                        <p th:text="${user.getScore()} + ' pontos'"></p>
-                    </div>
-                    <div class="align-center">
-                        <h4>Membro desde:</h4>
-                        <p th:text="${#dates.format(user.getCreatedAt(), 'dd/MM/yyyy')}"></p>
-                    </div>
+        <div class="col">
+            <div class="row">
+                <div class="picture-info">
+                    <img class="profile-picture" th:if="!${user.getImage()}" src="/img/profilePic.svg" alt="Foto do usuário">
+                    <img class="profile-picture" th:if="${user.getImage()}" th:src="${user.getImage()}" alt="Foto do usuário">
                 </div>
 
-                <div class="tags">
-                    <div class="status-pill bg-answer mx-3">
-                        <small>21 respostas</small>
-                    </div>
-                    <div class="status-pill bg-question">
-                        <small>7 perguntas</small>
+                <div class="col justify-center">
+                    <h2 th:text="${user.getName()}"></h2>
+                    <small> <b>Membro desde:&nbsp </b> <span th:text="${#dates.format(user.getCreatedAt(), 'dd/MM/yyyy')}"></span></small>
+
+                    <div class="items-info">
+                        <p class="pontuacao">Pontuação: 20 pontos</p>
                     </div>
                 </div>
             </div>
+            <!-- <p class="tag-user">Administrador</p> -->
         </div>
         <div class="line"></div>
-        <div class="bio">
-            <h1>Biografia</h1>
-            <p th:text="${user.getBio()}"></p>
+        <div class="info">
+            <div th:if="${user.getCompany()}" id="company" class="item">
+                <h3>Empresa</h3>
+                <p th:text="${user.getCompany()}"></p>
+            </div>
+            <div th:if="${user.getWebsite()}" id="website" class="item">
+                <h3>Site</h3>
+                <p th:text="${user.getWebsite()}"></p>
+            </div>
+            <div th:if="${user.getBio()}" id="biography" class="item">
+                <h2>Biografia</h2>
+                <p th:text="${user.getBio()}"></p>
+            </div>
+
         </div>
+
         <div th:if="${#authentication.getPrincipal().id == user.getId()}" class="white-background">
             <button onclick="document.querySelector('#link').click()">Editar perfil</button>
             <a id="link" th:href="@{/user/edit}"></a>
