@@ -33,16 +33,6 @@ public class UserController {
         this.service = service;
     }
 
-    @GetMapping("/admin")
-    public String getAdminPage() {
-        return  "redirect:/admin/banner";
-    }
-
-    @GetMapping("/admin/banner")
-    public String getAdminBannerPage() {
-        return  "adminBanner";
-    }
-
     @GetMapping("/signup")
     public String getUserSignupPage(){
         return "signup";
