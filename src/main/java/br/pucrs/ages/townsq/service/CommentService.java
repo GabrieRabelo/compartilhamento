@@ -44,6 +44,18 @@ public class CommentService {
         return commentRepository.save(comment);
     }
 
+    public Comment editComment(String comment,
+                               User user,
+                               Long id){
+        Comment dataBaseQuestion = commentRepository.findById(id).orElse(null);
+        if(StringUtils.isEmpty(comment.trim()) || dataBaseQuestion == null || !dataBaseQuestion.getUser().getId().equals(user.getId())){
+            throw new IllegalArgumentException("não foi possível editar o comentário.");
+        }
+        dataBaseQuestion.setText(comment);
+        return commentRepository.save(dataBaseQuestion);
+    }
+
+
     public boolean deleteComment(long commentId, User user){
         Comment comment = commentRepository.findById(commentId).orElse(null);
         if(comment != null && comment.getUser().getId().equals(user.getId())){

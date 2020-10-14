@@ -55,6 +55,22 @@ public class CommentController {
         return "redirect:/question/" + questionOfComment.getId() + "/" + Slugify.toSlug(questionOfComment.getTitle());
     }
 
+    @PostMapping("/comment/edit/{id}")
+    public String postEditComment(
+            @AuthenticationPrincipal User user,
+            @ModelAttribute Comment comment,
+            @PathVariable long id,
+            final RedirectAttributes redirectAttributes
+    ){
+        try{
+            commentService.editComment(comment.getText(),user,id);
+            redirectAttributes.addFlashAttribute("success","Comentário editado com sucesso.");
+        }catch (IllegalArgumentException e ){
+            redirectAttributes.addFlashAttribute("error",e.getMessage());
+        }
+        return "redirect:/" ;
+    }
+
     /**
      * Get route to delete comment
      * @param user User
