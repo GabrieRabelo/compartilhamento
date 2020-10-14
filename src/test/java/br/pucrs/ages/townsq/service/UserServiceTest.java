@@ -1,8 +1,8 @@
-package br.pucrs.ages.townsq;
+package br.pucrs.ages.townsq.service;
 
 import br.pucrs.ages.townsq.model.User;
+import br.pucrs.ages.townsq.repository.RoleRepository;
 import br.pucrs.ages.townsq.repository.UserRepository;
-import br.pucrs.ages.townsq.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -10,31 +10,23 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.test.context.ActiveProfiles;
 
-@SpringBootTest
-@ActiveProfiles("test")
 public class UserServiceTest {
 
-    @InjectMocks
     private UserService service;
-    @Mock
     private UserRepository userRepository;
-    @Mock
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private ReputationLogService reputationLogService;
+    private RoleRepository roleRepository;
 
     @BeforeEach
     void setUp(){
-        MockitoAnnotations.initMocks(userRepository);
-    }
+        userRepository = mock(UserRepository.class);
+        bCryptPasswordEncoder = mock(BCryptPasswordEncoder.class);
 
+        this.service = new UserService(userRepository, bCryptPasswordEncoder, roleRepository, reputationLogService);
+    }
 
     /*
     @Test

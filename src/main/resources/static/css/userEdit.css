@@ -8,13 +8,140 @@
     /*margin-top: 10px;*/
 }
 
+.form-control {
+    width: 100%;
+}
+
+.line {
+    display: none;
+    margin-top: 20px
+}
+
 #annotation{
     font-size: 11px;
     color: #FF3333;
 }
 
+.container {
+    display: flex;
+}
+
+.profile-info-container {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: row;
+}
+
+.img-container {
+    width: 120px;
+    height: 120px;
+    display: flex;
+}
+
+.profile-edit {
+    width: 60%;
+    display: flex;
+}
+
+.info-container {
+    padding: 10px 0 0 10px;
+}
+
+.bio {
+    padding-top: 10px;
+}
+
+.bio-item {
+    margin-top: 10px;
+}
+
+.newpicture {
+    padding-top: 20px;
+    width: 25%;
+    height: 100%;
+}
+
+.form {
+    width: 80%;
+    height: 75%;
+}
+
+.question-card-divider {
+    margin-right: 16px
+}
+
+.pic-title {
+    display: none;
+}
+
+.form-group {
+    display: flex;
+}
 
 #example{
     font-size: 11px;
     color: #000000;
+}
+
+@media (max-width: 600px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .profile-info-container {
+        width: 100%;
+    }
+
+    .profile-edit {
+        width: 100%;
+        height: 70%;
+        flex-direction: column;
+    }
+
+    .img-container {
+        width: 96px;
+        height: 96px;
+        display: flex;
+    }
+
+    .pontuacao {
+        padding: 10px 15px;
+        font-size: 10pt;
+    }
+
+    .newpicture {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .pic-title {
+        display: block;
+    }
+
+    .edit-title {
+        display: none;
+    }
+
+    .form {
+        width: 100%;
+    }
+
+    .line {
+        display: block;
+    }
+
+    .question-card-divider {
+        display: none;
+    }
+
+    .form-group {
+        flex-direction: column;
+    }
 }

@@ -29,80 +29,22 @@
     <main class="main-content">
         <img src="img/logo.svg" id="mobile-icon" alt="Logo da TownSq"/>
         <h1>Confira as perguntas mais recentes</h1>
-        <div class="question-card">
+        <div th:each="question: ${questions}" class="question-card">
             <div class="card-left">
                 <div class="status-pill-questions bg-danger">
                     <small>Não solucionada</small>
                 </div>
                 <div class="question-title">
-                    <a href="/question">Lorem ipsum dolor sit amet, consectetur tincidunt.</a>
+                    <a th:text="${question.getTitle()}" th:href="@{/question/{id}(id=${question.getId()})}"></a>
                 </div>
                 <div class="question-text">
-                    <p>No prédio em que sou síndico está tendo. O zelador que está trabal...</p>
+                    <p th:text="${question.getDescription()}"></p>
                 </div>
                 <div class="question-creator">
                     <img alt="Imagem do perfil do usuário" src="img/user.svg"/>
                     <div class="name-last-access">
-                        <p>Bruno Almeida</p>
-                        <small>2 horas</small>
-                    </div>
-                </div>
-            </div>
-            <div class="card-right">
-                <div class="question-card-divider"></div>
-                <div class="card-right-text">
-                    <p>0</p>
-                    <p>respostas</p>
-                    <small>0 comentários</small>
-                </div>
-            </div>
-        </div>
-        <div class="question-card">
-            <div class="card-left">
-                <div class="status-pill-questions bg-danger">
-                    <small>Não solucionada</small>
-                </div>
-                <div class="question-title">
-                    <a href="/question">Lorem ipsum dolor sit amet, consectetur tincidunt.</a>
-                </div>
-                <div class="question-text">
-                    <p>No prédio em que sou síndico está tendo uma discussão durante as reuniões sobre a presença
-                        constante do zelador durante o horário de almoço da portaria. O zelador que está trabal...</p>
-                </div>
-                <div class="question-creator">
-                    <img alt="Imagem do perfil do usuário" src="img/user.svg"/>
-                    <div class="name-last-access">
-                        <p>Bruno Almeida</p>
-                        <small>2 horas</small>
-                    </div>
-                </div>
-            </div>
-            <div class="card-right">
-                <div class="question-card-divider"></div>
-                <div class="card-right-text">
-                    <p>0</p>
-                    <p>respostas</p>
-                    <small>0 comentários</small>
-                </div>
-            </div>
-        </div>
-        <div class="question-card">
-            <div class="card-left">
-                <div class="status-pill-questions bg-success">
-                    <small>Solucionada</small>
-                </div>
-                <div class="question-title">
-                    <a href="/question">Lorem ipsum dolor sit amet, consectetur tincidunt.</a>
-                </div>
-                <div class="question-text">
-                    <p>No prédio em que sou síndico está tendo uma discussão durante as reuniões sobre a presença
-                        constante do zelador durante o horário de almoço da portaria. O zelador que está trabal...</p>
-                </div>
-                <div class="question-creator">
-                    <img alt="Imagem do perfil do usuário" src="img/user.svg"/>
-                    <div class="name-last-access">
-                        <p>Bruno Almeida</p>
-                        <small>2 horas</small>
+                        <a th:href="@{/user/{id}(id=${question.getUser().getId()})}" th:text="${question.getUser().getName()}"></a>
+                        <small th:text="${question.getCreatedAtString()}"></small>
                     </div>
                 </div>
             </div>

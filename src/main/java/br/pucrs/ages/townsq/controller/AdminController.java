@@ -36,7 +36,7 @@ public class AdminController {
 
     @PostMapping("/admin/mods/getUser")
     public String postMods(User usuario, final RedirectAttributes redirectAttr) {
-        User user = service.findByEmail(usuario.getName()).orElse(null);
+        User user = service.getUserByEmail(usuario.getName()).orElse(null);
         if (user == null) {
             redirectAttr.addFlashAttribute("error", "Usuário não encontrado");
         } else {
