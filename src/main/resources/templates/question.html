@@ -51,9 +51,12 @@
                     </div>
                 </div>
             </div>
-            <div sec:authorize="isAuthenticated()" th:if="${#authentication.getPrincipal().id==question.getUser().getId()}" class="action-icons">
-                <a th:href="@{/question/edit/{id}(id=${question.getId()})}"><img alt="editar" th:src="@{/img/icons/lapis.svg}"/></a>
-                <a th:href="@{/question/delete/{id}(id=${question.getId()})}"><img alt="deletar" th:src="@{/img/icons/lixeira.svg}"/></a>
+            <div sec:authorize="isAuthenticated()"
+                 th:if="${#authentication.getPrincipal().id==question.getUser().getId()}" class="action-icons">
+                <a th:href="@{/question/edit/{id}(id=${question.getId()})}"><img alt="editar"
+                                                                                 th:src="@{/img/icons/lapis.svg}"/></a>
+                <a th:href="@{/question/delete/{id}(id=${question.getId()})}"><img alt="deletar"
+                                                                                   th:src="@{/img/icons/lixeira.svg}"/></a>
             </div>
         </div>
         <div class="status-pill-questions self-end bg-danger">
@@ -82,60 +85,58 @@
         <hr>
         <div class="answer-textarea-container">
             <h2>Digite sua resposta</h2>
+
             <div sec:authorize="${!isAnonymous()}" class="answer-textarea-button">
-                <textarea th:disabled="!${#request.userPrincipal}"></textarea>
-                <button class="button-default bg-light-green" th:disabled="!${#request.userPrincipal}">Responder pergunta</button>
+                <form th:method="post" th:object="${answer}" th:action="@{/answer/create}">
+                    <input th:type="hidden" th:id="question" th:name="question" th:value="${question.getId()}"/>
+                    <textarea th:disabled="!${#request.userPrincipal}" name="text" id="text"> </textarea>
+                    <button type="submit" class="button-default bg-light-green" th:disabled="!${#request.userPrincipal}">
+                        Responder pergunta
+                    </button>
+                </form>
             </div>
             <div sec:authorize="${isAnonymous()}" class="required-login-banner">
                 <h1>Você não está logado.</h1>
                 <h2>Entre com sua conta ou cadastre-se para responder.</h2>
             </div>
         </div>
-        <div class="question-answers">
-            <div class="answer-card">
+        <div th:each="answer:${answers}" class="answer-card-actions">
+            <div class="answer-page-main-card">
                 <div class="answer-card-left">
                     <img alt="Imagem do perfil do usuário" src="/img/user.svg"/>
                     <div class="name-last-access">
-                        <p>Bruno Almeida</p>
-                        <small>2 horas</small>
+                        <p th:text="${answer.getUser().getName()}"></p>
+                        <small th:text="${answer.getCreatedAtString()}"></small>
                     </div>
                 </div>
                 <div class="answer-card-right">
                     <div class="question-text">
-                        <p>No prédio em que sou síndico está tendo uma discussão durante as reuniões sobre a presença q...</p>
+                        <p th:text="${answer.getText()}"></p>
                     </div>
                 </div>
             </div>
-            <div class="comments">
-                <div class="comment-card">
-                    <div class="comment-left">
-                        <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</small>
-                    </div>
-                    <div class="comment-right">
-                        <small>Bruno Silva</small>
-                    </div>
+            <div sec:authorize="isAuthenticated()"
+                 th:if="${#authentication.getPrincipal().id==answer.getUser().getId()}" class="action-icons">
+                <a href="#"><img th:src="@{/img/icons/lapis.svg}"/></a>
+                <a th:href="@{/answer/delete/{id}(id=${answer.getId()})}"><img alt="deletar"
+                                                                               th:src="@{/img/icons/lixeira.svg}"/></a>
+            </div>
+        </div>
+        <div class="comments">
+            <div class="comment-card">
+                <div class="comment-left">
+                    <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</small>
                 </div>
-                <div class="comment-card">
-                    <div class="comment-left">
-                        <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</small>
-                    </div>
-                    <div class="comment-right">
-                        <small>Fulano Jr.</small>
-                    </div>
+                <div class="comment-right">
+                    <small>Bruno Silva</small>
                 </div>
             </div>
-            <div class="answer-card">
-                <div class="answer-card-left">
-                    <img alt="Imagem do perfil do usuário" src="/img/user.svg"/>
-                    <div class="name-last-access">
-                        <p>Bruno Almeida</p>
-                        <small>2 horas</small>
-                    </div>
+            <div class="comment-card">
+                <div class="comment-left">
+                    <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</small>
                 </div>
-                <div class="answer-card-right">
-                    <div class="question-text">
-                        <p>No prédio em que sou síndico está tendo uma discussão durante as reuniões sobre a presença q...</p>
-                    </div>
+                <div class="comment-right">
+                    <small>Fulano Jr.</small>
                 </div>
             </div>
         </div>

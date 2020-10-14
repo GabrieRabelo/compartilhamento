@@ -50,7 +50,11 @@ public class Answer {
     private User user;
 
     @ManyToOne(optional = true)
-    @JoinColumn(name = "questionId", nullable = true)
+    @JoinColumn(name = "questionId", nullable = false)
     private Question question;
+
+    public String getCreatedAtString(){
+        return Chronos.dateToPrettyTimeString(this.createdAt);
+    }
 
 }

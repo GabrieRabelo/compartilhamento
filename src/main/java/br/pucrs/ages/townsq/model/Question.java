@@ -51,6 +51,8 @@ public class Question {
     private int status = 1;
     @OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL, mappedBy = "question")
     private List<Comment> comments;
+    @OneToMany(targetEntity = Answer.class, cascade = CascadeType.ALL, mappedBy = "question")
+    private List<Answer> answers;
 
     public void setUser(User u){
         if(this.user == null){

@@ -1,7 +1,9 @@
 package br.pucrs.ages.townsq.controller;
 
+import br.pucrs.ages.townsq.model.Answer;
 import br.pucrs.ages.townsq.model.Question;
 import br.pucrs.ages.townsq.model.User;
+import br.pucrs.ages.townsq.service.AnswerService;
 import br.pucrs.ages.townsq.service.QuestionService;
 import br.pucrs.ages.townsq.service.TopicService;
 import br.pucrs.ages.townsq.utils.Slugify;
@@ -22,11 +24,13 @@ public class QuestionController {
 
     private final TopicService topicService;
     private final QuestionService questionService;
+    private final AnswerService answerService;
 
     @Autowired
-    public QuestionController(TopicService topicService, QuestionService questionService){
+    public QuestionController(TopicService topicService, QuestionService questionService, AnswerService answerService){
         this.topicService = topicService;
         this.questionService = questionService;
+        this.answerService = answerService;
     }
 
     /**
@@ -111,6 +115,8 @@ public class QuestionController {
                 return "redirect:/question/" + id + "/" + questionSlug;
             }
             model.addAttribute("question", question);
+            model.addAttribute("answers", answerService.getQuestionAnswers(question));
+            model.addAttribute("answer", new Answer());
             return "question";
         }
         return "question";
