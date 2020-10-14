@@ -25,12 +25,14 @@ public class AdminController {
     }
 
     @GetMapping("/admin/banner")
-    public String getAdminBannerPage() {
+    public String getAdminBannerPage(Model model) {
+        model.addAttribute("active", true);
         return  "adminBanner";
     }
 
     @GetMapping("/admin/mods")
     public String getAdminModsPage(Model model) {
+        model.addAttribute("active", true);
         return  "adminMods";
     }
 

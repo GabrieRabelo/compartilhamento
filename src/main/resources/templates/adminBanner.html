@@ -13,18 +13,22 @@
     <div class="col-6">
         <div class="line"></div>
         <div class="tabs">
-            <a href="/admin/banner">Editar Propaganda</a>
-            <a href="/admin/mods">Gerenciar Moderadores</a>
+            <a class="prop" th:classappend="${active} ? 'active' : ''" href="/admin/banner">Editar Propaganda <span></span></a>
+            <a class="mods" href="/admin/mods">Gerenciar Moderadores</a>
         </div>
         <form role="form" th:action="@{/admin/banner}" th:method="post">
             <div class="form">
                 <h1 class="title">Atualize a propaganda</h1>
                 <div class="form-control">
-                    <label for="name">Titulo do anuncio</label>
+                    <label for="name">Titulo do anúncio</label>
                     <input type="text" name="name" id="name"/>
                 </div>
                 <div class="form-control">
-                    <label for="name">Texto do anuncio</label>
+                    <label for="link">Link do anúncio</label>
+                    <input type="text" name="link" id="link"/>
+                </div>
+                <div class="form-control">
+                    <label for="name">Texto do anúncio</label>
                     <textarea type="text" name="bio" id="bio"></textarea>
                 </div>
                 <div class="row white-background">
