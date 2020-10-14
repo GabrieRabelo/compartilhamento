@@ -9,8 +9,12 @@ import br.pucrs.ages.townsq.utils.Slugify;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
 
 @Controller
 public class CommentController {
@@ -36,11 +40,15 @@ public class CommentController {
      */
     @PostMapping("/comment/create/{creator}/{creatorId}")
     public String postCreateComment(@AuthenticationPrincipal User user,
-                                    @ModelAttribute Comment comment,
+                                    @ModelAttribute @Valid Comment comment,
+                                    BindingResult bindingResult,
                                     @ModelAttribute Question question,
                                     @PathVariable String creator,
                                     @PathVariable long creatorId,
-                                    final RedirectAttributes redirectAttributes){
+                                    final RedirectAttributes redirectAttributes) throws BindException {
+        if (bindingResult.hasErrors()) {
+            throw new BindException(bindingResult);
+        }
         Question questionOfComment = questionService.getQuestionById(question.getId()).orElse(null);
         if(questionOfComment == null){
             redirectAttributes.addFlashAttribute("error", "Houve um problema na operação.");
@@ -66,10 +74,14 @@ public class CommentController {
     @PostMapping("/comment/edit/{id}")
     public String postEditComment(
             @AuthenticationPrincipal User user,
-            @ModelAttribute Comment comment,
+            @ModelAttribute @Valid Comment comment,
+            BindingResult bindingResult,
             @PathVariable long id,
             final RedirectAttributes redirectAttributes
-    ){
+    ) throws BindException {
+        if (bindingResult.hasErrors()) {
+            throw new BindException(bindingResult);
+        }
         Question questionFrom = questionService.getQuestionById(comment.getQuestion().getId()).orElse(null);
         if(questionFrom == null){
             redirectAttributes.addFlashAttribute("error","Operação inválida.");
@@ -78,7 +90,7 @@ public class CommentController {
         try{
             commentService.editComment(comment.getText(),user,id);
             redirectAttributes.addFlashAttribute("success","Comentário editado com sucesso.");
-        }catch (IllegalArgumentException e ){
+        }catch (IllegalArgumentException e){
             redirectAttributes.addFlashAttribute("error",e.getMessage());
         }
         return "redirect:/question/" + questionFrom.getId() +  "/" + Slugify.toSlug(questionFrom.getTitle());
@@ -109,6 +121,12 @@ public class CommentController {
             redirectAttributes.addFlashAttribute("error", "Não foi possível deletar o comentário.");
         }
         return "redirect:/question/" + question.getId() + "/" + Slugify.toSlug(question.getTitle());
+    }
+
+    @ExceptionHandler({ BindException.class })
+    public String handleException(final RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("error", "Comentário inválido.");
+        return "redirect:/";
     }
 
 }

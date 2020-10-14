@@ -1,6 +1,5 @@
 package br.pucrs.ages.townsq.model;
 
-import br.pucrs.ages.townsq.utils.Chronos;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -8,6 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "comments")
@@ -25,6 +25,7 @@ public class Comment {
 
     @NotNull(message = "Comentário não pode ser nulo.")
     @NotEmpty(message = "Comentário não pode ser vazio.")
+    @Size(min = 1, max = 512)
     @Column(name = "text", columnDefinition = "VARCHAR(512)", nullable =  false)
     private String text;
 

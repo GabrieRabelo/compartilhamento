@@ -21,7 +21,7 @@
                     <div class="form-control">
                         <input type="hidden" th:value="${question.getId()}" th:name="question" th:id="question" />
                         <label for="text-input">Comentário</label>
-                        <input type="text" name="text" id="text-input" required/>
+                        <textarea name="text" id="text-input" required maxlength="512"></textarea>
                     </div>
                 </div>
             </div>
