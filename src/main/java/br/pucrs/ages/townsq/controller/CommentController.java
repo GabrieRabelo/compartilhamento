@@ -63,8 +63,9 @@ public class CommentController {
             final RedirectAttributes redirectAttributes
     ){
         try{
-            commentService.editComment(comment.getText(),user,id);
+            Comment updated = commentService.editComment(comment.getText(),user,id);
             redirectAttributes.addFlashAttribute("success","Comentário editado com sucesso.");
+            return "redirect:/question/" + updated.getQuestion().getId() + "/" + Slugify.toSlug(updated.getQuestion().getTitle());
         }catch (IllegalArgumentException e ){
             redirectAttributes.addFlashAttribute("error",e.getMessage());
         }

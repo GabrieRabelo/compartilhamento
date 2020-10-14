@@ -93,6 +93,7 @@
 .action-icons-comment img{
     width: 20px;
     height: 20px;
+    cursor: pointer;
 }
 
 .action-icons-comment a:first-child{
