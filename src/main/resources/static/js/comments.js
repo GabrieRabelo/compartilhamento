@@ -2,7 +2,7 @@ document.querySelector('#comment-form').addEventListener('submit', function (e){
     e.preventDefault()
 })
 
-function updateModal(referer) {
+function updateModal(creatorInfo) {
 
     const modal = document.querySelector(".modal");
     const header = document.querySelector("header");
@@ -10,7 +10,7 @@ function updateModal(referer) {
     const form = document.querySelector('#comment-form');
     const formText = document.querySelector('#text-input');
 
-    const split = referer.split(';');
+    const split = creatorInfo.split(';');
     if(split[0] === 'edit'){
         form.action = `/comment/edit/${split[1]}`;
         formText.value = document.querySelector(`#text-${split[1]}`).innerHTML;

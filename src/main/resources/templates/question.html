@@ -78,7 +78,7 @@
                 </div>
                 <div class="action-icons-comment" sec:authorize="isAuthenticated()" th:if="${#authentication.getPrincipal().id == comment.getUser().getId()}">
                     <img th:onclick="|updateModal('edit;${comment.getId()}')|" th:src="@{/img/icons/lapis.svg}" alt="Editar comentário"/>
-                    <a th:href="'/comment/delete/' + ${comment.getId()}"><img th:src="@{/img/icons/lixeira.svg}" alt="Excluir comentário"/></a>
+                    <a th:href="'/comment/delete/' + ${question.getId()} + '/' + ${comment.getId()}"><img th:src="@{/img/icons/lixeira.svg}" alt="Excluir comentário"/></a>
                 </div>
             </div>
         </div>
@@ -100,43 +100,46 @@
                 <h2>Entre com sua conta ou cadastre-se para responder.</h2>
             </div>
         </div>
-        <div th:each="answer:${answers}" class="answer-card-actions">
-            <div class="answer-page-main-card">
-                <div class="answer-card-left">
-                    <img alt="Imagem do perfil do usuário" src="/img/user.svg"/>
-                    <div class="name-last-access">
-                        <p th:text="${answer.getUser().getName()}"></p>
-                        <small th:text="${answer.getCreatedAtString()}"></small>
+        <div th:each="answer:${answers}">
+            <div class="answer-card-actions">
+                <div class="answer-page-main-card">
+                    <div class="answer-card-left">
+                        <img alt="Imagem do perfil do usuário" src="/img/user.svg"/>
+                        <div class="name-last-access">
+                            <p th:text="${answer.getUser().getName()}"></p>
+                            <small th:text="${answer.getCreatedAtString()}"></small>
+                        </div>
+                    </div>
+                    <div class="answer-card-right">
+                        <div class="question-text">
+                            <p th:text="${answer.getText()}"></p>
+                        </div>
                     </div>
                 </div>
-                <div class="answer-card-right">
-                    <div class="question-text">
-                        <p th:text="${answer.getText()}"></p>
+                <div sec:authorize="isAuthenticated()"
+                     th:if="${#authentication.getPrincipal().id==answer.getUser().getId()}" class="action-icons">
+                    <a href="#"><img th:src="@{/img/icons/lapis.svg}"/></a>
+                    <a th:href="@{/answer/delete/{id}(id=${answer.getId()})}"><img alt="deletar" th:src="@{/img/icons/lixeira.svg}"/></a>
+                </div>
+            </div>
+            <div class="add-comment self-end" th:onclick="|updateModal('answer;${answer.getId()}')|">
+                <img alt="Adicionar Comentário" th:src="@{/img/icons/add_comment.svg}"/>
+                <small>Adicionar um Comentário</small>
+            </div>
+            <div class="comments">
+                <div class="comment-actions" th:each="comment : ${answer.getAllActiveComments()}">
+                    <div class="comment-card">
+                        <div class="comment-left">
+                            <small th:text="${comment.getText()}" th:id="'text-' + ${comment.getId()}"></small>
+                        </div>
+                        <div class="comment-right">
+                            <a th:href="'/user/' + ${comment.getUser().getId()}"><small th:text="${comment.getUser().getName()}"></small></a>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div sec:authorize="isAuthenticated()"
-                 th:if="${#authentication.getPrincipal().id==answer.getUser().getId()}" class="action-icons">
-                <a href="#"><img th:src="@{/img/icons/lapis.svg}"/></a>
-                <a th:href="@{/answer/delete/{id}(id=${answer.getId()})}"><img alt="deletar"
-                                                                               th:src="@{/img/icons/lixeira.svg}"/></a>
-            </div>
-        </div>
-        <div class="comments">
-            <div class="comment-card">
-                <div class="comment-left">
-                    <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</small>
-                </div>
-                <div class="comment-right">
-                    <small>Bruno Silva</small>
-                </div>
-            </div>
-            <div class="comment-card">
-                <div class="comment-left">
-                    <small>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</small>
-                </div>
-                <div class="comment-right">
-                    <small>Fulano Jr.</small>
+                    <div class="action-icons-comment" sec:authorize="isAuthenticated()" th:if="${#authentication.getPrincipal().id == comment.getUser().getId()}">
+                        <img th:onclick="|updateModal('edit;${comment.getId()}')|" th:src="@{/img/icons/lapis.svg}" alt="Editar comentário"/>
+                        <a th:href="'/comment/delete/' + ${question.getId()} + '/' + ${comment.getId()}"><img th:src="@{/img/icons/lixeira.svg}" alt="Excluir comentário"/></a>
+                    </div>
                 </div>
             </div>
         </div>

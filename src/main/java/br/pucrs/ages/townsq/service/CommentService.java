@@ -1,5 +1,6 @@
 package br.pucrs.ages.townsq.service;
 
+import br.pucrs.ages.townsq.model.Answer;
 import br.pucrs.ages.townsq.model.Comment;
 import br.pucrs.ages.townsq.model.Question;
 import br.pucrs.ages.townsq.model.User;
@@ -13,33 +14,42 @@ public class CommentService {
 
     private final CommentRepository commentRepository;
     private final QuestionService questionService;
+    private final AnswerService answerService;
 
     @Autowired
-    public CommentService(CommentRepository commentRepository, QuestionService questionService){
+    public CommentService(CommentRepository commentRepository, QuestionService questionService, AnswerService answerService){
         this.commentRepository = commentRepository;
         this.questionService = questionService;
+        this.answerService = answerService;
     }
 
     /**
      * Saves a Comment on the database
      * @param comment Comment
      * @param user User
-     * @param referer String
-     * @param refererId long
+     * @param creator String
+     * @param creatorId long
      * @return Comment
      */
     public Comment saveComment(Comment comment,
                                User user,
-                               String referer,
-                               long refererId) throws IllegalArgumentException{
+                               String creator,
+                               long creatorId) throws IllegalArgumentException{
         if(StringUtils.isEmpty(comment.getText()))
             throw new IllegalArgumentException("O texto do comentário não pode estar vazio.");
-        if(referer.equals("question")){
-            Question question = questionService.getQuestionById(refererId).orElse(null);
-            if(question == null) throw new IllegalArgumentException("Pergunta não encontrada");
+
+        comment.setUser(user);
+        if(creator.equals("question")){
+            Question question = questionService.getQuestionById(creatorId).orElse(null);
+            if(question == null) throw new IllegalArgumentException("Pergunta referente ao comentário não encontrada");
             comment.setQuestion(question);
             comment.setAnswer(null);
-            comment.setUser(user);
+        }
+        else if(creator.equals("answer")){
+            Answer answer = answerService.findById(creatorId).orElse(null);
+            if(answer == null) throw new IllegalArgumentException("Resposta referente ao comentário não encontrada");
+            comment.setQuestion(null);
+            comment.setAnswer(answer);
         }
         return commentRepository.save(comment);
     }
@@ -47,12 +57,12 @@ public class CommentService {
     public Comment editComment(String comment,
                                User user,
                                Long id){
-        Comment dataBaseQuestion = commentRepository.findById(id).orElse(null);
-        if(StringUtils.isEmpty(comment.trim()) || dataBaseQuestion == null || !dataBaseQuestion.getUser().getId().equals(user.getId())){
+        Comment databaseComment = commentRepository.findById(id).orElse(null);
+        if(StringUtils.isEmpty(comment.trim()) || databaseComment == null || !databaseComment.getUser().getId().equals(user.getId())){
             throw new IllegalArgumentException("não foi possível editar o comentário.");
         }
-        dataBaseQuestion.setText(comment);
-        return commentRepository.save(dataBaseQuestion);
+        databaseComment.setText(comment);
+        return commentRepository.save(databaseComment);
     }
 
 

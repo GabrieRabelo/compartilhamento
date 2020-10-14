@@ -8,6 +8,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "answers")
@@ -53,8 +55,15 @@ public class Answer {
     @JoinColumn(name = "questionId", nullable = false)
     private Question question;
 
+    @OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL, mappedBy = "answer")
+    private List<Comment> comments;
+
     public String getCreatedAtString(){
         return Chronos.dateToPrettyTimeString(this.createdAt);
+    }
+
+    public List<Comment> getAllActiveComments(){
+        return comments.stream().filter(e -> e.getIsActive() == 1).collect(Collectors.toList());
     }
 
 }
