@@ -79,8 +79,8 @@
                 <form th:method="post" th:object="${answer}" th:action="@{/answer/create}">
                     <input th:type="hidden" th:id="question" th:name="question" th:value="${question.getId()}"/>
                     <textarea th:disabled="!${#request.userPrincipal}" name="text" id="text"> </textarea>
-                    <button type="submit" class="button-default bg-light-green" th:disabled="!${#request.userPrincipal}">Responder
-                        pergunta
+                    <button type="submit" class="button-default bg-light-green" th:disabled="!${#request.userPrincipal}">
+                        Responder pergunta
                     </button>
                 </form>
             </div>
@@ -89,7 +89,7 @@
                 <h2>Entre com sua conta ou cadastre-se para responder.</h2>
             </div>
         </div>
-        <div th:each="answer:${question.getAnswers()}" class="answer-card-actions">
+        <div th:each="answer:${answers}" class="answer-card-actions">
             <div class="answer-page-main-card">
                 <div class="answer-card-left">
                     <img alt="Imagem do perfil do usuário" src="/img/user.svg"/>
@@ -107,7 +107,8 @@
             <div sec:authorize="isAuthenticated()"
                  th:if="${#authentication.getPrincipal().id==answer.getUser().getId()}" class="action-icons">
                 <a href="#"><img th:src="@{/img/icons/lapis.svg}"/></a>
-                <a href="#"><img th:src="@{/img/icons/lixeira.svg}"/></a>
+                <a th:href="@{/answer/delete/{id}(id=${answer.getId()})}"><img alt="deletar"
+                                                                               th:src="@{/img/icons/lixeira.svg}"/></a>
             </div>
         </div>
         <div class="comments">
