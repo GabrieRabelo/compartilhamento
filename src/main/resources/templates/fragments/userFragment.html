@@ -28,7 +28,7 @@
             </div>
             <div th:if="${user.getWebsite()}" class="bio-item">
                 <h3>Site</h3>
-                <p><a th:href="@{{id}(id=${user.getWebsite()})}" target="_blank" th:text="${user.getWebsite()}"></a></p>
+                <p><a th:href="@{{id}(id=${user.getWebsite()})}" target="_blank" class="websiteLink" th:text="${user.getWebsite()}"></a></p>
             </div>
             <div th:if="${user.getBio()}" id="biography" class="bio-item">
                 <h2>Biografia</h2>

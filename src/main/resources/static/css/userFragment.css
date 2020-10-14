@@ -22,6 +22,10 @@
     margin-top: 10px;
 }
 
+.websiteLink {
+    color: black;
+}
+
 @media (max-width: 1150px) {
     .profile-info-container {
         width: 100%;
