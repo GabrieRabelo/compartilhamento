@@ -24,7 +24,7 @@
                     <small> <b>Membro desde:&nbsp </b> <span th:text="${#dates.format(user.getCreatedAt(), 'dd/MM/yyyy')}"></span></small>
 
                     <div class="items-info">
-                        <p class="pontuacao">Pontuação: 20 pontos</p>
+                        <p class="pontuacao" th:text="'Pontuação: ' + ${user.getScore()}"></p>
                     </div>
                 </div>
             </div>
