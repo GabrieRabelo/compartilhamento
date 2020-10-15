@@ -35,24 +35,26 @@ public class AdminController {
         Banner currentBanner = adService.getActiveBanner().orElse(null);
         model.addAttribute("banner", currentBanner);
 
+        model.addAttribute("active", true);
         return  "adminBanner";
     }
 
     @GetMapping("/admin/mods")
     public String getAdminModsPage(Model model) {
+        model.addAttribute("active", true);
         return  "adminMods";
     }
 
     @PostMapping("/admin/banner")
-    public String createAdminBanner(Banner ads, final RedirectAttributes redirectAttr) {
+    public String createAdminBanner(Banner ads, Model model) {
         ads.setUrl("https://teste.com");
 
-        adService.save(ads);
+        Banner banner = adService.save(ads);
 
+        model.addAttribute("banner", banner);
+        model.addAttribute("success", "Propaganda atualizada com sucesso.");
 
-        redirectAttr.addFlashAttribute("success", "Propaganda atualizada com sucesso.");
-
-        return "redirect:/admin/banner";
+        return "adminBanner";
     }
 
     @PostMapping("/admin/mods/getUser")
