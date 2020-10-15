@@ -1,0 +1,37 @@
+.container-banner{
+    background-color: var(--dark-green);
+    display: flex;
+    border-radius: 20px;
+    padding: 20px;
+    width: 75%;
+}
+
+.banner-title {
+    color: #173140;
+    padding: 40px;
+}
+
+.banner-link {
+    width: 110px;
+    color: #171717;
+    background-color: #FFF;
+    padding: 10px;
+    border-radius: 20px;
+    text-decoration: none;
+    text-align: center;
+}
+
+.banner-description {
+    color: #FFF;
+}
+
+.banner-right {
+    justify-content: center;
+    align-items: center;
+    text-align: justify;
+}
+
+.banner-left {
+    justify-content: center;
+    align-items: center;
+}

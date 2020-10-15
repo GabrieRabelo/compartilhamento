@@ -53,6 +53,7 @@ public class AdminController {
 
         model.addAttribute("banner", banner);
         model.addAttribute("success", "Propaganda atualizada com sucesso.");
+        model.addAttribute("active", true);
 
         return "adminBanner";
     }

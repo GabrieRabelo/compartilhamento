@@ -31,49 +31,13 @@
 
     <div class="question-card-divider"></div>
     <div class="col-6">
-        <!-- Copiado por enquanto para testes. Transformar em fragment depois.-->
-        <div class="div" th:if="${user}">
-            <div class="col-4">
-                <div class="row-3">
-                    <div class="col-4 align-center">
-                        <div style="width: 7vw; height: 7vw">
-                            <img class="avatar" th:if="!${user.getImage()}" src="/img/profilePic.svg"
-                                 alt="Adicionar nova foto">
-                            <img class="avatar" th:if="${user.getImage()}" th:src="${user.getImage()}"
-                                 alt="Adicionar nova foto">
-                        </div>
-                    </div>
-                    <div class="col px-2">
-                        <h2 class="title" th:text="${user.getName()}"></h2>
-                        <small class="subtitle"><b>Pontuação: </b><span th:text="${user.getScore()}"></span></small>
-                        <small class="subtitle"><b>Membro desde: </b><span
-                                th:text="${#dates.format(user.getCreatedAt(), 'dd/MM/yyyy')}"></span></small>
-                    </div>
-                </div>
-                <div class="row">
-                    <h3>Empresa:&nbsp </h3> <h3 class="company-values" th:text="${user.getCompany()}"></h3>
-                </div>
-                <div class="row">
-                    <h3>Site:&nbsp</h3> <h3 class="company-values" ><a th:href="@{{id}(id=${user.getWebsite()})}" target="_blank" th:text="${user.getWebsite()}"></a></h3>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <h2 class="title">Biografia</h2>
-                        <small th:text="${user.getBio()}"></small>
-                    </div>
-                </div>
-                <br>
-                <div class="row justify-center">
-                    <div class="status-pill bg-answer mx-3">
-                        <small>21 respostas</small>
-                    </div>
-                    <div class="status-pill bg-question">
-                        <small>7 perguntas</small>
-                    </div>
-                </div>
-            </div>
+        <div class="user-container" th:if="${user}">
+            <p>Pré-visualização do perfil buscado:</p>
+            <div th:insert="fragments/userFragment.html :: user" class="user"></div>
         </div>
+
     </div>
+
 </div>
 
 <div th:replace="fragments/toast.html :: toasts">

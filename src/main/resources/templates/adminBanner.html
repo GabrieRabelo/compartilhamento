@@ -41,15 +41,14 @@
     <div class="question-card-divider"></div>
     <div class="col-6">
 
-        <div class="div" th:if="${banner}">
-
-            <p th:text="${banner.getTitle()}"></p>
-
+        <div class="banner" th:if="${banner}">
+            <p>Pré-visualização do banner de propaganda.</p>
+            <div th:replace="fragments/banner.html :: banner"></div>
         </div>
 
-    </div>
+        <p class="title" th:if="${banner ==  null}">Nenhuma propaganda cadastrada.</p>
 
-</div>
+    </div>
 
 <div th:replace="fragments/toast.html :: toasts">
 </div>
