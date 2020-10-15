@@ -38,7 +38,7 @@
                     <a th:text="${question.getTitle()}" th:href="@{/question/{id}(id=${question.getId()})}"></a>
                 </div>
                 <div class="question-text">
-                    <p th:text="${question.getDescription()}"></p>
+                    <p th:text="${#strings.abbreviate(question.getDescription(), 200)}"></p>
                 </div>
                 <div class="question-creator">
                     <img alt="Imagem do perfil do usuário" src="img/user.svg"/>

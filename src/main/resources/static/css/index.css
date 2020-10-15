@@ -92,7 +92,7 @@ aside {
 .card-left {
     display: flex;
     flex-direction: column;
-    width: max-content;
+    width: 100%;
 }
 
 .card-right {
