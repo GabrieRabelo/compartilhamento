@@ -20,12 +20,12 @@
             <div class="form">
                 <h1 class="title">Atualize a propaganda</h1>
                 <div class="form-control">
-                    <label for="name">Titulo do anuncio</label>
-                    <input type="text" name="name" id="name"/>
+                    <label for="title">Titulo do anuncio</label>
+                    <input type="text" name="title" id="title"/>
                 </div>
                 <div class="form-control">
-                    <label for="name">Texto do anuncio</label>
-                    <textarea type="text" name="bio" id="bio"></textarea>
+                    <label for="description">Texto do anuncio</label>
+                    <textarea type="text" name="description" id="description"></textarea>
                 </div>
                 <div class="row white-background">
                     <button type="submit">Atualizar</button>
@@ -35,7 +35,15 @@
     </div>
 
     <div class="question-card-divider"></div>
-    <div class="col-6"></div>
+    <div class="col-6">
+
+        <div class="div" th:if="${banner}">
+
+            <p th:text="${banner.getTitle()}"></p>
+
+        </div>
+
+    </div>
 
 </div>
 
