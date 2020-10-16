@@ -41,7 +41,8 @@
                     <p th:text="${#strings.abbreviate(question.getDescription(), 200)}"></p>
                 </div>
                 <div class="question-creator">
-                    <img alt="Imagem do perfil do usuário" src="img/user.svg"/>
+                    <img alt="Imagem do perfil do usuário" th:if="${question.getUser().getImage()}" th:src="${question.getUser().getImage()}"/>
+                    <img alt="Imagem do perfil do usuário" th:if="!${question.getUser().getImage()}" src="/img/user.svg"/>
                     <div class="name-last-access">
                         <a th:href="@{/user/{id}(id=${question.getUser().getId()})}" th:text="${question.getUser().getName()}"></a>
                         <small th:text="${question.getCreatedAtString()}"></small>

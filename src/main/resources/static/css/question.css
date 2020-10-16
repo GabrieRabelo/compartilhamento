@@ -63,6 +63,7 @@
 .comment-right a{
     text-decoration: none;
     cursor: pointer;
+    color: inherit;
 }
 
 .question-card-actions{
@@ -155,16 +156,21 @@
 }
 
 .main-card-left img {
-    border-radius: 50%;
-    width: 80%;
+    border-radius: 16px;
+    width: 6rem;
     min-width: 32px;
-    margin: 0 8px 0 0;
+    margin-bottom: 4px;
 }
 
 .name-last-access{
     word-break: normal;
     font-size: 1.0rem;
     width: max-content;
+}
+
+.name-last-access a{
+    text-decoration: none;
+    color: inherit;
 }
 
 .main-card-right{

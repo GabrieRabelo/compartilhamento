@@ -141,8 +141,9 @@ aside {
 }
 
 .question-creator img {
-    width: auto;
-    height: 100%;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 4px;
 }
 
 .question-creator p, .question-creator a {
