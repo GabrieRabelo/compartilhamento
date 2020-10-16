@@ -36,6 +36,13 @@
 <div id="contentDiv" class="justify-center relative">
     <main class="main-content">
         <div class="question-card-actions">
+            <div sec:authorize="isAuthenticated()"
+                 th:if="${#authentication.getPrincipal().id==question.getUser().getId()}" class="action-icons">
+                <a th:href="@{/question/edit/{id}(id=${question.getId()})}"><img alt="editar"
+                                                                                 th:src="@{/img/icons/lapis.svg}"/></a>
+                <a th:href="@{/question/delete/{id}(id=${question.getId()})}"><img alt="deletar"
+                                                                                   th:src="@{/img/icons/lixeira.svg}"/></a>
+            </div>
             <div class="question-page-main-card">
                 <div class="main-card-left">
                     <img alt="Imagem do perfil do usuário" th:if="${question.getUser().getImage()}" th:src="${question.getUser().getImage()}"/>
@@ -56,13 +63,6 @@
                         <p th:text="${question.getDescription()}"></p>
                     </div>
                 </div>
-            </div>
-            <div sec:authorize="isAuthenticated()"
-                 th:if="${#authentication.getPrincipal().id==question.getUser().getId()}" class="action-icons">
-                <a th:href="@{/question/edit/{id}(id=${question.getId()})}"><img alt="editar"
-                                                                                 th:src="@{/img/icons/lapis.svg}"/></a>
-                <a th:href="@{/question/delete/{id}(id=${question.getId()})}"><img alt="deletar"
-                                                                                   th:src="@{/img/icons/lixeira.svg}"/></a>
             </div>
         </div>
         <div class="status-pill-questions self-end bg-danger" id="desktop-status">
@@ -108,6 +108,11 @@
         </div>
         <div th:each="answer:${answers}">
             <div class="answer-card-actions">
+                <div sec:authorize="isAuthenticated()"
+                     th:if="${#authentication.getPrincipal().id==answer.getUser().getId()}" class="action-icons">
+                    <a href="#"><img th:src="@{/img/icons/lapis.svg}"/></a>
+                    <a th:href="@{/answer/delete/{id}(id=${answer.getId()})}"><img alt="deletar" th:src="@{/img/icons/lixeira.svg}"/></a>
+                </div>
                 <div class="answer-page-main-card">
                     <div class="answer-card-left">
                         <img alt="Imagem do perfil do usuário" src="/img/user.svg"/>
@@ -121,11 +126,6 @@
                             <p th:text="${answer.getText()}"></p>
                         </div>
                     </div>
-                </div>
-                <div sec:authorize="isAuthenticated()"
-                     th:if="${#authentication.getPrincipal().id==answer.getUser().getId()}" class="action-icons">
-                    <a href="#"><img th:src="@{/img/icons/lapis.svg}"/></a>
-                    <a th:href="@{/answer/delete/{id}(id=${answer.getId()})}"><img alt="deletar" th:src="@{/img/icons/lixeira.svg}"/></a>
                 </div>
             </div>
             <div sec:authorize="isAuthenticated()" class="add-comment self-end" th:onclick="|updateModal('answer;${answer.getId()}')|">

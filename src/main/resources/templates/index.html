@@ -31,8 +31,11 @@
         <h1>Confira as perguntas mais recentes</h1>
         <div th:each="question: ${questions}" class="question-card">
             <div class="card-left">
-                <div class="status-pill-questions bg-danger">
-                    <small>Não solucionada</small>
+                <div th:if="${question.getIsActive() == 0}" class="status-pill-questions bg-success">
+                    <small>Solucionada</small>
+                </div>
+                <div th:if="${question.getIsActive() == 1}" class="status-pill-questions bg-danger">
+                    <small>Não Solucionada</small>
                 </div>
                 <div class="question-title">
                     <a th:text="${question.getTitle()}" th:href="@{/question/{id}(id=${question.getId()})}"></a>
