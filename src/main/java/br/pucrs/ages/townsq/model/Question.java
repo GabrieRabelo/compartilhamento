@@ -68,4 +68,10 @@ public class Question {
         return comments.stream().filter(e -> e.getIsActive() == 1).collect(Collectors.toList());
     }
 
+    public String getCommentCountString(){
+        int count = getAllActiveComments().size();
+        if (count == 1) return "1 comentário";
+        return count + " comentários";
+    }
+
 }
