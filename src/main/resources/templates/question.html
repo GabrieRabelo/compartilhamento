@@ -12,6 +12,7 @@
 </head>
 <body>
 <header th:replace="fragments/header.html :: header"></header>
+
 <div class="modal comment clickable">
     <div class="modal-background">
         <p class="close" th:onclick="closeModal()">X</p>
@@ -31,6 +32,7 @@
         </form>
     </div>
 </div>
+
 <div id="contentDiv" class="justify-center relative">
     <main class="main-content">
         <div class="question-card-actions">
@@ -41,6 +43,9 @@
                     <div class="name-last-access">
                         <a th:href="@{/user/{id}(id=${question.getUser().getId()})}" th:text="${question.getUser().getName()}"></a>
                         <small th:text="${question.getCreatedAtString()}"></small>
+                    </div>
+                    <div class="status-pill-questions self-end bg-danger" id="mobile-status">
+                        <small>Não solucionada</small>
                     </div>
                 </div>
                 <div class="main-card-right">
@@ -60,7 +65,7 @@
                                                                                    th:src="@{/img/icons/lixeira.svg}"/></a>
             </div>
         </div>
-        <div class="status-pill-questions self-end bg-danger">
+        <div class="status-pill-questions self-end bg-danger" id="desktop-status">
             <small>Não solucionada</small>
         </div>
             <div sec:authorize="isAuthenticated()" class="add-comment self-end" th:onclick="|updateModal('question;${question.id}')|">

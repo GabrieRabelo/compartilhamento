@@ -340,6 +340,13 @@ hr{
     margin-left: 4px;
 }
 
+#desktop-status{
+    display: flex;
+}
+
+#mobile-status{
+    display: none;
+}
 
 @media (min-width: 481px) and (max-width: 1025px) {
     .main-content{
@@ -348,6 +355,15 @@ hr{
 }
 
 @media (min-width: 320px) and (max-width: 480px) {
+
+    #desktop-status{
+        display: none;
+    }
+
+    #mobile-status{
+        display: flex;
+        margin-left: 32vw;
+    }
 
     .main-content{
         width: 100vw;

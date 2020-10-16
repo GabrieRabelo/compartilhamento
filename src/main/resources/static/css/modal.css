@@ -69,3 +69,13 @@ form textarea{
     text-decoration: none;
     color: white;
 }
+
+@media (min-width: 320px) and (max-width: 480px) {
+    .modal > div {
+        width: 90%;
+        position: relative;
+        margin: 10% auto;
+        padding: 15px 20px;
+        background: #fff;
+    }
+}
