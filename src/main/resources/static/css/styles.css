@@ -410,6 +410,31 @@ button:hover{
     cursor: pointer;
 }
 
+.items-info {
+    max-width: 500px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.line{
+    width: 100%;
+    height: 20px;
+    border-bottom: 2px solid #A1A1A1;
+    position: relative;
+}
+
+.pontuacao {
+    background-color: #339DCB;
+    color: #FFFFFF;
+    border-radius: 20px;
+    text-align: center;
+    padding: 10px 30px;
+    font-size: 16px;
+    height: 40px;
+}
+
 .container {
     width: 80%;
     height: 80vh;
