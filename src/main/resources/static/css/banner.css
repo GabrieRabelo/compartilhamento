@@ -3,12 +3,16 @@
     display: flex;
     border-radius: 20px;
     padding: 20px;
-    width: 75%;
+    width: 100%;
+}
+
+.banner {
+    display: flex;
+    flex-direction: column;
 }
 
 .banner-title {
     color: #173140;
-    padding: 40px;
 }
 
 .banner-link {

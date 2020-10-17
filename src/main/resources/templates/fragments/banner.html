@@ -5,14 +5,12 @@
 </head>
 <body>
 <div th:fragment="banner" class="container-banner">
-    <link rel="stylesheet" th:href="@{/css/banner.css}">'
-    <div class="col-6 banner-left">
-        <h1 class="banner-title" th:text="${banner.getTitle()}"></h1>
-        <a target="_blank" class="banner-link" th:href="${banner.getUrl()}">Acessar</a>
-    </div>
-    <div class="col-6 banner-right">
-        <p class="banner-description" th:text="${banner.getDescription()}"></p>
-    </div>
+    <link rel="stylesheet" th:href="@{/css/banner.css}">
+        <div class="banner">
+            <h1 class="banner-title" th:text="${banner.getTitle()}"></h1>
+            <p class="banner-description" th:text="${banner.getDescription()}"></p>
+            <a target="_blank" class="banner-link" th:href="${banner.getUrl()}">Acessar</a>
+        </div>
 </div>
 
 </body>
