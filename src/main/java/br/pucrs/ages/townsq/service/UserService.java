@@ -62,6 +62,23 @@ public class UserService {
         return editUser;
     }
 
+    public User updatePassword(User u, String authEmail) {
+        User user = getUserByEmail(authEmail).orElse(null);
+        if (user != null) {
+            if (u.getNewPassword().equals(u.getConfirmNewPassword()) && !StringUtils.isEmpty(u.getNewPassword())) {
+                if (bcPasswordEncoder.matches(u.getPassword(), user.getPassword())) {
+                    user.setPassword(bcPasswordEncoder.encode(u.getNewPassword()));
+                } else {
+                    throw new IllegalArgumentException("Senha atual inválida!");
+                }
+            } else {
+                throw new IllegalArgumentException("A nova senha e a confirmação devem ser iguais!");
+            }
+            repository.save(user);
+        }
+        return user;
+    }
+
     public List<User> getAll(){
         return repository.findAll();
     }

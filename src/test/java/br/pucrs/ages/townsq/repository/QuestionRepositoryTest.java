@@ -33,14 +33,14 @@ class QuestionRepositoryTest {
 	@BeforeEach
 	void setUp() {
 		Role role = roleRepository.findByName("ROLE_USER").orElse(null);
-		User user = new User(null, "Rabelo", "rabelo", "rabelo@rab.elo", 1, null, null, null, null, null, null, null, null);
+		User user = new User(null, "Rabelo", "rabelo", "rabelo@rab.elo", 1, null, null, null, null, null, null, null, 0, null, null);
 		user.setRoles(new HashSet<>(Collections.singletonList(role)));
 		userRepository.save(user);
 		Topic topic = new Topic(1L, "Seguranca", new Timestamp(1), new Timestamp(1), 1);
 		topicRepository.save(topic);
 
 		for(long i = 1; i<=15; i++){
-			Question question = new Question(i, "Olá", "essa fera ai meu", 1, new Timestamp(i), new Timestamp(i), user, topic, 1);
+			Question question = new Question(i, "Olá", "essa fera ai meu", 1, new Timestamp(i), new Timestamp(i), user, topic, 1, null, null);
 			questionRepository.save(question);
 		}
 	}

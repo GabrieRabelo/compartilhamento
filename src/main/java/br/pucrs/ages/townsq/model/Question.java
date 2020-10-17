@@ -2,23 +2,23 @@ package br.pucrs.ages.townsq.model;
 
 import br.pucrs.ages.townsq.listeners.QuestionListener;
 import br.pucrs.ages.townsq.utils.Chronos;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @EntityListeners(QuestionListener.class)
 @Table(name = "questions")
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 @Builder
 public class Question {
     @Id
@@ -49,6 +49,10 @@ public class Question {
     private Topic topic;
     @Column(name = "status")
     private int status = 1;
+    @OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL, mappedBy = "question")
+    private List<Comment> comments;
+    @OneToMany(targetEntity = Answer.class, cascade = CascadeType.ALL, mappedBy = "question")
+    private List<Answer> answers;
 
     public void setUser(User u){
         if(this.user == null){
@@ -58,6 +62,16 @@ public class Question {
 
     public String getCreatedAtString(){
         return Chronos.dateToPrettyTimeString(this.createdAt);
+    }
+
+    public List<Comment> getAllActiveComments(){
+        return comments.stream().filter(e -> e.getIsActive() == 1).collect(Collectors.toList());
+    }
+
+    public String getCommentCountString(){
+        int count = getAllActiveComments().size();
+        if (count == 1) return "1 comentário";
+        return count + " comentários";
     }
 
 }

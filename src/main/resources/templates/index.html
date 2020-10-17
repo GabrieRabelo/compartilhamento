@@ -35,17 +35,21 @@
         <h1>Confira as perguntas mais recentes</h1>
         <div th:each="question: ${questions}" class="question-card">
             <div class="card-left">
-                <div class="status-pill-questions bg-danger">
-                    <small>Não solucionada</small>
+                <div th:if="${question.getIsActive() == 0}" class="status-pill-questions bg-success">
+                    <small>Solucionada</small>
+                </div>
+                <div th:if="${question.getIsActive() == 1}" class="status-pill-questions bg-danger">
+                    <small>Não Solucionada</small>
                 </div>
                 <div class="question-title">
                     <a th:text="${question.getTitle()}" th:href="@{/question/{id}(id=${question.getId()})}"></a>
                 </div>
                 <div class="question-text">
-                    <p th:text="${question.getDescription()}"></p>
+                    <p th:text="${#strings.abbreviate(question.getDescription(), 200)}"></p>
                 </div>
                 <div class="question-creator">
-                    <img alt="Imagem do perfil do usuário" src="img/user.svg"/>
+                    <img alt="Imagem do perfil do usuário" th:if="${question.getUser().getImage()}" th:src="${question.getUser().getImage()}"/>
+                    <img alt="Imagem do perfil do usuário" th:if="!${question.getUser().getImage()}" src="/img/user.svg"/>
                     <div class="name-last-access">
                         <a th:href="@{/user/{id}(id=${question.getUser().getId()})}" th:text="${question.getUser().getName()}"></a>
                         <small th:text="${question.getCreatedAtString()}"></small>
@@ -57,7 +61,7 @@
                 <div class="card-right-text">
                     <p>0</p>
                     <p>respostas</p>
-                    <small>0 comentários</small>
+                    <small th:text="${question.getCommentCountString()}"></small>
                 </div>
             </div>
         </div>

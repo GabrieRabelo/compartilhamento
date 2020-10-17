@@ -92,7 +92,7 @@ aside {
 .card-left {
     display: flex;
     flex-direction: column;
-    width: max-content;
+    width: 100%;
 }
 
 .card-right {
@@ -141,8 +141,9 @@ aside {
 }
 
 .question-creator img {
-    width: auto;
-    height: 100%;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 4px;
 }
 
 .question-creator p, .question-creator a {

@@ -18,7 +18,8 @@ import java.util.*;
 @Table(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 @Builder
 public class User implements UserDetails {
     @Id
@@ -62,6 +63,11 @@ public class User implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
+    @Transient
+    private String newPassword;
+
+    @Transient
+    private String confirmNewPassword;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
