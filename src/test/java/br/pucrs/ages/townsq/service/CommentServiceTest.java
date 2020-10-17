@@ -60,6 +60,20 @@ public class CommentServiceTest {
         assertEquals("From an answer.", result.getText());
     }
 
+    @DisplayName("Salva um comentário, criado a partir de uma resposta")
+    @Test
+    void testSaveCommentWithException() {
+        User user = User.builder().name("Juca").password("12345").email("juca@email.com").build();
+        Question question = Question.builder().title("Olá, isso é uma pergunta.").description("Essa fera ai meu!").user(user).build();
+        Answer answer = Answer.builder().text("Opa, é isso!").question(question).user(user).build();
+        Comment comment = Comment.builder().question(question).user(user).text("").build();
+
+        when(commentRepository.save(comment)).thenReturn(comment);
+        when(answerService.findById(anyLong())).thenReturn(java.util.Optional.of(answer));
+
+        assertThrows(IllegalArgumentException.class, () -> commentService.saveComment(comment, user, "anser", 1L));
+    }
+
     @DisplayName("Teste de validações para deletar um comentário")
     @Test
     void testDeleteComment() {
@@ -71,6 +85,19 @@ public class CommentServiceTest {
         when(commentRepository.findById(anyLong())).thenReturn(java.util.Optional.ofNullable(comment));
 
         assertFalse(commentService.deleteComment(1L, invalidUser));
+    }
+
+    @DisplayName("Teste de validações para editar um comentário")
+    @Test
+    void testEditComment() {
+        User user = User.builder().id((long) 6).name("Juca").password("12345").email("juca@email.com").build();
+        User invalidUser = User.builder().id((long) 7).name("Fulano").password("12345").email("fulano@email.com").build();
+        Question question = Question.builder().title("Olá, isso é uma pergunta.").description("Essa fera ai meu!").user(user).build();
+        Comment comment = Comment.builder().question(question).user(user).text(null).build();
+
+        when(commentRepository.findById(anyLong())).thenReturn(java.util.Optional.ofNullable(comment));
+
+        assertThrows(IllegalArgumentException.class, () -> commentService.editComment("Meu texto novo", invalidUser, 1L));
     }
 
 }

@@ -67,11 +67,10 @@ public class CommentService {
                                User user,
                                Long id){
         Comment databaseComment = commentRepository.findById(id).orElse(null);
-        databaseComment.setText(comment);
         if(StringUtils.isEmpty(comment.trim()) || databaseComment == null || !databaseComment.getUser().getId().equals(user.getId())){
             throw new IllegalArgumentException("Não foi possível editar o comentário.");
         }
-        System.out.println(databaseComment);
+        databaseComment.setText(comment);
         return commentRepository.save(databaseComment);
     }
 
