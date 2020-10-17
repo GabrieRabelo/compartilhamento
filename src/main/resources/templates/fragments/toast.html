@@ -16,17 +16,22 @@
             <img src="/img/icons/help.svg" alt="help logo" />
             <p th:text="${info}"></p>
         </div>
+        <div th:if="${reputation}" th:classappend="${reputation} ? 'toast-show' : ''" class="toast toast-reputation">
+            <img src="/img/icons/medal.svg" alt="medal logo" />
+            <p th:text="${reputation}"></p>
+        </div>
         <script th:inline="javascript">
             var error = [[${error}]];
             var success = [[${success}]];
             var info = [[${info}]];
+            var reputation = [[${reputation}]];
             window.onload = function() {
-                if(!error && !success && !info)
+                if(!error && !success && !info && !reputation)
                     return;
-                let allShowed = document.querySelector(".toast-show");
+                let allShowed = document.querySelectorAll(".toast-show");
                 if (allShowed) {
-                    setInterval(() => {
-                        allShowed.classList.remove("toast-show");
+                    setTimeout(() => {
+                        allShowed.forEach(el => el.classList.remove("toast-show"));
                     }, 4450)
                 }
             };

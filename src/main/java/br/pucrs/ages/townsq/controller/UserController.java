@@ -102,6 +102,8 @@ public class UserController {
             redirectAttributes.addFlashAttribute("error", "Erro ao editar o usuário.");
             return "redirect:/";
         }
+        Integer completeProfile = userEdit.getHasCompletedProfile();
+
         if (!file.isEmpty()) {
             String path = singleFileUpload(file, userEdit);
             user.setImage(path);
@@ -117,6 +119,10 @@ public class UserController {
             redirectAttributes.addFlashAttribute("error", "Erro ao atualizar perfil.");
             return "redirect:/user/edit";
         }
+        if(!user.getHasCompletedProfile().equals(completeProfile)){
+            model.addAttribute("reputation", "Você ganhou 20 pontos!");
+        }
+
         model.addAttribute("success", "Perfil atualizado!");
         return "userEdit";
     }
