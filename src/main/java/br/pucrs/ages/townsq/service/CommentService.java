@@ -39,13 +39,15 @@ public class CommentService {
             throw new IllegalArgumentException("O texto do comentário não pode estar vazio.");
 
         comment.setUser(user);
+        if(!creator.equals("question") && !creator.equals("answer"))
+            throw new IllegalArgumentException("O tipo do objeto criador é inválido.");
         if(creator.equals("question")){
             Question question = questionService.getQuestionById(creatorId).orElse(null);
             if(question == null) throw new IllegalArgumentException("Pergunta referente ao comentário não encontrada");
             comment.setQuestion(question);
             comment.setAnswer(null);
         }
-        else if(creator.equals("answer")){
+        else {
             Answer answer = answerService.findById(creatorId).orElse(null);
             if(answer == null) throw new IllegalArgumentException("Resposta referente ao comentário não encontrada");
             comment.setQuestion(null);
@@ -54,18 +56,32 @@ public class CommentService {
         return commentRepository.save(comment);
     }
 
+    /**
+     * Edits a comment.
+     * @param comment String (comment text)
+     * @param user User
+     * @param id Long comment id
+     * @return Comment
+     */
     public Comment editComment(String comment,
                                User user,
                                Long id){
         Comment databaseComment = commentRepository.findById(id).orElse(null);
-        if(StringUtils.isEmpty(comment.trim()) || databaseComment == null || !databaseComment.getUser().getId().equals(user.getId())){
-            throw new IllegalArgumentException("não foi possível editar o comentário.");
-        }
         databaseComment.setText(comment);
+        if(StringUtils.isEmpty(comment.trim()) || databaseComment == null || !databaseComment.getUser().getId().equals(user.getId())){
+            throw new IllegalArgumentException("Não foi possível editar o comentário.");
+        }
+        System.out.println(databaseComment);
         return commentRepository.save(databaseComment);
     }
 
 
+    /**
+     * Deletes a comment (soft delete)
+     * @param commentId long
+     * @param user User
+     * @return boolean
+     */
     public boolean deleteComment(long commentId, User user){
         Comment comment = commentRepository.findById(commentId).orElse(null);
         if(comment != null && comment.getUser().getId().equals(user.getId())){
