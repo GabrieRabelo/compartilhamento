@@ -45,11 +45,13 @@
             </div>
             <div class="question-page-main-card">
                 <div class="main-card-left">
-                    <img alt="Imagem do perfil do usuário" th:if="${question.getUser().getImage()}" th:src="${question.getUser().getImage()}"/>
-                    <img alt="Imagem do perfil do usuário" th:if="!${question.getUser().getImage()}" src="/img/user.svg"/>
-                    <div class="name-last-access">
-                        <a th:href="@{/user/{id}(id=${question.getUser().getId()})}" th:text="${question.getUser().getName()}"></a>
-                        <small th:text="${question.getCreatedAtString()}"></small>
+                    <div class="image-name-last-access">
+                        <img alt="Imagem do perfil do usuário" th:if="${question.getUser().getImage()}" th:src="${question.getUser().getImage()}"/>
+                        <img alt="Imagem do perfil do usuário" th:if="!${question.getUser().getImage()}" src="/img/user.svg"/>
+                        <div class="name-last-access">
+                            <a th:href="@{/user/{id}(id=${question.getUser().getId()})}" th:text="${question.getUser().getName()}"></a>
+                            <small th:text="${question.getCreatedAtString()}"></small>
+                        </div>
                     </div>
                     <div class="status-pill-questions self-end bg-danger" id="mobile-status">
                         <small>Não solucionada</small>
@@ -115,7 +117,8 @@
                 </div>
                 <div class="answer-page-main-card">
                     <div class="answer-card-left">
-                        <img alt="Imagem do perfil do usuário" src="/img/user.svg"/>
+                        <img alt="Imagem do perfil do usuário" th:if="${question.getUser().getImage()}" th:src="${question.getUser().getImage()}"/>
+                        <img alt="Imagem do perfil do usuário" th:if="!${question.getUser().getImage()}" src="/img/user.svg"/>
                         <div class="name-last-access">
                             <p th:text="${answer.getUser().getName()}"></p>
                             <small th:text="${answer.getCreatedAtString()}"></small>
