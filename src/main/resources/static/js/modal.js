@@ -11,11 +11,18 @@ function updateModal(creatorInfo) {
     const formText = document.querySelector('#text-input');
 
     const split = creatorInfo.split(';');
-    if(split[0] === 'edit'){
+    if(split[0] === 'editComment'){
         form.action = `/comment/edit/${split[1]}`;
         formText.value = document.querySelector(`#text-${split[1]}`).innerHTML;
-    }else{
-        form.action = `/comment/create/${split[0]}/${split[1]}`;
+    }
+    if(split[0] === 'editAnswer'){
+        //code here
+    }
+    if(split[0] === 'questionComment'){
+        form.action = `/comment/create/question/${split[1]}`;
+    }
+    if(split[0] === 'answerComment'){
+        form.action = `/comment/create/answer/${split[1]}`;
     }
 
     if(modal.style.opacity === '1') {
