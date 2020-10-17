@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Arrays;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class AdminController {
@@ -47,8 +47,6 @@ public class AdminController {
 
     @PostMapping("/admin/banner")
     public String createAdminBanner(Banner ads, Model model) {
-        ads.setUrl("https://teste.com");
-
         Banner banner = adService.save(ads);
 
         model.addAttribute("banner", banner);

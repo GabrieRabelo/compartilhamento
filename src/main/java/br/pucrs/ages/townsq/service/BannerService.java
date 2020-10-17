@@ -3,8 +3,11 @@ package br.pucrs.ages.townsq.service;
 import br.pucrs.ages.townsq.model.Banner;
 import br.pucrs.ages.townsq.repository.BannerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.Cookie;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,19 +16,26 @@ import java.util.Optional;
 public class BannerService {
 
     private final BannerRepository repo;
+    @Autowired
+    CacheManager cacheManager;
 
     @Autowired
     public BannerService(BannerRepository r){
         this.repo = r;
     }
 
+    @Cacheable(value = "banner", cacheManager = "springCM")
     public Optional<Banner> getActiveBanner(){
+        System.out.println("Chamou o banner no banco ");
         return repo.getBannerByIsActiveEquals(1);
     }
 
     public Banner save(Banner ads) {
         updateAllBannersToInactive();
         ads.setIsActive(1);
+
+        // Limpa o banner no cache para que o mesmo seja atualizado.
+        cacheManager.getCache("banner").clear();
         return repo.save(ads);
     }
 

@@ -51,6 +51,11 @@
             <button onclick="document.querySelector('#link').click()">Editar perfil</button>
             <a id="link" th:href="@{/user/edit}"></a>
         </div>
+
+        <div class="banner" th:if="${banner}">
+            <p>Pré-visualização do banner de propaganda.</p>
+            <div th:replace="fragments/banner.html :: banner"></div>
+        </div>
     </div>
 
 </div>
