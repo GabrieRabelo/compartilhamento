@@ -13,10 +13,10 @@
 <body>
 <header th:replace="fragments/header.html :: header"></header>
 
-<div class="modal comment clickable">
+<div class="modal no-transitions clickable">
     <div class="modal-background">
         <p class="close" th:onclick="closeModal()">X</p>
-        <form id="comment-form" role="form" th:action="''" th:method="post">
+        <form id="modal-form" role="form" th:action="''" th:method="post">
             <div class="row justify-space-between">
                 <div class="col-12">
                     <div class="form-control">
@@ -27,7 +27,7 @@
                 </div>
             </div>
             <div class="row white-background">
-                <button type="submit" onclick="submitCommentForm()">Salvar</button>
+                <button type="submit" onclick="submitModalForm()">Salvar</button>
             </div>
         </form>
     </div>
@@ -78,7 +78,7 @@
             <div class="comment-actions" th:each="comment : ${question.getAllActiveComments()}">
                 <div class="comment-card">
                     <div class="comment-left">
-                        <small th:text="${comment.getText()}" th:id="'text-' + ${comment.getId()}"></small>
+                        <small th:text="${comment.getText()}" th:id="'comment-' + ${comment.getId()}"></small>
                     </div>
                     <div class="comment-right">
                         <a th:href="'/user/' + ${comment.getUser().getId()}"><small th:text="${comment.getUser().getName()}"></small></a>
@@ -139,7 +139,7 @@
                 <div class="comment-actions" th:each="comment : ${answer.getAllActiveComments()}">
                     <div class="comment-card">
                         <div class="comment-left">
-                            <small th:text="${comment.getText()}" th:id="'text-' + ${comment.getId()}"></small>
+                            <small th:text="${comment.getText()}" th:id="'comment-' + ${comment.getId()}"></small>
                         </div>
                         <div class="comment-right">
                             <a th:href="'/user/' + ${comment.getUser().getId()}"><small th:text="${comment.getUser().getName()}"></small></a>
