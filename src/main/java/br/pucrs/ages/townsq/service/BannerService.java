@@ -26,7 +26,6 @@ public class BannerService {
 
     @Cacheable(value = "banner", cacheManager = "springCM")
     public Optional<Banner> getActiveBanner(){
-        System.out.println("Chamou o banner no banco ");
         return repo.getBannerByIsActiveEquals(1);
     }
 
@@ -34,8 +33,8 @@ public class BannerService {
         updateAllBannersToInactive();
         ads.setIsActive(1);
 
-        // Limpa o banner no cache para que o mesmo seja atualizado.
         cacheManager.getCache("banner").clear();
+
         return repo.save(ads);
     }
 

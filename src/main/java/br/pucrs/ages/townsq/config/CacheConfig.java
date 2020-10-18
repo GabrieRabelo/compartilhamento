@@ -27,6 +27,5 @@ public class CacheConfig {
     @CacheEvict(value = {"banner"}, allEntries = true)
     public void evictAllcachesAtIntervals() {
         cacheManager.getCache("banner").clear();
-        System.out.println(cacheManager.getCache("banner").getNativeCache().toString());
     }
 }
