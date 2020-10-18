@@ -26,6 +26,8 @@ public class AnswerService {
      * @return Answer
      */
     public Answer saveAnswer(Answer answer, User user, Question question) {
+        if(StringUtils.isEmpty(answer.getText().trim()))
+            throw new IllegalArgumentException("O texto da resposta não pode estar vazio");
         answer.setQuestion(question);
         answer.setUser(user);
         return this.answerRepository.save(answer);

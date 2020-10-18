@@ -11,14 +11,13 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.thymeleaf.util.StringUtils;
-
-import org.springframework.ui.Model;
 
 import javax.validation.Valid;
 import java.util.Optional;
@@ -43,23 +42,19 @@ public class AnswerController {
     public String postCreateAnswer(@AuthenticationPrincipal User user,
                                    @ModelAttribute Answer answer,
                                    @ModelAttribute Question question,
-                                   Model model,
                                    final RedirectAttributes redirectAttributes
                                    ) {
         try{
-          if(!StringUtils.isEmpty(answer.getText().trim())) {
               answerService.saveAnswer(answer, user, question);
               redirectAttributes.addFlashAttribute("success", "Resposta criada com sucesso!");
               return "redirect:/question/" + question.getId() + "/" + Slugify.toSlug(question.getTitle());
-          } else {
-              model.addAttribute("error", "Resposta não pode ser vazia!");
-              return "question";
-          }
+        } catch (IllegalArgumentException ie) {
+            redirectAttributes.addFlashAttribute("error", "Resposta não pode ser vazia");
+            return "redirect:/question/" + question.getId() + "/" + Slugify.toSlug(question.getTitle());
         } catch (Exception e) {
-            System.out.println(e);
             redirectAttributes.addFlashAttribute("error", "Não foi possível cadastrar a resposta.");
+            return "redirect:/question/" + question.getId() + "/" + Slugify.toSlug(question.getTitle());
         }
-        return "redirect:/question/" + question.getId() + "/" + Slugify.toSlug(question.getTitle());
     }
 
     @PostMapping("/answer/edit/{id}")
