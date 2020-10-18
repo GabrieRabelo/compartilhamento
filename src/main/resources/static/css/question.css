@@ -30,11 +30,12 @@
     background-color: var(--dark-gray);
     height: 16em;
     resize: none;
+    width: 100%;
 }
 
 .answer-textarea-button button{
     margin-top: 1rem;
-    align-self: center;
+    float:right;
     width: max-content;
 }
 
@@ -59,9 +60,21 @@
     color: var(--strong-green);
 }
 
+.comment-right a{
+    text-decoration: none;
+    cursor: pointer;
+    color: inherit;
+}
+
 .question-card-actions{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    width: 100%;
+}
+
+.answer-card-actions{
+    display: flex;
+    flex-direction: column;
     width: 100%;
 }
 
@@ -71,6 +84,16 @@
 }
 
 .action-icons{
+    display: flex;
+    flex-direction: row;
+    width: min-content;
+    margin-left: 0.5rem;
+    align-items: center;
+    align-self: flex-end;
+}
+
+
+.action-icons-answer{
     display: flex;
     flex-direction: column;
     width: min-content;
@@ -88,6 +111,7 @@
 .action-icons-comment img{
     width: 20px;
     height: 20px;
+    cursor: pointer;
 }
 
 .action-icons-comment a:first-child{
@@ -105,7 +129,22 @@
     width: 100%;
 }
 
+.answer-page-main-card {
+    padding: 16px;
+    display: flex;
+    border-radius: 10px;
+    flex-direction: row;
+    box-shadow: 0 0 10px 3px rgba(0,0,0,0.25);
+    margin-bottom: 1em;
+    justify-content: space-between;
+    width: 100%;
+}
+
 .question-page-main-card p{
+    color: var(--dark-green)
+}
+
+.answer-page-main-card p{
     color: var(--dark-green)
 }
 
@@ -113,21 +152,28 @@
     display: flex;
     flex-direction: column;
     width: max-content;
-    align-items: center;
+    align-items: flex-start;
     padding: 4px;
 }
 
 .main-card-left img {
-    border-radius: 50%;
-    width: 80%;
+    border-radius: 500%;
+    width: 80px;
+    height: 80px;
     min-width: 32px;
-    margin: 0 8px 0 0;
+    min-height: 32px;
+    margin-bottom: 4px;
 }
 
 .name-last-access{
     word-break: normal;
     font-size: 1.0rem;
     width: max-content;
+}
+
+.name-last-access a{
+    text-decoration: none;
+    color: inherit;
 }
 
 .main-card-right{
@@ -149,6 +195,7 @@
     display: inline-flex;
     justify-content: space-between;
     margin-bottom: 0.3rem;
+    font-size: 1.6rem;
 }
 
 .question-title a{
@@ -188,7 +235,6 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-left: 4px;
 }
 
 .name-last-access p{
@@ -242,10 +288,12 @@
 }
 
 .answer-card-left img {
-    border-radius: 50%;
-    width: 80%;
+    border-radius: 500%;
     min-width: 32px;
-    margin: 0 8px 0 0;
+    min-height: 32px;
+    width: 80px;
+    height: 80px;
+    margin-right: 1rem;
 }
 
 .answer-card-right{
@@ -285,6 +333,32 @@ hr{
     margin-top: 1rem;
 }
 
+.add-comment{
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    margin-top: 4px;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+.add-comment small{
+    margin-left: 4px;
+}
+
+#desktop-status{
+    display: flex;
+}
+
+#mobile-status{
+    display: none;
+}
+
+.image-name-last-access{
+    display: flex;
+    flex-direction: column;
+}
+
 @media (min-width: 481px) and (max-width: 1025px) {
     .main-content{
         width: 80vw;
@@ -293,17 +367,37 @@ hr{
 
 @media (min-width: 320px) and (max-width: 480px) {
 
+    .image-name-last-access{
+        flex-direction: row;
+    }
+
+    #desktop-status{
+        display: none;
+    }
+
+    #mobile-status{
+        display: flex;
+        margin-left: 1rem;
+        align-self: auto;
+    }
+
     .main-content{
-        width: 100vw;
+        width: 90vw;
         margin: 4rem 1rem 0 1rem
     }
 
     .main-card-left{
         flex-direction: row;
+        align-items: flex-start;
+        width: 100%;
+        justify-content: space-between;
     }
 
     .main-card-left img{
-        max-width: 32px;
+        max-width: 48px;
+        max-height: 48px;
+        margin-right: 8px;
+        border-radius: 500%;
     }
 
     .answer-card{
@@ -313,10 +407,13 @@ hr{
 
     .answer-card-left{
         flex-direction: row;
+        padding: 0;
+        margin-bottom: 1rem;
     }
 
     .answer-card-left img{
-        max-width: 32px;
+        max-width: 48px;
+        max-height: 48px;
     }
 
     .question-page-main-card{
@@ -340,4 +437,10 @@ hr{
     .comment-card{
         width: 80%;
     }
+
+    .answer-page-main-card{
+        flex-direction: column;
+    }
+
+
 }

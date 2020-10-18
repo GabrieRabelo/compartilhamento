@@ -1,6 +1,8 @@
 package br.pucrs.ages.townsq.controller;
 
+import br.pucrs.ages.townsq.model.Banner;
 import br.pucrs.ages.townsq.model.User;
+import br.pucrs.ages.townsq.service.BannerService;
 import br.pucrs.ages.townsq.service.UserService;
 import org.hibernate.validator.internal.engine.ConstraintViolationImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +30,11 @@ import java.util.UUID;
 public class UserController {
 
     private final UserService service;
+    private final BannerService bannerService;
 
     @Autowired
-    public UserController(UserService service) {
+    public UserController(UserService service, BannerService adService){
+        this.bannerService = adService;
         this.service = service;
     }
 
@@ -77,6 +81,9 @@ public class UserController {
     @GetMapping(value = {"/user/{id}"})
     public String getUserById(HttpServletRequest request, @PathVariable long id, Model model, HttpSession session) {
         User user = service.getUserById(id).orElse(null);
+        Banner banner = bannerService.getActiveBanner().orElse(null);
+
+        model.addAttribute("banner", banner);
         model.addAttribute("user", user);
         return "user";
     }

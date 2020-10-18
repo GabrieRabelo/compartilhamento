@@ -1,0 +1,83 @@
+package br.pucrs.ages.townsq.controller;
+
+import br.pucrs.ages.townsq.model.Answer;
+import br.pucrs.ages.townsq.model.Question;
+import br.pucrs.ages.townsq.model.User;
+import br.pucrs.ages.townsq.service.AnswerService;
+import br.pucrs.ages.townsq.utils.Slugify;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.thymeleaf.util.StringUtils;
+
+import org.springframework.ui.Model;
+
+import java.util.Optional;
+
+@Controller
+public class AnswerController {
+
+    private final AnswerService answerService;
+
+    public AnswerController(AnswerService answerService) { this.answerService = answerService; }
+
+    /**
+     * Post route to create an answer
+     * @return String
+     */
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/answer/create")
+    public String postCreateAnswer(@AuthenticationPrincipal User user,
+                                   @ModelAttribute Answer answer,
+                                   @ModelAttribute Question question,
+                                   Model model,
+                                   final RedirectAttributes redirectAttributes
+                                   ) {
+        try{
+          if(!StringUtils.isEmpty(answer.getText().trim())) {
+              answerService.saveAnswer(answer, user, question);
+              redirectAttributes.addFlashAttribute("success", "Resposta criada com sucesso!");
+              return "redirect:/question/" + question.getId() + "/" + Slugify.toSlug(question.getTitle());
+          } else {
+              model.addAttribute("error", "Resposta não pode ser vazia!");
+              return "question";
+          }
+        } catch (Exception e) {
+            System.out.println(e);
+            redirectAttributes.addFlashAttribute("error", "Não foi possível cadastrar a resposta.");
+        }
+        return "redirect:/question/" + question.getId() + "/" + Slugify.toSlug(question.getTitle());
+    }
+
+    /**
+     * Route to soft delete an answer
+     * @param user Authenticated user
+     * @param answerId Answer id
+     * @return
+     */
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/answer/delete/{answerId}")
+    public String getDeleteAnswerRoute(@AuthenticationPrincipal User user,
+                                       @PathVariable long answerId,
+                                       final RedirectAttributes redirectAttributes) {
+        Optional<Answer> optAnswer = answerService.findById(answerId);
+        Question ansQuestion = null;
+        if(optAnswer.isPresent()) {
+            Answer answer = optAnswer.get();
+            ansQuestion = answer.getQuestion();
+
+            boolean hasDeleted = answerService.delete(user.getId(), answerId);
+            if(hasDeleted)
+                redirectAttributes.addFlashAttribute("success", "Resposta deletada com sucesso!");
+            else
+                redirectAttributes.addFlashAttribute("error", "Não foi possível deletar a resposta.");
+            return "redirect:/question/" + ansQuestion.getId() + "/" + Slugify.toSlug(ansQuestion.getTitle());
+        }
+        return "";
+    }
+}

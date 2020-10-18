@@ -1,15 +1,17 @@
 package br.pucrs.ages.townsq.service;
 
 import br.pucrs.ages.townsq.model.User;
+import br.pucrs.ages.townsq.repository.RoleRepository;
 import br.pucrs.ages.townsq.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import javax.transaction.Transactional;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,13 +19,15 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository repository;
+    private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder bcPasswordEncoder;
     private final ReputationLogService reputationLogService;
 
     @Autowired
-    public UserService(UserRepository repo, BCryptPasswordEncoder encoder, ReputationLogService repService) {
+    public UserService(UserRepository repo, BCryptPasswordEncoder encoder, RoleRepository roleRepo, ReputationLogService repService) {
         bcPasswordEncoder = encoder;
         repository = repo;
+        roleRepository = roleRepo;
         reputationLogService = repService;
     }
 
@@ -31,6 +35,7 @@ public class UserService {
         if (u.getPassword() == null || u.getPassword().isEmpty() || u.getPassword().isBlank())
             throw new IllegalArgumentException("A senha é obrigatória.");
         u.setPassword(bcPasswordEncoder.encode(u.getPassword()));
+        roleRepository.findByName("ROLE_USER").ifPresent(userRole -> u.setRoles(new HashSet<>(Collections.singletonList(userRole))));
         return repository.save(u);
     }
 
