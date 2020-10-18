@@ -32,9 +32,8 @@ public class AdminController {
 
     @GetMapping("/admin/banner")
     public String getAdminBannerPage(Model model) {
-        Banner currentBanner = adService.getActiveBanner().orElse(null);
+        Banner currentBanner = adService.getActiveBanner().orElse(new Banner());
         model.addAttribute("banner", currentBanner);
-
         model.addAttribute("active", true);
         return  "adminBanner";
     }

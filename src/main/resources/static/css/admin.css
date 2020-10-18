@@ -83,4 +83,6 @@
     flex-direction: column;
     margin-top: 10%;
     align-items: center;
+    width: 80%;
+    align-self: center;
 }
