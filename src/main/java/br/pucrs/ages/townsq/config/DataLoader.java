@@ -39,7 +39,8 @@ public class DataLoader implements ApplicationListener<ContextRefreshedEvent> {
         if (!done){
             Role userRole = createRole("ROLE_USER");
             Role adminRole = createRole("ROLE_ADMIN");
-            if(userRole != null && adminRole != null){
+            Role moderatorRole = createRole("ROLE_MODERATOR");
+            if(userRole != null && adminRole != null && moderatorRole != null){
                 User admin = new User();
                 admin.setName("Admin");
                 admin.setEmail("admin@admin.com");

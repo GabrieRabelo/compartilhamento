@@ -16,7 +16,7 @@
             <a class="prop" href="/admin/banner">Editar Propaganda</a>
             <a class="mods" th:classappend="${active} ? 'active' : ''" href="/admin/mods">Gerenciar Moderadores <span></span> </a>
         </div>
-        <form role="form" th:action="@{/admin/mods/getUser}" th:method="post">
+        <form role="form" th:action="@{/admin/mods/create}" th:method="post">
             <div class="form">
                 <h1 class="title">Adicione um moderador</h1>
                 <div class="form-control">
@@ -27,6 +27,17 @@
                 </div>
             </div>
         </form>
+
+        <div class="mods">
+            <h2>Lista de moderadores</h2>
+            <div class="mod-card" th:each="moderator: ${moderators}">
+                <img src="/img/user.svg" alt="Imagem de perfil">
+                <p th:text="${moderator.getName()}"></p>
+                <a>Remover</a>
+            </div>
+
+        </div>
+
     </div>
 
     <div class="question-card-divider"></div>

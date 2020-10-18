@@ -86,3 +86,35 @@
     width: 80%;
     align-self: center;
 }
+
+.mods {
+    overflow-y: scroll;
+}
+
+.mods h2 {
+    text-align: center;
+}
+
+.mod-card {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 45%;
+    display: flex;
+    padding: 16px;
+    box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.25);
+    margin: 20px 20px;
+}
+
+.mod-card a {
+    background-color: red;
+    padding: 10px;
+    color: #FFF;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.mod-card img {
+    border-radius: 50%;
+    padding: 5px 5px;
+}

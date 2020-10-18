@@ -1,6 +1,7 @@
 package br.pucrs.ages.townsq.controller;
 
 import br.pucrs.ages.townsq.model.Banner;
+import br.pucrs.ages.townsq.model.Role;
 import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.service.BannerService;
 import br.pucrs.ages.townsq.service.UserService;
@@ -9,12 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolationException;
 import java.net.MalformedURLException;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 @Controller
 public class AdminController {
@@ -43,8 +48,44 @@ public class AdminController {
 
     @GetMapping("/admin/mods")
     public String getAdminModsPage(Model model) {
+        List<User> moderators = service.getAllModerators();
+        model.addAttribute("moderators", moderators);
         model.addAttribute("active", true);
         return  "adminMods";
+    }
+
+    @PostMapping("/admin/mods/create")
+    public String postAdminMod(User usuario, Model model, final RedirectAttributes redirectAttributes) {
+        User user;
+
+        try {
+            user = service.getUserByEmail(usuario.getName()).orElse(null);
+
+            Set<Role> userRole = user.getRoles();
+
+            Role role = (Role) userRole.toArray()[0];
+
+            if (role.getName().equals("ROLE_MODERATOR")) {
+                redirectAttributes.addFlashAttribute("error", "Este usuário já é um moderador");
+                return "redirect:/admin/mods";
+            } else if (role.getName().equals("ROLE_ADMIN")) {
+                redirectAttributes.addFlashAttribute("error", "Este usuário é um administrador");
+                return "redirect:/admin/mods";
+            }
+            service.updateUserToMod(user);
+            return "redirect:/admin/mods";
+        } catch(Exception e) {
+            return "redirect:/admin/mods";
+        }
+    }
+
+    @PostMapping("admin/delete-mod")
+    public String postModToUser(User usuario, Model model) {
+        User user = service.getUserByEmail(usuario.getName()).orElse(null);
+
+        System.out.println("User: " + user);
+
+        return "redirect:/admin/mods";
     }
 
     @PostMapping("/admin/banner")

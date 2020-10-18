@@ -74,7 +74,7 @@ public class UserController {
 
     @GetMapping("/users")
     public String getAllUsers(Model model) {
-        model.addAttribute("users", service.getAll());
+        model.addAttribute("users", service.getAllModerators());
         return "users";
     }
 
