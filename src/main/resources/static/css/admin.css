@@ -68,8 +68,9 @@
 }
 
 .user {
-    border: 1px dashed #DDDDDD;
+    box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.25);
     padding: 20px;
+    margin: 20px 0;
 }
 
 .user-container {
@@ -96,7 +97,7 @@
     margin-bottom: 40px;
 }
 
-.col-6 h2 {
+.col-6 #mod-text {
     text-align: center;
 }
 
@@ -125,4 +126,84 @@
 .mod-card img {
     border-radius: 50%;
     padding: 5px 5px;
+}
+
+.mobile{
+    display: none;
+}
+
+@media (max-width: 1150px) {
+    .container {
+        flex-direction: column;
+        width: 85%;
+    }
+
+    .col-6 {
+        width: 100%;
+    }
+
+    .banner {
+        margin-top: 0;
+        width: 100%;
+    }
+
+    .question-card-divider {
+        display: none;
+    }
+
+    .form-control {
+        width: 100%;
+    }
+
+    #email-input {
+        width: 60%;
+    }
+
+    .form {
+        margin-bottom: 10px;
+    }
+
+    .tabs {
+        margin-bottom: 25px;
+    }
+
+    .mod-card {
+        width: 60%;
+    }
+
+    .user-container {
+        margin-top: 0;
+    }
+
+    .mobile {
+        display: flex;
+        flex-direction: column;
+        margin: 40px 0;
+    }
+
+    .desktop {
+        display: none;
+    }
+}
+
+@media (max-width: 500px) {
+    .user {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .mod-card {
+        width: 85%;
+    }
+
+    #email-input {
+        width: 100%;
+    }
+}
+
+@media (max-width: 365px) {
+    .container {
+        width: 99%;
+        padding: 5px;
+    }
 }

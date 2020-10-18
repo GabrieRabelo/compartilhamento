@@ -86,17 +86,6 @@
         flex-direction: column;
     }
 
-    .img-container {
-        width: 96px;
-        height: 96px;
-        display: flex;
-    }
-
-    .pontuacao {
-        padding: 10px 15px;
-        font-size: 10pt;
-    }
-
     .newpicture {
         width: 100%;
         display: flex;

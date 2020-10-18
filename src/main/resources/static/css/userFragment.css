@@ -26,8 +26,19 @@
     color: black;
 }
 
-@media (max-width: 1150px) {
+@media (max-width: 800px) {
     .profile-info-container {
         width: 100%;
+    }
+
+    .img-container {
+        width: 96px;
+        height: 96px;
+        display: flex;
+    }
+
+    .pontuacao {
+        padding: 10px 15px;
+        font-size: 10pt;
     }
 }
