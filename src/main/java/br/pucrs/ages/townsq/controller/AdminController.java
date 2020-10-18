@@ -4,6 +4,7 @@ import br.pucrs.ages.townsq.model.Banner;
 import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.service.BannerService;
 import br.pucrs.ages.townsq.service.UserService;
+import org.hibernate.validator.internal.engine.ConstraintViolationImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolationException;
+import java.net.MalformedURLException;
 
 @Controller
 public class AdminController {
@@ -45,11 +48,26 @@ public class AdminController {
     }
 
     @PostMapping("/admin/banner")
-    public String createAdminBanner(Banner ads, Model model) {
-        Banner banner = adService.save(ads);
+    public String createAdminBanner(Banner ads, Model model,
+                                    final RedirectAttributes redirectAttributes) {
 
-        model.addAttribute("banner", banner);
-        model.addAttribute("success", "Propaganda atualizada com sucesso.");
+        Banner banner;
+        try {
+            banner = adService.save(ads);
+            model.addAttribute("banner", banner);
+            model.addAttribute("success", "Propaganda atualizada com sucesso.");
+        } catch (ConstraintViolationException error) {
+            ConstraintViolationImpl c = (ConstraintViolationImpl) error.getConstraintViolations().toArray()[0];
+            model.addAttribute("error", c.getMessage());
+            return "redirect:/admin/banner";
+        } catch (IllegalArgumentException e){
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/admin/banner";
+        } catch (MalformedURLException e) {
+            redirectAttributes.addFlashAttribute("error", "URL inválida!");
+            return "redirect:/admin/banner";
+        }
+
         model.addAttribute("active", true);
 
         return "adminBanner";

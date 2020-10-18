@@ -21,15 +21,15 @@
                 <h1 class="title">Atualize a propaganda</h1>
                 <div class="form-control">
                     <label for="title">Titulo do anuncio</label>
-                    <input type="text" name="title" id="title" th:value="*{title}"/>
+                    <input type="text" name="title" id="title" th:value="*{title}" required/>
                 </div>
                 <div class="form-control">
                     <label for="url">Link do anúncio</label>
-                    <input type="text" name="url" id="url" th:value="*{url}"/>
+                    <input type="text" name="url" id="url" th:value="*{url}" required/>
                 </div>
                 <div class="form-control">
                     <label for="description">Texto do anuncio</label>
-                    <textarea type="text" name="description" id="description" th:text="*{description}"></textarea>
+                    <textarea type="text" name="description" id="description" th:text="*{description}" required></textarea>
                 </div>
                 <div class="row white-background">
                     <button type="submit">Atualizar</button>

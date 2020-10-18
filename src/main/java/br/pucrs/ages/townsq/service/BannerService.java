@@ -8,6 +8,8 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.Cookie;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,13 +31,18 @@ public class BannerService {
         return repo.getBannerByIsActiveEquals(1);
     }
 
-    public Banner save(Banner ads) {
-        updateAllBannersToInactive();
-        ads.setIsActive(1);
+    public Banner save(Banner ads) throws MalformedURLException {
+        if (ads.getDescription().isBlank() || ads.getTitle().isBlank() || ads.getUrl().isBlank()){
+            throw new IllegalArgumentException("Todos os campos são obrigatórios!");
+        } else {
+            new URL(ads.getUrl());
+            updateAllBannersToInactive();
+            ads.setIsActive(1);
 
-        cacheManager.getCache("banner").clear();
+            cacheManager.getCache("banner").clear();
 
-        return repo.save(ads);
+            return repo.save(ads);
+        }
     }
 
     public List<Banner> getAllBanners() {

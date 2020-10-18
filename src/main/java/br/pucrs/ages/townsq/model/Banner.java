@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.validator.constraints.URL;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -38,6 +39,7 @@ public class Banner {
     @NotEmpty
     private String description;
 
+    @URL
     @NotNull(message = "Link não pode ser nulo.")
     @NotEmpty(message = "Link não pode ser vazio.")
     @Column(name = "url", columnDefinition = "VARCHAR(256)", nullable =  false)
