@@ -1,4 +1,4 @@
-document.querySelector('#comment-form').addEventListener('submit', function (e){
+document.querySelector('#modal-form').addEventListener('submit', function (e){
     e.preventDefault()
 })
 
@@ -7,16 +7,17 @@ function updateModal(creatorInfo) {
     const modal = document.querySelector(".modal");
     const header = document.querySelector("header");
     const mainDiv = document.querySelector("#contentDiv");
-    const form = document.querySelector('#comment-form');
+    const form = document.querySelector('#modal-form');
     const formText = document.querySelector('#text-input');
 
     const split = creatorInfo.split(';');
     if(split[0] === 'editComment'){
         form.action = `/comment/edit/${split[1]}`;
-        formText.value = document.querySelector(`#text-${split[1]}`).innerHTML;
+        formText.value = document.querySelector(`#comment-${split[1]}`).innerHTML;
     }
     if(split[0] === 'editAnswer'){
-        //code here
+        form.action = `/answer/edit/${split[1]}`;
+        formText.value = document.querySelector(`#answer-${split[1]}`).innerHTML;
     }
     if(split[0] === 'questionComment'){
         form.action = `/comment/create/question/${split[1]}`;
@@ -44,7 +45,7 @@ function closeModal() {
     const modal = document.querySelector(".modal");
     const header = document.querySelector("header");
     const mainDiv = document.querySelector("#contentDiv");
-    const form = document.querySelector('#comment-form');
+    const form = document.querySelector('#modal-form');
     const formText = document.querySelector('#text-input');
 
     form.action = '';
@@ -56,6 +57,6 @@ function closeModal() {
     header.style.zIndex = '';
 }
 
-function submitCommentForm(){
-    document.querySelector('#comment-form').submit();
+function submitModalForm(){
+    document.querySelector('#modal-form').submit();
 }
