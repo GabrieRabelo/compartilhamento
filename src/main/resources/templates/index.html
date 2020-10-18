@@ -58,8 +58,9 @@
             <div class="card-right">
                 <div class="question-card-divider"></div>
                 <div class="card-right-text">
-                    <p>0</p>
-                    <p>respostas</p>
+                    <p th:text="${question.getAllActiveAnswers().size()}"></p>
+                    <p th:if="${question.getAllActiveAnswers().size() == 1}"> resposta</p>
+                    <p th:if="${question.getAllActiveAnswers().size() != 1}"> respostas</p>
                     <small th:text="${question.getCommentCountString()}"></small>
                 </div>
             </div>
