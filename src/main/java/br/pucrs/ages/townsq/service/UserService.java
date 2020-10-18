@@ -44,9 +44,16 @@ public class UserService {
             editUser.setWebsite(u.getWebsite());
             if (u.getImage() != null && !u.getImage().equals(editUser.getImage()))
                 editUser.setImage(u.getImage());
-            if(!StringUtils.isEmpty(u.getPassword())){
-                editUser.setPassword(bcPasswordEncoder.encode(u.getPassword()));
+            if (u.getNewPassword().equals(u.getConfirmNewPassword()) && !StringUtils.isEmpty(u.getNewPassword())) {
+                if (bcPasswordEncoder.matches(u.getPassword(), editUser.getPassword())) {
+                    editUser.setPassword(bcPasswordEncoder.encode(u.getNewPassword()));
+                } else {
+                    throw new IllegalArgumentException("Senha atual inválida!");
+                }
+            } else {
+                throw new IllegalArgumentException("A nova senha e a confirmação devem ser iguais!");
             }
+
             if(!StringUtils.isEmpty(editUser.getBio()) && !StringUtils.isEmpty(editUser.getImage())
                     && editUser.getHasCompletedProfile() == 0){
                 editUser.setHasCompletedProfile(1);
