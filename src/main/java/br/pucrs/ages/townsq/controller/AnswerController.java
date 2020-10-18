@@ -4,27 +4,34 @@ import br.pucrs.ages.townsq.model.Answer;
 import br.pucrs.ages.townsq.model.Question;
 import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.service.AnswerService;
+import br.pucrs.ages.townsq.service.QuestionService;
 import br.pucrs.ages.townsq.utils.Slugify;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.thymeleaf.util.StringUtils;
 
-import org.springframework.ui.Model;
-
+import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
 public class AnswerController {
 
     private final AnswerService answerService;
+    private final QuestionService questionService;
 
-    public AnswerController(AnswerService answerService) { this.answerService = answerService; }
+    public AnswerController(AnswerService answerService, QuestionService questionService) {
+        this.answerService = answerService;
+        this.questionService = questionService;
+    }
 
     /**
      * Post route to create an answer
@@ -35,23 +42,44 @@ public class AnswerController {
     public String postCreateAnswer(@AuthenticationPrincipal User user,
                                    @ModelAttribute Answer answer,
                                    @ModelAttribute Question question,
-                                   Model model,
                                    final RedirectAttributes redirectAttributes
                                    ) {
         try{
-          if(!StringUtils.isEmpty(answer.getText().trim())) {
               answerService.saveAnswer(answer, user, question);
               redirectAttributes.addFlashAttribute("success", "Resposta criada com sucesso!");
               return "redirect:/question/" + question.getId() + "/" + Slugify.toSlug(question.getTitle());
-          } else {
-              model.addAttribute("error", "Resposta não pode ser vazia!");
-              return "question";
-          }
+        } catch (IllegalArgumentException ie) {
+            redirectAttributes.addFlashAttribute("error", "Resposta não pode ser vazia");
+            return "redirect:/question/" + question.getId() + "/" + Slugify.toSlug(question.getTitle());
         } catch (Exception e) {
-            System.out.println(e);
             redirectAttributes.addFlashAttribute("error", "Não foi possível cadastrar a resposta.");
+            return "redirect:/question/" + question.getId() + "/" + Slugify.toSlug(question.getTitle());
         }
-        return "redirect:/question/" + question.getId() + "/" + Slugify.toSlug(question.getTitle());
+    }
+
+    @PostMapping("/answer/edit/{id}")
+    public String postEditAnswer(
+            @AuthenticationPrincipal User user,
+            @ModelAttribute @Valid Answer answer,
+            BindingResult bindingResult,
+            @PathVariable long id,
+            final RedirectAttributes redirectAttributes
+    ) throws BindException {
+        if (bindingResult.hasErrors()) {
+            throw new BindException(bindingResult);
+        }
+        Question questionFrom = questionService.getQuestionById(answer.getQuestion().getId()).orElse(null);
+        if(questionFrom == null){
+            redirectAttributes.addFlashAttribute("error","Operação inválida.");
+            return "redirect:/";
+        }
+        try{
+            answerService.editAnswer(answer.getText(),user,id);
+            redirectAttributes.addFlashAttribute("success","Resposta editada com sucesso.");
+        }catch (IllegalArgumentException e){
+            redirectAttributes.addFlashAttribute("error",e.getMessage());
+        }
+        return "redirect:/question/" + questionFrom.getId() +  "/" + Slugify.toSlug(questionFrom.getTitle());
     }
 
     /**
