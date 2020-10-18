@@ -6,18 +6,20 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.URL;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.Collection;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 @Builder
 public class User implements UserDetails {
     @Id
@@ -47,8 +49,6 @@ public class User implements UserDetails {
     private String website;
     @Column(name = "image", columnDefinition = "VARCHAR(256)")
     private String image;
-    @Column(name = "role", columnDefinition = "VARCHAR(30)")
-    private String role;
     @UpdateTimestamp
     @Column(name = "updatedAt")
     private java.sql.Timestamp updatedAt;
@@ -58,9 +58,24 @@ public class User implements UserDetails {
     @Column(name = "hasCompletedProfile", columnDefinition = "SMALLINT")
     private Integer hasCompletedProfile = 0;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
+    @Transient
+    private String newPassword;
+
+    @Transient
+    private String confirmNewPassword;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        Set<Role> roles = this.getRoles();
+        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        for (Role role : roles)
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        return authorities;
     }
 
     @Override

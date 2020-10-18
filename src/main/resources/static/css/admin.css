@@ -1,0 +1,88 @@
+.container{
+    display: flex;
+    width: 100%;
+    height: calc(100vh - 64px);
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-control{
+    width: 55%;
+}
+.form-control input{
+    width: 100%;
+    height: 50px;
+}
+.form-control textarea{
+    width: 100%;
+    height: 100px;
+    margin: 10px 0px 0px;
+    max-height: 200px;
+    resize: vertical;
+    min-height: 100px;
+}
+.title{
+    margin-bottom: 30px;
+
+}
+
+.line{
+    width: 75%;
+    height: 20px;
+    border-top: 1px solid #BEBEBE;
+    position: relative;
+    align-self: center;
+}
+.tabs{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+.tabs a{
+    text-decoration: none;
+    padding: 0 20px;
+    color: #000;
+    font-weight: bold;
+}
+
+.tabs a:active{
+    color:var(--dark-green);
+}
+
+.active{
+    color:var(--dark-green) !important;
+}
+
+.active span{
+    display: block;
+    border-bottom: 2px solid var(--dark-green);
+    width: 110%;
+    padding-bottom: 4px;
+    margin-left: -7px;
+}
+
+.user {
+    border: 1px dashed #DDDDDD;
+    padding: 20px;
+}
+
+.user-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10vh;
+}
+
+.banner {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10%;
+    align-items: center;
+    width: 80%;
+    align-self: center;
+}
