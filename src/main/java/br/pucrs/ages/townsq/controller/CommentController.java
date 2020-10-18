@@ -45,14 +45,15 @@ public class CommentController {
                                     @ModelAttribute Question question,
                                     @PathVariable String creator,
                                     @PathVariable long creatorId,
-                                    final RedirectAttributes redirectAttributes) throws BindException {
-        if (bindingResult.hasErrors()) {
-            throw new BindException(bindingResult);
-        }
+                                    final RedirectAttributes redirectAttributes) {
         Question questionOfComment = questionService.getQuestionById(question.getId()).orElse(null);
         if(questionOfComment == null){
-            redirectAttributes.addFlashAttribute("error", "Houve um problema na operação.");
+            redirectAttributes.addFlashAttribute("error", "Operação inválida.");
             return "redirect:/";
+        }
+        if(bindingResult.hasErrors()){
+            redirectAttributes.addFlashAttribute("error", "Comentário inválido");
+            return "redirect:/question/" + questionOfComment.getId() + "/" + Slugify.toSlug(questionOfComment.getTitle());
         }
         try{
             commentService.saveComment(comment, user, creator, creatorId);
@@ -78,14 +79,15 @@ public class CommentController {
             BindingResult bindingResult,
             @PathVariable long id,
             final RedirectAttributes redirectAttributes
-    ) throws BindException {
-        if (bindingResult.hasErrors()) {
-            throw new BindException(bindingResult);
-        }
+    ){
         Question questionFrom = questionService.getQuestionById(comment.getQuestion().getId()).orElse(null);
         if(questionFrom == null){
             redirectAttributes.addFlashAttribute("error","Operação inválida.");
             return "redirect:/";
+        }
+        if(bindingResult.hasErrors()){
+            redirectAttributes.addFlashAttribute("error", "Comentário inválido.");
+            return "redirect:/question/" + questionFrom.getId() +  "/" + Slugify.toSlug(questionFrom.getTitle());
         }
         try{
             commentService.editComment(comment.getText(),user,id);
