@@ -1,4 +1,4 @@
-document.querySelector('#comment-form').addEventListener('submit', function (e){
+document.querySelector('#modal-form').addEventListener('submit', function (e){
     e.preventDefault()
 })
 
@@ -16,7 +16,7 @@ function updateModal(creatorInfo) {
         formText.value = document.querySelector(`#comment-${split[1]}`).innerHTML;
     }
     if(split[0] === 'editAnswer'){
-        //action do form
+        form.action = `/answer/edit/${split[1]}`;
         formText.value = document.querySelector(`#answer-${split[1]}`).innerHTML;
     }
     if(split[0] === 'questionComment'){

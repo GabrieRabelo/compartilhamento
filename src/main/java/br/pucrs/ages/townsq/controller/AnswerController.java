@@ -4,10 +4,13 @@ import br.pucrs.ages.townsq.model.Answer;
 import br.pucrs.ages.townsq.model.Question;
 import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.service.AnswerService;
+import br.pucrs.ages.townsq.service.QuestionService;
 import br.pucrs.ages.townsq.utils.Slugify;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindException;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,14 +20,19 @@ import org.thymeleaf.util.StringUtils;
 
 import org.springframework.ui.Model;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @Controller
 public class AnswerController {
 
     private final AnswerService answerService;
+    private final QuestionService questionService;
 
-    public AnswerController(AnswerService answerService) { this.answerService = answerService; }
+    public AnswerController(AnswerService answerService, QuestionService questionService) {
+        this.answerService = answerService;
+        this.questionService = questionService;
+    }
 
     /**
      * Post route to create an answer
@@ -52,6 +60,31 @@ public class AnswerController {
             redirectAttributes.addFlashAttribute("error", "Não foi possível cadastrar a resposta.");
         }
         return "redirect:/question/" + question.getId() + "/" + Slugify.toSlug(question.getTitle());
+    }
+
+    @PostMapping("/answer/edit/{id}")
+    public String postEditAnswer(
+            @AuthenticationPrincipal User user,
+            @ModelAttribute @Valid Answer answer,
+            BindingResult bindingResult,
+            @PathVariable long id,
+            final RedirectAttributes redirectAttributes
+    ) throws BindException {
+        if (bindingResult.hasErrors()) {
+            throw new BindException(bindingResult);
+        }
+        Question questionFrom = questionService.getQuestionById(answer.getQuestion().getId()).orElse(null);
+        if(questionFrom == null){
+            redirectAttributes.addFlashAttribute("error","Operação inválida.");
+            return "redirect:/";
+        }
+        try{
+            answerService.editAnswer(answer.getText(),user,id);
+            redirectAttributes.addFlashAttribute("success","Resposta editada com sucesso.");
+        }catch (IllegalArgumentException e){
+            redirectAttributes.addFlashAttribute("error",e.getMessage());
+        }
+        return "redirect:/question/" + questionFrom.getId() +  "/" + Slugify.toSlug(questionFrom.getTitle());
     }
 
     /**
