@@ -30,7 +30,7 @@ public class UserController {
     private final UserService service;
 
     @Autowired
-    public UserController(UserService service){
+    public UserController(UserService service) {
         this.service = service;
     }
 
@@ -40,7 +40,7 @@ public class UserController {
      * @return redirect to sigin page
      */
     @PostMapping("/signup")
-    public String postUserSignup(@ModelAttribute User user, Model model, HttpServletRequest request, final RedirectAttributes redirectAttributes){
+    public String postUserSignup(@ModelAttribute User user, Model model, HttpServletRequest request, final RedirectAttributes redirectAttributes) {
         String pass = user.getPassword();
         try {
             service.save(user);
@@ -51,12 +51,10 @@ public class UserController {
             ConstraintViolationImpl c = (ConstraintViolationImpl) error.getConstraintViolations().toArray()[0];
             model.addAttribute("error", c.getMessage());
             return "signup";
-        }
-        catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             model.addAttribute("error", e.getMessage());
             return "signup";
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e.toString());
             model.addAttribute("error", "Erro ao processar cadastro.");
             return "signup";
@@ -71,20 +69,20 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public String getAllUsers(Model model){
+    public String getAllUsers(Model model) {
         model.addAttribute("users", service.getAll());
         return "users";
     }
 
     @GetMapping(value = {"/user/{id}"})
-    public String getUserById(HttpServletRequest request, @PathVariable long id, Model model, HttpSession session){
+    public String getUserById(HttpServletRequest request, @PathVariable long id, Model model, HttpSession session) {
         User user = service.getUserById(id).orElse(null);
         model.addAttribute("user", user);
         return "user";
     }
 
     @GetMapping(value = {"/user/edit"})
-    public String getUserEditById(HttpServletRequest request, Model model, Authentication auth){
+    public String getUserEditById(HttpServletRequest request, Model model, Authentication auth) {
         User user = service.getUserByEmail(auth.getName()).orElse(null);
         model.addAttribute("user", user);
         return "userEdit";
@@ -95,10 +93,10 @@ public class UserController {
                                  @ModelAttribute User user,
                                  Model model,
                                  @AuthenticationPrincipal User userPrincipal,
-                                 final RedirectAttributes redirectAttributes){
+                                 final RedirectAttributes redirectAttributes) {
 
         User userEdit = service.getUserById(user.getId()).orElse(null);
-        if(userEdit == null){
+        if (userEdit == null) {
             redirectAttributes.addFlashAttribute("error", "Erro ao editar o usuário.");
             return "redirect:/";
         }
@@ -115,16 +113,19 @@ public class UserController {
         } catch (MalformedURLException e) {
             redirectAttributes.addFlashAttribute("error", "URL inválida!");
             return "redirect:/user/edit";
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/user/edit";
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Erro ao atualizar perfil.");
             return "redirect:/user/edit";
         }
-        if(!user.getHasCompletedProfile().equals(completeProfile)){
-            model.addAttribute("reputation", "Você ganhou 20 pontos!");
+        if (!user.getHasCompletedProfile().equals(completeProfile)) {
+            redirectAttributes.addFlashAttribute("reputation", "Você ganhou 20 pontos!");
         }
 
-        model.addAttribute("success", "Perfil atualizado!");
-        return "userEdit";
+        redirectAttributes.addFlashAttribute("success", "Perfil atualizado!");
+        return "redirect:/user/edit";
     }
 
     public String singleFileUpload(@RequestParam("file") MultipartFile file, User user) {
@@ -144,7 +145,7 @@ public class UserController {
             Files.write(path, bytes);
 
             String oldImage = user.getImage();
-            if(oldImage != null && !oldImage.equals(ROOT_TO_STATIC + STATIC + "defaultUser.svg")){
+            if (oldImage != null && !oldImage.equals(ROOT_TO_STATIC + STATIC + "defaultUser.svg")) {
                 Files.delete(Paths.get(ROOT_TO_STATIC + oldImage));
             }
 
