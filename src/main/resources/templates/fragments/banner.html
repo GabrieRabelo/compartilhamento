@@ -6,7 +6,7 @@
 <body>
 <div th:fragment="banner" class="container-banner">
     <link rel="stylesheet" th:href="@{/css/banner.css}">
-        <div class="banner">
+        <div class="banner-main">
             <h1 class="banner-title" th:text="${banner.getTitle()}"></h1>
             <p class="banner-description" th:text="${banner.getDescription()}"></p>
             <a target="_blank" class="banner-link" th:href="${banner.getUrl()}">Acessar</a>

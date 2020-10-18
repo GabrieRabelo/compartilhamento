@@ -33,7 +33,7 @@ class QuestionRepositoryTest {
 	@BeforeEach
 	void setUp() {
 		Role role = roleRepository.findByName("ROLE_USER").orElse(null);
-		User user = new User(null, "Rabelo", "rabelo", "rabelo@rab.elo", 1, null, null, null, null, null, null, null, 0, null, null);
+		User user = new User(null, "Rabelo", "rabelo", "rabelo@rab.elo", 1,  null, null, null, null, null, null, null, null, null, null);
 		user.setRoles(new HashSet<>(Collections.singletonList(role)));
 		userRepository.save(user);
 		Topic topic = new Topic(1L, "Seguranca", new Timestamp(1), new Timestamp(1), 1);

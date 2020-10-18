@@ -1,6 +1,6 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.0.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
-    <changeSet author="lucas (generated)" id="1602282907165-1">
+    <changeSet author="vini (generated)" id="1602977976516-1">
         <createTable tableName="answers">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="answersPK"/>
@@ -21,7 +21,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="lucas (generated)" id="1602282907165-2">
+    <changeSet author="vini (generated)" id="1602977976516-2">
         <createTable tableName="comments">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="commentsPK"/>
@@ -39,22 +39,19 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="lucas (generated)" id="1602282907165-3">
-        <addUniqueConstraint columnNames="email" constraintName="UC_USERSEMAIL_COL" tableName="users"/>
-    </changeSet>
-    <changeSet author="lucas (generated)" id="1602282907165-4">
+    <changeSet author="vini (generated)" id="1602977976516-3">
         <addForeignKeyConstraint baseColumnNames="question_id" baseTableName="answers" constraintName="FK3erw1a3t0r78st8ty27x6v3g1" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="questions" validate="true"/>
     </changeSet>
-    <changeSet author="lucas (generated)" id="1602282907165-5">
+    <changeSet author="vini (generated)" id="1602977976516-4">
         <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="answers" constraintName="FK5bp3d5loftq2vjn683ephn75a" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="users" validate="true"/>
     </changeSet>
-    <changeSet author="lucas (generated)" id="1602282907165-6">
+    <changeSet author="vini (generated)" id="1602977976516-5">
         <addForeignKeyConstraint baseColumnNames="question_id" baseTableName="comments" constraintName="FK5og2yrimec2mq7km4wgvvybw3" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="questions" validate="true"/>
     </changeSet>
-    <changeSet author="lucas (generated)" id="1602282907165-7">
+    <changeSet author="vini (generated)" id="1602977976516-6">
         <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="comments" constraintName="FK8omq0tc18jd43bu5tjh6jvraq" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="users" validate="true"/>
     </changeSet>
-    <changeSet author="lucas (generated)" id="1602282907165-8">
+    <changeSet author="vini (generated)" id="1602977976516-7">
         <addForeignKeyConstraint baseColumnNames="answer_id" baseTableName="comments" constraintName="FKoiwlwqmu9qm0tjnafxqr20rd8" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="answers" validate="true"/>
     </changeSet>
 </databaseChangeLog>
