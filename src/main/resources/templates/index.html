@@ -25,6 +25,9 @@
 </div>
 <div class="row">
     <aside>
+        <div class="banner" th:if="${banner}">
+            <div th:replace="fragments/banner.html :: banner"></div>
+        </div>
     </aside>
     <main class="main-content">
         <img src="img/logo.svg" id="mobile-icon" alt="Logo da TownSq"/>

@@ -1,5 +1,5 @@
 aside {
-    width: 25%;
+    width: 35%;
 }
 
 .index-anon {
@@ -79,7 +79,7 @@ aside {
     display: flex;
     border-radius: 10px;
     flex-direction: row;
-    width: 80%;
+    width: 90%;
     box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.25);
     margin-bottom: 2em;
     justify-content: space-between;
@@ -87,6 +87,12 @@ aside {
 
 .question-card p {
     color: var(--dark-green)
+}
+
+.banner {
+    padding-top: 20%;
+    width: 90%;
+    margin: 0 auto;
 }
 
 .card-left {
@@ -196,6 +202,10 @@ aside {
     text-align: center;
 }
 
+.banner {
+    margin-top: 10vh;
+}
+
 #mobile-icon {
     display: none;
     width: 12rem;
@@ -206,6 +216,15 @@ aside {
 @media (max-width: 1500px) {
     .index-anon {
         background: var(--light-green);
+    }
+}
+
+@media (max-width: 768px) {
+    aside {
+        display: none;
+    }
+    .question-card {
+        width: 80%;
     }
 }
 

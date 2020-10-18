@@ -12,6 +12,10 @@ header{
     background-color: var(--light-green);
 }
 
+.header-admin{
+    background-color: var(--admin-green);
+}
+
 header nav {
     padding: 10px;
     display: flex;

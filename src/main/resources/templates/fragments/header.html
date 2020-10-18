@@ -4,7 +4,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       lang="br">
 <body>
-    <header th:fragment="header" th:classappend="${#request.userPrincipal} ? 'header-dark' : 'header-light'">
+    <header th:fragment="header" th:classappend="!${#request.userPrincipal} ? 'header-light' : (${#request.isUserInRole('ROLE_ADMIN')} ? 'header-admin' : 'header-dark')">
         <nav>
             <div sec:authorize="isAnonymous()">
                 <img class="logo-img-header" alt="Logo Townsq" src="/img/logo.svg" />
@@ -19,7 +19,6 @@
                 </div>
                 <div class="dropdown-content">
                     <a th:href="'/user/' + ${#authentication.getPrincipal().getId()}">Ver Perfil</a>
-                    <a th:href="'/'">Alterar Senha</a>
                     <a th:href="'/logout'"> Sair </a>
                 </div>
             </div>

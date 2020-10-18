@@ -1,0 +1,44 @@
+.container-banner{
+    background-color: var(--dark-green);
+    display: flex;
+    border-radius: 20px;
+    padding: 20px;
+    width: 100%;
+}
+
+.banner-main {
+    display: flex;
+    flex-direction: column;
+}
+
+.banner-title {
+    color: #173140;
+}
+
+.banner-link {
+    width: 110px;
+    color: #171717;
+    background-color: #FFF;
+    padding: 10px;
+    border-radius: 20px;
+    text-decoration: none;
+    text-align: center;
+    align-self: center;
+}
+
+.banner-description {
+    color: #FFF;
+    font-size: 12px;
+    padding: 12px 0;
+}
+
+.banner-right {
+    justify-content: center;
+    align-items: center;
+    text-align: justify;
+}
+
+.banner-left {
+    justify-content: center;
+    align-items: center;
+}
