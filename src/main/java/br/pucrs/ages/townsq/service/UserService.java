@@ -55,6 +55,10 @@ public class UserService {
                 } else {
                     throw new IllegalArgumentException("A nova senha e a confirmação devem ser iguais e não podem estar vazias!");
                 }
+            } else {
+                if(u.getNewPassword().equals(u.getConfirmNewPassword()) && !StringUtils.isEmpty(u.getNewPassword())){
+                    throw new IllegalArgumentException("Senha atual inválida!");
+                }
             }
 
             if (!StringUtils.isEmpty(editUser.getBio()) && !StringUtils.isEmpty(editUser.getImage())
