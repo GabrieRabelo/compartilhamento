@@ -107,6 +107,15 @@ public class UserService {
         return repository.save(user);
     }
 
+    public User updateModToUser(User user) {
+        if (user == null) {
+            return null;
+        }
+        Role role = roleRepository.findByName("ROLE_USER").orElse(null);
+        user.setRoles(new HashSet<>(Collections.singletonList(role)));
+        return repository.save(user);
+    }
+
     public List<User> getAllModerators() {
         Role role = roleRepository.findByName("ROLE_MODERATOR").orElse(null);
         return repository.findByRolesIn(new HashSet<>(Collections.singletonList(role)));

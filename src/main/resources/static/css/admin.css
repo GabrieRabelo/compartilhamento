@@ -8,6 +8,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 40px;
 }
 
 .form-control{
@@ -87,11 +88,15 @@
     align-self: center;
 }
 
-.mods {
+.moderators {
     overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 40px;
 }
 
-.mods h2 {
+.col-6 h2 {
     text-align: center;
 }
 
@@ -104,14 +109,17 @@
     padding: 16px;
     box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.25);
     margin: 20px 20px;
+    border-radius: 10px;
+
 }
 
 .mod-card a {
-    background-color: red;
+    background-color: #D83D3D;
     padding: 10px;
     color: #FFF;
     cursor: pointer;
     border-radius: 5px;
+    text-decoration: none;
 }
 
 .mod-card img {

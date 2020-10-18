@@ -28,14 +28,13 @@
             </div>
         </form>
 
-        <div class="mods">
-            <h2>Lista de moderadores</h2>
+        <h2>Lista de moderadores</h2>
+        <div class="moderators">
             <div class="mod-card" th:each="moderator: ${moderators}">
                 <img src="/img/user.svg" alt="Imagem de perfil">
                 <p th:text="${moderator.getName()}"></p>
-                <a>Remover</a>
+                <a th:href="@{/admin/mods/delete/{id}(id=${moderator.getId()})}">Remover</a>
             </div>
-
         </div>
 
     </div>
@@ -46,6 +45,7 @@
             <p>Pré-visualização do perfil buscado:</p>
             <div th:insert="fragments/userFragment.html :: user" class="user"></div>
         </div>
+        <p>Fazer aparecer o perfil do usuário para o administrador confirmar o moderador.</p>
 
     </div>
 
