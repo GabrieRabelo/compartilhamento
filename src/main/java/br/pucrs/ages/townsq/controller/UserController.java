@@ -114,18 +114,18 @@ public class UserController {
             redirectAttributes.addFlashAttribute("error", "URL inválida!");
             return "redirect:/user/edit";
         } catch (IllegalArgumentException e) {
-            model.addAttribute("error", e.getMessage());
-            return "userEdit";
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+            return "redirect:/user/edit";
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Erro ao atualizar perfil.");
             return "redirect:/user/edit";
         }
         if (!user.getHasCompletedProfile().equals(completeProfile)) {
-            model.addAttribute("reputation", "Você ganhou 20 pontos!");
+            redirectAttributes.addFlashAttribute("reputation", "Você ganhou 20 pontos!");
         }
 
-        model.addAttribute("success", "Perfil atualizado!");
-        return "userEdit";
+        redirectAttributes.addFlashAttribute("success", "Perfil atualizado!");
+        return "redirect:/user/edit";
     }
 
     public String singleFileUpload(@RequestParam("file") MultipartFile file, User user) {
