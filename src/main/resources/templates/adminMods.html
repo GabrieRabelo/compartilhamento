@@ -16,14 +16,14 @@
             <a class="prop" href="/admin/banner">Editar Propaganda</a>
             <a class="mods" th:classappend="${active} ? 'active' : ''" href="/admin/mods">Gerenciar Moderadores <span></span> </a>
         </div>
-        <form role="form" th:action="@{/admin/mods/create}" th:method="post">
+        <form role="form" th:action="@{/admin/mods/getUser}" th:method="post">
             <div class="form">
                 <h1 class="title">Adicione um moderador</h1>
                 <div class="form-control">
                     <input type="text" name="name" id="name" placeholder="Email do moderador"/>
                 </div>
                 <div class="row white-background">
-                    <button type="submit">Adicionar</button>
+                    <button type="submit">Vizualizar</button>
                 </div>
             </div>
         </form>
@@ -44,9 +44,13 @@
         <div class="user-container" th:if="${user}">
             <p>Pré-visualização do perfil buscado:</p>
             <div th:insert="fragments/userFragment.html :: user" class="user"></div>
+            <form role="form" th:action="@{/admin/mods/create}" th:method="post">
+                <input type="hidden" name="name" id="ConfirmName" placeholder="Email do moderador" th:value="${user.getEmail()}"/>
+                <div class="row white-background">
+                    <button type="submit">Confirmar</button>
+                </div>
+            </form>
         </div>
-        <p>Fazer aparecer o perfil do usuário para o administrador confirmar o moderador.</p>
-
     </div>
 
 </div>
