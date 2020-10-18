@@ -14,7 +14,7 @@
     pointer-events: none;
 }
 
-.comment{
+.no-transitions{
     -webkit-transition: none;
     -moz-transition: none;
     transition: none;

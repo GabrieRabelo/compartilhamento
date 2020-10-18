@@ -35,7 +35,7 @@ public class CommentService {
                                User user,
                                String creator,
                                long creatorId) throws IllegalArgumentException{
-        if(StringUtils.isEmpty(comment.getText()))
+        if(StringUtils.isEmpty(comment.getText().trim()))
             throw new IllegalArgumentException("O texto do comentário não pode estar vazio.");
 
         comment.setUser(user);

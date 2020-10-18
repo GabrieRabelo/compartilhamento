@@ -78,6 +78,11 @@
     width: 100%;
 }
 
+.answer-card-actions img{
+    cursor: pointer;
+}
+
+
 .comment-actions{
     display: flex;
     flex-direction: row;

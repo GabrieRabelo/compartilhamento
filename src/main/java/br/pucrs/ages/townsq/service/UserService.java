@@ -42,13 +42,16 @@ public class UserService {
 
     public User update(User u, User editUser) throws MalformedURLException {
         if (editUser != null) {
-            editUser.setName(u.getName());
-            editUser.setBio(u.getBio());
-            editUser.setCompany(u.getCompany());
-            if (!StringUtils.isEmpty(u.getWebsite())) {
+            editUser.setName(u.getName().isBlank() ? editUser.getName() : u.getName());
+            editUser.setBio(u.getBio().isBlank() ? null : u.getBio());
+            editUser.setCompany(u.getCompany().isBlank() ? null : u.getCompany());
+            if(u.getWebsite().isBlank()){
+                editUser.setWebsite(null);
+            } else {
                 new URL(u.getWebsite());
+                editUser.setWebsite(u.getWebsite());
             }
-            editUser.setWebsite(u.getWebsite());
+
             if (u.getImage() != null && !u.getImage().equals(editUser.getImage()))
                 editUser.setImage(u.getImage());
             if (!u.getPassword().isBlank()) {
