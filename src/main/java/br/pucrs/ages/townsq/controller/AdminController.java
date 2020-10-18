@@ -67,37 +67,45 @@ public class AdminController {
             Role role = (Role) userRole.toArray()[0];
 
             if (role.getName().equals("ROLE_MODERATOR")) {
-                redirectAttributes.addFlashAttribute("error", "Este usuário já é um moderador");
+                redirectAttributes.addFlashAttribute("error", "O usuário " + user.getName() + " já é um moderador.");
                 return "redirect:/admin/mods";
             } else if (role.getName().equals("ROLE_ADMIN")) {
-                redirectAttributes.addFlashAttribute("error", "Este usuário é um administrador");
+                redirectAttributes.addFlashAttribute("error", "Este usuário é um administrador.");
                 return "redirect:/admin/mods";
             }
-            service.updateUserToMod(user);
+            User userUpdated = service.updateUserToMod(user);
+            redirectAttributes.addFlashAttribute("success", "Usuário " + userUpdated.getName() + " promovido a moderador.");
             return "redirect:/admin/mods";
         } catch(Exception e) {
-            System.out.println(e.getMessage());
+            redirectAttributes.addFlashAttribute("error", "Erro ao criar um moderator.");
             return "redirect:/admin/mods";
         }
     }
 
     @GetMapping("/admin/mods/delete/{id}")
-    public String postModToUser(User usuario, Model model, @PathVariable long id, final RedirectAttributes redirectAttributes) {
-        User user = service.getUserById(id).orElse(null);
+    public String postModToUser(@PathVariable long id, final RedirectAttributes redirectAttributes) {
+        User user;
 
-        Set<Role> userRole = user.getRoles();
+        try{
+            user = service.getUserById(id).orElse(null);
+            Set<Role> userRole = user.getRoles();
 
-        Role role = (Role) userRole.toArray()[0];
+            Role role = (Role) userRole.toArray()[0];
 
-        if (!role.getName().equals("ROLE_MODERATOR")) {
-            redirectAttributes.addFlashAttribute("error", "Usuário não é um moderador");
+            if (!role.getName().equals("ROLE_MODERATOR")) {
+                redirectAttributes.addFlashAttribute("error", "Usuário " + user.getName() + " não é um moderador.");
+                return "redirect:/admin/mods";
+            } else {
+                User userUpdated = service.updateModToUser(user);
+                redirectAttributes.addFlashAttribute("success", "Moderador " + userUpdated.getName() + " removido com sucesso.");
+            }
             return "redirect:/admin/mods";
-        } else {
-            service.updateModToUser(user);
-            redirectAttributes.addFlashAttribute("success", "Moderador removido com sucesso.");
+
+        } catch(Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Erro ao deletar um moderador.");
+            return "redirect:/admin/mods";
         }
 
-        return "redirect:/admin/mods";
     }
 
     @PostMapping("/admin/banner")
@@ -130,7 +138,7 @@ public class AdminController {
     public String postMods(User usuario, final RedirectAttributes redirectAttr) {
         User user = service.getUserByEmail(usuario.getName()).orElse(null);
         if (user == null) {
-            redirectAttr.addFlashAttribute("error", "Usuário não encontrado");
+            redirectAttr.addFlashAttribute("error", "Usuário não encontrado.");
         } else {
             redirectAttr.addFlashAttribute("user", user);
         }

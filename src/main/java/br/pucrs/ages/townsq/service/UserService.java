@@ -98,7 +98,6 @@ public class UserService {
     }
 
     public User updateUserToMod(User user) {
-        System.out.println("kaopsasop");
         if (user == null) {
             return null;
         }
