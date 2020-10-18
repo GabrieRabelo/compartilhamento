@@ -8,6 +8,10 @@
     /*margin-top: 10px;*/
 }
 
+.form-control textarea {
+    width: auto !important;
+}
+
 .forms {
     display: flex;
     flex-direction: column;
@@ -72,6 +76,13 @@
 #example{
     font-size: 11px;
     color: #000000;
+}
+
+@media (max-width: 1600px) {
+    .senha .form-group {
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 @media (max-width: 1150px) {
