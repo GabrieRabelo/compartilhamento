@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/head :: header"></div>
+    <title>Administrador</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+<body>
+<header th:replace="fragments/header.html :: header"></header>
+<div class="container">
+    <div class="col-6">
+        <div class="line"></div>
+        <div class="tabs">
+            <a class="prop" href="/admin/banner">Editar Propaganda</a>
+            <a class="mods" th:classappend="${active} ? 'active' : ''" href="/admin/mods">Gerenciar Moderadores <span></span> </a>
+        </div>
+        <form role="form" th:action="@{/admin/mods/getUser}" th:method="post">
+            <div class="form">
+                <h1 class="title">Adicione um moderador</h1>
+                <div id="email-input" class="form-control">
+                    <input type="text" name="name" id="name" required placeholder="Email do moderador"/>
+                </div>
+                <div class="row white-background">
+                    <button type="submit">Visualizar</button>
+                </div>
+            </div>
+        </form>
+
+        <div class="user-container mobile" th:if="${user}">
+            <h3>Pré-visualização do perfil buscado:</h3>
+            <div th:insert="fragments/userFragment.html :: user" class="user"></div>
+            <form role="form" th:action="@{/admin/mods/create}" th:method="post">
+                <input type="hidden" name="name" placeholder="Email do moderador" th:value="${user.getEmail()}"/>
+                <div class="row white-background">
+                    <button type="submit">Confirmar</button>
+                </div>
+            </form>
+        </div>
+
+        <h2 id="mod-text">Lista de moderadores</h2>
+        <div class="moderators">
+            <div class="mod-card" th:each="moderator: ${moderators}">
+                <img src="/img/user.svg" alt="Imagem de perfil">
+                <p th:text="${moderator.getName()}"></p>
+                <a th:href="@{/admin/mods/delete/{id}(id=${moderator.getId()})}">Remover</a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="question-card-divider"></div>
+    <div class="col-6">
+        <div class="user-container desktop" th:if="${user}">
+            <h3>Pré-visualização do perfil buscado:</h3>
+            <div th:insert="fragments/userFragment.html :: user" class="user"></div>
+            <form role="form" th:action="@{/admin/mods/create}" th:method="post">
+                <input type="hidden" name="name" placeholder="Email do moderador" th:value="${user.getEmail()}"/>
+                <p th:text="'Você deseja adicionar ' + ${user.getName()} + ' como moderador?'"></p>
+                <div class="row white-background">
+                    <button type="submit">Confirmar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<div th:replace="fragments/toast.html :: toasts">
+</div>
+</body>
+</html>

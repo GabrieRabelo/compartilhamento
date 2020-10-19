@@ -5,6 +5,7 @@
     --darker-green: #228A19;
     --darker-gray: #4a4a4a;
     --strong-green: #25B00E;
+    --admin-green: #3e6e1c
 }
 
 * {
@@ -32,6 +33,7 @@ html{
 
 h1,h2,h3,h4,h5,a,button,label,p{
     font-family: Raleway, sans-serif;
+    word-break: break-word;
 }
 
 hr{
@@ -410,11 +412,39 @@ button:hover{
     cursor: pointer;
 }
 
+.items-info {
+    max-width: 500px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.line{
+    width: 100%;
+    height: 20px;
+    position: relative;
+}
+
+.pontuacao {
+    background-color: #339DCB;
+    color: #FFFFFF;
+    border-radius: 20px;
+    text-align: center;
+    padding: 10px 30px;
+    font-size: 16px;
+    height: 40px;
+}
+
 .container {
     width: 80%;
     height: 80vh;
     margin: 0 auto;
     padding-top: 5%;
+}
+
+.relative{
+    position: relative;
 }
 
 .status-pill{

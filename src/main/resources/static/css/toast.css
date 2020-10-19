@@ -43,6 +43,10 @@
     background-color: #51A351;
 }
 
+.toast-reputation{
+    background-color: #C9C100;
+}
+
 .toast-show{
     visibility: visible;
     -webkit-animation: fadein 1.5s,stay 3s 1s, fadeout 0.5s 2.5s;

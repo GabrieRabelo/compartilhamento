@@ -1,10 +1,7 @@
 package br.pucrs.ages.townsq.model;
 
 import br.pucrs.ages.townsq.listeners.ReputationLogListener;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -16,7 +13,8 @@ import javax.validation.constraints.NotNull;
 @Table(name = "reputation_logs")
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 @Builder
 public class ReputationLog {
 

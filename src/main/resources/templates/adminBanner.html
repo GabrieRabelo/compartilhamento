@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/head :: header"></div>
+    <title>Administrador</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+<body>
+<header th:replace="fragments/header.html :: header"></header>
+<div class="container">
+    <div class="col-6">
+        <div class="line"></div>
+        <div class="tabs">
+            <a class="prop" th:classappend="${active} ? 'active' : ''" href="/admin/banner">Editar Propaganda <span></span></a>
+            <a class="mods" href="/admin/mods">Gerenciar Moderadores</a>
+        </div>
+        <form role="form" th:action="@{/admin/banner}" th:method="post" th:object="${banner}">
+            <div class="form">
+                <h1 class="title">Atualize a propaganda</h1>
+                <div class="form-control">
+                    <label for="title">Titulo do anuncio</label>
+                    <input type="text" name="title" id="title" th:value="*{title}" required/>
+                </div>
+                <div class="form-control">
+                    <label for="url">Link do anúncio</label>
+                    <input type="text" name="url" id="url" th:value="*{url}" required/>
+                </div>
+                <div class="form-control">
+                    <label for="description">Texto do anuncio</label>
+                    <textarea type="text" name="description" id="description" th:text="*{description}" required></textarea>
+                </div>
+                <div class="row white-background">
+                    <button type="submit">Atualizar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="question-card-divider"></div>
+    <div class="col-6">
+
+        <div class="banner" th:if="${banner != null && banner.getIsActive() == 1}">
+            <p>Pré-visualização do banner de propaganda.</p>
+            <div th:replace="fragments/banner.html :: banner"></div>
+        </div>
+
+        <p class="title" th:if="${banner ==  null || banner.getIsActive() != 1}">Nenhuma propaganda cadastrada.</p>
+
+    </div>
+
+<div th:replace="fragments/toast.html :: toasts">
+</div>
+</body>
+</html>
