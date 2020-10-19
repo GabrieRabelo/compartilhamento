@@ -13,10 +13,12 @@ import java.util.Optional;
 public class QuestionService {
 
     private final QuestionRepository repository;
+    private final ReputationLogService reputationLogService;
 
     @Autowired
-    public QuestionService(QuestionRepository repository) {
+    public QuestionService(QuestionRepository repository, ReputationLogService reputationLogService) {
         this.repository = repository;
+        this.reputationLogService = reputationLogService;
     }
 
     /**
@@ -78,6 +80,7 @@ public class QuestionService {
         if(question != null){
             if(question.getUser().getId() == userId && question.getStatus() == 1){
                 question.setStatus(0);
+                reputationLogService.deletedQuestionLog(question);
                 repository.save(question);
                 return true;
             }
