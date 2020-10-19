@@ -2,8 +2,6 @@ package br.pucrs.ages.townsq.service;
 
 import br.pucrs.ages.townsq.model.*;
 import br.pucrs.ages.townsq.repository.ReputationLogRepository;
-import br.pucrs.ages.townsq.repository.UserRepository;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +29,7 @@ public class ReputationLogService {
         return reputationRepository.save(toPersist);
     }
 
-    public void createUserProfileLog(User user){
+    public ReputationLog createUserProfileLog(User user){
         ReputationLog toPersist = ReputationLog.builder()
                 .eventType(ReputationEventType.COMPLETED_PROFILE.getValue())
                 .points(ReputationPoints.CREATED_QUESTION.getValue())
@@ -39,10 +37,10 @@ public class ReputationLogService {
                 .toUser(user)
                 .fromUser(user)
                 .build();
-        reputationRepository.save(toPersist);
+        return reputationRepository.save(toPersist);
     }
 
-    public void deletedQuestionLog(Question question){
+    public ReputationLog deletedQuestionLog(Question question){
         if(question.getIsActive() == 0){
             ReputationLog creatorLog = ReputationLog.builder()
                     .eventType(ReputationEventType.DELETED_QUESTION.getValue())
@@ -52,8 +50,9 @@ public class ReputationLogService {
                     .toUser(question.getUser())
                     .fromUser(question.getUser())
                     .build();
-            reputationRepository.save(creatorLog);
+            return reputationRepository.save(creatorLog);
         }
+        return null;
     }
 
 }
