@@ -1,5 +1,6 @@
 package br.pucrs.ages.townsq.service;
 
+import br.pucrs.ages.townsq.model.Role;
 import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.repository.RoleRepository;
 import br.pucrs.ages.townsq.repository.UserRepository;
@@ -97,6 +98,29 @@ public class UserService {
         }
         user.setScore(user.getScore() + score);
         return repository.save(user);
+    }
+
+    public User updateUserToMod(User user) {
+        if (user == null) {
+            return null;
+        }
+        Role role = roleRepository.findByName("ROLE_MODERATOR").orElse(null);
+        user.setRoles(new HashSet<>(Collections.singletonList(role)));
+        return repository.save(user);
+    }
+
+    public User updateModToUser(User user) {
+        if (user == null) {
+            return null;
+        }
+        Role role = roleRepository.findByName("ROLE_USER").orElse(null);
+        user.setRoles(new HashSet<>(Collections.singletonList(role)));
+        return repository.save(user);
+    }
+
+    public List<User> getAllModerators() {
+        Role role = roleRepository.findByName("ROLE_MODERATOR").orElse(null);
+        return repository.findByRolesIn(new HashSet<>(Collections.singletonList(role)));
     }
 
 }

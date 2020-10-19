@@ -8,6 +8,10 @@
     /*margin-top: 10px;*/
 }
 
+.form-control textarea {
+    width: auto !important;
+}
+
 .forms {
     display: flex;
     flex-direction: column;
@@ -74,6 +78,13 @@
     color: #000000;
 }
 
+@media (max-width: 1600px) {
+    .senha .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
 @media (max-width: 1150px) {
     .container {
         flex-direction: column;
@@ -84,17 +95,6 @@
         width: 100%;
         height: 70%;
         flex-direction: column;
-    }
-
-    .img-container {
-        width: 96px;
-        height: 96px;
-        display: flex;
-    }
-
-    .pontuacao {
-        padding: 10px 15px;
-        font-size: 10pt;
     }
 
     .newpicture {

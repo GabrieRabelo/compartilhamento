@@ -8,6 +8,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 40px;
 }
 
 .form-control{
@@ -67,8 +68,9 @@
 }
 
 .user {
-    border: 1px dashed #DDDDDD;
+    box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.25);
     padding: 20px;
+    margin: 20px 0;
 }
 
 .user-container {
@@ -85,4 +87,123 @@
     align-items: center;
     width: 80%;
     align-self: center;
+}
+
+.moderators {
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.col-6 #mod-text {
+    text-align: center;
+}
+
+.mod-card {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 45%;
+    display: flex;
+    padding: 16px;
+    box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.25);
+    margin: 20px 20px;
+    border-radius: 10px;
+
+}
+
+.mod-card a {
+    background-color: #D83D3D;
+    padding: 10px;
+    color: #FFF;
+    cursor: pointer;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.mod-card img {
+    border-radius: 50%;
+    padding: 5px 5px;
+}
+
+.mobile{
+    display: none;
+}
+
+@media (max-width: 1150px) {
+    .container {
+        flex-direction: column;
+        width: 85%;
+    }
+
+    .col-6 {
+        width: 100%;
+    }
+
+    .banner {
+        margin-top: 0;
+        width: 100%;
+    }
+
+    .question-card-divider {
+        display: none;
+    }
+
+    .form-control {
+        width: 100%;
+    }
+
+    #email-input {
+        width: 60%;
+    }
+
+    .form {
+        margin-bottom: 10px;
+    }
+
+    .tabs {
+        margin-bottom: 25px;
+    }
+
+    .mod-card {
+        width: 60%;
+    }
+
+    .user-container {
+        margin-top: 0;
+    }
+
+    .mobile {
+        display: flex;
+        flex-direction: column;
+        margin: 40px 0;
+    }
+
+    .desktop {
+        display: none;
+    }
+}
+
+@media (max-width: 500px) {
+    .user {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .mod-card {
+        width: 85%;
+    }
+
+    #email-input {
+        width: 100%;
+    }
+}
+
+@media (max-width: 365px) {
+    .container {
+        width: 99%;
+        padding: 5px;
+    }
 }

@@ -19,6 +19,7 @@
                 </div>
                 <div class="dropdown-content">
                     <a th:href="'/user/' + ${#authentication.getPrincipal().getId()}">Ver Perfil</a>
+                    <a th:if="${#request.isUserInRole('ROLE_ADMIN')}" th:href="'/admin/'">Administrador</a>
                     <a th:href="'/logout'"> Sair </a>
                 </div>
             </div>
