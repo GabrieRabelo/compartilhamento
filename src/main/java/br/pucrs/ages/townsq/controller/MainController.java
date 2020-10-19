@@ -1,5 +1,6 @@
 package br.pucrs.ages.townsq.controller;
 
+import br.pucrs.ages.townsq.model.Banner;
 import br.pucrs.ages.townsq.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import br.pucrs.ages.townsq.service.BannerService;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -16,9 +18,12 @@ import javax.servlet.http.HttpSession;
 public class MainController {
 
     private final QuestionService questionService;
+    private final BannerService bannerService;
+
 
     @Autowired
-    public MainController(QuestionService qService){
+    public MainController(QuestionService qService, BannerService adService){
+        this.bannerService = adService;
         this.questionService = qService;
     }
 
@@ -28,6 +33,9 @@ public class MainController {
      */
     @GetMapping("/")
     public String getIndex(Model model){
+        Banner banner = bannerService.getActiveBanner().orElse(null);
+
+        model.addAttribute("banner", banner);
         model.addAttribute("questions", questionService.getIndexQuestions());
         return "index";
     }

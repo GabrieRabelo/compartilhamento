@@ -4,13 +4,13 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       lang="br">
 <body>
-    <header th:fragment="header" th:classappend="${#request.userPrincipal} ? 'header-dark' : 'header-light'">
+    <header th:fragment="header" th:classappend="!${#request.userPrincipal} ? 'header-light' : (${#request.isUserInRole('ROLE_ADMIN')} ? 'header-admin' : 'header-dark')">
         <nav>
             <div sec:authorize="isAnonymous()">
                 <img class="logo-img-header" alt="Logo Townsq" src="/img/logo.svg" />
             </div>
             <a href="/" id="index-anchor">Início</a>
-            <a href="#" id="ask-anchor" th:classappend="${#request.userPrincipal} ? 'show-only-mobile' : ''">Perguntar</a>
+            <a href="/question/create" id="ask-anchor" th:classappend="${#request.userPrincipal} ? 'show-only-mobile' : ''">Perguntar</a>
             <div sec:authorize="isAuthenticated()" id="profile-anchor">
             <div class="dropdown">
                 <img th:if="${#authentication.getPrincipal().getImage() == null}" src="/img/user.svg" alt="Imagem de perfil"/>
@@ -19,7 +19,7 @@
                 </div>
                 <div class="dropdown-content">
                     <a th:href="'/user/' + ${#authentication.getPrincipal().getId()}">Ver Perfil</a>
-                    <a th:href="'/'">Alterar Senha</a>
+                    <a th:if="${#request.isUserInRole('ROLE_ADMIN')}" th:href="'/admin/'">Administrador</a>
                     <a th:href="'/logout'"> Sair </a>
                 </div>
             </div>

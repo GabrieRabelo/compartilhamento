@@ -32,24 +32,6 @@
     font-size: 16px;
 }
 
-.items-info {
-    max-width: 500px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 3vw;
-}
-
-.pontuacao {
-    background-color: #339DCB;
-    color: #FFFFFF;
-    border-radius: 20px;
-    text-align: center;
-    padding: 10px 30px;
-    font-size: 16px;
-    height: 40px;
-}
-
 .align-center p {
     margin-left: 10px;
 }
@@ -91,13 +73,6 @@
     height: 100%;
     margin: 0 auto;
     padding-top: 2%;
-}
-
-.line{
-    width: 100%;
-    height: 20px;
-    border-bottom: 2px solid #A1A1A1;
-    position: relative;
 }
 
 .company-info {
@@ -153,4 +128,105 @@
         font-size: 14px;
     }
 
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+
+    aside {
+        display: none;
+    }
+
+    main {
+        width: 100vw;
+    }
+
+    .index-anon {
+        display: none;
+    }
+
+    .question-card {
+        width: 95%;
+    }
+
+    .question-text {
+        display: none;
+    }
+
+    .question-creator {
+        justify-content: flex-start;
+    }
+
+    .question-creator img {
+        display: none;
+    }
+
+    .name-last-access {
+        margin: 0;
+    }
+
+    #mobile-icon {
+        display: block;
+    }
+
+    .background {
+        margin: 10px auto;
+    }
+
+    .info {
+        display: flex;
+        flex-direction: column;
+        margin-left: 20px;
+    }
+
+    .profile-info {
+        display: flex;
+    }
+
+    .profile-picture {
+        width: 70px;
+        height: 70px;
+        margin-right: 16px;
+    }
+
+    .test {
+        margin-left: 0;
+    }
+
+    .test .info {
+        margin-left: 8px;
+        align-items: normal;
+    }
+
+    .info .align-center {
+        margin-left: 0;
+    }
+
+    .align-center {
+        display: flex;
+    }
+
+    .tags {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        margin-left: -8px;
+    }
+
+    .bio {
+        width: 300px;
+        margin-top: 20px;
+    }
+
+    .bio p {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        font-size: 17px;
+    }
+
+    .line {
+        width: 300px;
+        height: 70px;
+        border-bottom: 2px solid #A1A1A1;
+        position: relative;
+    }
 }
