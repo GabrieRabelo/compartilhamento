@@ -20,7 +20,7 @@
             <div class="form">
                 <h1 class="title">Adicione um moderador</h1>
                 <div id="email-input" class="form-control">
-                    <input type="text" name="name" id="name" placeholder="Email do moderador"/>
+                    <input type="text" name="name" id="name" required placeholder="Email do moderador"/>
                 </div>
                 <div class="row white-background">
                     <button type="submit">Visualizar</button>
@@ -57,6 +57,7 @@
             <div th:insert="fragments/userFragment.html :: user" class="user"></div>
             <form role="form" th:action="@{/admin/mods/create}" th:method="post">
                 <input type="hidden" name="name" placeholder="Email do moderador" th:value="${user.getEmail()}"/>
+                <p th:text="'Você deseja adicionar ' + ${user.getName()} + ' como moderador?'"></p>
                 <div class="row white-background">
                     <button type="submit">Confirmar</button>
                 </div>
