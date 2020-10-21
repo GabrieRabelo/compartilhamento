@@ -15,7 +15,7 @@ public class ReputationLogService {
         this.reputationRepository = reputationRepository;
     }
 
-    public ReputationLog createdQuestionLog(Question question){
+    public ReputationLog createNewQuestionLog(Question question){
 
         ReputationLog toPersist = ReputationLog.builder()
                 .eventType(ReputationEventType.CREATED_QUESTION.getValue())
@@ -40,7 +40,7 @@ public class ReputationLogService {
         return reputationRepository.save(toPersist);
     }
 
-    public ReputationLog deletedQuestionLog(Question question){
+    public ReputationLog createDeletedQuestionLog(Question question){
         if(question.getIsActive() == 0){
             ReputationLog creatorLog = ReputationLog.builder()
                     .eventType(ReputationEventType.DELETED_QUESTION.getValue())

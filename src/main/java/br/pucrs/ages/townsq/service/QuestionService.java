@@ -80,7 +80,7 @@ public class QuestionService {
         if(question != null){
             if(question.getUser().getId() == userId && question.getStatus() == 1){
                 question.setStatus(0);
-                reputationLogService.deletedQuestionLog(question);
+                reputationLogService.createDeletedQuestionLog(question);
                 repository.save(question);
                 return true;
             }

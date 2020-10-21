@@ -1,7 +1,6 @@
 package br.pucrs.ages.townsq.listeners;
 
 import br.pucrs.ages.townsq.model.Question;
-import br.pucrs.ages.townsq.service.QuestionService;
 import br.pucrs.ages.townsq.service.ReputationLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,7 +18,7 @@ public class QuestionListener {
 
     @PostPersist
     public void updateQuestionCreatorScore(Question question){
-        reputationService.createdQuestionLog(question);
+        reputationService.createNewQuestionLog(question);
     }
 
 }
