@@ -50,6 +50,8 @@ public class ReputationLogServiceTest extends Base{
 
         assertNotNull(dummyUser);
 
+        dummyUser.setHasCompletedProfile(1);
+
         ReputationLog reputationLog = reputationLogService.createUserProfileLog(dummyUser);
 
         assertEquals(ReputationEventType.COMPLETED_PROFILE.getValue(),

@@ -15,8 +15,12 @@ public class ReputationLogService {
         this.reputationRepository = reputationRepository;
     }
 
+    /**
+     * Creates a ReputationLog when user creates a question
+     * @param question The question
+     * @return ReputationLog
+     */
     public ReputationLog createNewQuestionLog(Question question){
-
         ReputationLog toPersist = ReputationLog.builder()
                 .eventType(ReputationEventType.CREATED_QUESTION.getValue())
                 .points(ReputationPoints.CREATED_QUESTION.getValue())
@@ -29,19 +33,32 @@ public class ReputationLogService {
         return reputationRepository.save(toPersist);
     }
 
+    /**
+     * Creates a ReputationLog when user completes it's profile
+     * @param user User
+     * @return ReputationLog
+     */
     public ReputationLog createUserProfileLog(User user){
-        ReputationLog toPersist = ReputationLog.builder()
-                .eventType(ReputationEventType.COMPLETED_PROFILE.getValue())
-                .points(ReputationPoints.COMPLETED_PROFILE.getValue())
-                .isActive(1)
-                .toUser(user)
-                .fromUser(user)
-                .build();
-        return reputationRepository.save(toPersist);
+        if(user.getHasCompletedProfile() == 1){
+            ReputationLog toPersist = ReputationLog.builder()
+                    .eventType(ReputationEventType.COMPLETED_PROFILE.getValue())
+                    .points(ReputationPoints.COMPLETED_PROFILE.getValue())
+                    .isActive(1)
+                    .toUser(user)
+                    .fromUser(user)
+                    .build();
+            return reputationRepository.save(toPersist);
+        }
+        return null;
     }
 
+    /**
+     * Creates a ReputationLog when user deletes a question
+     * @param question Question
+     * @return ReputationLog
+     */
     public ReputationLog createDeletedQuestionLog(Question question){
-        if(question.getIsActive() == 0){
+        if(question.getStatus() == 0){
             ReputationLog creatorLog = ReputationLog.builder()
                     .eventType(ReputationEventType.DELETED_QUESTION.getValue())
                     .question(question)
