@@ -93,7 +93,7 @@ public class UserService {
     }
 
     public User updateUserScore(User user, int score) {
-        if (user == null || user.getId() == null) {
+        if(user == null || user.getId() == null){
             return null;
         }
         user.setScore(user.getScore() + score);
