@@ -32,7 +32,7 @@ public class ReputationLogService {
     public ReputationLog createUserProfileLog(User user){
         ReputationLog toPersist = ReputationLog.builder()
                 .eventType(ReputationEventType.COMPLETED_PROFILE.getValue())
-                .points(ReputationPoints.CREATED_QUESTION.getValue())
+                .points(ReputationPoints.COMPLETED_PROFILE.getValue())
                 .isActive(1)
                 .toUser(user)
                 .fromUser(user)
