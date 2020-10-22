@@ -31,9 +31,13 @@ public class ReputationLogServiceTest extends Base{
         Question question   = Question.builder().title("Olá, isso é uma pergunta.").description("Essa fera ai meu!").topic(dummyTopic).build();
         questionService.save(question, dummyUser);
 
+        assertNotNull(dummyUser = userService.getUserByEmail("dummy@emailtest.com").orElse(null));
+
         assertEquals(10, dummyUser.getScore());
 
         ReputationLog reputationLog = reputationLogService.createDeletedQuestionLog(question);
+
+        assertNotNull(dummyUser = userService.getUserByEmail("dummy@emailtest.com").orElse(null));
 
         assertEquals(ReputationEventType.DELETED_QUESTION.getValue(),
                 reputationLog.getEventType());
@@ -53,6 +57,8 @@ public class ReputationLogServiceTest extends Base{
         dummyUser.setHasCompletedProfile(1);
 
         ReputationLog reputationLog = reputationLogService.createUserProfileLog(dummyUser);
+
+        assertNotNull(dummyUser = userService.getUserByEmail("dummy@emailtest.com").orElse(null));
 
         assertEquals(ReputationEventType.COMPLETED_PROFILE.getValue(),
                 reputationLog.getEventType());

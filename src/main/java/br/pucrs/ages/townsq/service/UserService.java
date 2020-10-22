@@ -1,5 +1,6 @@
 package br.pucrs.ages.townsq.service;
 
+import br.pucrs.ages.townsq.model.ReputationLog;
 import br.pucrs.ages.townsq.model.Role;
 import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.repository.RoleRepository;
@@ -92,12 +93,13 @@ public class UserService {
         return repository.findByEmail(email);
     }
 
-    public User updateUserScore(User user, int score) {
-        if(user == null || user.getId() == null){
-            return null;
+    public User updateUserScore(ReputationLog repLog) {
+        User currentUser = getUserById(repLog.getToUser().getId()).orElse(null);
+        if(currentUser != null){
+            currentUser.setScore(currentUser.getScore() + repLog.getPoints());
+            return repository.save(currentUser);
         }
-        user.setScore(user.getScore() + score);
-        return repository.save(user);
+        return null;
     }
 
     public User updateUserToMod(User user) {

@@ -20,9 +20,7 @@ public class ReputationLogListener {
 
     @PostPersist
     public void updateUserScore(ReputationLog repLog){
-        userService.getUserById(repLog.getToUser().getId()).ifPresent(
-                currentUser -> userService.updateUserScore(currentUser, repLog.getPoints())
-        );
+        userService.updateUserScore(repLog);
     }
 
 }
