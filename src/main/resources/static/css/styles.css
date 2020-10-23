@@ -461,7 +461,7 @@ button:hover{
     font-size: 0.7rem;
 }
 
-.status-pill-questions {
+.status-pill-questions, topic-pill {
     border-radius: 500px;
     display: flex;
     flex-direction: column;
@@ -471,6 +471,15 @@ button:hover{
     height: 1rem;
     width: 9em;
     margin-bottom: 0.5rem;
+}
+
+.topic-pill {
+    border-radius: 5px;
+    width: auto;
+    padding: 5px;
+    margin: 0 0 0 auto;
+    align-self: center;
+    text-align: center;
 }
 
 .status-pill-questions small {
@@ -489,6 +498,10 @@ button:hover{
 
 .bg-gray{
     background-color: #E0E0E0;
+}
+
+.bg-topic{
+    background-color: #A9C679;
 }
 
 .bg-danger{

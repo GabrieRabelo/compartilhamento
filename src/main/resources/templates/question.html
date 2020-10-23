@@ -56,14 +56,17 @@
                     <div class="status-pill-questions self-end bg-danger" id="mobile-status">
                         <small>Não solucionada</small>
                     </div>
-                    <div class="status-pill-questions self-end bg-danger">
-                        <small th:text="${topic.getName()}"></small>
-                    </div>
                 </div>
                 <div class="main-card-right">
-                    <div class="question-title">
-                        <p th:text="${question.getTitle()}"></p>
+                    <div class="row">
+                        <div class="question-title">
+                            <p th:text="${question.getTitle()}"></p>
+                        </div>
+                        <div class="topic-pill self-end bg-topic">
+                            <small th:text="${topic.getName()}"></small>
+                        </div>
                     </div>
+
                     <div class="question-text">
                         <p th:text="${question.getDescription()}"></p>
                     </div>
