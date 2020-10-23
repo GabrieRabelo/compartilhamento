@@ -33,7 +33,7 @@ public class ReputationLogServiceTest extends Base{
 
         assertNotNull(dummyUser = userService.getUserByEmail("dummy@emailtest.com").orElse(null));
 
-        assertEquals(10, dummyUser.getScore());
+        assertEquals(ReputationPoints.CREATED_QUESTION.getValue(), dummyUser.getScore());
 
         ReputationLog reputationLog = reputationLogService.createDeletedQuestionLog(question);
 
