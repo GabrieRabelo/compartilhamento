@@ -56,6 +56,9 @@
                     <div class="status-pill-questions self-end bg-danger" id="mobile-status">
                         <small>Não solucionada</small>
                     </div>
+                    <div class="status-pill-questions self-end bg-danger">
+                        <small th:text="${topic.getName()}"></small>
+                    </div>
                 </div>
                 <div class="main-card-right">
                     <div class="question-title">
@@ -70,6 +73,7 @@
         <div class="status-pill-questions self-end bg-danger" id="desktop-status">
             <small>Não solucionada</small>
         </div>
+
             <div sec:authorize="isAuthenticated()" class="add-comment self-end" th:onclick="|updateModal('questionComment;${question.id}')|">
                 <img alt="Adicionar Comentário" th:src="@{/img/icons/add_comment.svg}"/>
                 <small>Adicionar um Comentário</small>
