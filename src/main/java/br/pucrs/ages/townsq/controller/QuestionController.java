@@ -107,7 +107,7 @@ public class QuestionController {
                               @PathVariable long id,
                               @PathVariable(required = false) String slug,
                               Model model){
-        Question question = questionService.getQuestionById(id).orElse(null);
+        Question question = questionService.getNonDeletedQuestionById(id).orElse(null);
         if(question != null){
             String questionSlug = Slugify.toSlug(question.getTitle());
             if(slug == null || !slug.equals(questionSlug)){
@@ -119,7 +119,8 @@ public class QuestionController {
             model.addAttribute("answer", new Answer());
             return "question";
         }
-        return "question";
+        else
+            return "redirect:/";
     }
 
     /**
