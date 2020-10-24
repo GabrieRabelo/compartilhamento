@@ -1,13 +1,17 @@
 package br.pucrs.ages.townsq.service;
 
 import br.pucrs.ages.townsq.model.Question;
+import br.pucrs.ages.townsq.model.Topic;
 import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class QuestionService {
@@ -54,8 +58,14 @@ public class QuestionService {
      * Gets the questions to be displayed on the homepage.
      * @return List of questions
      */
-    public List<Question> getIndexQuestions() {
-        return repository.findTop10ByStatusEqualsOrderByCreatedAtDesc(1);
+    public List<Question> getIndexQuestions(List<Long> params) {
+        if(params == null || params.isEmpty()){
+            return repository.findTop10ByStatusEqualsOrderByCreatedAtDesc(1);
+        }
+        Collection<Topic> topics = params.stream().map(e ->
+             Topic.builder().id(e).build()).collect(Collectors.toCollection(HashSet::new));
+        return repository.findTop10ByStatusEqualsAndTopicInOrderByCreatedAtDesc(1, topics);
+
     }
 
     /**

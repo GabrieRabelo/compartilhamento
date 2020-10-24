@@ -13,6 +13,7 @@ import br.pucrs.ages.townsq.service.BannerService;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class MainController {
@@ -32,11 +33,11 @@ public class MainController {
      * @return index page
      */
     @GetMapping("/")
-    public String getIndex(Model model){
+    public String getIndex(Model model, @RequestParam(value="topic", required = false) List<Long> params){
         Banner banner = bannerService.getActiveBanner().orElse(null);
 
         model.addAttribute("banner", banner);
-        model.addAttribute("questions", questionService.getIndexQuestions());
+        model.addAttribute("questions", questionService.getIndexQuestions(params));
         return "index";
     }
 
