@@ -135,7 +135,7 @@ public class QuestionController {
     public String editQuestionById(@AuthenticationPrincipal User user,
                                    @PathVariable long id,
                                    Model model){
-        Question question = questionService.getQuestionById(id).orElse(null);
+        Question question = questionService.getNonDeletedQuestionById(id).orElse(null);
             if(question != null && question.getUser().getId().equals(user.getId())){
                 model.addAttribute("topics", topicService.getAllTopics());
                 model.addAttribute("question", question);
