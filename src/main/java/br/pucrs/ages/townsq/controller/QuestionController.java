@@ -2,6 +2,8 @@ package br.pucrs.ages.townsq.controller;
 
 import br.pucrs.ages.townsq.model.Answer;
 import br.pucrs.ages.townsq.model.Question;
+import br.pucrs.ages.townsq.model.Topic;
+import br.pucrs.ages.townsq.model.Topic;
 import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.service.AnswerService;
 import br.pucrs.ages.townsq.service.QuestionService;
@@ -109,12 +111,14 @@ public class QuestionController {
                               Model model){
         Question question = questionService.getNonDeletedQuestionById(id).orElse(null);
         if(question != null){
+            Topic topic = question.getTopic();
             String questionSlug = Slugify.toSlug(question.getTitle());
             if(slug == null || !slug.equals(questionSlug)){
                 request.setAttribute(View.RESPONSE_STATUS_ATTRIBUTE, HttpStatus.MOVED_PERMANENTLY);
                 return "redirect:/question/" + id + "/" + questionSlug;
             }
             model.addAttribute("question", question);
+            model.addAttribute("topic", topic);
             model.addAttribute("answers", answerService.getQuestionAnswers(question));
             model.addAttribute("answer", new Answer());
             return "question";
