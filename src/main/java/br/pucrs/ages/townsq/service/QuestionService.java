@@ -56,6 +56,7 @@ public class QuestionService {
 
     /**
      * Gets the questions to be displayed on the homepage.
+     * @param params List of query params of topic ids
      * @return List of questions
      */
     public List<Question> getIndexQuestions(List<Long> params) {
