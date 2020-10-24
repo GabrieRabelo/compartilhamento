@@ -140,7 +140,20 @@ public class AdminController {
         if (user == null) {
             redirectAttr.addFlashAttribute("error", "Usuário não encontrado.");
         } else {
-            redirectAttr.addFlashAttribute("user", user);
+
+            Set<Role> userRole = user.getRoles();
+
+            Role role = (Role) userRole.toArray()[0];
+
+            if (role.getName().equals("ROLE_MODERATOR")) {
+                redirectAttr.addFlashAttribute("error", "O usuário " + user.getName() + " já é um moderador.");
+                return "redirect:/admin/mods";
+            } else if (role.getName().equals("ROLE_ADMIN")) {
+                redirectAttr.addFlashAttribute("error", "Este usuário é um administrador.");
+                return "redirect:/admin/mods";
+            } else {
+                redirectAttr.addFlashAttribute("user", user);
+            }
         }
         return "redirect:/admin/mods";
     }
