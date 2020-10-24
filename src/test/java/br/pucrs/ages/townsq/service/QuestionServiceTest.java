@@ -110,4 +110,59 @@ class QuestionServiceTest {
 
 		assertTrue(questionService.delete(mod, 1L));
 	}
+
+	@DisplayName("Deve bloquear a edição da pergunta se não for criador da pergunta e não for moderador.")
+	@Test
+	void testEditQuestionAsInvalidUser() {
+		User user = User.builder().id((long) 1).name("Juca").password("123321").email("juca@email.com").roles(new HashSet<>()).build();
+		User illegal = User.builder().id((long) 2).name("Illegal").password("332211").email("illegal@email.com").roles(new HashSet<>()).build();
+		Question question = Question.builder().id(1L).title("Teste").description("Essa fera aí meu").user(user).createdAt(new Timestamp(1)).updatedAt(new Timestamp(1)).status(1).build();
+
+		when(questionRepository.findById(1L))
+				.thenReturn(Optional.of(question));
+
+		when(questionRepository.save(question))
+				.thenReturn(question);
+
+		assertThrows(IllegalArgumentException.class, () -> questionService.edit(question, illegal));
+	}
+
+	@DisplayName("Deve permitir a edição da pergunta se for moderador.")
+	@Test
+	void testEditQuestionAsMod() {
+		User user = User.builder().id((long) 1).name("Juca").password("123321").email("juca@email.com").roles(new HashSet<>()).build();
+		User mod = User.builder().id((long) 2).name("Illegal").password("332211").email("illegal@email.com").roles(new HashSet<>(Collections.singleton(new Role("ROLE_MODERATOR")))).build();
+		Question question = Question.builder().id(1L).title("Teste").description("Essa fera aí meu").user(user).createdAt(new Timestamp(1)).updatedAt(new Timestamp(1)).status(1).build();
+
+		when(questionRepository.findById(1L))
+				.thenReturn(Optional.of(question));
+
+		when(questionRepository.save(question))
+				.thenReturn(question);
+
+		try {
+			assertNotNull(questionService.edit(question, mod));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@DisplayName("Deve permitir a edição da pergunta se for o criador da pergunta.")
+	@Test
+	void testEditQuestionAsCreator() {
+		User user = User.builder().id((long) 1).name("Juca").password("123321").email("juca@email.com").roles(new HashSet<>()).build();
+		Question question = Question.builder().id(1L).title("Teste").description("Essa fera aí meu").user(user).createdAt(new Timestamp(1)).updatedAt(new Timestamp(1)).status(1).build();
+
+		when(questionRepository.findById(1L))
+				.thenReturn(Optional.of(question));
+
+		when(questionRepository.save(question))
+				.thenReturn(question);
+
+		try {
+			assertNotNull(questionService.edit(question, user));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
