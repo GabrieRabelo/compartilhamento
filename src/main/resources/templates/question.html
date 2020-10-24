@@ -116,7 +116,7 @@
         <div th:each="answer:${answers}">
             <div class="answer-card-actions">
                 <div sec:authorize="isAuthenticated()"
-                     th:if="${#authentication.getPrincipal().id==answer.getUser().getId()}" class="action-icons">
+                     th:if="${#authentication.getPrincipal().id==answer.getUser().getId() || #authorization.expression('hasRole(''ROLE_MODERATOR'')')}" class="action-icons">
                     <img th:onclick="|updateModal('editAnswer;${answer.getId()}')|" th:src="@{/img/icons/lapis.svg}" alt="Editar resposta"/>
                     <a th:href="@{/answer/delete/{id}(id=${answer.getId()})}"><img alt="deletar" th:src="@{/img/icons/lixeira.svg}"/></a>
                 </div>
