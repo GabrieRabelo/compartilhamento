@@ -67,7 +67,9 @@ public class CommentService {
                                User user,
                                Long id){
         Comment databaseComment = commentRepository.findById(id).orElse(null);
-        if(StringUtils.isEmpty(comment.trim()) || databaseComment == null || !databaseComment.getUser().getId().equals(user.getId())){
+        if(StringUtils.isEmpty(comment.trim()) || databaseComment == null ||
+                (!databaseComment.getUser().getId().equals(user.getId()) &&
+                        !user.getAuthorities().stream().anyMatch(e -> e.getAuthority().equals("ROLE_MODERATOR")))){
             throw new IllegalArgumentException("Não foi possível editar o comentário.");
         }
         databaseComment.setText(comment);
@@ -83,7 +85,8 @@ public class CommentService {
      */
     public boolean deleteComment(long commentId, User user){
         Comment comment = commentRepository.findById(commentId).orElse(null);
-        if(comment != null && comment.getUser().getId().equals(user.getId())){
+        if(comment != null && comment.getIsActive() == 1 &&(comment.getUser().getId().equals(user.getId()) ||
+                user.getAuthorities().stream().anyMatch(e -> e.getAuthority().equals("ROLE_MODERATOR")))){
             comment.setIsActive(0);
             commentRepository.save(comment);
             return true;

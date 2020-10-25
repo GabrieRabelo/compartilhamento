@@ -84,7 +84,8 @@
                         <a th:href="'/user/' + ${comment.getUser().getId()}"><small th:text="${comment.getUser().getName()}"></small></a>
                     </div>
                 </div>
-                <div class="action-icons-comment" sec:authorize="isAuthenticated()" th:if="${#authentication.getPrincipal().id == comment.getUser().getId()}">
+                <div class="action-icons-comment" sec:authorize="isAuthenticated()"
+                     th:if="${#authentication.getPrincipal().id == comment.getUser().getId() || #authorization.expression('hasRole(''ROLE_MODERATOR'')')}">
                     <img th:onclick="|updateModal('editComment;${comment.getId()}')|" th:src="@{/img/icons/lapis.svg}" alt="Editar comentário"/>
                     <a th:href="'/comment/delete/' + ${question.getId()} + '/' + ${comment.getId()}"><img th:src="@{/img/icons/lixeira.svg}" alt="Excluir comentário"/></a>
                 </div>
@@ -150,7 +151,8 @@
                             <a th:href="'/user/' + ${comment.getUser().getId()}"><small th:text="${comment.getUser().getName()}"></small></a>
                         </div>
                     </div>
-                    <div class="action-icons-comment" sec:authorize="isAuthenticated()" th:if="${#authentication.getPrincipal().id == comment.getUser().getId()}">
+                    <div class="action-icons-comment" sec:authorize="isAuthenticated()"
+                         th:if="${#authentication.getPrincipal().id == comment.getUser().getId() || #authorization.expression('hasRole(''ROLE_MODERATOR'')')}">
                         <img th:onclick="|updateModal('editComment;${comment.getId()}')|" th:src="@{/img/icons/lapis.svg}" alt="Editar comentário"/>
                         <a th:href="'/comment/delete/' + ${question.getId()} + '/' + ${comment.getId()}"><img th:src="@{/img/icons/lixeira.svg}" alt="Excluir comentário"/></a>
                     </div>
