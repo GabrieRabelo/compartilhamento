@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.naming.Binding;
 import javax.validation.Valid;
 import java.util.Optional;
 
@@ -107,5 +108,31 @@ public class AnswerController {
             return "redirect:/question/" + ansQuestion.getId() + "/" + Slugify.toSlug(ansQuestion.getTitle());
         }
         return "";
+    }
+
+    @PostMapping("/answer/upvote/{id}")
+    public String upvoteAnswer(
+            @AuthenticationPrincipal User user,
+            @ModelAttribute Answer answer,
+            BindingResult bindingResult,
+            @PathVariable long id,
+            @PathVariable boolean like,
+            final RedirectAttributes redirectAttributes
+    ) throws BindException {
+        if (bindingResult.hasErrors()) {
+            throw new BindException(bindingResult);
+        }
+        Question questionFrom = questionService.getQuestionById(answer.getQuestion().getId()).orElse(null);
+        if(questionFrom == null){
+            redirectAttributes.addFlashAttribute("error","Operação inválida.");
+            return "redirect:/";
+        }
+        try {
+            answerService.upvoteAnswer(user, like, id);
+            redirectAttributes.addFlashAttribute("success", "Voto registrado com sucesso.");
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+        }
+        return "redirect:/question/" + questionFrom.getId() + "/" + Slugify.toSlug(questionFrom.getTitle());
     }
 }

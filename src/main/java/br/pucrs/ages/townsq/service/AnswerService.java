@@ -81,4 +81,18 @@ public class AnswerService {
     public List<Answer> getQuestionAnswers(Question question) {
         return answerRepository.findByIsActiveAndQuestionEqualsOrderByCreatedAtDesc(1, question);
     }
+
+    public Answer upvoteAnswer(User user,
+                               Boolean like,
+                               Long id) {
+        Answer databaseAnswer = answerRepository.findById(id).orElse(null);
+
+        int pontuacaoAtual = databaseAnswer.getScore();
+        if (like) {
+            databaseAnswer.setScore(pontuacaoAtual++);
+        } else {
+            databaseAnswer.setScore(pontuacaoAtual--);
+        }
+        return answerRepository.save(databaseAnswer);
+    }
 }
