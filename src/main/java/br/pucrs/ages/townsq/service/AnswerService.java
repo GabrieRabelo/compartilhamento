@@ -5,9 +5,11 @@ import br.pucrs.ages.townsq.model.Comment;
 import br.pucrs.ages.townsq.model.Question;
 import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.repository.AnswerRepository;
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
 import java.util.Optional;
@@ -83,9 +85,14 @@ public class AnswerService {
     }
 
     public Answer favoriteAnswer(User user,
-                                 Long id) {
-        Answer databaseAnswer = answerRepository.findById(id).orElse(null);
-        databaseAnswer.setIsBest(1);
-        return answerRepository.save(databaseAnswer);
+                                 Long id,
+                                 long questionUserId) {
+        if (questionUserId == user.getId()) {
+            Answer databaseAnswer = answerRepository.findById(id).orElse(null);
+            databaseAnswer.setIsBest(1);
+            return answerRepository.save(databaseAnswer);
+        } else {
+            throw new SecurityException("Somente perfil autorizado.");
+        }
     }
 }
