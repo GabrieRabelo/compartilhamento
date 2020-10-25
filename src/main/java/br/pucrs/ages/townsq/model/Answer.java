@@ -34,7 +34,7 @@ public class Answer {
     private int isActive = 1;
 
     @Column(name = "isBest")
-    private int isBest = 1;
+    private int isBest = 0;
 
     @UpdateTimestamp
     @Column(name = "updatedAt")

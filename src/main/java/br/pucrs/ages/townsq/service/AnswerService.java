@@ -82,17 +82,10 @@ public class AnswerService {
         return answerRepository.findByIsActiveAndQuestionEqualsOrderByCreatedAtDesc(1, question);
     }
 
-    public Answer upvoteAnswer(User user,
-                               Boolean like,
-                               Long id) {
+    public Answer favoriteAnswer(User user,
+                                 Long id) {
         Answer databaseAnswer = answerRepository.findById(id).orElse(null);
-
-        int pontuacaoAtual = databaseAnswer.getScore();
-        if (like) {
-            databaseAnswer.setScore(pontuacaoAtual++);
-        } else {
-            databaseAnswer.setScore(pontuacaoAtual--);
-        }
+        databaseAnswer.setIsBest(1);
         return answerRepository.save(databaseAnswer);
     }
 }

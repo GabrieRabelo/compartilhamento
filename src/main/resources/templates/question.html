@@ -125,8 +125,7 @@
                 <div sec:authorize="isAuthenticated()"
                      th:if="${#authentication.getPrincipal().id==answer.getUser().getId()}" class="action-icons">
                     <img th:onclick="|updateModal('editAnswer;${answer.getId()}')|" th:src="@{/img/icons/lapis.svg}" alt="Editar resposta"/>
-<!--                    <a th:href="@{/answer/delete/{id}(id=${answer.getId()})}"><img alt="deletar" th:src="@{/img/icons/lixeira.svg}"/></a>-->
-                    <a th:href="@{/answer/upvote/{id}(id=${answer.getId()})}"><img alt="votar" th:src="@{/img/icons/lixeira.svg}"/></a>
+                    <a th:href="@{/answer/delete/{id}(id=${answer.getId()})}"><img alt="deletar" th:src="@{/img/icons/lixeira.svg}"/></a>
                 </div>
                 <div class="answer-page-main-card">
                     <div class="answer-card-left">
@@ -144,7 +143,7 @@
                     </div>
                     <div sec:authorize="isAuthenticated()"
                          th:if="${#authentication.getPrincipal().id==question.getUser().getId()}" class="action-icons-favorite">
-                        <a th:href="@{/}"><img alt="favoritar" th:src="@{/img/icons/best_answer_not_selected.svg}"/></a>
+                        <a th:href="@{/answer/favorite/{id}(id=${answer.getId()})}"><img alt="favoritar" th:src="@{/img/icons/best_answer_not_selected.svg}"/></a>
                     </div>
                 </div>
             </div>
