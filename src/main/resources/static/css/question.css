@@ -98,12 +98,22 @@
 }
 
 
+
 .action-icons-answer{
     display: flex;
     flex-direction: column;
     width: min-content;
     margin-left: 0.5rem;
     align-items: center;
+}
+
+.action-icons-favorite{
+    display: flex;
+    flex-direction: row;
+    width: min-content;
+    margin-left: 0.5rem;
+    align-items: flex-start;
+    align-self: flex-start;
 }
 
 .action-icons-comment{

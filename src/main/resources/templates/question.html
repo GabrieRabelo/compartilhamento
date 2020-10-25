@@ -142,6 +142,10 @@
                             <p th:text="${answer.getText()}" th:id="'answer-' + ${answer.getId()}"></p>
                         </div>
                     </div>
+                    <div sec:authorize="isAuthenticated()"
+                         th:if="${#authentication.getPrincipal().id==question.getUser().getId()}" class="action-icons-favorite">
+                        <a th:href="@{/}"><img alt="favoritar" th:src="@{/img/icons/best_answer_not_selected.svg}"/></a>
+                    </div>
                 </div>
             </div>
             <div sec:authorize="isAuthenticated()" class="add-comment self-end" th:onclick="|updateModal('answerComment;${answer.getId()}')|">
