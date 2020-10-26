@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.mail.MessagingException;
+
 @Controller
 public class EmailController {
 
@@ -17,7 +19,7 @@ public class EmailController {
     }
 
     @GetMapping("/send-email")
-    public String sendEmail() {
+    public String sendEmail() throws MessagingException {
         emailService.sendEmail();
         return "redirect:/";
     }
