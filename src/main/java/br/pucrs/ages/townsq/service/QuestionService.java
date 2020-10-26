@@ -13,10 +13,12 @@ import java.util.Optional;
 public class QuestionService {
 
     private final QuestionRepository repository;
+    private final ReputationLogService reputationLogService;
 
     @Autowired
-    public QuestionService(QuestionRepository repository) {
+    public QuestionService(QuestionRepository repository, ReputationLogService reputationLogService) {
         this.repository = repository;
+        this.reputationLogService = reputationLogService;
     }
 
     /**
@@ -80,6 +82,7 @@ public class QuestionService {
                     (question.getUser().getId().equals(user.getId()) ||
                         user.getAuthorities().stream().anyMatch(e -> e.getAuthority().equals("ROLE_MODERATOR")))){
                 question.setStatus(0);
+                reputationLogService.createDeletedQuestionLog(question);
                 repository.save(question);
                 return true;
             }
