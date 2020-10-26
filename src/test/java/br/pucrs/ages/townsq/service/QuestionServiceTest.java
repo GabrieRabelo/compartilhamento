@@ -26,7 +26,8 @@ class QuestionServiceTest {
 	@BeforeEach
 	void setUp() {
 		questionRepository = mock(QuestionRepository.class);
-		questionService = new QuestionService(questionRepository);
+		ReputationLogService reputationLogService = mock(ReputationLogService.class);
+		questionService = new QuestionService(questionRepository, reputationLogService);
 	}
 
 	@DisplayName("Salva uma pergunta no repositorio e deve retornar a mesma")
