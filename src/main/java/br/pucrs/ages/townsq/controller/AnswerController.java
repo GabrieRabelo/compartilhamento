@@ -122,9 +122,7 @@ public class AnswerController {
                 return "redirect:/";
             }
             try {
-                long questionUserId = questionFrom.getUser().getId();
-
-                answerService.favoriteAnswer(user, id, questionUserId);
+                answerService.favoriteAnswer(user, id, questionFrom);
                 redirectAttributes.addFlashAttribute("success", "Resposta favoritada com sucesso.");
             } catch (SecurityException e) {
                 redirectAttributes.addFlashAttribute("error", e.getMessage());

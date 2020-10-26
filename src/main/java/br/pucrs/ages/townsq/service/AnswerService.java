@@ -86,13 +86,22 @@ public class AnswerService {
 
     public Answer favoriteAnswer(User user,
                                  Long id,
-                                 long questionUserId) {
-        if (questionUserId == user.getId()) {
+                                 Question questionFrom) {
+
+        Answer favoritedAnswer = questionFrom.getFavoriteAnswer().orElse(null);
+
+        if (favoritedAnswer != null && favoritedAnswer.getId().equals(id)) {
+            favoritedAnswer.setIsBest(0);
+            return answerRepository.save(favoritedAnswer);
+        }
+        // se ja existe uma answer facoritada e não for a que estamos tentando alterar, tratar em outro if()
+
+        if (questionFrom.getUser().getId().equals(user.getId())) {
             Answer databaseAnswer = answerRepository.findById(id).orElse(null);
             databaseAnswer.setIsBest(1);
             return answerRepository.save(databaseAnswer);
         } else {
-            throw new SecurityException("Somente perfil autorizado.");
+            throw new SecurityException("Você não pode favoritar esta resposta.");
         }
     }
 }
