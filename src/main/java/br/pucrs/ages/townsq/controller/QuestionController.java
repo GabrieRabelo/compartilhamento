@@ -59,7 +59,7 @@ public class QuestionController {
                                      @ModelAttribute Question question,
                                      final RedirectAttributes redirectAttributes){
         try {
-            Long questionId = null;
+            Long questionId;
             if(question.getId() != null) {
                 questionId = questionService.edit(question, user).getId();
                 redirectAttributes.addFlashAttribute("success", "Pergunta editada com sucesso!");
@@ -87,7 +87,7 @@ public class QuestionController {
     public String getDeleteQuestionRoute(@AuthenticationPrincipal User user,
                                          @PathVariable long questionId,
                                          final RedirectAttributes redirectAttributes){
-        boolean hasDeleted = questionService.delete(user.getId(), questionId);
+        boolean hasDeleted = questionService.delete(user, questionId);
         if(hasDeleted)
             redirectAttributes.addFlashAttribute("success", "Pergunta deletada com sucesso!");
         else
@@ -139,7 +139,9 @@ public class QuestionController {
                                    @PathVariable long id,
                                    Model model){
         Question question = questionService.getQuestionById(id).orElse(null);
-            if(question != null && question.getUser().getId().equals(user.getId())){
+            if(question != null &&
+                    (question.getUser().getId().equals(user.getId())) ||
+                        user.getAuthorities().stream().anyMatch(e -> e.getAuthority().equals("ROLE_MODERATOR"))){
                 model.addAttribute("topics", topicService.getAllTopics());
                 model.addAttribute("question", question);
                 return "questionForm";
