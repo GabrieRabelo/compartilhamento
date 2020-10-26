@@ -58,9 +58,15 @@
                     </div>
                 </div>
                 <div class="main-card-right">
-                    <div class="question-title">
-                        <p th:text="${question.getTitle()}"></p>
+                    <div class="row">
+                        <div class="question-title">
+                            <p th:text="${question.getTitle()}"></p>
+                        </div>
+                        <div class="topic-pill bg-topic align-right align-self-center">
+                            <small th:text="${topic.getName()}"></small>
+                        </div>
                     </div>
+
                     <div class="question-text">
                         <p th:text="${question.getDescription()}"></p>
                     </div>
@@ -70,6 +76,7 @@
         <div class="status-pill-questions self-end bg-danger" id="desktop-status">
             <small>Não solucionada</small>
         </div>
+
             <div sec:authorize="isAuthenticated()" class="add-comment self-end" th:onclick="|updateModal('questionComment;${question.id}')|">
                 <img alt="Adicionar Comentário" th:src="@{/img/icons/add_comment.svg}"/>
                 <small>Adicionar um Comentário</small>
