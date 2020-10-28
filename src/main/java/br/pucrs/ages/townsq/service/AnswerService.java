@@ -5,6 +5,7 @@ import br.pucrs.ages.townsq.model.Comment;
 import br.pucrs.ages.townsq.model.Question;
 import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.repository.AnswerRepository;
+import javassist.NotFoundException;
 import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -86,22 +87,27 @@ public class AnswerService {
 
     public Answer favoriteAnswer(User user,
                                  Long id,
-                                 Question questionFrom) {
-
-        Answer favoritedAnswer = questionFrom.getFavoriteAnswer().orElse(null);
-
-        if (favoritedAnswer != null && favoritedAnswer.getId().equals(id)) {
-            favoritedAnswer.setIsBest(0);
-            return answerRepository.save(favoritedAnswer);
-        }
-        // se ja existe uma answer facoritada e não for a que estamos tentando alterar, tratar em outro if()
-
-        if (questionFrom.getUser().getId().equals(user.getId())) {
-            Answer databaseAnswer = answerRepository.findById(id).orElse(null);
-            databaseAnswer.setIsBest(1);
-            return answerRepository.save(databaseAnswer);
-        } else {
+                                 Question questionFrom) throws NotFoundException {
+        if (!questionFrom.getUser().getId().equals(user.getId())){
             throw new SecurityException("Você não pode favoritar esta resposta.");
         }
+
+        Answer databaseAnswer = answerRepository.findById(id).orElse(null);
+        if(databaseAnswer ==null){
+            throw new NotFoundException("Não foi possivel concluir a operação.");
+        }
+
+        Answer favoritedAnswer = questionFrom.getFavoriteAnswer().orElse(null);
+        if(favoritedAnswer != null){
+            if (favoritedAnswer.getId().equals(id)) {
+                throw new IllegalArgumentException("Não é possivel desfavoritar uma resposta.");
+            }
+            favoritedAnswer.setIsBest(0);
+            answerRepository.save(favoritedAnswer);
+        }
+
+        databaseAnswer.setIsBest(1);
+        return answerRepository.save(databaseAnswer);
+
     }
 }

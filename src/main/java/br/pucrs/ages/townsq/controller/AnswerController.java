@@ -6,6 +6,7 @@ import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.service.AnswerService;
 import br.pucrs.ages.townsq.service.QuestionService;
 import br.pucrs.ages.townsq.utils.Slugify;
+import javassist.NotFoundException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -124,9 +125,11 @@ public class AnswerController {
             try {
                 answerService.favoriteAnswer(user, id, questionFrom);
                 redirectAttributes.addFlashAttribute("success", "Resposta favoritada com sucesso.");
-            } catch (SecurityException e) {
+            } catch (SecurityException | NotFoundException | IllegalArgumentException  e ) {
                 redirectAttributes.addFlashAttribute("error", e.getMessage());
             }
+
+
             return "redirect:/question/" + questionFrom.getId() + "/" + Slugify.toSlug(questionFrom.getTitle());
         }
         return "";
