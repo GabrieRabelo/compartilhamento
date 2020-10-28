@@ -6,6 +6,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring5.SpringTemplateEngine;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -19,16 +21,20 @@ public class EmailService{
     private JavaMailSender javaMailSender;
 
     @Autowired
+    private SpringTemplateEngine springTemplateEngine;
+
+    @Autowired
     public void sendEmail() throws MessagingException {
 
         MimeMessage mail = javaMailSender.createMimeMessage();
         MimeMessageHelper message = new MimeMessageHelper(mail, true);
-
+        Context context = new Context();
+        mailTemplate = springTemplateEngine.process("email", context);
 
         message.setTo("duduuulessa@gmail.com");
         message.setFrom("c88b3da83e-981698@inbox.mailtrap.io");
         message.setSubject("Test");
-        message.setText("<h1>Bem Vindo</h1> <br/> <p>Acho que bombou</p>", true);
+        message.setText(mailTemplate, true);
 
         try {
            javaMailSender.send(mail);
