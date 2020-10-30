@@ -33,15 +33,37 @@
     </div>
 </div>
 
+
+
+<div class="confirm-modal no-transitions clickable">
+    <div class="modal-background">
+        <form id="confirm-modal-form" role="form" th:action="''" th:method="get">
+            <div class="row justify-space-between">
+                <div class="col-12">
+                    <div class="form-control">
+                        <input type="hidden" th:value="${question.getId()}" th:name="question" th:id="question" />
+                        <h2 id="confirmation-question"></h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row white-background">
+                <button class="red-button" type="submit" onclick="submitConfirmation()">Sim</button>
+                <button th:onclick="closeConfirmation()">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
 <div id="contentDiv" class="justify-center relative">
     <main class="main-content">
         <div class="question-card-actions">
             <div sec:authorize="isAuthenticated()"
                  th:if="${#authentication.getPrincipal().id==question.getUser().getId()}" class="action-icons">
-                <a th:href="@{/question/edit/{id}(id=${question.getId()})}"><img alt="editar"
-                                                                                 th:src="@{/img/icons/lapis.svg}"/></a>
-                <a th:href="@{/question/delete/{id}(id=${question.getId()})}"><img alt="deletar"
-                                                                                   th:src="@{/img/icons/lixeira.svg}"/></a>
+                <a th:href="@{/question/edit/{id}(id=${question.getId()})}"><img alt="editar"th:src="@{/img/icons/lapis.svg}"/></a>
+
+                <img alt="deletar" class="delete-icon" th:src="@{/img/icons/lixeira.svg}" th:onclick="|updateConfirmation('questionDeleteConfirmation;${question.getId()}')|"/>
             </div>
             <div class="question-page-main-card">
                 <div class="main-card-left">
@@ -166,5 +188,6 @@
 <div th:replace="fragments/toast.html :: toasts">
 </div>
 <script defer th:src="@{/js/modal.js}"></script>
+<script defer th:src="@{/js/confirmation.js}"></script>
 </body>
 </html>
