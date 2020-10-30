@@ -17,6 +17,15 @@ function updateConfirmation(creatorInfo) {
         confirmationForm.action = `/question/delete/${split[1]}`;
     }
 
+    if(split[0] === 'commentDeleteConfirmation'){
+        formTitle.innerHTML = 'Tem Certeza que Deseja Excluir esse comentário?'
+        confirmationForm.action = `/comment/delete/${split[1]}/${split[2]}`;
+    }
+    if(split[0] === 'answerDeleteConfirmation'){
+        formTitle.innerHTML = 'Tem Certeza que Deseja Excluir essa resposta?'
+        confirmationForm.action = `/answer/delete/${split[1]}`;
+    }
+
     if(confirmationModal.style.opacity === '1') {
         confirmationModal.style.opacity = '0';
         confirmationModal.style.zIndex = '-99999';
