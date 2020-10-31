@@ -10,6 +10,8 @@ import org.thymeleaf.context.Context;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class EmailService{
@@ -23,10 +25,13 @@ public class EmailService{
     @Autowired
     public void sendEmail() throws MessagingException {
 
+        Map<String,Object> teste = new HashMap<>();
+        teste.put("nome","zeze");
         MimeMessage mail = javaMailSender.createMimeMessage();
         MimeMessageHelper message = new MimeMessageHelper(mail, true);
         Context context = new Context();
-        String mailTemplate = springTemplateEngine.process("email", context);
+        context.setVariables(teste);
+        String mailTemplate = springTemplateEngine.process("templateEmail", context);
 
         message.setTo("duduuulessa@gmail.com");
         message.setFrom("c88b3da83e-981698@inbox.mailtrap.io");
