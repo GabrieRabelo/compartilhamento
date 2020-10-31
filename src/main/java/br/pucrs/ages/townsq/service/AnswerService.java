@@ -1,16 +1,12 @@
 package br.pucrs.ages.townsq.service;
 
 import br.pucrs.ages.townsq.model.Answer;
-import br.pucrs.ages.townsq.model.Comment;
 import br.pucrs.ages.townsq.model.Question;
 import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.repository.AnswerRepository;
 import javassist.NotFoundException;
-import net.bytebuddy.implementation.bytecode.Throw;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.Comparator;
 import java.util.List;
@@ -44,15 +40,19 @@ public class AnswerService {
     }
 
 
-    public Answer editAnswer(String answer,
-                               User user,
-                               Long id){
+    public void editAnswer(String answer,
+                           User user,
+                           Long id){
         Answer databaseAnswer = answerRepository.findById(id).orElse(null);
-        if(StringUtils.isEmpty(answer.trim()) || databaseAnswer == null || !databaseAnswer.getUser().getId().equals(user.getId())){
+        if(StringUtils.isEmpty(answer.trim()) ||
+                databaseAnswer == null ||
+                !databaseAnswer.getUser().getId().equals(user.getId()) ||
+                databaseAnswer.getQuestion().getIsActive() == 0
+        ){
             throw new IllegalArgumentException("Não foi possível editar a resposta.");
         }
         databaseAnswer.setText(answer);
-        return answerRepository.save(databaseAnswer);
+        answerRepository.save(databaseAnswer);
     }
 
 
@@ -67,7 +67,8 @@ public class AnswerService {
     public boolean delete(long userId, long answerId) {
         Answer answer = answerRepository.findById(answerId).orElse(null);
         if(answer != null) {
-            if(answer.getUser().getId() == userId && answer.getIsActive() == 1) {
+
+            if(answer.getUser().getId() == userId && answer.getIsActive() == 1 && answer.getQuestion().getIsActive() == 1) {
                 answer.setIsActive(0);
                 answerRepository.save(answer);
                 return true;
@@ -95,7 +96,7 @@ public class AnswerService {
                 .collect(Collectors.toList());
     }
 
-    public Answer favoriteAnswer(User user,
+    public void favoriteAnswer(User user,
                                  Long id,
                                  Question questionFrom) throws NotFoundException {
         if (!questionFrom.getUser().getId().equals(user.getId())){
@@ -119,8 +120,6 @@ public class AnswerService {
         databaseAnswer.setIsBest(1);
         reputationService.favoriteBestAnswer(databaseAnswer);
         questionService.closeQuestion(questionFrom);
-        return answerRepository.save(databaseAnswer);
-
-
+        answerRepository.save(databaseAnswer);
     }
 }
