@@ -12,8 +12,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.HttpClientErrorException;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AnswerService {
@@ -82,7 +84,10 @@ public class AnswerService {
      * @return List of answers
      */
     public List<Answer> getQuestionAnswers(Question question) {
-        return answerRepository.findByIsActiveAndQuestionEqualsOrderByCreatedAtDesc(1, question);
+        return answerRepository.findByIsActiveAndQuestionEqualsOrderByCreatedAtDesc(1, question)
+                .stream()
+                .sorted(Comparator.comparing(Answer::getIsBest).reversed())
+                .collect(Collectors.toList());
     }
 
     public Answer favoriteAnswer(User user,
