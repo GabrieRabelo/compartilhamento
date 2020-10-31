@@ -2,12 +2,11 @@ package br.pucrs.ages.townsq.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
-import org.thymeleaf.spring5.SpringTemplateEngine;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -15,13 +14,11 @@ import javax.mail.internet.MimeMessage;
 @Service
 public class EmailService{
 
-    private String mailTemplate;
-
     @Autowired
     private JavaMailSender javaMailSender;
 
     @Autowired
-    private SpringTemplateEngine springTemplateEngine;
+    private TemplateEngine springTemplateEngine;
 
     @Autowired
     public void sendEmail() throws MessagingException {
@@ -29,7 +26,7 @@ public class EmailService{
         MimeMessage mail = javaMailSender.createMimeMessage();
         MimeMessageHelper message = new MimeMessageHelper(mail, true);
         Context context = new Context();
-        mailTemplate = springTemplateEngine.process("email", context);
+        String mailTemplate = springTemplateEngine.process("email", context);
 
         message.setTo("duduuulessa@gmail.com");
         message.setFrom("c88b3da83e-981698@inbox.mailtrap.io");
