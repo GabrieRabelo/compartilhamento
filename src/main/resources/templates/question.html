@@ -98,7 +98,7 @@
             </div>
         </div>
         <hr>
-        <div class="answer-textarea-container">
+        <div class="answer-textarea-container" th:if="${question.getIsActive() == 1}">
             <h2>Digite sua resposta</h2>
 
             <div sec:authorize="${!isAnonymous()}" th:if="${#authentication.getPrincipal().id!=question.getUser().getId()}" class="answer-textarea-button">
@@ -119,6 +119,9 @@
                 <h1>Você não pode responder a sua pergunta.</h1>
                 <h2>Bela tentativa!</h2>
             </div>
+        </div>
+        <div class="answer-textarea-container" th:if="${question.getIsActive() == 0}">
+            <h2>Este tópico está encerrado.</h2>
         </div>
         <div th:each="answer:${answers}">
             <div class="answer-card-actions">

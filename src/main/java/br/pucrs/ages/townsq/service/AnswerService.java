@@ -22,10 +22,12 @@ public class AnswerService {
 
     private AnswerRepository answerRepository;
     private ReputationLogService reputationService;
+    private QuestionService questionService;
 
-    public AnswerService(AnswerRepository answerRepository, ReputationLogService reputationService) {
+    public AnswerService(AnswerRepository answerRepository, ReputationLogService reputationService, QuestionService questionService) {
         this.answerRepository = answerRepository;
         this.reputationService = reputationService;
+        this.questionService = questionService;
     }
 
     /**
@@ -116,6 +118,7 @@ public class AnswerService {
 
         databaseAnswer.setIsBest(1);
         reputationService.favoriteBestAnswer(databaseAnswer);
+        questionService.closeQuestion(questionFrom);
         return answerRepository.save(databaseAnswer);
 
 

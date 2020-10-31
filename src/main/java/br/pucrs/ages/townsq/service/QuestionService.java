@@ -86,4 +86,8 @@ public class QuestionService {
         return false;
     }
 
+    public void closeQuestion(Question questionFrom) {
+        questionFrom.setIsActive(0);
+        repository.save(questionFrom);
+    }
 }
