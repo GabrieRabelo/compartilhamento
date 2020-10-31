@@ -1,5 +1,6 @@
 package br.pucrs.ages.townsq.service;
 
+import br.pucrs.ages.townsq.model.Answer;
 import br.pucrs.ages.townsq.model.Question;
 import br.pucrs.ages.townsq.model.ReputationLog;
 import br.pucrs.ages.townsq.model.User;
@@ -43,6 +44,20 @@ public class ReputationLogService {
                 .toUser(user)
                 .fromUser(user)
                 .build();
+        reputationRepository.save(toPersist);
+    }
+
+    public void favoriteBestAnswer(Answer answer){
+
+        ReputationLog toPersist = ReputationLog.builder()
+                .eventType("BEST_ANSWER")
+                .points(50)
+                .isActive(1)
+                .question(answer.getQuestion())
+                .toUser(answer.getUser())
+                .fromUser(answer.getQuestion().getUser())
+                .build();
+
         reputationRepository.save(toPersist);
     }
 

@@ -21,9 +21,12 @@ import java.util.stream.Collectors;
 public class AnswerService {
 
     private AnswerRepository answerRepository;
+    private ReputationLogService reputationService;
 
-    @Autowired
-    public AnswerService(AnswerRepository answerRepository) { this.answerRepository = answerRepository; }
+    public AnswerService(AnswerRepository answerRepository, ReputationLogService reputationService) {
+        this.answerRepository = answerRepository;
+        this.reputationService = reputationService;
+    }
 
     /**
      * Saves an Answer on the database
@@ -112,7 +115,9 @@ public class AnswerService {
         }
 
         databaseAnswer.setIsBest(1);
+        reputationService.favoriteBestAnswer(databaseAnswer);
         return answerRepository.save(databaseAnswer);
+
 
     }
 }
