@@ -1,5 +1,7 @@
 package br.pucrs.ages.townsq.service;
 
+import br.pucrs.ages.townsq.model.Answer;
+import br.pucrs.ages.townsq.model.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -14,7 +16,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class EmailService{
+public class EmailService {
+
+    private HashMap<String, Object> templateEmailModel;
 
     @Autowired
     private JavaMailSender javaMailSender;
@@ -23,27 +27,41 @@ public class EmailService{
     private TemplateEngine springTemplateEngine;
 
     @Autowired
-    public void sendEmail() throws MessagingException {
-
-        Map<String,Object> teste = new HashMap<>();
-        teste.put("nome","zeze");
-        MimeMessage mail = javaMailSender.createMimeMessage();
-        MimeMessageHelper message = new MimeMessageHelper(mail, true);
-        Context context = new Context();
-        context.setVariables(teste);
-        String mailTemplate = springTemplateEngine.process("templateEmail", context);
-
-        message.setTo("duduuulessa@gmail.com");
-        message.setFrom("c88b3da83e-981698@inbox.mailtrap.io");
-        message.setSubject("Test");
-        message.setText(mailTemplate, true);
-
+    public void sendEmail() {
         try {
-           javaMailSender.send(mail);
 
-        } catch (MailException e) {
+            MimeMessage mail = javaMailSender.createMimeMessage();
+            MimeMessageHelper message = new MimeMessageHelper(mail, true);
+            Context context = new Context();
+            context.setVariables(templateEmailModel);
+            String mailTemplate = springTemplateEngine.process("templateEmail", context);
+
+            message.setTo(templateEmailModel.get("questionUserEmail").toString());
+            message.setFrom("c88b3da83e-981698@inbox.mailtrap.io");
+            message.setSubject("Test");
+            message.setText(mailTemplate, true);
+
+            javaMailSender.send(mail);
+
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
+    }
+
+    public void createEmail(Object object) {
+        templateEmailModel = new HashMap<>();
+
+        if (object instanceof Answer) {
+            Answer answer = (Answer) object;
+
+            templateEmailModel.put("mailType", "resposta");
+            templateEmailModel.put("answerUserName", answer.getUser().getName());
+            templateEmailModel.put("questionTitle", answer.getQuestion().getTitle());
+            templateEmailModel.put("questionUserName", answer.getQuestion().getUser().getName());
+            templateEmailModel.put("questionUserEmail", answer.getQuestion().getUser().getEmail());
+
+            sendEmail();
+        }
     }
 }

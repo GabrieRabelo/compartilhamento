@@ -20,7 +20,7 @@ public class EmailController {
 
     @GetMapping("/send-email")
     public String sendEmail() throws MessagingException {
-        emailService.sendEmail();
+//        emailService.sendEmail();
         return "redirect:/";
     }
 }
