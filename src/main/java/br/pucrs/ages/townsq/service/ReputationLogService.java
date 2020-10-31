@@ -1,32 +1,33 @@
 package br.pucrs.ages.townsq.service;
 
+import br.pucrs.ages.townsq.model.*;
 import br.pucrs.ages.townsq.model.Answer;
 import br.pucrs.ages.townsq.model.Question;
 import br.pucrs.ages.townsq.model.ReputationLog;
 import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.repository.ReputationLogRepository;
-import br.pucrs.ages.townsq.repository.UserRepository;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ReputationLogService {
 
-    private ReputationLogRepository reputationRepository;
-    private UserRepository userRepository;
+    private final ReputationLogRepository reputationRepository;
 
     @Autowired
-    public ReputationLogService(ReputationLogRepository reputationRepository, UserRepository userRepo){
+    public ReputationLogService(ReputationLogRepository reputationRepository){
         this.reputationRepository = reputationRepository;
-        this.userRepository = userRepo;
     }
 
-    public ReputationLog createdQuestionLog(Question question){
-
+    /**
+     * Creates a ReputationLog when user creates a question
+     * @param question The question
+     * @return ReputationLog
+     */
+    public ReputationLog createNewQuestionLog(Question question){
         ReputationLog toPersist = ReputationLog.builder()
-                .eventType("CREATED_QUESTION")
-                .points(10)
+                .eventType(ReputationEventType.CREATED_QUESTION.getValue())
+                .points(ReputationPoints.CREATED_QUESTION.getValue())
                 .isActive(1)
                 .question(question)
                 .toUser(question.getUser())
@@ -36,15 +37,43 @@ public class ReputationLogService {
         return reputationRepository.save(toPersist);
     }
 
-    public void createUserProfileLog(User user){
-        ReputationLog toPersist = ReputationLog.builder()
-                .eventType("COMPLETED_PROFILE")
-                .points(20)
-                .isActive(1)
-                .toUser(user)
-                .fromUser(user)
-                .build();
-        reputationRepository.save(toPersist);
+    /**
+     * Creates a ReputationLog when user completes it's profile
+     * @param user User
+     * @return ReputationLog
+     */
+    public ReputationLog createUserProfileLog(User user){
+        if(user.getHasCompletedProfile() == 1){
+            ReputationLog toPersist = ReputationLog.builder()
+                    .eventType(ReputationEventType.COMPLETED_PROFILE.getValue())
+                    .points(ReputationPoints.COMPLETED_PROFILE.getValue())
+                    .isActive(1)
+                    .toUser(user)
+                    .fromUser(user)
+                    .build();
+            return reputationRepository.save(toPersist);
+        }
+        return null;
+    }
+
+    /**
+     * Creates a ReputationLog when user deletes a question
+     * @param question Question
+     * @return ReputationLog
+     */
+    public ReputationLog createDeletedQuestionLog(Question question){
+        if(question.getStatus() == 0){
+            ReputationLog creatorLog = ReputationLog.builder()
+                    .eventType(ReputationEventType.DELETED_QUESTION.getValue())
+                    .question(question)
+                    .points(ReputationPoints.DELETED_QUESTION.getValue())
+                    .isActive(1)
+                    .toUser(question.getUser())
+                    .fromUser(question.getUser())
+                    .build();
+            return reputationRepository.save(creatorLog);
+        }
+        return null;
     }
 
     public void favoriteBestAnswer(Answer answer){

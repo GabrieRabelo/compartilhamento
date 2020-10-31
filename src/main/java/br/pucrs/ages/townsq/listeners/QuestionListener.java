@@ -5,9 +5,7 @@ import br.pucrs.ages.townsq.service.ReputationLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PostPersist;
+import javax.persistence.*;
 
 @Component
 public class QuestionListener {
@@ -20,7 +18,7 @@ public class QuestionListener {
 
     @PostPersist
     public void updateQuestionCreatorScore(Question question){
-        reputationService.createdQuestionLog(question);
+        reputationService.createNewQuestionLog(question);
     }
 
 }

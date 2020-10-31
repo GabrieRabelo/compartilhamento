@@ -93,12 +93,12 @@ public class AnswerController {
                                        @PathVariable long answerId,
                                        final RedirectAttributes redirectAttributes) {
         Optional<Answer> optAnswer = answerService.findById(answerId);
-        Question ansQuestion = null;
+        Question ansQuestion;
         if(optAnswer.isPresent()) {
             Answer answer = optAnswer.get();
             ansQuestion = answer.getQuestion();
 
-            boolean hasDeleted = answerService.delete(user.getId(), answerId);
+            boolean hasDeleted = answerService.delete(user, answerId);
             if(hasDeleted)
                 redirectAttributes.addFlashAttribute("success", "Resposta deletada com sucesso!");
             else

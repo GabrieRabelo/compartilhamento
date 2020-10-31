@@ -44,10 +44,11 @@ public class AnswerService {
                            User user,
                            Long id){
         Answer databaseAnswer = answerRepository.findById(id).orElse(null);
-        if(StringUtils.isEmpty(answer.trim()) ||
-                databaseAnswer == null ||
-                !databaseAnswer.getUser().getId().equals(user.getId()) ||
-                databaseAnswer.getQuestion().getIsActive() == 0
+        if(StringUtils.isEmpty(answer.trim())
+                || databaseAnswer == null
+                || !databaseAnswer.getUser().getId().equals(user.getId())
+                || databaseAnswer.getQuestion().getIsActive() == 0
+                || user.getAuthorities().stream().noneMatch(e -> e.getAuthority().equals("ROLE_MODERATOR"))
         ){
             throw new IllegalArgumentException("Não foi possível editar a resposta.");
         }
@@ -60,15 +61,17 @@ public class AnswerService {
 
     /**
      * Performs a soft delete of a answer if the user is it's creator
-     * @param userId
      * @param answerId
      * @return boolean
      */
-    public boolean delete(long userId, long answerId) {
+    public boolean delete(User user, long answerId) {
         Answer answer = answerRepository.findById(answerId).orElse(null);
         if(answer != null) {
 
-            if(answer.getUser().getId() == userId && answer.getIsActive() == 1 && answer.getQuestion().getIsActive() == 1) {
+            if(answer.getUser().getId().equals(user.getId())
+                    && answer.getIsActive() == 1
+                    && answer.getQuestion().getIsActive() == 1
+                    || user.getAuthorities().stream().anyMatch(e -> e.getAuthority().equals("ROLE_MODERATOR"))) {
                 answer.setIsActive(0);
                 answerRepository.save(answer);
                 return true;
