@@ -450,7 +450,18 @@ hr{
         max-height: 48px;
     }
 
+    .answer-card-end{
+        flex-direction: row-reverse;
+        justify-content: flex-start;
+    }
+
     .question-page-main-card{
+        width: 100%;
+        flex-direction: column;
+        padding: 8px;
+    }
+
+    .best-answer-page-main-card{
         width: 100%;
         flex-direction: column;
         padding: 8px;
