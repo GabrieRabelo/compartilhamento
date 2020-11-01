@@ -83,6 +83,7 @@ public class QuestionService {
                         user.getAuthorities().stream().anyMatch(e -> e.getAuthority().equals("ROLE_MODERATOR")))){
                 question.setStatus(0);
                 reputationLogService.createDeletedQuestionLog(question);
+                question.getFavoriteAnswer().ifPresent(reputationLogService::disfavorBestAnswer);
                 repository.save(question);
                 return true;
             }
