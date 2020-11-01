@@ -77,16 +77,26 @@ public class ReputationLogService {
     }
 
     public void favoriteBestAnswer(Answer answer){
-
         ReputationLog toPersist = ReputationLog.builder()
-                .eventType("BEST_ANSWER")
-                .points(50)
+                .eventType(ReputationEventType.FAVORED_ANSWER.getValue())
+                .points(ReputationPoints.FAVORED_ANSWER.getValue())
                 .isActive(1)
                 .question(answer.getQuestion())
                 .toUser(answer.getUser())
                 .fromUser(answer.getQuestion().getUser())
                 .build();
+        reputationRepository.save(toPersist);
+    }
 
+    public void disfavorBestAnswer(Answer answer){
+        ReputationLog toPersist = ReputationLog.builder()
+                .eventType(ReputationEventType.UNFAVORED_ANSWER.getValue())
+                .points(ReputationPoints.UNFAVORED_ANSWER.getValue())
+                .isActive(1)
+                .question(answer.getQuestion())
+                .toUser(answer.getUser())
+                .fromUser(answer.getQuestion().getUser())
+                .build();
         reputationRepository.save(toPersist);
     }
 

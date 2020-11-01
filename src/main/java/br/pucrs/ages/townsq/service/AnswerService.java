@@ -117,6 +117,7 @@ public class AnswerService {
                 throw new IllegalArgumentException("Não é possivel desfavoritar uma resposta.");
             }
             favoritedAnswer.setIsBest(0);
+            reputationService.disfavorBestAnswer(favoritedAnswer);
             answerRepository.save(favoritedAnswer);
         }
 

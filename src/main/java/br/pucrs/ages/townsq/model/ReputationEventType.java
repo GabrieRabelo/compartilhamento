@@ -3,7 +3,9 @@ package br.pucrs.ages.townsq.model;
 public enum ReputationEventType {
     CREATED_QUESTION("CREATED_QUESTION"),
     COMPLETED_PROFILE("COMPLETED_PROFILE"),
-    DELETED_QUESTION("DELETED_QUESTION");
+    DELETED_QUESTION("DELETED_QUESTION"),
+    FAVORED_ANSWER("FAVORITED_ANSWER"),
+    UNFAVORED_ANSWER("UNFAVORED_ANSWER");
 
     private final String value;
 
