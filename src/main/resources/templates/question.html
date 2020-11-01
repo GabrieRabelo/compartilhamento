@@ -53,8 +53,11 @@
                             <small th:text="${question.getCreatedAtString()}"></small>
                         </div>
                     </div>
-                    <div class="status-pill-questions self-end bg-danger" id="mobile-status">
-                        <small>Não solucionada</small>
+                    <div th:if="${question.getIsActive() == 0}" class="status-pill-questions bg-success self-end" id="mobile-status">
+                        <small>Solucionada</small>
+                    </div>
+                    <div th:if="${question.getIsActive() == 1}" class="status-pill-questions bg-danger self-end" id="mobile-status">
+                        <small>Não Solucionada</small>
                     </div>
                 </div>
                 <div class="main-card-right">
@@ -73,10 +76,12 @@
                 </div>
             </div>
         </div>
-        <div class="status-pill-questions self-end bg-danger" id="desktop-status">
-            <small>Não solucionada</small>
+        <div th:if="${question.getIsActive() == 0}" class="status-pill-questions bg-success self-end" id="desktop-status">
+            <small>Solucionada</small>
         </div>
-
+        <div th:if="${question.getIsActive() == 1}" class="status-pill-questions bg-danger self-end" id="desktop-status">
+            <small>Não Solucionada</small>
+        </div>
             <div sec:authorize="isAuthenticated()" class="add-comment self-end" th:onclick="|updateModal('questionComment;${question.id}')|">
                 <img alt="Adicionar Comentário" th:src="@{/img/icons/add_comment.svg}"/>
                 <small>Adicionar um Comentário</small>
