@@ -4,7 +4,6 @@ import br.pucrs.ages.townsq.exception.QuestionNotFoundException;
 import br.pucrs.ages.townsq.model.Answer;
 import br.pucrs.ages.townsq.model.Question;
 import br.pucrs.ages.townsq.model.Topic;
-import br.pucrs.ages.townsq.model.Topic;
 import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.service.AnswerService;
 import br.pucrs.ages.townsq.service.QuestionService;
