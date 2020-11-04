@@ -1,6 +1,7 @@
 package br.pucrs.ages.townsq.service;
 
 import br.pucrs.ages.townsq.model.Answer;
+import br.pucrs.ages.townsq.model.Comment;
 import br.pucrs.ages.townsq.model.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
@@ -36,7 +37,7 @@ public class EmailService {
             context.setVariables(templateEmailModel);
             String mailTemplate = springTemplateEngine.process("templateEmail", context);
 
-            message.setTo(templateEmailModel.get("questionUserEmail").toString());
+            message.setTo(templateEmailModel.get("userEmail").toString());
             message.setFrom("c88b3da83e-981698@inbox.mailtrap.io");
             message.setSubject("Test");
             message.setText(mailTemplate, true);
@@ -55,12 +56,32 @@ public class EmailService {
         if (object instanceof Answer) {
             Answer answer = (Answer) object;
 
-            templateEmailModel.put("mailType", "resposta");
-            templateEmailModel.put("answerUserName", answer.getUser().getName());
+            templateEmailModel.put("emailText", "Alguem respondeu a sua pergunta ");
+            templateEmailModel.put("questionUrl", "http://localhost:8080/question/" + answer.getQuestion().getId());
             templateEmailModel.put("questionTitle", answer.getQuestion().getTitle());
-            templateEmailModel.put("questionUserName", answer.getQuestion().getUser().getName());
-            templateEmailModel.put("questionUserEmail", answer.getQuestion().getUser().getEmail());
+            templateEmailModel.put("userName", answer.getQuestion().getUser().getName());
+            templateEmailModel.put("userEmail", answer.getQuestion().getUser().getEmail());
 
+
+            sendEmail();
+        } else if (object instanceof Comment) {
+            Comment comment = (Comment) object;
+
+            if (comment.getAnswer() != null) {
+                Answer answer = comment.getAnswer();
+                templateEmailModel.put("emailText", "Alguem comentou a sua resposta na pergunta ");
+                templateEmailModel.put("questionTitle", answer.getQuestion().getTitle());
+                templateEmailModel.put("userName", answer.getUser().getName());
+                templateEmailModel.put("userEmail", answer.getUser().getEmail());
+                templateEmailModel.put("questionUrl", "http://localhost:8080/question/" + answer.getQuestion().getId());
+            } else if (comment.getQuestion() != null) {
+                Question question = comment.getQuestion();
+                templateEmailModel.put("emailText", "Alguem comentou a sua pergunta ");
+                templateEmailModel.put("questionTitle", question.getTitle());
+                templateEmailModel.put("userName", question.getUser().getName());
+                templateEmailModel.put("userEmail", question.getUser().getEmail());
+                templateEmailModel.put("questionUrl", "http://localhost:8080/question/" + question.getId());
+            }
             sendEmail();
         }
     }
