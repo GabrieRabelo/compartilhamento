@@ -9,6 +9,7 @@ function updateConfirmation(creatorInfo) {
     const header = document.querySelector("header");
     const mainDiv = document.querySelector("#contentDiv");
     const formTitle = document.querySelector('#confirmation-question');
+    const formText = document.querySelector('#confirmation-question-warn');
 
     const split = creatorInfo.split(';');
 
@@ -21,10 +22,18 @@ function updateConfirmation(creatorInfo) {
         formTitle.innerHTML = 'Tem Certeza que Deseja Excluir esse comentário?'
         confirmationForm.action = `/comment/delete/${split[1]}/${split[2]}`;
     }
+
     if(split[0] === 'answerDeleteConfirmation'){
         formTitle.innerHTML = 'Tem Certeza que Deseja Excluir essa resposta?'
         confirmationForm.action = `/answer/delete/${split[1]}`;
     }
+
+    if(split[0] === 'favoriteConfirmation'){
+        formTitle.innerHTML = 'Tem certeza que deseja favoritar essa resposta?'
+        formText.innerHTML = 'Após favoritar o tópico ele será encerrado e isso não poderá ser desfeito.'
+        confirmationForm.action = `/answer/favorite/${split[1]}`;
+    }
+
 
     if(confirmationModal.style.opacity === '1') {
         confirmationModal.style.opacity = '0';

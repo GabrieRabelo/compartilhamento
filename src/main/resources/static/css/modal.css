@@ -100,6 +100,13 @@ form textarea{
     margin-top: 8%;
 }
 
+#confirmation-question-warn{
+    text-align: center;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 10%;
+}
+
 .red-button{
     background-color: #c41c1c !important;
 }

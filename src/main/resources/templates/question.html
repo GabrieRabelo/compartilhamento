@@ -42,12 +42,13 @@
                     <div class="form-control">
                         <input type="hidden" th:value="${question.getId()}" th:name="question" th:id="question"/>
                         <h2 id="confirmation-question"></h2>
+                        <p id="confirmation-question-warn"></p>
                     </div>
                 </div>
             </div>
             <div class="row white-background">
-                <button class="red-button" type="submit" onclick="submitConfirmation()">Sim</button>
                 <button th:onclick="closeConfirmation()">Cancelar</button>
+                <button class="red-button" type="submit" onclick="submitConfirmation()">Confirmar</button>
             </div>
         </form>
     </div>
@@ -192,9 +193,13 @@
                     <div class="answer-card-end">
                         <div sec:authorize="isAuthenticated()"
                              th:if="${#authentication.getPrincipal().id==question.getUser().getId()}" class="action-icons-favorite">
-                            <a th:href="@{/answer/favorite/{id}(id=${answer.getId()})}">
-                                <img alt="favoritar" th:if="${answer.getIsBest()==0}" th:src="@{/img/icons/best_answer_not_selected.svg}"/>
-                                <img alt="favoritar" th:if="${answer.getIsBest()==1}" th:src="@{/img/icons/best_answer.svg}"/>
+                            <a>
+                                <img class="best-answer-empty-heart" alt="favoritar"
+                                     th:onclick="|updateConfirmation('favoriteConfirmation;${answer.getId()}')|"
+                                     th:if="${answer.getIsBest()==0}" th:src="@{/img/icons/best_answer_not_selected.svg}"/>
+
+                                <img alt="favoritar" th:if="${answer.getIsBest()==1}"
+                                     th:src="@{/img/icons/best_answer.svg}"/>
                             </a>
                         </div>
                         <div th:if="${answer.getIsBest()==1}" class="status-pill-questions self-end bg-answer">
