@@ -1,5 +1,6 @@
 package br.pucrs.ages.townsq.controller;
 
+import br.pucrs.ages.townsq.exception.QuestionNotFoundException;
 import br.pucrs.ages.townsq.model.Answer;
 import br.pucrs.ages.townsq.model.Question;
 import br.pucrs.ages.townsq.model.Topic;
@@ -123,8 +124,7 @@ public class QuestionController {
             model.addAttribute("answer", new Answer());
             return "question";
         }
-        else
-            return "redirect:/";
+        else throw new QuestionNotFoundException();
     }
 
     /**
