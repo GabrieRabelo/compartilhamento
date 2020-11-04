@@ -37,7 +37,7 @@
     <main class="main-content">
         <div class="question-card-actions">
             <div sec:authorize="isAuthenticated()"
-                 th:if="${#authentication.getPrincipal().id==question.getUser().getId()}" class="action-icons">
+                 th:if="${#authentication.getPrincipal().id==question.getUser().getId() || #authorization.expression('hasRole(''ROLE_MODERATOR'')')}" class="action-icons">
                 <a th:href="@{/question/edit/{id}(id=${question.getId()})}"><img alt="editar"
                                                                                  th:src="@{/img/icons/lapis.svg}"/></a>
                 <a th:href="@{/question/delete/{id}(id=${question.getId()})}"><img alt="deletar"
@@ -58,9 +58,15 @@
                     </div>
                 </div>
                 <div class="main-card-right">
-                    <div class="question-title">
-                        <p th:text="${question.getTitle()}"></p>
+                    <div class="row">
+                        <div class="question-title">
+                            <p th:text="${question.getTitle()}"></p>
+                        </div>
+                        <div class="topic-pill bg-topic align-right align-self-center">
+                            <small th:text="${topic.getName()}"></small>
+                        </div>
                     </div>
+
                     <div class="question-text">
                         <p th:text="${question.getDescription()}"></p>
                     </div>
@@ -70,6 +76,7 @@
         <div class="status-pill-questions self-end bg-danger" id="desktop-status">
             <small>Não solucionada</small>
         </div>
+
             <div sec:authorize="isAuthenticated()" class="add-comment self-end" th:onclick="|updateModal('questionComment;${question.id}')|">
                 <img alt="Adicionar Comentário" th:src="@{/img/icons/add_comment.svg}"/>
                 <small>Adicionar um Comentário</small>
@@ -84,7 +91,8 @@
                         <a th:href="'/user/' + ${comment.getUser().getId()}"><small th:text="${comment.getUser().getName()}"></small></a>
                     </div>
                 </div>
-                <div class="action-icons-comment" sec:authorize="isAuthenticated()" th:if="${#authentication.getPrincipal().id == comment.getUser().getId()}">
+                <div class="action-icons-comment" sec:authorize="isAuthenticated()"
+                     th:if="${#authentication.getPrincipal().id == comment.getUser().getId() || #authorization.expression('hasRole(''ROLE_MODERATOR'')')}">
                     <img th:onclick="|updateModal('editComment;${comment.getId()}')|" th:src="@{/img/icons/lapis.svg}" alt="Editar comentário"/>
                     <a th:href="'/comment/delete/' + ${question.getId()} + '/' + ${comment.getId()}"><img th:src="@{/img/icons/lixeira.svg}" alt="Excluir comentário"/></a>
                 </div>
@@ -116,7 +124,7 @@
         <div th:each="answer:${answers}">
             <div class="answer-card-actions">
                 <div sec:authorize="isAuthenticated()"
-                     th:if="${#authentication.getPrincipal().id==answer.getUser().getId()}" class="action-icons">
+                     th:if="${#authentication.getPrincipal().id==answer.getUser().getId() || #authorization.expression('hasRole(''ROLE_MODERATOR'')')}" class="action-icons">
                     <img th:onclick="|updateModal('editAnswer;${answer.getId()}')|" th:src="@{/img/icons/lapis.svg}" alt="Editar resposta"/>
                     <a th:href="@{/answer/delete/{id}(id=${answer.getId()})}"><img alt="deletar" th:src="@{/img/icons/lixeira.svg}"/></a>
                 </div>
@@ -150,7 +158,8 @@
                             <a th:href="'/user/' + ${comment.getUser().getId()}"><small th:text="${comment.getUser().getName()}"></small></a>
                         </div>
                     </div>
-                    <div class="action-icons-comment" sec:authorize="isAuthenticated()" th:if="${#authentication.getPrincipal().id == comment.getUser().getId()}">
+                    <div class="action-icons-comment" sec:authorize="isAuthenticated()"
+                         th:if="${#authentication.getPrincipal().id == comment.getUser().getId() || #authorization.expression('hasRole(''ROLE_MODERATOR'')')}">
                         <img th:onclick="|updateModal('editComment;${comment.getId()}')|" th:src="@{/img/icons/lapis.svg}" alt="Editar comentário"/>
                         <a th:href="'/comment/delete/' + ${question.getId()} + '/' + ${comment.getId()}"><img th:src="@{/img/icons/lixeira.svg}" alt="Excluir comentário"/></a>
                     </div>

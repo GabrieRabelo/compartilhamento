@@ -102,6 +102,10 @@
     margin-top: 20px;
 }
 
+.banner{
+    margin-top:40px;
+}
+
 @media (max-width: 630px) {
     .background {
         width: 80%;
@@ -185,7 +189,7 @@
     .profile-picture {
         width: 70px;
         height: 70px;
-        margin-right: 16px;
+        /*margin-right: 16px;*/
     }
 
     .test {
