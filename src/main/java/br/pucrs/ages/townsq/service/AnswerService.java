@@ -44,11 +44,11 @@ public class AnswerService {
                            User user,
                            Long id){
         Answer databaseAnswer = answerRepository.findById(id).orElse(null);
-        if(StringUtils.isEmpty(answer.trim())
+        if((StringUtils.isEmpty(answer.trim())
                 || databaseAnswer == null
-                || !databaseAnswer.getUser().getId().equals(user.getId())
                 || databaseAnswer.getQuestion().getIsActive() == 0
                 || user.getAuthorities().stream().noneMatch(e -> e.getAuthority().equals("ROLE_MODERATOR"))
+                && !databaseAnswer.getUser().getId().equals(user.getId()))
         ){
             throw new IllegalArgumentException("Não foi possível editar a resposta.");
         }

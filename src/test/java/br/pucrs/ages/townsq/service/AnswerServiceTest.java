@@ -5,12 +5,14 @@ import br.pucrs.ages.townsq.model.Question;
 import br.pucrs.ages.townsq.model.Role;
 import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.repository.AnswerRepository;
+import javassist.NotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
@@ -117,7 +119,8 @@ public class AnswerServiceTest {
 				.email("mod@email.com")
 				.roles(new HashSet<>(Collections.singletonList(new Role(1L, "ROLE_MODERATOR"))))
 				.build();
-		Answer answer = Answer.builder().id(1L).text("Something").isActive(1).isBest(1).user(user).build();
+		Question question = Question.builder().id(1L).title("Olá, isso é uma pergunta.").description("Essa fera ai meu!").user(user).isActive(1).build();
+		Answer answer = Answer.builder().id(1L).text("Something").isActive(1).isBest(0).user(user).question(question).build();
 
 		when(answerRepository.save(any(Answer.class)))
 				.thenReturn(answer);
@@ -152,5 +155,53 @@ public class AnswerServiceTest {
 				.thenReturn(java.util.Optional.ofNullable(answer));
 
 		assertThrows(IllegalArgumentException.class, () -> answerService.editAnswer("New text", invalid, 1L));
+	}
+
+	@Test
+	public void testFavoriteAnswerShouldThrowSecurityException(){
+		User user = User.builder()
+				.id((long) 1)
+				.name("Juca")
+				.password("12345")
+				.email("juca@email.com")
+				.roles(new HashSet<>(Collections.singletonList(new Role(1L, "ROLE_USER"))))
+				.build();
+		User otherUser = User.builder()
+				.id((long) 3)
+				.roles(new HashSet<>(Collections.singletonList(new Role(1L, "ROLE_USER"))))
+				.build();
+		Long id = 1L;
+		Question question = Question.builder().id(1L).title("Olá, isso é uma pergunta.").description("Essa fera ai meu!").user(otherUser).build();
+
+		assertThrows(SecurityException.class, () -> answerService.favoriteAnswer(user, id, question));
+	}
+
+	@Test
+	public void testFavoriteAnswerShouldThrowNotFoundException(){
+		//arrange
+		User user = User.builder()
+				.id((long) 1)
+				.name("Juca")
+				.password("12345")
+				.email("juca@email.com")
+				.roles(new HashSet<>(Collections.singletonList(new Role(1L, "ROLE_USER"))))
+				.build();
+		Long id = 1L;
+		Question question = Question.builder().id(1L).title("Olá, isso é uma pergunta.").description("Essa fera ai meu!").user(user).build();
+		when(answerRepository.findById(anyLong()))
+				.thenReturn(Optional.empty());
+		//act
+
+		//assert
+		assertThrows(NotFoundException.class, () -> answerService.favoriteAnswer(user, id, question));
+	}
+
+	@Test
+	public void testFavoriteAnswerShouldThrowIllegalArgumentException() {
+		//arrange
+
+		//act
+
+		//assert
 	}
 }
