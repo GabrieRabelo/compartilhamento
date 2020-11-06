@@ -32,44 +32,43 @@
     <main class="main-content">
         <img src="img/logo.svg" id="mobile-icon" alt="Logo da TownSq"/>
         <h1>Confira as perguntas mais recentes</h1>
-        <div class="banner" th:if="${banner != null && questions.size() > 0}" id="banner-mobile">
-            <div th:replace="fragments/banner.html :: banner"></div>
-        </div>
-        <div th:each="question: ${questions}" class="question-card">
-            <div class="card-left">
-                <div th:if="${question.getIsActive() == 0}" class="status-pill-questions bg-success">
-                    <small>Solucionada</small>
-                </div>
-                <div th:if="${question.getIsActive() == 1}" class="status-pill-questions bg-danger">
-                    <small>Não Solucionada</small>
-                </div>
-                <div class="question-title">
-                    <a th:text="${question.getTitle()}" th:href="@{/question/{id}(id=${question.getId()})}"></a>
-                </div>
-                <div class="question-text">
-                    <p th:text="${#strings.abbreviate(question.getDescription(), 200)}"></p>
-                </div>
-                <div class="row align-end">
-                    <div class="topic-pill bg-topic align-left align-self-end">
-                        <small th:text="${question.getTopic().getName()}"></small>
+        <div class="questions-banner">
+            <div th:each="question: ${questions}" class="question-card">
+                <div class="card-left">
+                    <div th:if="${question.getIsActive() == 0}" class="status-pill-questions bg-success">
+                        <small>Solucionada</small>
                     </div>
-                    <div class="question-creator">
-                        <img alt="Imagem do perfil do usuário" th:if="${question.getUser().getImage()}" th:src="${question.getUser().getImage()}"/>
-                        <img alt="Imagem do perfil do usuário" th:if="!${question.getUser().getImage()}" src="/img/user.svg"/>
-                        <div class="name-last-access">
-                            <a th:href="@{/user/{id}(id=${question.getUser().getId()})}" th:text="${question.getUser().getName()}"></a>
-                            <small th:text="${question.getCreatedAtString()}"></small>
+                    <div th:if="${question.getIsActive() == 1}" class="status-pill-questions bg-danger">
+                        <small>Não Solucionada</small>
+                    </div>
+                    <div class="question-title">
+                        <a th:text="${question.getTitle()}" th:href="@{/question/{id}(id=${question.getId()})}"></a>
+                    </div>
+                    <div class="question-text">
+                        <p th:text="${#strings.abbreviate(question.getDescription(), 200)}"></p>
+                    </div>
+                    <div class="row align-end">
+                        <div class="topic-pill bg-topic align-left align-self-end">
+                            <small th:text="${question.getTopic().getName()}"></small>
+                        </div>
+                        <div class="question-creator">
+                            <img alt="Imagem do perfil do usuário" th:if="${question.getUser().getImage()}" th:src="${question.getUser().getImage()}"/>
+                            <img alt="Imagem do perfil do usuário" th:if="!${question.getUser().getImage()}" src="/img/user.svg"/>
+                            <div class="name-last-access">
+                                <a th:href="@{/user/{id}(id=${question.getUser().getId()})}" th:text="${question.getUser().getName()}"></a>
+                                <small th:text="${question.getCreatedAtString()}"></small>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-right">
-                <div class="question-card-divider"></div>
-                <div class="card-right-text">
-                    <p th:text="${question.getAllActiveAnswers().size()}"></p>
-                    <p th:if="${question.getAllActiveAnswers().size() == 1}"> resposta</p>
-                    <p th:if="${question.getAllActiveAnswers().size() != 1}"> respostas</p>
-                    <small th:text="${question.getCommentCountString()}"></small>
+                <div class="card-right">
+                    <div class="question-card-divider"></div>
+                    <div class="card-right-text">
+                        <p th:text="${question.getAllActiveAnswers().size()}"></p>
+                        <p th:if="${question.getAllActiveAnswers().size() == 1}"> resposta</p>
+                        <p th:if="${question.getAllActiveAnswers().size() != 1}"> respostas</p>
+                        <small th:text="${question.getCommentCountString()}"></small>
+                    </div>
                 </div>
             </div>
         </div>
