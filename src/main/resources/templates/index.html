@@ -32,8 +32,11 @@
     <main class="main-content">
         <img src="img/logo.svg" id="mobile-icon" alt="Logo da TownSq"/>
         <h1>Confira as perguntas mais recentes</h1>
-        <div class="questions-banner">
-            <div th:each="question: ${questions}" class="question-card">
+        <div class="banner" th:if="${banner} and ${questions.size() == 0}" id="banner-mobile">
+            <div th:replace="fragments/banner.html :: banner"></div>
+        </div>
+        <div th:each="question: ${questions}" class="questions-card-banner-wrapper">
+            <div class="question-card">
                 <div class="card-left">
                     <div th:if="${question.getIsActive() == 0}" class="status-pill-questions bg-success">
                         <small>Solucionada</small>
@@ -52,10 +55,13 @@
                             <small th:text="${question.getTopic().getName()}"></small>
                         </div>
                         <div class="question-creator">
-                            <img alt="Imagem do perfil do usuário" th:if="${question.getUser().getImage()}" th:src="${question.getUser().getImage()}"/>
-                            <img alt="Imagem do perfil do usuário" th:if="!${question.getUser().getImage()}" src="/img/user.svg"/>
+                            <img alt="Imagem do perfil do usuário" th:if="${question.getUser().getImage()}"
+                                 th:src="${question.getUser().getImage()}"/>
+                            <img alt="Imagem do perfil do usuário" th:if="!${question.getUser().getImage()}"
+                                 src="/img/user.svg"/>
                             <div class="name-last-access">
-                                <a th:href="@{/user/{id}(id=${question.getUser().getId()})}" th:text="${question.getUser().getName()}"></a>
+                                <a th:href="@{/user/{id}(id=${question.getUser().getId()})}"
+                                   th:text="${question.getUser().getName()}"></a>
                                 <small th:text="${question.getCreatedAtString()}"></small>
                             </div>
                         </div>
@@ -70,6 +76,9 @@
                         <small th:text="${question.getCommentCountString()}"></small>
                     </div>
                 </div>
+            </div>
+            <div class="banner" th:if="${banner} and (${questions.size() == 1}) or (${questions.size() >= 2} and ${questionStat.index == 1})" id="banner-mobile">
+                <div th:replace="fragments/banner.html :: banner"></div>
             </div>
         </div>
     </main>
