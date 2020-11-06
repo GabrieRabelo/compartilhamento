@@ -32,6 +32,9 @@
     <main class="main-content">
         <img src="img/logo.svg" id="mobile-icon" alt="Logo da TownSq"/>
         <h1>Confira as perguntas mais recentes</h1>
+        <div class="banner" th:if="${banner != null && questions.size() > 0}" id="banner-mobile">
+            <div th:replace="fragments/banner.html :: banner"></div>
+        </div>
         <div th:each="question: ${questions}" class="question-card">
             <div class="card-left">
                 <div th:if="${question.getIsActive() == 0}" class="status-pill-questions bg-success">
