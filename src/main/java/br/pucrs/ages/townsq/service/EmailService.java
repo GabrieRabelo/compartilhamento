@@ -28,7 +28,6 @@ public class EmailService {
     @Autowired
     private TemplateEngine springTemplateEngine;
 
-    @Async("MailExecutor")
     public void sendEmail() {
         try {
 
@@ -51,6 +50,7 @@ public class EmailService {
 
     }
 
+    @Async
     public void createEmail(Object object) {
         templateEmailModel = new HashMap<>();
 
