@@ -6,6 +6,7 @@ import br.pucrs.ages.townsq.model.Question;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
@@ -19,7 +20,7 @@ public class EmailService {
 
     private HashMap<String, Object> templateEmailModel;
 
-    private final String urlQuestion = "http://" + InetAddress.getLoopbackAddress().getHostName() + ":8080/question";
+    private final String urlQuestion = "http://" + InetAddress.getLoopbackAddress().getHostName() + ":8080/question/";
 
     @Autowired
     private JavaMailSender javaMailSender;
@@ -27,7 +28,7 @@ public class EmailService {
     @Autowired
     private TemplateEngine springTemplateEngine;
 
-    @Autowired
+    @Async("MailExecutor")
     public void sendEmail() {
         try {
 

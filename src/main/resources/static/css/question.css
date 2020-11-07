@@ -362,6 +362,7 @@ hr{
 .image-name-last-access{
     display: flex;
     flex-direction: column;
+    align-items: center;
 }
 
 @media (min-width: 481px) and (max-width: 1025px) {

@@ -65,7 +65,7 @@ public class EmailConfig {
         SpringResourceTemplateResolver emailTemplateResolver = new SpringResourceTemplateResolver();
         emailTemplateResolver.setPrefix("classpath:/templates/");
         emailTemplateResolver.setSuffix(".html");
-        emailTemplateResolver.setTemplateMode("HTML5");
+        emailTemplateResolver.setTemplateMode("HTML");
         emailTemplateResolver.setCharacterEncoding("UTF-8");
         return emailTemplateResolver;
     }

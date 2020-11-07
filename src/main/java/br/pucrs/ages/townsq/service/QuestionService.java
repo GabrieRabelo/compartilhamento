@@ -13,10 +13,12 @@ import java.util.Optional;
 public class QuestionService {
 
     private final QuestionRepository repository;
+    private final ReputationLogService reputationLogService;
 
     @Autowired
-    public QuestionService(QuestionRepository repository) {
+    public QuestionService(QuestionRepository repository, ReputationLogService reputationLogService) {
         this.repository = repository;
+        this.reputationLogService = reputationLogService;
     }
 
     /**
@@ -40,9 +42,9 @@ public class QuestionService {
     public Question edit(Question question, User user) throws Exception{
         Question currentQuestion = repository.findById(question.getId()).orElse(null);
 
-        if(currentQuestion == null || !currentQuestion.getUser().getId().equals(user.getId()))
-            throw new IllegalArgumentException("A pergunta não pertence ao usuário.");
-
+        if(currentQuestion == null || (!currentQuestion.getUser().getId().equals(user.getId()) &&
+                !user.getAuthorities().stream().anyMatch(e -> e.getAuthority().equals("ROLE_MODERATOR"))))
+            throw new IllegalArgumentException("Usuário não pode editar a pergunta.");
         currentQuestion.setTitle(question.getTitle());
         currentQuestion.setTopic((question.getTopic()));
         currentQuestion.setDescription(question.getDescription());
@@ -67,17 +69,24 @@ public class QuestionService {
         return repository.findById(id);
     }
 
+    public Optional<Question> getNonDeletedQuestionById(long id){
+        return repository.findByIdEqualsAndStatusEquals(id, 1);
+    }
+
     /**
      * Performs a soft delete of a question if the user is it's creator
-     * @param userId The user id
+     * @param user User
      * @param questionId The question id
      * @return boolean
      */
-    public boolean delete(long userId, long questionId) {
+    public boolean delete(User user, long questionId) {
         Question question = repository.findById(questionId).orElse(null);
         if(question != null){
-            if(question.getUser().getId() == userId && question.getStatus() == 1){
+            if(question.getStatus() == 1 &&
+                    (question.getUser().getId().equals(user.getId()) ||
+                        user.getAuthorities().stream().anyMatch(e -> e.getAuthority().equals("ROLE_MODERATOR")))){
                 question.setStatus(0);
+                reputationLogService.createDeletedQuestionLog(question);
                 repository.save(question);
                 return true;
             }

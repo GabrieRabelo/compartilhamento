@@ -1,7 +1,9 @@
 package br.pucrs.ages.townsq.controller;
 
+import br.pucrs.ages.townsq.exception.QuestionNotFoundException;
 import br.pucrs.ages.townsq.model.Answer;
 import br.pucrs.ages.townsq.model.Question;
+import br.pucrs.ages.townsq.model.Topic;
 import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.service.AnswerService;
 import br.pucrs.ages.townsq.service.QuestionService;
@@ -58,7 +60,7 @@ public class QuestionController {
                                      @ModelAttribute Question question,
                                      final RedirectAttributes redirectAttributes){
         try {
-            Long questionId = null;
+            Long questionId;
             if(question.getId() != null) {
                 questionId = questionService.edit(question, user).getId();
                 redirectAttributes.addFlashAttribute("success", "Pergunta editada com sucesso!");
@@ -86,7 +88,7 @@ public class QuestionController {
     public String getDeleteQuestionRoute(@AuthenticationPrincipal User user,
                                          @PathVariable long questionId,
                                          final RedirectAttributes redirectAttributes){
-        boolean hasDeleted = questionService.delete(user.getId(), questionId);
+        boolean hasDeleted = questionService.delete(user, questionId);
         if(hasDeleted)
             redirectAttributes.addFlashAttribute("success", "Pergunta deletada com sucesso!");
         else
@@ -107,19 +109,21 @@ public class QuestionController {
                               @PathVariable long id,
                               @PathVariable(required = false) String slug,
                               Model model){
-        Question question = questionService.getQuestionById(id).orElse(null);
+        Question question = questionService.getNonDeletedQuestionById(id).orElse(null);
         if(question != null){
+            Topic topic = question.getTopic();
             String questionSlug = Slugify.toSlug(question.getTitle());
             if(slug == null || !slug.equals(questionSlug)){
                 request.setAttribute(View.RESPONSE_STATUS_ATTRIBUTE, HttpStatus.MOVED_PERMANENTLY);
                 return "redirect:/question/" + id + "/" + questionSlug;
             }
             model.addAttribute("question", question);
+            model.addAttribute("topic", topic);
             model.addAttribute("answers", answerService.getQuestionAnswers(question));
             model.addAttribute("answer", new Answer());
             return "question";
         }
-        return "question";
+        else throw new QuestionNotFoundException();
     }
 
     /**
@@ -134,8 +138,10 @@ public class QuestionController {
     public String editQuestionById(@AuthenticationPrincipal User user,
                                    @PathVariable long id,
                                    Model model){
-        Question question = questionService.getQuestionById(id).orElse(null);
-            if(question != null && question.getUser().getId().equals(user.getId())){
+        Question question = questionService.getNonDeletedQuestionById(id).orElse(null);
+            if(question != null &&
+                    (question.getUser().getId().equals(user.getId())) ||
+                        user.getAuthorities().stream().anyMatch(e -> e.getAuthority().equals("ROLE_MODERATOR"))){
                 model.addAttribute("topics", topicService.getAllTopics());
                 model.addAttribute("question", question);
                 return "questionForm";
