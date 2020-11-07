@@ -13,6 +13,7 @@ import org.thymeleaf.context.Context;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.net.InetAddress;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,7 +59,7 @@ public class EmailService {
 
             templateEmailModel.put("emailTextInitial", "A sua pergunta " );
             templateEmailModel.put("emailTextEnd", " tem uma nova resposta.");
-            templateEmailModel.put("questionUrl", "http://localhost:8080/question/" + answer.getQuestion().getId());
+            templateEmailModel.put("questionUrl", "http://" + InetAddress.getLoopbackAddress().getHostName() +  ":8080/question/" + answer.getQuestion().getId());
             templateEmailModel.put("emailSubject","TownSQ - Alguem respondeu sua pergunta");
             templateEmailModel.put("questionTitle", answer.getQuestion().getTitle());
             templateEmailModel.put("userName", answer.getQuestion().getUser().getName());
