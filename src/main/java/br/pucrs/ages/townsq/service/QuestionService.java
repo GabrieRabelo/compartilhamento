@@ -69,6 +69,10 @@ public class QuestionService {
         return repository.findById(id);
     }
 
+    public Optional<Question> getNonDeletedQuestionById(long id){
+        return repository.findByIdEqualsAndStatusEquals(id, 1);
+    }
+
     /**
      * Performs a soft delete of a question if the user is it's creator
      * @param user User

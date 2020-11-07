@@ -1,0 +1,15 @@
+body{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.error-container{
+    margin-top: 8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: center;
+    width: 75%;
+    text-align: center;
+}
