@@ -64,7 +64,7 @@ public class EmailConfig {
         emailTemplateResolver.setPrefix("classpath:/templates/");
         emailTemplateResolver.setSuffix(".html");
         emailTemplateResolver.setTemplateMode("HTML5");
-        emailTemplateResolver.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        emailTemplateResolver.setCharacterEncoding("UTF-8");
         return emailTemplateResolver;
     }
 }
