@@ -46,7 +46,7 @@ public class AnswerService {
         Answer databaseAnswer = answerRepository.findById(id).orElse(null);
         if((StringUtils.isEmpty(answer.trim())
                 || databaseAnswer == null
-                || databaseAnswer.getQuestion().getIsActive() == 0
+                || (databaseAnswer.getQuestion().getIsActive() == 0 && user.getAuthorities().stream().noneMatch(e -> e.getAuthority().equals("ROLE_MODERATOR")))
                 || user.getAuthorities().stream().noneMatch(e -> e.getAuthority().equals("ROLE_MODERATOR"))
                 && !databaseAnswer.getUser().getId().equals(user.getId()))
         ){
