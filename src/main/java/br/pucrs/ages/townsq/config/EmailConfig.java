@@ -40,6 +40,8 @@ public class EmailConfig {
         javaMailSender.setUsername(username);
         javaMailSender.setPassword(password);
 
+        javaMailSender.setDefaultEncoding("UTF-8");
+
         props.put("mail.transport.protocol", "smtp");
         props.put("mail.smtp.auth", true);
         props.put("mail.smtp.starttls.enable", true);

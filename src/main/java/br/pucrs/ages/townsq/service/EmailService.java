@@ -4,23 +4,22 @@ import br.pucrs.ages.townsq.model.Answer;
 import br.pucrs.ages.townsq.model.Comment;
 import br.pucrs.ages.townsq.model.Question;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.net.InetAddress;
 import java.util.HashMap;
-import java.util.Map;
 
 @Service
 public class EmailService {
 
     private HashMap<String, Object> templateEmailModel;
+
+    private final String urlQuestion = "http://" + InetAddress.getLoopbackAddress().getHostName() + ":8080/question";
 
     @Autowired
     private JavaMailSender javaMailSender;
@@ -59,8 +58,8 @@ public class EmailService {
 
             templateEmailModel.put("emailTextInitial", "A sua pergunta " );
             templateEmailModel.put("emailTextEnd", " tem uma nova resposta.");
-            templateEmailModel.put("questionUrl", "http://" + InetAddress.getLoopbackAddress().getHostName() +  ":8080/question/" + answer.getQuestion().getId());
-            templateEmailModel.put("emailSubject","TownSQ - Alguem respondeu sua pergunta");
+            templateEmailModel.put("questionUrl", urlQuestion + answer.getQuestion().getId());
+            templateEmailModel.put("emailSubject","TownSQ - Alguém respondeu sua pergunta");
             templateEmailModel.put("questionTitle", answer.getQuestion().getTitle());
             templateEmailModel.put("userName", answer.getQuestion().getUser().getName());
             templateEmailModel.put("userEmail", answer.getQuestion().getUser().getEmail());
@@ -74,20 +73,20 @@ public class EmailService {
                 Answer answer = comment.getAnswer();
                 templateEmailModel.put("emailTextInitial", "A sua resposta na pergunta ");
                 templateEmailModel.put("questionTitle", answer.getQuestion().getTitle());
-                templateEmailModel.put("emailTextEnd", " tem um novo comentario.");
-                templateEmailModel.put("emailSubject","TownSQ - Alguem comentou sua resposta");
+                templateEmailModel.put("emailTextEnd", " tem um novo comentário.");
+                templateEmailModel.put("emailSubject","TownSQ - Alguém comentou sua resposta");
                 templateEmailModel.put("userName", answer.getUser().getName());
                 templateEmailModel.put("userEmail", answer.getUser().getEmail());
-                templateEmailModel.put("questionUrl", "http://localhost:8080/question/" + answer.getQuestion().getId());
+                templateEmailModel.put("questionUrl", urlQuestion  + answer.getQuestion().getId());
             } else if (comment.getQuestion() != null) {
                 Question question = comment.getQuestion();
                 templateEmailModel.put("emailTextInitial", "A sua pergunta " );
-                templateEmailModel.put("emailTextEnd", " tem um novo comentario.");
+                templateEmailModel.put("emailTextEnd", " tem um novo comentário.");
                 templateEmailModel.put("questionTitle", question.getTitle());
-                templateEmailModel.put("emailSubject","TownSQ - Alguem comentou a sua pergunta");
+                templateEmailModel.put("emailSubject","TownSQ - Alguém comentou a sua pergunta");
                 templateEmailModel.put("userName", question.getUser().getName());
                 templateEmailModel.put("userEmail", question.getUser().getEmail());
-                templateEmailModel.put("questionUrl", "http://localhost:8080/question/" + question.getId());
+                templateEmailModel.put("questionUrl", urlQuestion + question.getId());
             }
             sendEmail();
         }
