@@ -147,14 +147,16 @@ public class AnswerServiceTest {
 				.email("ivalid@email.com")
 				.roles(new HashSet<>(Collections.singletonList(new Role(1L, "ROLE_USER"))))
 				.build();
-		Answer answer = Answer.builder().id(1L).text("Something").isActive(1).isBest(1).user(user).build();
+		Question question = Question.builder().isActive(1).title("Olá, isso é uma pergunta.").description("Essa fera ai meu!").user(user).build();
+		Answer answer = Answer.builder().question(question).id(1L).text("Something").isActive(1).isBest(1).user(user).build();
 
 		when(answerRepository.save(any(Answer.class)))
 				.thenReturn(answer);
 		when(answerRepository.findById(anyLong()))
 				.thenReturn(java.util.Optional.ofNullable(answer));
 
-		assertThrows(IllegalArgumentException.class, () -> answerService.editAnswer("New text", invalid, 1L));
+		assertThrows(IllegalArgumentException.class, () ->
+				answerService.editAnswer("New text", invalid, 1L));
 	}
 
 	@Test

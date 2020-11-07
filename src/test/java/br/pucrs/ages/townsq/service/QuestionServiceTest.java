@@ -1,5 +1,6 @@
 package br.pucrs.ages.townsq.service;
 
+import br.pucrs.ages.townsq.model.Answer;
 import br.pucrs.ages.townsq.model.Question;
 import br.pucrs.ages.townsq.model.Role;
 import br.pucrs.ages.townsq.model.User;
@@ -20,11 +21,12 @@ class QuestionServiceTest {
 
 	private QuestionService questionService;
 	private QuestionRepository questionRepository;
+	private ReputationLogService reputationLogService;
 
 	@BeforeEach
 	void setUp() {
 		questionRepository = mock(QuestionRepository.class);
-		ReputationLogService reputationLogService = mock(ReputationLogService.class);
+		reputationLogService = mock(ReputationLogService.class);
 		questionService = new QuestionService(questionRepository, reputationLogService);
 	}
 
@@ -63,14 +65,14 @@ class QuestionServiceTest {
 	@Test
 	void testDeleteQuestionOfUser() {
 		User user = User.builder().id((long) 1).name("Fulano").password("123321").email("fulano@teste.com").build();
-		Question question = Question.builder().id(1L).title("Teste").description("Essa fera aí meu").user(user).createdAt(new Timestamp(1)).updatedAt(new Timestamp(1)).status(1).build();
+		Answer answer = Answer.builder().id(1L).text("Text").isActive(1).isBest(1).build();
+		Question question = Question.builder().answers(Collections.singletonList(answer)).id(1L).title("Teste").description("Essa fera aí meu").user(user).createdAt(new Timestamp(1)).updatedAt(new Timestamp(1)).status(1).build();
 
 		when(questionRepository.findById(1L))
 				.thenReturn(Optional.of(question));
 
 		when(questionRepository.save(question))
 				.thenReturn(question);
-
 		assertTrue(questionService.delete(user, 1L));
 	}
 
@@ -100,8 +102,9 @@ class QuestionServiceTest {
 				password("332211").
 				email("mod@email.com").
 				roles(new HashSet<>(Collections.singletonList(new Role(1L, "ROLE_MODERATOR")))).build();
+		Answer answer = Answer.builder().text("Opa, é isso!").user(user).build();
 
-		Question question = Question.builder().id(1L).title("Teste").description("Essa fera aí meu").user(user).createdAt(new Timestamp(1)).updatedAt(new Timestamp(1)).status(1).build();
+		Question question = Question.builder().answers(Collections.singletonList(answer)).id(1L).title("Teste").description("Essa fera aí meu").user(user).createdAt(new Timestamp(1)).updatedAt(new Timestamp(1)).status(1).build();
 
 		when(questionRepository.findById(1L))
 				.thenReturn(Optional.of(question));
