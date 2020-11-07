@@ -177,7 +177,8 @@
                         <img alt="Imagem do perfil do usuário" th:if="!${answer.getUser().getImage()}"
                              src="/img/user.svg"/>
                         <div class="name-last-access">
-                            <p th:text="${answer.getUser().getName()}"></p>
+                            <a th:href="@{/user/{id}(id=${answer.getUser().getId()})}"
+                               th:text="${answer.getUser().getName()}"></a>
                             <small th:text="${answer.getCreatedAtString()}"></small>
                         </div>
                     </div>
