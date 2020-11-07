@@ -107,7 +107,7 @@ public class AnswerService {
         }
 
         Answer databaseAnswer = answerRepository.findById(id).orElse(null);
-        if(databaseAnswer ==null){
+        if(databaseAnswer == null){
             throw new NotFoundException("Não foi possivel concluir a operação.");
         }
 

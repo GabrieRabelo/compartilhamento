@@ -10,14 +10,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class AnswerServiceTest {
 
@@ -180,7 +177,6 @@ public class AnswerServiceTest {
 
 	@Test
 	public void testFavoriteAnswerShouldThrowNotFoundException(){
-		//arrange
 		User user = User.builder()
 				.id((long) 1)
 				.name("Juca")
@@ -192,18 +188,69 @@ public class AnswerServiceTest {
 		Question question = Question.builder().id(1L).title("Olá, isso é uma pergunta.").description("Essa fera ai meu!").user(user).build();
 		when(answerRepository.findById(anyLong()))
 				.thenReturn(Optional.empty());
-		//act
 
-		//assert
 		assertThrows(NotFoundException.class, () -> answerService.favoriteAnswer(user, id, question));
 	}
 
 	@Test
 	public void testFavoriteAnswerShouldThrowIllegalArgumentException() {
-		//arrange
+		User user = User.builder()
+				.id((long) 1)
+				.name("Juca")
+				.password("12345")
+				.email("juca@email.com")
+				.roles(new HashSet<>(Collections.singletonList(new Role(1L, "ROLE_USER"))))
+				.build();
+		Long id = 1L;
+		Answer answer = Answer.builder().id(1L).text("Something").isActive(1).isBest(1).user(user).build();
+		Question question = Question.builder().answers(Collections.singletonList(answer)).id(1L).title("Olá, isso é uma pergunta.").description("Essa fera ai meu!").user(user).build();
 
-		//act
+		when(answerRepository.findById(anyLong()))
+				.thenReturn(Optional.ofNullable(answer));
 
-		//assert
+		assertThrows(IllegalArgumentException.class, () -> answerService.favoriteAnswer(user, id, question));
+
+	}
+
+	@Test
+	public void testFavoriteAnswerShouldFavoriteTheNewAnswer() throws NotFoundException {
+		User user = User.builder()
+				.id((long) 1)
+				.name("Juca")
+				.password("12345")
+				.email("juca@email.com")
+				.roles(new HashSet<>(Collections.singletonList(new Role(1L, "ROLE_USER"))))
+				.build();
+		Long id = 3L;
+		Answer answer = Answer.builder().id(1L).text("Something").isActive(1).isBest(1).user(user).build();
+		Question question = Question.builder().answers(Collections.singletonList(answer)).id(1L).title("Olá, isso é uma pergunta.").description("Essa fera ai meu!").user(user).build();
+
+		when(answerRepository.findById(anyLong()))
+				.thenReturn(Optional.ofNullable(answer));
+
+		answerService.favoriteAnswer(user, id, question);
+
+		verify(answerRepository, times(2)).save(any(Answer.class));
+	}
+
+	@Test
+	public void testFavoriteAnswerShouldFavoriteOneAnswer() throws NotFoundException {
+		User user = User.builder()
+				.id((long) 1)
+				.name("Juca")
+				.password("12345")
+				.email("juca@email.com")
+				.roles(new HashSet<>(Collections.singletonList(new Role(1L, "ROLE_USER"))))
+				.build();
+		Long id = 3L;
+		Answer answer = Answer.builder().id(1L).text("Something").isActive(1).isBest(1).user(user).build();
+		Question question = Question.builder().answers(new ArrayList<>()).id(1L).title("Olá, isso é uma pergunta.").description("Essa fera ai meu!").user(user).build();
+
+		when(answerRepository.findById(anyLong()))
+				.thenReturn(Optional.ofNullable(answer));
+
+		answerService.favoriteAnswer(user, id, question);
+
+		verify(answerRepository, times(1)).save(any(Answer.class));
 	}
 }
