@@ -66,6 +66,10 @@
     color: inherit;
 }
 
+.update-icon{
+    cursor: pointer;
+}
+
 .question-card-actions{
     display: flex;
     flex-direction: column;

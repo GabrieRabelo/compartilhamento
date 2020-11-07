@@ -166,7 +166,7 @@
                 <div sec:authorize="isAuthenticated()"
                      th:if="${#authentication.getPrincipal().id==answer.getUser().getId() && question.getIsActive() == 1 ||
                     #authorization.expression('hasRole(''ROLE_MODERATOR'')')}" class="action-icons">
-                    <img th:onclick="|updateModal('editAnswer;${answer.getId()}')|" th:src="@{/img/icons/lapis.svg}" alt="Editar resposta"/>
+                    <img class="update-icon" th:onclick="|updateModal('editAnswer;${answer.getId()}')|" th:src="@{/img/icons/lapis.svg}" alt="Editar resposta"/>
                     <img alt="deletar" class="delete-icon" th:src="@{/img/icons/lixeira.svg}"
                          th:onclick="|updateConfirmation('answerDeleteConfirmation;${answer.getId()}')|"/>
                 </div>
