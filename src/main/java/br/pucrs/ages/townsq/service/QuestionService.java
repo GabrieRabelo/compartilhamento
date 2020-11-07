@@ -92,8 +92,21 @@ public class QuestionService {
         return false;
     }
 
+    /**
+     * Set a question as closed
+     * @param questionFrom Question
+     */
     public void closeQuestion(Question questionFrom) {
         questionFrom.setIsActive(0);
+        repository.save(questionFrom);
+    }
+
+    /**
+     * Set a question as open
+     * @param questionFrom Question
+     */
+    public void openQuestion(Question questionFrom){
+        questionFrom.setIsActive(1);
         repository.save(questionFrom);
     }
 }

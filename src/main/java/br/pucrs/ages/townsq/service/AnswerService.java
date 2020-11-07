@@ -60,7 +60,7 @@ public class AnswerService {
 
 
     /**
-     * Performs a soft delete of a answer if the user is it's creator
+     * Performs a soft delete of a answer if the user is it's creator or a mod.
      * @param answerId
      * @return boolean
      */
@@ -73,6 +73,11 @@ public class AnswerService {
                     && answer.getQuestion().getIsActive() == 1
                     || user.getAuthorities().stream().anyMatch(e -> e.getAuthority().equals("ROLE_MODERATOR"))) {
                 answer.setIsActive(0);
+                if(answer.getIsBest() == 1){
+                    reputationService.disfavorBestAnswer(answer);
+                    answer.setIsBest(0);
+                    questionService.openQuestion(answer.getQuestion());
+                }
                 answerRepository.save(answer);
                 return true;
             }
