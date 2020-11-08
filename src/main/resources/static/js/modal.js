@@ -27,7 +27,7 @@ function updateModal(creatorInfo) {
         form.action = `/comment/create/question/${split[1]}`;
     }
     if(split[0] === 'answerComment'){
-        formTitle.innerHTML = 'Resposta'
+        formTitle.innerHTML = 'Comentário'
         form.action = `/comment/create/answer/${split[1]}`;
     }
 
