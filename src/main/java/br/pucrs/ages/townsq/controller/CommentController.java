@@ -4,6 +4,7 @@ import br.pucrs.ages.townsq.model.Comment;
 import br.pucrs.ages.townsq.model.Question;
 import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.service.CommentService;
+import br.pucrs.ages.townsq.service.EmailService;
 import br.pucrs.ages.townsq.service.QuestionService;
 import br.pucrs.ages.townsq.utils.Slugify;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +22,14 @@ public class CommentController {
 
     private final CommentService commentService;
     private final QuestionService questionService;
+    private final EmailService emailService;
+
 
     @Autowired
-    public CommentController(CommentService commentService, QuestionService questionService){
+    public CommentController(CommentService commentService, QuestionService questionService, EmailService emailService){
         this.commentService = commentService;
         this.questionService = questionService;
+        this.emailService = emailService;
     }
 
     /**
@@ -56,7 +60,8 @@ public class CommentController {
             return "redirect:/question/" + questionOfComment.getId() + "/" + Slugify.toSlug(questionOfComment.getTitle());
         }
         try{
-            commentService.saveComment(comment, user, creator, creatorId);
+            Comment createdComment = commentService.saveComment(comment, user, creator, creatorId);
+            emailService.createEmail(createdComment);
             redirectAttributes.addFlashAttribute("success", "Comentário cadastrado com sucesso.");
         }catch (Exception e){
             redirectAttributes.addFlashAttribute("error", "Não foi possível cadastrar o comentário.");

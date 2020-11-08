@@ -1,11 +1,13 @@
 package br.pucrs.ages.townsq.controller;
 
+import br.pucrs.ages.townsq.model.*;
 import br.pucrs.ages.townsq.exception.QuestionNotFoundException;
 import br.pucrs.ages.townsq.model.Answer;
 import br.pucrs.ages.townsq.model.Question;
 import br.pucrs.ages.townsq.model.Topic;
 import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.service.AnswerService;
+import br.pucrs.ages.townsq.service.BannerService;
 import br.pucrs.ages.townsq.service.QuestionService;
 import br.pucrs.ages.townsq.service.TopicService;
 import br.pucrs.ages.townsq.utils.Slugify;
@@ -27,12 +29,14 @@ public class QuestionController {
     private final TopicService topicService;
     private final QuestionService questionService;
     private final AnswerService answerService;
+    private final BannerService bannerService;
 
     @Autowired
-    public QuestionController(TopicService topicService, QuestionService questionService, AnswerService answerService){
+    public QuestionController(TopicService topicService, QuestionService questionService, AnswerService answerService, BannerService bannerService){
         this.topicService = topicService;
         this.questionService = questionService;
         this.answerService = answerService;
+        this.bannerService = bannerService;
     }
 
     /**
@@ -117,6 +121,8 @@ public class QuestionController {
                 request.setAttribute(View.RESPONSE_STATUS_ATTRIBUTE, HttpStatus.MOVED_PERMANENTLY);
                 return "redirect:/question/" + id + "/" + questionSlug;
             }
+            Banner banner = bannerService.getActiveBanner().orElse(null);
+            model.addAttribute("banner", banner);
             model.addAttribute("question", question);
             model.addAttribute("topic", topic);
             model.addAttribute("answers", answerService.getQuestionAnswers(question));

@@ -1,6 +1,6 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.0.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
-    <changeSet author="duduu (generated)" id="1602990868642-1">
+    <changeSet author="vini (generated)" id="1604109928419-1">
         <createTable tableName="answers">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="answersPK"/>
@@ -21,7 +21,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="duduu (generated)" id="1602990868642-2">
+    <changeSet author="vini (generated)" id="1604109928419-2">
         <createTable tableName="banners">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="bannersPK"/>
@@ -40,7 +40,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="duduu (generated)" id="1602990868642-3">
+    <changeSet author="vini (generated)" id="1604109928419-3">
         <createTable tableName="comments">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="commentsPK"/>
@@ -58,7 +58,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="duduu (generated)" id="1602990868642-4">
+    <changeSet author="vini (generated)" id="1604109928419-4">
         <createTable tableName="questions">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="questionsPK"/>
@@ -81,7 +81,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="duduu (generated)" id="1602990868642-5">
+    <changeSet author="vini (generated)" id="1604109928419-5">
         <createTable tableName="reputation_logs">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="reputation_logsPK"/>
@@ -105,7 +105,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="duduu (generated)" id="1602990868642-6">
+    <changeSet author="vini (generated)" id="1604109928419-6">
         <createTable tableName="roles">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="rolesPK"/>
@@ -115,7 +115,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="duduu (generated)" id="1602990868642-7">
+    <changeSet author="vini (generated)" id="1604109928419-7">
         <createTable tableName="topics">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="topicsPK"/>
@@ -128,7 +128,7 @@
             <column name="updated_at" type="TIMESTAMP WITHOUT TIME ZONE"/>
         </createTable>
     </changeSet>
-    <changeSet author="duduu (generated)" id="1602990868642-8">
+    <changeSet author="vini (generated)" id="1604109928419-8">
         <createTable tableName="user_roles">
             <column name="user_id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true"/>
@@ -138,7 +138,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="duduu (generated)" id="1602990868642-9">
+    <changeSet author="vini (generated)" id="1604109928419-9">
         <createTable tableName="users">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="usersPK"/>
@@ -162,46 +162,46 @@
             <column name="website" type="VARCHAR(256)"/>
         </createTable>
     </changeSet>
-    <changeSet author="duduu (generated)" id="1602990868642-10">
+    <changeSet author="vini (generated)" id="1604109928419-10">
         <addUniqueConstraint columnNames="name" constraintName="UC_TOPICSNAME_COL" tableName="topics"/>
     </changeSet>
-    <changeSet author="duduu (generated)" id="1602990868642-11">
+    <changeSet author="vini (generated)" id="1604109928419-11">
         <addUniqueConstraint columnNames="email" constraintName="UC_USERSEMAIL_COL" tableName="users"/>
     </changeSet>
-    <changeSet author="duduu (generated)" id="1602990868642-12">
+    <changeSet author="vini (generated)" id="1604109928419-12">
         <addForeignKeyConstraint baseColumnNames="question_id" baseTableName="answers" constraintName="FK3erw1a3t0r78st8ty27x6v3g1" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="questions" validate="true"/>
     </changeSet>
-    <changeSet author="duduu (generated)" id="1602990868642-13">
+    <changeSet author="vini (generated)" id="1604109928419-13">
         <addForeignKeyConstraint baseColumnNames="from_user_id" baseTableName="reputation_logs" constraintName="FK3hmnjqt40qbybam9diw3t64oi" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="users" validate="true"/>
     </changeSet>
-    <changeSet author="duduu (generated)" id="1602990868642-14">
+    <changeSet author="vini (generated)" id="1604109928419-14">
         <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="answers" constraintName="FK5bp3d5loftq2vjn683ephn75a" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="users" validate="true"/>
     </changeSet>
-    <changeSet author="duduu (generated)" id="1602990868642-15">
+    <changeSet author="vini (generated)" id="1604109928419-15">
         <addForeignKeyConstraint baseColumnNames="question_id" baseTableName="comments" constraintName="FK5og2yrimec2mq7km4wgvvybw3" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="questions" validate="true"/>
     </changeSet>
-    <changeSet author="duduu (generated)" id="1602990868642-16">
+    <changeSet author="vini (generated)" id="1604109928419-16">
         <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="comments" constraintName="FK8omq0tc18jd43bu5tjh6jvraq" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="users" validate="true"/>
     </changeSet>
-    <changeSet author="duduu (generated)" id="1602990868642-17">
+    <changeSet author="vini (generated)" id="1604109928419-17">
         <addForeignKeyConstraint baseColumnNames="question_id" baseTableName="reputation_logs" constraintName="FKafqxmqw9mhe9qy1oc8yrxipjm" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="questions" validate="true"/>
     </changeSet>
-    <changeSet author="duduu (generated)" id="1602990868642-18">
+    <changeSet author="vini (generated)" id="1604109928419-18">
         <addForeignKeyConstraint baseColumnNames="topic_id" baseTableName="questions" constraintName="FKdb5p6ukb0v76he4pq87cbymhg" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="topics" validate="true"/>
     </changeSet>
-    <changeSet author="duduu (generated)" id="1602990868642-19">
+    <changeSet author="vini (generated)" id="1604109928419-19">
         <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="user_roles" constraintName="FKh8ciramu9cc9q3qcqiv4ue8a6" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="roles" validate="true"/>
     </changeSet>
-    <changeSet author="duduu (generated)" id="1602990868642-20">
+    <changeSet author="vini (generated)" id="1604109928419-20">
         <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_roles" constraintName="FKhfh9dx7w3ubf1co1vdev94g3f" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="users" validate="true"/>
     </changeSet>
-    <changeSet author="duduu (generated)" id="1602990868642-21">
+    <changeSet author="vini (generated)" id="1604109928419-21">
         <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="questions" constraintName="FKjoo8hp6d3gfwctr68dl2iaemj" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="users" validate="true"/>
     </changeSet>
-    <changeSet author="duduu (generated)" id="1602990868642-22">
+    <changeSet author="vini (generated)" id="1604109928419-22">
         <addForeignKeyConstraint baseColumnNames="answer_id" baseTableName="comments" constraintName="FKoiwlwqmu9qm0tjnafxqr20rd8" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="answers" validate="true"/>
     </changeSet>
-    <changeSet author="duduu (generated)" id="1602990868642-23">
+    <changeSet author="vini (generated)" id="1604109928419-23">
         <addForeignKeyConstraint baseColumnNames="to_user_id" baseTableName="reputation_logs" constraintName="FKssbxt48p0jbkowfo3ftb111ak" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="users" validate="true"/>
     </changeSet>
 </databaseChangeLog>

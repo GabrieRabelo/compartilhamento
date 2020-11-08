@@ -2,8 +2,10 @@ package br.pucrs.ages.townsq;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 @SpringBootApplication
+@EnableAsync
 public class TownsqApplication {
 
 	public static void main(String[] args) {
@@ -11,3 +13,4 @@ public class TownsqApplication {
 	}
 
 }
+
