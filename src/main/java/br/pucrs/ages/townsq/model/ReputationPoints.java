@@ -4,7 +4,10 @@ public enum ReputationPoints {
 
     CREATED_QUESTION(10),
     COMPLETED_PROFILE(20),
-    DELETED_QUESTION(-10);
+    DELETED_QUESTION(-10),
+    FAVORED_ANSWER(50),
+    UNFAVORED_ANSWER(-50);
+
 
     private final int value;
 

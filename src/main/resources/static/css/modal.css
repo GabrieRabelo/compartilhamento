@@ -14,6 +14,22 @@
     pointer-events: none;
 }
 
+.confirm-modal{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: rgba(0,0,0,0.8);
+    z-index: 99999;
+    opacity:0;
+    -webkit-transition: opacity 400ms ease-in;
+    -moz-transition: opacity 400ms ease-in;
+    transition: opacity 400ms ease-in;
+    pointer-events: none;
+}
+
 .no-transitions{
     -webkit-transition: none;
     -moz-transition: none;
@@ -48,6 +64,14 @@ form textarea{
     background: #fff;
 }
 
+.confirm-modal > div {
+    width: 400px;
+    position: relative;
+    margin: 10% auto;
+    padding: 15px 20px;
+    background: #fff;
+}
+
 .close {
     position: absolute;
     width: 30px;
@@ -70,8 +94,38 @@ form textarea{
     color: white;
 }
 
+#confirmation-question{
+    text-align: center;
+    margin-bottom: 20%;
+    margin-top: 8%;
+}
+
+#confirmation-question-warn{
+    text-align: center;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 10%;
+}
+
+.red-button{
+    background-color: #c41c1c !important;
+}
+
+.delete-icon{
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
 @media (min-width: 320px) and (max-width: 480px) {
     .modal > div {
+        width: 90%;
+        position: relative;
+        margin: 10% auto;
+        padding: 15px 20px;
+        background: #fff;
+    }
+
+    .confirm-modal > div {
         width: 90%;
         position: relative;
         margin: 10% auto;

@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Entity
@@ -76,6 +77,10 @@ public class Question {
         int count = getAllActiveComments().size();
         if (count == 1) return "1 comentário";
         return count + " comentários";
+    }
+
+    public Optional<Answer> getFavoriteAnswer() {
+        return answers.stream().filter(e -> e.getIsBest() == 1).findFirst();
     }
 
 }

@@ -24,8 +24,10 @@ public class Base {
         if (!done) {
             User dummyUser           = User.builder().name("Dummy User").password("12345").email("dummy@emailtest.com").build();
             Topic dummyTopic          = Topic.builder().name("Dummy").status(1).build();
+            User dummyUserAnswer           = User.builder().name("Dummy User Answer").password("12345").email("dummyanser@emailtest.com").build();
 
             userService.save(dummyUser);
+            userService.save(dummyUserAnswer);
             topicRepository.save(dummyTopic);
         }
     }
