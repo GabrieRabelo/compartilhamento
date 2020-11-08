@@ -33,6 +33,7 @@
 
 .container {
     display: flex;
+    height: 100%;
 }
 
 .user {
@@ -62,7 +63,10 @@
 }
 
 .question-card-divider {
-    margin-right: 16px
+    margin-right: 16px;
+    height: 75vh;
+    align-self: start;
+    margin-top: 5%;
 }
 
 .pic-title {

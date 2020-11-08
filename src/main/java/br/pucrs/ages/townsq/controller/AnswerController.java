@@ -4,6 +4,7 @@ import br.pucrs.ages.townsq.model.Answer;
 import br.pucrs.ages.townsq.model.Question;
 import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.service.AnswerService;
+import br.pucrs.ages.townsq.service.EmailService;
 import br.pucrs.ages.townsq.service.QuestionService;
 import br.pucrs.ages.townsq.utils.Slugify;
 import javassist.NotFoundException;
@@ -26,10 +27,12 @@ public class AnswerController {
 
     private final AnswerService answerService;
     private final QuestionService questionService;
+    private final EmailService emailService;
 
-    public AnswerController(AnswerService answerService, QuestionService questionService) {
+    public AnswerController(AnswerService answerService, QuestionService questionService, EmailService emailService) {
         this.answerService = answerService;
         this.questionService = questionService;
+        this.emailService = emailService;
     }
 
     /**
@@ -42,11 +45,13 @@ public class AnswerController {
                                    @ModelAttribute Answer answer,
                                    @ModelAttribute Question question,
                                    final RedirectAttributes redirectAttributes
-                                   ) {
-        try{
-              answerService.saveAnswer(answer, user, question);
-              redirectAttributes.addFlashAttribute("success", "Resposta criada com sucesso!");
-              return "redirect:/question/" + question.getId() + "/" + Slugify.toSlug(question.getTitle());
+    ) {
+        try {
+            Answer createdAnswer = answerService.saveAnswer(answer, user, question);
+            emailService.createEmail(createdAnswer);
+
+            redirectAttributes.addFlashAttribute("success", "Resposta criada com sucesso!");
+            return "redirect:/question/" + question.getId() + "/" + Slugify.toSlug(question.getTitle());
         } catch (IllegalArgumentException ie) {
             redirectAttributes.addFlashAttribute("error", "Resposta não pode ser vazia");
             return "redirect:/question/" + question.getId() + "/" + Slugify.toSlug(question.getTitle());

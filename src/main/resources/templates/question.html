@@ -141,7 +141,7 @@
                  class="answer-textarea-button">
                 <form th:method="post" th:object="${answer}" th:action="@{/answer/create}">
                     <input th:type="hidden" th:id="question" th:name="question" th:value="${question.getId()}"/>
-                    <textarea th:disabled="!${#request.userPrincipal}" name="text" id="text"> </textarea>
+                    <textarea th:disabled="!${#request.userPrincipal}" name="text" id="text" maxlength="512"> </textarea>
                     <button type="submit" class="button-default bg-light-green"
                             th:disabled="!${#request.userPrincipal}">
                         Responder pergunta
@@ -160,6 +160,9 @@
         </div>
         <div class="answer-textarea-container" th:if="${question.getIsActive() == 0}">
             <h2>Este tópico está encerrado.</h2>
+        </div>
+        <div class="banner" th:if="${banner}">
+            <div th:replace="fragments/banner.html :: banner"></div>
         </div>
         <div th:each="answer:${answers}">
             <div class="answer-card-actions">
@@ -217,16 +220,13 @@
                             <small th:text="${comment.getText()}" th:id="'comment-' + ${comment.getId()}"></small>
                         </div>
                         <div class="comment-right">
-                            <a th:href="'/user/' + ${comment.getUser().getId()}"><small
-                                    th:text="${comment.getUser().getName()}"></small></a>
+                            <a th:href="'/user/' + ${comment.getUser().getId()}"><small th:text="${comment.getUser().getName()}"></small></a>
                         </div>
                     </div>
-                    <div class="action-icons-comment" sec:authorize="isAuthenticated()" th:if="${#authentication.getPrincipal().id == comment.getUser().getId()
-                    || #authorization.expression('hasRole(''ROLE_MODERATOR'')')}">
-                        <img th:onclick="|updateModal('editComment;${comment.getId()}')|"
-                             th:src="@{/img/icons/lapis.svg}" alt="Editar comentário"/>
-                        <img alt="deletar" class="delete-icon" th:src="@{/img/icons/lixeira.svg}"
-                             th:onclick="|updateConfirmation('commentDeleteConfirmation;${question.getId()};${comment.getId()}')|"/>
+                    <div class="action-icons-comment" sec:authorize="isAuthenticated()"
+                         th:if="${#authentication.getPrincipal().id == comment.getUser().getId() || #authorization.expression('hasRole(''ROLE_MODERATOR'')')}">
+                        <img th:onclick="|updateModal('editComment;${comment.getId()}')|" th:src="@{/img/icons/lapis.svg}" alt="Editar comentário"/>
+                        <a th:href="'/comment/delete/' + ${question.getId()} + '/' + ${comment.getId()}"><img th:src="@{/img/icons/lixeira.svg}" alt="Excluir comentário"/></a>
                     </div>
                 </div>
             </div>
