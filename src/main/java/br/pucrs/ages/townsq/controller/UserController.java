@@ -1,5 +1,6 @@
 package br.pucrs.ages.townsq.controller;
 
+import br.pucrs.ages.townsq.exception.UserNotFoundException;
 import br.pucrs.ages.townsq.model.Banner;
 import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.service.BannerService;
@@ -81,8 +82,10 @@ public class UserController {
     @GetMapping(value = {"/user/{id}"})
     public String getUserById(HttpServletRequest request, @PathVariable long id, Model model, HttpSession session) {
         User user = service.getUserById(id).orElse(null);
-        Banner banner = bannerService.getActiveBanner().orElse(null);
 
+        if(user == null) throw new UserNotFoundException();
+
+        Banner banner = bannerService.getActiveBanner().orElse(null);
         model.addAttribute("banner", banner);
         model.addAttribute("user", user);
         return "user";

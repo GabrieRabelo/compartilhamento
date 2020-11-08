@@ -1,6 +1,11 @@
 package br.pucrs.ages.townsq.controller;
 
 import br.pucrs.ages.townsq.model.*;
+import br.pucrs.ages.townsq.exception.QuestionNotFoundException;
+import br.pucrs.ages.townsq.model.Answer;
+import br.pucrs.ages.townsq.model.Question;
+import br.pucrs.ages.townsq.model.Topic;
+import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.service.AnswerService;
 import br.pucrs.ages.townsq.service.BannerService;
 import br.pucrs.ages.townsq.service.QuestionService;
@@ -108,8 +113,7 @@ public class QuestionController {
                               @PathVariable long id,
                               @PathVariable(required = false) String slug,
                               Model model){
-        Question question = questionService.getQuestionById(id).orElse(null);
-
+        Question question = questionService.getNonDeletedQuestionById(id).orElse(null);
         if(question != null){
             Topic topic = question.getTopic();
             String questionSlug = Slugify.toSlug(question.getTitle());
@@ -125,7 +129,7 @@ public class QuestionController {
             model.addAttribute("answer", new Answer());
             return "question";
         }
-        return "question";
+        else throw new QuestionNotFoundException();
     }
 
     /**
@@ -140,7 +144,7 @@ public class QuestionController {
     public String editQuestionById(@AuthenticationPrincipal User user,
                                    @PathVariable long id,
                                    Model model){
-        Question question = questionService.getQuestionById(id).orElse(null);
+        Question question = questionService.getNonDeletedQuestionById(id).orElse(null);
             if(question != null &&
                     (question.getUser().getId().equals(user.getId())) ||
                         user.getAuthorities().stream().anyMatch(e -> e.getAuthority().equals("ROLE_MODERATOR"))){
