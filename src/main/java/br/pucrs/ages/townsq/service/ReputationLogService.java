@@ -1,6 +1,10 @@
 package br.pucrs.ages.townsq.service;
 
 import br.pucrs.ages.townsq.model.*;
+import br.pucrs.ages.townsq.model.Answer;
+import br.pucrs.ages.townsq.model.Question;
+import br.pucrs.ages.townsq.model.ReputationLog;
+import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.repository.ReputationLogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,6 +74,30 @@ public class ReputationLogService {
             return reputationRepository.save(creatorLog);
         }
         return null;
+    }
+
+    public void favoriteBestAnswer(Answer answer){
+        ReputationLog toPersist = ReputationLog.builder()
+                .eventType(ReputationEventType.FAVORED_ANSWER.getValue())
+                .points(ReputationPoints.FAVORED_ANSWER.getValue())
+                .isActive(1)
+                .question(answer.getQuestion())
+                .toUser(answer.getUser())
+                .fromUser(answer.getQuestion().getUser())
+                .build();
+        reputationRepository.save(toPersist);
+    }
+
+    public void disfavorBestAnswer(Answer answer){
+        ReputationLog toPersist = ReputationLog.builder()
+                .eventType(ReputationEventType.UNFAVORED_ANSWER.getValue())
+                .points(ReputationPoints.UNFAVORED_ANSWER.getValue())
+                .isActive(1)
+                .question(answer.getQuestion())
+                .toUser(answer.getUser())
+                .fromUser(answer.getQuestion().getUser())
+                .build();
+        reputationRepository.save(toPersist);
     }
 
 }
