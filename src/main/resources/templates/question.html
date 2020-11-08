@@ -121,6 +121,9 @@
                 <h2>Bela tentativa!</h2>
             </div>
         </div>
+        <div class="banner" th:if="${banner}">
+            <div th:replace="fragments/banner.html :: banner"></div>
+        </div>
         <div th:each="answer:${answers}">
             <div class="answer-card-actions">
                 <div sec:authorize="isAuthenticated()"
