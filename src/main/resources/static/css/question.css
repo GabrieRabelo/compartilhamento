@@ -351,6 +351,10 @@ hr{
     margin-left: 4px;
 }
 
+.banner {
+    margin-bottom: 3rem;
+}
+
 #desktop-status{
     display: flex;
 }

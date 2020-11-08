@@ -206,6 +206,10 @@ aside {
     margin-top: 10vh;
 }
 
+.banner h1 {
+    margin-bottom: 0px;
+}
+
 #banner-mobile{
     display: none;
 }
@@ -236,6 +240,17 @@ aside {
         display: none;
     }
     .question-card {
+        width: 80%;
+    }
+
+    #banner-mobile{
+        display: flex;
+    }
+
+    .banner{
+        padding-top: 0;
+        margin-top: 0;
+        margin-bottom: 16px;
         width: 80%;
     }
 }
@@ -286,5 +301,6 @@ aside {
         padding-top: 0;
         margin-top: 0;
         margin-bottom: 16px;
+        width: 95%;
     }
 }
