@@ -66,4 +66,9 @@ public class Answer {
         return comments.stream().filter(e -> e.getIsActive() == 1).collect(Collectors.toList());
     }
 
+    public String getUpdatedAtString(){
+        if(this.createdAt.equals(this.updatedAt)) return "";
+        return "Editado " + Chronos.dateToPrettyTimeString(this.updatedAt);
+    }
+
 }

@@ -77,6 +77,7 @@
                             <a th:href="@{/user/{id}(id=${question.getUser().getId()})}"
                                th:text="${question.getUser().getName()}"></a>
                             <small th:text="${question.getCreatedAtString()}"></small>
+                            <small th:text="${question.getUpdatedAtString()}"></small>
                         </div>
                     </div>
                     <div th:if="${question.getIsActive() == 0}" class="status-pill-questions bg-success self-end" id="mobile-status">
@@ -183,6 +184,7 @@
                             <a th:href="@{/user/{id}(id=${answer.getUser().getId()})}"
                                th:text="${answer.getUser().getName()}"></a>
                             <small th:text="${answer.getCreatedAtString()}"></small>
+                            <small th:text="${answer.getUpdatedAtString()}"></small>
                         </div>
                     </div>
                     <div class="answer-card-right">

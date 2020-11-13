@@ -83,4 +83,9 @@ public class Question {
         return answers.stream().filter(e -> e.getIsBest() == 1).findFirst();
     }
 
+    public String getUpdatedAtString(){
+        if(this.createdAt.equals(this.updatedAt)) return "";
+        return "Editado " + Chronos.dateToPrettyTimeString(this.updatedAt);
+    }
+
 }
