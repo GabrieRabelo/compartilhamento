@@ -93,7 +93,8 @@ public class ReputationLogServiceTest extends Base{
 
         dummyUserAnswer = userService.getUserByEmail("dummyanser@emailtest.com").orElse(null);
 
-        assertEquals(50, Objects.requireNonNull(dummyUserAnswer).getScore());
+        // Expects 60, since it's the result of (CREATED ANSWER + BEST ANSWER)
+        assertEquals(60, Objects.requireNonNull(dummyUserAnswer).getScore());
     }
 
 }
