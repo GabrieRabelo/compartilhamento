@@ -62,7 +62,7 @@ public class EmailService {
 
             templateEmailModel.put("emailTextInitial", "A sua pergunta " );
             templateEmailModel.put("emailTextEnd", " tem uma nova resposta.");
-            templateEmailModel.put("questionUrl", env.getProperty("misc.root-url") + answer.getQuestion().getId());
+            templateEmailModel.put("questionUrl", env.getProperty("misc.root-url") + "question/" + answer.getQuestion().getId());
             templateEmailModel.put("emailSubject","TownSQ - Alguém respondeu sua pergunta");
             templateEmailModel.put("questionTitle", answer.getQuestion().getTitle());
             templateEmailModel.put("userName", answer.getQuestion().getUser().getName());
@@ -81,7 +81,7 @@ public class EmailService {
                 templateEmailModel.put("emailSubject","TownSQ - Alguém comentou sua resposta");
                 templateEmailModel.put("userName", answer.getUser().getName());
                 templateEmailModel.put("userEmail", answer.getUser().getEmail());
-                templateEmailModel.put("questionUrl", env.getProperty("misc.root-url") + answer.getQuestion().getId());
+                templateEmailModel.put("questionUrl", env.getProperty("misc.root-url") + "question/" + answer.getQuestion().getId());
             } else if (comment.getQuestion() != null) {
                 Question question = comment.getQuestion();
                 templateEmailModel.put("emailTextInitial", "A sua pergunta " );
@@ -90,7 +90,7 @@ public class EmailService {
                 templateEmailModel.put("emailSubject","TownSQ - Alguém comentou a sua pergunta");
                 templateEmailModel.put("userName", question.getUser().getName());
                 templateEmailModel.put("userEmail", question.getUser().getEmail());
-                templateEmailModel.put("questionUrl", env.getProperty("misc.root-url") + question.getId());
+                templateEmailModel.put("questionUrl", env.getProperty("misc.root-url") + "question/" + question.getId());
             }
             sendEmail();
         }
