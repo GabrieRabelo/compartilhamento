@@ -15,6 +15,7 @@
         <div class="tabs">
             <a class="prop" href="/admin/banner">Editar Propaganda</a>
             <a class="mods" th:classappend="${active} ? 'active' : ''" href="/admin/mods">Gerenciar Moderadores <span></span> </a>
+            <a class="mods" href="/admin/topics">Gerenciar Tópicos</a>
         </div>
         <form role="form" th:action="@{/admin/mods/getUser}" th:method="post">
             <div class="form">

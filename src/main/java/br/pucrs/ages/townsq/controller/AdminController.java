@@ -2,6 +2,7 @@ package br.pucrs.ages.townsq.controller;
 
 import br.pucrs.ages.townsq.model.Banner;
 import br.pucrs.ages.townsq.model.Role;
+import br.pucrs.ages.townsq.model.Topic;
 import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.service.BannerService;
 import br.pucrs.ages.townsq.service.UserService;
@@ -53,6 +54,14 @@ public class AdminController {
         model.addAttribute("moderators", moderators);
         model.addAttribute("active", true);
         return  "adminMods";
+    }
+
+    @GetMapping("/admin/topics")
+    public String getAdminTopicsPage(Model model) {
+//        List<Topic> topics = service.();
+//        model.addAttribute("topics", moderators);
+        model.addAttribute("active", true);
+        return  "adminTopic";
     }
 
     @PostMapping("/admin/mods/create")
