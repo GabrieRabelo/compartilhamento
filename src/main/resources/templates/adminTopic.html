@@ -20,7 +20,7 @@
         <form role="form" th:action="@{/admin/topic/getTopic}" th:method="post">
             <div class="form">
                 <h1 class="title">Adicione um tópico</h1>
-                <div id="email-input" class="form-control">
+                <div class="topic-input form-control">
                     <input type="text" name="name" id="name" required placeholder="Nome do tópico"/>
                 </div>
                 <div class="row white-background">
@@ -29,32 +29,14 @@
             </div>
         </form>
 
-        <h2>Lista de tópicos</h2>
-        <div class="moderators">
-            <div class="topics-card">
-<!--                 th:each="moderator: ${moderators}"-->
-
-                <p>Segurança</p>
-                <a >Editar</a>
-                <a >Remover</a>
-            </div>
-            <div class="topics-card">
-                <!--                 th:each="moderator: ${moderators}"-->
-
-                <p>Segurança</p>
-                <a >Editar</a>
-                <a >Remover</a>
-            </div>
-            <div class="topics-card">
-                <!--                 th:each="moderator: ${moderators}"-->
-
-                <p>Segurança</p>
-                <a >Editar</a>
-                <a >Remover</a>
+        <h2 class="title-center">Lista de tópicos</h2>
+        <div class="topics">
+            <div class="topics-card" th:each="topic: ${topics}">
+                <p th:text="${topic.getName()}"></p>
+                <a class="remove-button">Remover</a>
             </div>
         </div>
     </div>
-
 </div>
 
 <div th:replace="fragments/toast.html :: toasts">

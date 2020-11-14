@@ -114,7 +114,7 @@
 
 }
 
-.mod-card a {
+.remove-button  {
     background-color: #D83D3D;
     padding: 10px;
     color: #FFF;
@@ -128,17 +128,35 @@
     padding: 5px 5px;
 }
 
+.topics{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    overflow-y: scroll;
+    justify-content: center;
+    width: 50%;
+    margin:0 auto;
+}
+
 .topics-card {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    width: 45%;
+    width: 20vw;
     display: flex;
     padding: 16px;
     box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.25);
     margin: 20px 20px;
     border-radius: 10px;
+}
 
+.topic-input{
+    width: 25%;
+}
+
+.title-center{
+    text-align: center;
 }
 
 .mobile{

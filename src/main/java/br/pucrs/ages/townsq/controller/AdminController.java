@@ -5,21 +5,19 @@ import br.pucrs.ages.townsq.model.Role;
 import br.pucrs.ages.townsq.model.Topic;
 import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.service.BannerService;
+import br.pucrs.ages.townsq.service.TopicService;
 import br.pucrs.ages.townsq.service.UserService;
 import org.hibernate.validator.internal.engine.ConstraintViolationImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolationException;
 import java.net.MalformedURLException;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -28,11 +26,13 @@ public class AdminController {
 
     private final UserService service;
     private final BannerService adService;
+    private final TopicService topicService;
 
     @Autowired
-    public AdminController(UserService service, BannerService adService){
+    public AdminController(UserService service, BannerService adService, TopicService topicService){
         this.service = service;
         this.adService = adService;
+        this.topicService = topicService;
     }
 
     @GetMapping("/admin")
@@ -58,8 +58,9 @@ public class AdminController {
 
     @GetMapping("/admin/topics")
     public String getAdminTopicsPage(Model model) {
-//        List<Topic> topics = service.();
-//        model.addAttribute("topics", moderators);
+      //List<Topic> topics = topicService.getAllTopics();
+        List<Topic> topics = topicService.getAllTopicsByStatus(1);
+        model.addAttribute("topics",topics);
         model.addAttribute("active", true);
         return  "adminTopic";
     }
