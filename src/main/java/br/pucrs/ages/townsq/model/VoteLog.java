@@ -1,6 +1,6 @@
 package br.pucrs.ages.townsq.model;
 
-import br.pucrs.ages.townsq.listeners.ReputationLogListener;
+import br.pucrs.ages.townsq.listeners.VoteLogListener;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -9,6 +9,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@EntityListeners(VoteLogListener.class)
 @Table(name = "vote_logs")
 @NoArgsConstructor
 @AllArgsConstructor

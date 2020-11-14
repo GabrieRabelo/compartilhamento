@@ -34,6 +34,7 @@ public class VoteService {
                         .question(question)
                         .eventType("UPVOTE")
                         .score(1)
+                        .isActive(1)
                         .build();
                 voteLogRepository.save(toSave);
             }
@@ -45,6 +46,7 @@ public class VoteService {
                             .question(question)
                             .eventType("UPVOTE")
                             .score(1)
+                            .isActive(1)
                             .build();
                     voteLogRepository.save(toSave);
                 }
@@ -62,6 +64,7 @@ public class VoteService {
                         .answer(answer)
                         .eventType("UPVOTE")
                         .score(1)
+                        .isActive(1)
                         .build();
                 voteLogRepository.save(toSave);
             }
@@ -73,6 +76,7 @@ public class VoteService {
                             .answer(answer)
                             .eventType("UPVOTE")
                             .score(1)
+                            .isActive(1)
                             .build();
                     voteLogRepository.save(toSave);
                 }

@@ -113,4 +113,9 @@ public class QuestionService {
         questionFrom.setIsActive(1);
         repository.save(questionFrom);
     }
+
+    public void updateQuestionScore(Question question, int score){
+        question.setScore(question.getScore() + score);
+        repository.save(question);
+    }
 }
