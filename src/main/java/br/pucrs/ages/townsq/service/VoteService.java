@@ -1,5 +1,6 @@
 package br.pucrs.ages.townsq.service;
 
+import br.pucrs.ages.townsq.model.Answer;
 import br.pucrs.ages.townsq.model.Question;
 import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.model.VoteLog;
@@ -10,15 +11,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class VoteService {
     private QuestionService questionService;
+    private AnswerService answerService;
     private VoteLogRepository voteLogRepository;
 
     @Autowired
-    public VoteService(QuestionService questionService, VoteLogRepository voteLogRepository) {
+    public VoteService(QuestionService questionService, VoteLogRepository voteLogRepository, AnswerService answerService) {
         this.questionService = questionService;
         this.voteLogRepository = voteLogRepository;
+        this.answerService = answerService;
     }
 
-    public VoteLog upVote(String type, long id, User user) {
+    public void upVote(String type, long id, User user) {
         if (type.equals("question")) {
             Question question = questionService.getNonDeletedQuestionById(id).orElse(null);
             if (question == null) {
@@ -32,10 +35,49 @@ public class VoteService {
                         .eventType("UPVOTE")
                         .score(1)
                         .build();
-                return voteLogRepository.save(toSave);
+                voteLogRepository.save(toSave);
+            }
+            else {
+                voteLogRepository.delete(vote);
+                if(vote.getEventType().equals("DOWNVOTE")){
+                    VoteLog toSave = VoteLog.builder()
+                            .user(user)
+                            .question(question)
+                            .eventType("UPVOTE")
+                            .score(1)
+                            .build();
+                    voteLogRepository.save(toSave);
+                }
             }
         }
-      return null;
+        if (type.equals("answer")) {
+            Answer answer = answerService.findById(id).orElse(null);
+            if(answer == null) {
+                throw new IllegalArgumentException("ID inválido");
+            }
+            VoteLog vote = voteLogRepository.getVoteLogByAnswerAndUser(answer, user).orElse(null);
+            if (vote == null) {
+                VoteLog toSave = VoteLog.builder()
+                        .user(user)
+                        .answer(answer)
+                        .eventType("UPVOTE")
+                        .score(1)
+                        .build();
+                voteLogRepository.save(toSave);
+            }
+            else {
+                voteLogRepository.delete(vote);
+                if(vote.getEventType().equals("DOWNVOTE")){
+                    VoteLog toSave = VoteLog.builder()
+                            .user(user)
+                            .answer(answer)
+                            .eventType("UPVOTE")
+                            .score(1)
+                            .build();
+                    voteLogRepository.save(toSave);
+                }
+            }
+        }
     }
 
 }
