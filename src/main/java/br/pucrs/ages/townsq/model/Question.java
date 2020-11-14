@@ -34,6 +34,8 @@ public class Question {
     @NotEmpty(message = "Descrição não pode ser vazia.")
     @Column(name = "description", columnDefinition = "VARCHAR(512)", nullable =  false)
     private String description;
+    @Column(name = "score")
+    private int score = 0;
     @Column(name = "isActive")
     private int isActive = 1;
     @UpdateTimestamp
