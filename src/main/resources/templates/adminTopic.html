@@ -33,7 +33,7 @@
         <div class="topics">
             <div class="topics-card" th:each="topic: ${topics}">
                 <p th:text="${topic.getName()}"></p>
-                <a class="remove-button">Remover</a>
+                <a class="remove-button" th:href="@{/admin/topics/delete/{id}(id=${topic.getId()})}">Remover</a>
             </div>
         </div>
     </div>

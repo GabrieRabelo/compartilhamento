@@ -29,4 +29,13 @@ public class TopicService {
         return repo.save(topic);
     }
 
+    public boolean setTopicToInactive(long id){
+        Topic topic= repo.findById(id).orElse(null);
+        if (topic != null){
+            topic.setStatus(0);
+            repo.save(topic);
+            return true;
+        }
+        return false;
+    }
 }

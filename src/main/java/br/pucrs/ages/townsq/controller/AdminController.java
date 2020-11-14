@@ -18,7 +18,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.ConstraintViolationException;
 import java.net.MalformedURLException;
-import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Set;
 
@@ -70,6 +69,18 @@ public class AdminController {
     public String createNewTopic(Topic topic, final RedirectAttributes redirectAttributes){
         topicService.create(topic);
         redirectAttributes.addFlashAttribute("success","Tópico criado com sucesso.");
+        return "redirect:/admin/topics";
+    }
+
+    @GetMapping("/admin/topics/delete/{id}")
+    public String removeTopic(@PathVariable long id, final RedirectAttributes redirectAttributes){
+        boolean deleted = topicService.setTopicToInactive(id);
+        if (deleted){
+            redirectAttributes.addFlashAttribute("success","Tópico removido com sucesso.");
+        }
+        else {
+            redirectAttributes.addFlashAttribute("error","Erro ao remover tópico.");
+        }
         return "redirect:/admin/topics";
     }
 
