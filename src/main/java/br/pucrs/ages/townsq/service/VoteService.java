@@ -10,9 +10,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class VoteService {
-    private QuestionService questionService;
-    private AnswerService answerService;
-    private VoteLogRepository voteLogRepository;
+    private final QuestionService questionService;
+    private final AnswerService answerService;
+    private final VoteLogRepository voteLogRepository;
 
     @Autowired
     public VoteService(QuestionService questionService, VoteLogRepository voteLogRepository, AnswerService answerService) {
