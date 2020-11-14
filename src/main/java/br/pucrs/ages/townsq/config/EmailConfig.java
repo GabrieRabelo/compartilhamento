@@ -9,6 +9,7 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Properties;
@@ -51,22 +52,5 @@ public class EmailConfig {
         javaMailSender.setJavaMailProperties(props);
 
         return javaMailSender;
-    }
-
-    @Bean
-    public TemplateEngine springTemplateEngine() {
-        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-        templateEngine.addTemplateResolver(htmlTemplateResolver());
-        return templateEngine;
-    }
-
-    @Bean
-    public SpringResourceTemplateResolver htmlTemplateResolver(){
-        SpringResourceTemplateResolver emailTemplateResolver = new SpringResourceTemplateResolver();
-        emailTemplateResolver.setPrefix("classpath:/templates/");
-        emailTemplateResolver.setSuffix(".html");
-        emailTemplateResolver.setTemplateMode("HTML");
-        emailTemplateResolver.setCharacterEncoding("UTF-8");
-        return emailTemplateResolver;
     }
 }
