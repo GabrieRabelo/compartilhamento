@@ -25,4 +25,8 @@ public class TopicService {
         return repo.findAll();
     }
 
+    public Topic create(Topic topic){
+        return repo.save(topic);
+    }
+
 }

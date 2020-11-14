@@ -17,7 +17,7 @@
             <a class="mods" href="/admin/mods">Gerenciar Moderadores <span></span> </a>
             <a class="mods" th:classappend="${active} ? 'active' : ''" href="/admin/topics">Gerenciar Tópicos</a>
         </div>
-        <form role="form" th:action="@{/admin/topic/getTopic}" th:method="post">
+        <form role="form" th:action="@{/admin/topics/create}" th:method="post" th:object="${topic}">
             <div class="form">
                 <h1 class="title">Adicione um tópico</h1>
                 <div class="topic-input form-control">

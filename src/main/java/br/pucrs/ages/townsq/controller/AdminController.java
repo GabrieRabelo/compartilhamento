@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.ConstraintViolationException;
 import java.net.MalformedURLException;
+import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Set;
 
@@ -63,6 +64,13 @@ public class AdminController {
         model.addAttribute("topics",topics);
         model.addAttribute("active", true);
         return  "adminTopic";
+    }
+
+    @PostMapping("/admin/topics/create")
+    public String createNewTopic(Topic topic, final RedirectAttributes redirectAttributes){
+        topicService.create(topic);
+        redirectAttributes.addFlashAttribute("success","Tópico criado com sucesso.");
+        return "redirect:/admin/topics";
     }
 
     @PostMapping("/admin/mods/create")
