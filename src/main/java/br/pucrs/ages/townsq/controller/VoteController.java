@@ -22,6 +22,6 @@ public class VoteController {
     @GetMapping("/upvote/{entity}/{id}")
     public String getTestUpvote(@PathVariable String entity, @PathVariable Long id, @AuthenticationPrincipal User user){
         voteService.upVote(entity, id, user);
-        return "/";
+        return "redirect:/";
     }
 }
