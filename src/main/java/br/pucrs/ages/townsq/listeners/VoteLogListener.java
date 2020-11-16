@@ -14,6 +14,8 @@ import javax.persistence.PostRemove;
 @Component
 public class VoteLogListener {
 
+    public VoteLogListener() { }
+
     @PersistenceContext
     private EntityManager entityManager;
 
