@@ -84,4 +84,67 @@ public class VoteService {
         }
     }
 
+    public void downVote(String type, long id, User user) {
+        if (type.equals("question")) {
+            Question question = questionService.getNonDeletedQuestionById(id).orElse(null);
+            if (question == null) {
+                throw new IllegalArgumentException("ID inválido");
+            }
+            VoteLog vote = voteLogRepository.getVoteLogByQuestionAndUser(question, user).orElse(null);
+            if (vote == null) {
+                VoteLog toSave = VoteLog.builder()
+                        .user(user)
+                        .question(question)
+                        .eventType("DOWNVOTE")
+                        .score(-1)
+                        .isActive(1)
+                        .build();
+                voteLogRepository.save(toSave);
+            }
+            else {
+                voteLogRepository.delete(vote);
+                if(vote.getEventType().equals("UPVOTE")){
+                    VoteLog toSave = VoteLog.builder()
+                            .user(user)
+                            .question(question)
+                            .eventType("DOWNVOTE")
+                            .score(-1)
+                            .isActive(1)
+                            .build();
+                    voteLogRepository.save(toSave);
+                }
+            }
+        }
+        if (type.equals("answer")) {
+            Answer answer = answerService.findById(id).orElse(null);
+            if(answer == null) {
+                throw new IllegalArgumentException("ID inválido");
+            }
+            VoteLog vote = voteLogRepository.getVoteLogByAnswerAndUser(answer, user).orElse(null);
+            if (vote == null) {
+                VoteLog toSave = VoteLog.builder()
+                        .user(user)
+                        .answer(answer)
+                        .eventType("DOWNVOTE")
+                        .score(-1)
+                        .isActive(1)
+                        .build();
+                voteLogRepository.save(toSave);
+            }
+            else {
+                voteLogRepository.delete(vote);
+                if(vote.getEventType().equals("UPVOTE")){
+                    VoteLog toSave = VoteLog.builder()
+                            .user(user)
+                            .answer(answer)
+                            .eventType("DOWNVOTE")
+                            .score(-1)
+                            .isActive(1)
+                            .build();
+                    voteLogRepository.save(toSave);
+                }
+            }
+        }
+    }
+
 }
