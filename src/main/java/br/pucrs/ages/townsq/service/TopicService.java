@@ -26,6 +26,18 @@ public class TopicService {
     }
 
     public Topic create(Topic topic){
+        var topicOptional = repo.findByName(topic.getName());
+
+        if(topicOptional.isPresent() && topicOptional.get().getStatus() == 1)
+            throw new IllegalArgumentException("Este tópico já existe.");
+
+        return topicOptional
+                .map(this::setTopicToActive)
+                .orElseGet(() -> repo.save(topic));
+    }
+
+    private Topic setTopicToActive(Topic topic){
+        topic.setStatus(1);
         return repo.save(topic);
     }
 

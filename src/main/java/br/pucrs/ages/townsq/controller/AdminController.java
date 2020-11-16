@@ -58,7 +58,6 @@ public class AdminController {
 
     @GetMapping("/admin/topics")
     public String getAdminTopicsPage(Model model) {
-      //List<Topic> topics = topicService.getAllTopics();
         List<Topic> topics = topicService.getAllTopicsByStatus(1);
         model.addAttribute("topics",topics);
         model.addAttribute("active", true);
@@ -67,8 +66,12 @@ public class AdminController {
 
     @PostMapping("/admin/topics/create")
     public String createNewTopic(Topic topic, final RedirectAttributes redirectAttributes){
-        topicService.create(topic);
-        redirectAttributes.addFlashAttribute("success","Tópico criado com sucesso.");
+        try{
+            topicService.create(topic);
+            redirectAttributes.addFlashAttribute("success","Tópico criado com sucesso.");
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+        }
         return "redirect:/admin/topics";
     }
 
