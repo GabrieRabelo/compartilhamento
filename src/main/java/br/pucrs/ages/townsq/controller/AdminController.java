@@ -7,8 +7,10 @@ import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.service.BannerService;
 import br.pucrs.ages.townsq.service.TopicService;
 import br.pucrs.ages.townsq.service.UserService;
+import org.hibernate.exception.DataException;
 import org.hibernate.validator.internal.engine.ConstraintViolationImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -69,8 +71,10 @@ public class AdminController {
         try{
             topicService.create(topic);
             redirectAttributes.addFlashAttribute("success","Tópico criado com sucesso.");
-        } catch (IllegalArgumentException e) {
+        } catch ( IllegalArgumentException e ){
             redirectAttributes.addFlashAttribute("error", e.getMessage());
+        } catch ( DataIntegrityViolationException e) {
+            redirectAttributes.addFlashAttribute("error", "Não foi possível criar o tópico.");
         }
         return "redirect:/admin/topics";
     }

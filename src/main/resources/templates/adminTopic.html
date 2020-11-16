@@ -13,15 +13,15 @@
     <div class="col-12">
         <div class="line"></div>
         <div class="tabs">
-            <a class="prop" href="/admin/banner">Editar Propaganda</a>
-            <a class="mods" href="/admin/mods">Gerenciar Moderadores <span></span> </a>
-            <a class="mods" th:classappend="${active} ? 'active' : ''" href="/admin/topics">Gerenciar Tópicos</a>
+            <a class="tab-item" href="/admin/banner">Editar Propaganda</a>
+            <a class="tab-item" href="/admin/mods">Gerenciar Moderadores <span></span> </a>
+            <a class="tab-item" th:classappend="${active} ? 'active' : ''" href="/admin/topics">Gerenciar Tópicos</a>
         </div>
         <form role="form" th:action="@{/admin/topics/create}" th:method="post" th:object="${topic}">
             <div class="form">
                 <h1 class="title">Adicione um tópico</h1>
                 <div class="topic-input form-control">
-                    <input type="text" name="name" id="name" required placeholder="Nome do tópico"/>
+                    <input type="text" name="name" id="name" required maxlength="80" placeholder="Nome do tópico"/>
                 </div>
                 <div class="row white-background">
                     <button type="submit">Adicionar</button>

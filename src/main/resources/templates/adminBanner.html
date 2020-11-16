@@ -13,9 +13,9 @@
     <div class="col-6">
         <div class="line"></div>
         <div class="tabs">
-            <a class="prop" th:classappend="${active} ? 'active' : ''" href="/admin/banner">Editar Propaganda <span></span></a>
-            <a class="mods" href="/admin/mods">Gerenciar Moderadores</a>
-            <a class="mods" href="/admin/topics">Gerenciar Tópicos</a>
+            <a class="tab-item" th:classappend="${active} ? 'active' : ''" href="/admin/banner">Editar Propaganda <span></span></a>
+            <a class="tab-item" href="/admin/mods">Gerenciar Moderadores</a>
+            <a class="tab-item" href="/admin/topics">Gerenciar Tópicos</a>
         </div>
         <form role="form" th:action="@{/admin/banner}" th:method="post" th:object="${banner}">
             <div class="form">

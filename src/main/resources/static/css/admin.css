@@ -97,6 +97,10 @@
     margin-bottom: 40px;
 }
 
+.tab-item {
+    word-break: keep-all;
+}
+
 .col-6 #mod-text {
     text-align: center;
 }
@@ -121,6 +125,7 @@
     cursor: pointer;
     border-radius: 5px;
     text-decoration: none;
+    word-break: keep-all;
 }
 
 .mod-card img {
@@ -215,6 +220,15 @@
     .desktop {
         display: none;
     }
+
+    .topics {
+        flex-direction: column;
+        width: 75%;
+    }
+
+    .topics-card {
+        width: 85%;
+    }
 }
 
 @media (max-width: 500px) {
@@ -229,6 +243,14 @@
 
     #email-input {
         width: 100%;
+    }
+
+    .topics {
+        width: 100%;
+    }
+
+    .topics-card {
+        width: 90%;
     }
 }
 
