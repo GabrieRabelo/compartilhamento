@@ -5,6 +5,7 @@
 >
 <head>
     <div th:replace="fragments/head :: header"></div>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/question.css}">
     <link rel="stylesheet" th:href="@{/css/modal.css}">
 
@@ -77,7 +78,7 @@
                             <a th:href="@{/user/{id}(id=${question.getUser().getId()})}"
                                th:text="${question.getUser().getName()}"></a>
                             <small th:text="${question.getCreatedAtString()}"></small>
-                            <small th:text="${question.getScore()}"></small>
+<!--                            <small th:text="${question.getScore()}"></small>-->
                         </div>
                     </div>
                     <div th:if="${question.getIsActive() == 0}" class="status-pill-questions bg-success self-end" id="mobile-status">
@@ -97,8 +98,17 @@
                         </div>
                     </div>
 
-                    <div class="question-text">
-                        <p th:text="${question.getDescription()}"></p>
+                    <div class="row">
+                        <div class="question-text col-11">
+                            <p th:text="${question.getDescription()}"></p>
+                        </div>
+                        <div class="vote-container col-1">
+                            <div class="vote mt-4">
+                                <img th:src="@{/img/icons/upvote.svg}" class="vote-button" alt="upvote">
+                                <div class="vote-number" th:text="${answer.getScore()}"></div>
+                                <img th:src="@{/img/icons/downvote.svg}" class="vote-button" alt="downvote">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -184,7 +194,7 @@
                             <a th:href="@{/user/{id}(id=${answer.getUser().getId()})}"
                                th:text="${answer.getUser().getName()}"></a>
                             <small th:text="${answer.getCreatedAtString()}"></small>
-                            <small th:text="${answer.getScore()}"></small>
+<!--                            <small th:text="${answer.getScore()}"></small>-->
                         </div>
                     </div>
                     <div class="answer-card-right">
@@ -204,6 +214,11 @@
                                      th:src="@{/img/icons/best_answer.svg}"/>
                             </a>
                         </div>
+                            <div class="vote align-self-end my-3">
+                                <img th:src="@{/img/icons/upvote.svg}" class="vote-button" alt="upvote">
+                                <div class="vote-number" th:text="${answer.getScore()}"></div>
+                                <img th:src="@{/img/icons/downvote.svg}" class="vote-button" alt="downvote">
+                            </div>
                         <div th:if="${answer.getIsBest()==1}" class="status-pill-questions self-end bg-answer">
                             <small>Melhor resposta</small>
                         </div>

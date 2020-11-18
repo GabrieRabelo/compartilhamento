@@ -423,6 +423,14 @@ button:hover{
     margin: 0 16px
 }
 
+.my-3 {
+    margin: 12px 0;
+}
+
+.mt-4 {
+    margin-top: 16px;
+}
+
 .link:hover {
     cursor: pointer;
 }
@@ -485,7 +493,7 @@ button:hover{
     align-items: center;
     height: 1rem;
     width: 9em;
-    margin-bottom: 0.5rem;
+    /*margin-bottom: 0.5rem;*/
 }
 
 .topic-pill {

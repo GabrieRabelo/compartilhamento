@@ -218,6 +218,28 @@
     color: var(--darker-green);
 }
 
+.vote-container {
+    align-items: flex-end;
+}
+
+.vote {
+    width: 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.vote-button:hover {
+    cursor: pointer;
+}
+
+.vote-number {
+    text-align: center;
+    /*font-weight: bold;*/
+    margin: 6px 0;
+    font-family: Open Sans, sans-serif;
+}
+
 .question-title{
     display: inline-flex;
     justify-content: space-between;
