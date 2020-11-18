@@ -6,10 +6,7 @@ import br.pucrs.ages.townsq.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PostPersist;
-import javax.persistence.PostRemove;
+import javax.persistence.*;
 
 @Component
 public class VoteLogListener {
@@ -38,7 +35,7 @@ public class VoteLogListener {
         }
     }
 
-    @PostRemove
+    @PreRemove
     public void updateEntityScoreWhenDeleted(VoteLog log){
         if(log.getAnswer() != null){
             answerService.updateAnswerScore(log.getAnswer(), -log.getScore());

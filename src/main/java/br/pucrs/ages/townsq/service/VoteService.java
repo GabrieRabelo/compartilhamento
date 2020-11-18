@@ -24,8 +24,8 @@ public class VoteService {
     public void upVote(String type, long id, User user) {
         if (type.equals("question")) {
             Question question = questionService.getNonDeletedQuestionById(id).orElse(null);
-            if (question == null) {
-                throw new IllegalArgumentException("ID inválido");
+            if (question == null || question.getUser().getId().equals(user.getId())) {
+                throw new IllegalArgumentException("Operação inválida");
             }
             VoteLog vote = voteLogRepository.getVoteLogByQuestionAndUser(question, user).orElse(null);
             if (vote == null) {
@@ -54,8 +54,8 @@ public class VoteService {
         }
         if (type.equals("answer")) {
             Answer answer = answerService.findById(id).orElse(null);
-            if(answer == null) {
-                throw new IllegalArgumentException("ID inválido");
+            if (answer == null || answer.getUser().getId().equals(user.getId())) {
+                throw new IllegalArgumentException("Operação inválida");
             }
             VoteLog vote = voteLogRepository.getVoteLogByAnswerAndUser(answer, user).orElse(null);
             if (vote == null) {
@@ -87,8 +87,8 @@ public class VoteService {
     public void downVote(String type, long id, User user) {
         if (type.equals("question")) {
             Question question = questionService.getNonDeletedQuestionById(id).orElse(null);
-            if (question == null) {
-                throw new IllegalArgumentException("ID inválido");
+            if (question == null || question.getUser().getId().equals(user.getId())) {
+                throw new IllegalArgumentException("Operação inválida");
             }
             VoteLog vote = voteLogRepository.getVoteLogByQuestionAndUser(question, user).orElse(null);
             if (vote == null) {
@@ -117,8 +117,8 @@ public class VoteService {
         }
         if (type.equals("answer")) {
             Answer answer = answerService.findById(id).orElse(null);
-            if(answer == null) {
-                throw new IllegalArgumentException("ID inválido");
+            if (answer == null || answer.getUser().getId().equals(user.getId())) {
+                throw new IllegalArgumentException("Operação inválida");
             }
             VoteLog vote = voteLogRepository.getVoteLogByAnswerAndUser(answer, user).orElse(null);
             if (vote == null) {
