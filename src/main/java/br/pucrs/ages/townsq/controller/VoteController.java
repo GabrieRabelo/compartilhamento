@@ -28,6 +28,7 @@ public class VoteController {
             response.put("target", entity);
             response.put("id", id);
             response.put("delta", scoreDelta);
+            response.put("rollback", scoreDelta < 0);
             return new ResponseEntity<>(response.toString(), HttpStatus.OK);
         }catch (IllegalArgumentException e){
             return new ResponseEntity<>("{ \"error\": true }", HttpStatus.BAD_REQUEST);
@@ -42,6 +43,7 @@ public class VoteController {
             response.put("target", entity);
             response.put("id", id);
             response.put("delta", scoreDelta);
+            response.put("rollback", scoreDelta > 0);
             return new ResponseEntity<>(response.toString(), HttpStatus.OK);
         }catch (IllegalArgumentException e){
             return new ResponseEntity<>("{ \"error\": true }", HttpStatus.BAD_REQUEST);

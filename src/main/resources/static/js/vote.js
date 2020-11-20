@@ -23,9 +23,29 @@ function doVote(event, target, id){
  * @param data Response JSON
  */
 function updateFrontend(data){
-    let element = document.querySelector(`#${data.target}-${data.id}-score`);
-    const current = parseInt(element.innerHTML);
-    element.innerHTML = ''
-    element.innerHTML = (current + data.delta);
+    let scoreElement = document.querySelector(`#${data.target}-${data.id}-score`);
+    let iconElements = document.querySelector(`#${data.target}-${data.id}-score-actions`);
+
+    //[0] == upvote, [1] == downVote
+    let icons = iconElements.querySelectorAll('img');
+
+    console.log(data)
+
+    if(data.rollback){
+        icons[0].src = '/img/icons/upvote.svg';
+        icons[1].src = '/img/icons/downvote.svg';
+    }
+    else if(data.delta > 0 && !data.rollback){
+        icons[0].src = '/img/icons/upvoted.svg';
+        icons[1].src = '/img/icons/downvote.svg';
+    }
+    else if(data.delta < 0 && !data.rollback){
+        icons[0].src = '/img/icons/upvote.svg';
+        icons[1].src = '/img/icons/downvoted.svg';
+    }
+
+    const current = parseInt(scoreElement.innerHTML);
+    scoreElement.innerHTML = ''
+    scoreElement.innerHTML = (current + data.delta);
     showCustomToast('success', 'Voto registrado com sucesso!');
 }
