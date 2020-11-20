@@ -56,6 +56,8 @@ public class Question {
     private List<Comment> comments;
     @OneToMany(targetEntity = Answer.class, cascade = CascadeType.ALL, mappedBy = "question")
     private List<Answer> answers;
+    @OneToMany(targetEntity = VoteLog.class, cascade = CascadeType.ALL, mappedBy = "question")
+    private List<VoteLog> votes;
 
     public void setUser(User u){
         if(this.user == null){

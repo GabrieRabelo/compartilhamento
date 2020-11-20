@@ -2,14 +2,13 @@ package br.pucrs.ages.townsq.controller;
 
 import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.service.VoteService;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 public class VoteController {
 
     private final VoteService voteService;
@@ -19,24 +18,31 @@ public class VoteController {
         this.voteService = voteService;
     }
 
-    // Rota para testes
-    @GetMapping("/upvote/{entity}/{id}")
-    public String getTestUpvote(@PathVariable String entity, @PathVariable Long id, @AuthenticationPrincipal User user, final RedirectAttributes redirectAttributes){
+    @PutMapping(value = "/upvote/{entity}/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getTestUpvote(@PathVariable String entity, @PathVariable Long id, @AuthenticationPrincipal User user){
         try{
-            voteService.upVote(entity, id, user);
+            int scoreDelta = voteService.upVote(entity, id, user);
+            JSONObject response = new JSONObject();
+            response.put("target", entity);
+            response.put("id", id);
+            response.put("delta", scoreDelta);
+            return response.toString();
         }catch (IllegalArgumentException e){
-            redirectAttributes.addFlashAttribute("error", "Você não pode realizar essa operação.");
+            return "{ \"error\": true }";
         }
-        return "redirect:/";
     }
 
-    @GetMapping("/downvote/{entity}/{id}")
-    public String getTestDownvote(@PathVariable String entity, @PathVariable Long id, @AuthenticationPrincipal User user, final RedirectAttributes redirectAttributes){
+    @PutMapping(value = "/downvote/{entity}/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getTestDownvote(@PathVariable String entity, @PathVariable Long id, @AuthenticationPrincipal User user){
         try{
-            voteService.downVote(entity, id, user);
+            int scoreDelta = voteService.downVote(entity, id, user);
+            JSONObject response = new JSONObject();
+            response.put("target", entity);
+            response.put("id", id);
+            response.put("delta", scoreDelta);
+            return response.toString();
         }catch (IllegalArgumentException e){
-            redirectAttributes.addFlashAttribute("error", "Você não pode realizar essa operação.");
+            return "{ \"error\": true }";
         }
-        return "redirect:/";
     }
 }

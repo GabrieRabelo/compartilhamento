@@ -58,6 +58,9 @@ public class Answer {
     @OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL, mappedBy = "answer")
     private List<Comment> comments;
 
+    @OneToMany(targetEntity = VoteLog.class, cascade = CascadeType.ALL, mappedBy = "answer")
+    private List<VoteLog> votes;
+
     public String getCreatedAtString(){
         return Chronos.dateToPrettyTimeString(this.createdAt);
     }

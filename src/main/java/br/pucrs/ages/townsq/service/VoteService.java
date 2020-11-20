@@ -21,7 +21,7 @@ public class VoteService {
         this.answerService = answerService;
     }
 
-    public void upVote(String type, long id, User user) {
+    public int upVote(String type, long id, User user) {
         if (type.equals("question")) {
             Question question = questionService.getNonDeletedQuestionById(id).orElse(null);
             if (question == null || question.getUser().getId().equals(user.getId())) {
@@ -37,6 +37,7 @@ public class VoteService {
                         .isActive(1)
                         .build();
                 voteLogRepository.save(toSave);
+                return 1;
             }
             else {
                 voteLogRepository.delete(vote);
@@ -49,7 +50,9 @@ public class VoteService {
                             .isActive(1)
                             .build();
                     voteLogRepository.save(toSave);
+                    return 2;
                 }
+                return -1;
             }
         }
         if (type.equals("answer")) {
@@ -67,6 +70,7 @@ public class VoteService {
                         .isActive(1)
                         .build();
                 voteLogRepository.save(toSave);
+                return 1;
             }
             else {
                 voteLogRepository.delete(vote);
@@ -79,12 +83,15 @@ public class VoteService {
                             .isActive(1)
                             .build();
                     voteLogRepository.save(toSave);
+                    return 2;
                 }
+                return -1;
             }
         }
+        return 0;
     }
 
-    public void downVote(String type, long id, User user) {
+    public int downVote(String type, long id, User user) {
         if (type.equals("question")) {
             Question question = questionService.getNonDeletedQuestionById(id).orElse(null);
             if (question == null || question.getUser().getId().equals(user.getId())) {
@@ -100,6 +107,7 @@ public class VoteService {
                         .isActive(1)
                         .build();
                 voteLogRepository.save(toSave);
+                return -1;
             }
             else {
                 voteLogRepository.delete(vote);
@@ -112,7 +120,9 @@ public class VoteService {
                             .isActive(1)
                             .build();
                     voteLogRepository.save(toSave);
+                    return -2;
                 }
+                return 1;
             }
         }
         if (type.equals("answer")) {
@@ -130,6 +140,7 @@ public class VoteService {
                         .isActive(1)
                         .build();
                 voteLogRepository.save(toSave);
+                return -1;
             }
             else {
                 voteLogRepository.delete(vote);
@@ -142,9 +153,12 @@ public class VoteService {
                             .isActive(1)
                             .build();
                     voteLogRepository.save(toSave);
+                    return -2;
                 }
+                return 2;
             }
         }
+        return 0;
     }
 
 }

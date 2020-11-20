@@ -10,6 +10,8 @@
     <link rel="stylesheet" th:href="@{/css/modal.css}">
 
     <title th:text="${question.getTitle()} + ' - Townsq'"></title>
+    <meta th:name="_csrf" th:content="${_csrf.token}"/>
+    <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
 <body>
 <header th:replace="fragments/header.html :: header"></header>
@@ -104,9 +106,11 @@
                         </div>
                         <div class="vote-container col-1">
                             <div class="vote mt-4">
-                                <img th:src="@{/img/icons/upvote.svg}" class="vote-button" alt="upvote">
-                                <div class="vote-number" th:text="${answer.getScore()}"></div>
-                                <img th:src="@{/img/icons/downvote.svg}" class="vote-button" alt="downvote">
+                                <img th:src="@{/img/icons/upvote.svg}" class="vote-button" alt="upvote"
+                                     th:onclick="|doVote('upvote','question','${question.getId()}')|"/>
+                                <div class="vote-number" th:text="${question.getScore()}" th:id="'question-' + ${question.getId()} + '-score'"></div>
+                                <img th:src="@{/img/icons/downvote.svg}" class="vote-button" alt="downvote"
+                                     th:onclick="|doVote('downvote','question','${question.getId()}')|">
                             </div>
                         </div>
                     </div>
@@ -255,5 +259,6 @@
 </div>
 <script defer th:src="@{/js/modal.js}"></script>
 <script defer th:src="@{/js/confirmation.js}"></script>
+<script defer th:src="@{/js/vote.js}"></script>
 </body>
 </html>

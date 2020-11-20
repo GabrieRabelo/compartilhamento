@@ -40,7 +40,7 @@ class QuestionRepositoryTest {
 		topicRepository.save(topic);
 
 		for(long i = 1; i<=15; i++){
-			Question question = new Question(i, "Olá", "essa fera ai meu", 0, 1, new Timestamp(i), new Timestamp(i), user, topic, 1, null, null);
+			Question question = new Question(i, "Olá", "essa fera ai meu", 0, 1, new Timestamp(i), new Timestamp(i), user, topic, 1, null, null, null);
 			questionRepository.save(question);
 		}
 	}
