@@ -51,6 +51,7 @@ public class AnswerController {
             emailService.createEmail(createdAnswer);
 
             redirectAttributes.addFlashAttribute("success", "Resposta criada com sucesso!");
+            redirectAttributes.addFlashAttribute("reputation", "Você ganhou 10 pontos!");
             return "redirect:/question/" + question.getId() + "/" + Slugify.toSlug(question.getTitle());
         } catch (IllegalArgumentException ie) {
             redirectAttributes.addFlashAttribute("error", "Resposta não pode ser vazia");
