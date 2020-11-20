@@ -79,7 +79,7 @@ public class Question {
             return type + ".svg";
         }else{
             if(vote.getEventType().equals(type.toUpperCase()))
-                return type + "ed.svg";
+                return type + "d.svg";
             else
                 return type + ".svg";
         }

@@ -106,9 +106,9 @@
                         </div>
                         <div class="vote-container col-1">
                             <div class="vote mt-4">
-                                <img th:src="'/img/icons/' + ${question.getVoted(#authentication.getPrincipal(), 'upvote')}" class="vote-button" alt="upvote"th:onclick="|doVote('upvote','question','${question.getId()}')|"/>
+                                <img sec:authorize="isAuthenticated()" th:src="'/img/icons/' + ${question.getVoted(#authentication.getPrincipal(), 'upvote')}" class="vote-button" alt="upvote"th:onclick="|doVote('upvote','question','${question.getId()}')|"/>
                                 <div class="vote-number" th:text="${question.getScore()}" th:id="'question-' + ${question.getId()} + '-score'"></div>
-                                <img th:src="@{/img/icons/downvote.svg}" class="vote-button" alt="downvote"
+                                <img sec:authorize="isAuthenticated()" th:src="'/img/icons/' + ${question.getVoted(#authentication.getPrincipal(), 'downvote')}" class="vote-button" alt="downvote"
                                      th:onclick="|doVote('downvote','question','${question.getId()}')|">
                             </div>
                         </div>
@@ -218,9 +218,9 @@
                             </a>
                         </div>
                             <div class="vote align-self-end my-3">
-                                <img th:src="@{/img/icons/upvote.svg}" class="vote-button" alt="upvote">
+                                <img sec:authorize="isAuthenticated()" th:src="'/img/icons/' + ${answer.getVoted(#authentication.getPrincipal(), 'upvote')}" class="vote-button" alt="upvote">
                                 <div class="vote-number" th:text="${answer.getScore()}"></div>
-                                <img th:src="@{/img/icons/downvote.svg}" class="vote-button" alt="downvote">
+                                <img sec:authorize="isAuthenticated()" th:src="'/img/icons/' + ${answer.getVoted(#authentication.getPrincipal(), 'downvote')}" class="vote-button" alt="upvote">
                             </div>
                         <div th:if="${answer.getIsBest()==1}" class="status-pill-questions self-end bg-answer">
                             <small>Melhor resposta</small>
