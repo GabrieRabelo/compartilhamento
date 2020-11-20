@@ -16,9 +16,9 @@ import java.util.stream.Collectors;
 @Service
 public class AnswerService {
 
-    private AnswerRepository answerRepository;
-    private ReputationLogService reputationService;
-    private QuestionService questionService;
+    private final AnswerRepository answerRepository;
+    private final ReputationLogService reputationService;
+    private final QuestionService questionService;
 
     public AnswerService(AnswerRepository answerRepository, ReputationLogService reputationService, QuestionService questionService) {
         this.answerRepository = answerRepository;
@@ -34,11 +34,12 @@ public class AnswerService {
     public Answer saveAnswer(Answer answer, User user, Question question) {
         if(StringUtils.isEmpty(answer.getText().trim()))
             throw new IllegalArgumentException("O texto da resposta não pode estar vazio");
+        if(question.getUser().getId().equals(user.getId()))
+            throw new IllegalArgumentException("Você não pode responder a sua própria pergunta.");
         answer.setQuestion(question);
         answer.setUser(user);
         return this.answerRepository.save(answer);
     }
-
 
     public void editAnswer(String answer,
                            User user,
@@ -56,12 +57,9 @@ public class AnswerService {
         answerRepository.save(databaseAnswer);
     }
 
-
-
-
     /**
      * Performs a soft delete of a answer if the user is it's creator or a mod.
-     * @param answerId
+     * @param answerId long
      * @return boolean
      */
     public boolean delete(User user, long answerId) {
@@ -125,7 +123,6 @@ public class AnswerService {
             reputationService.disfavorBestAnswer(favoritedAnswer);
             answerRepository.save(favoritedAnswer);
         }
-
         databaseAnswer.setIsBest(1);
         reputationService.favoriteBestAnswer(databaseAnswer);
         questionService.closeQuestion(questionFrom);
