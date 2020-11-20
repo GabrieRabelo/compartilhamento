@@ -218,9 +218,11 @@
                             </a>
                         </div>
                             <div class="vote align-self-end my-3" th:id="'answer-' + ${answer.getId()} + '-score-actions'">
-                                <img sec:authorize="isAuthenticated()" th:src="'/img/icons/' + ${answer.getVoted(#authentication.getPrincipal(), 'upvote')}" class="vote-button" alt="upvote">
-                                <div class="vote-number" th:text="${answer.getScore()}"></div>
-                                <img sec:authorize="isAuthenticated()" th:src="'/img/icons/' + ${answer.getVoted(#authentication.getPrincipal(), 'downvote')}" class="vote-button" alt="upvote">
+                                <img sec:authorize="isAuthenticated()" th:src="'/img/icons/' + ${answer.getVoted(#authentication.getPrincipal(), 'upvote')}" class="vote-button" alt="upvote"
+                                     th:onclick="|doVote('upvote','answer','${answer.getId()}')|">
+                                <div class="vote-number" th:text="${answer.getScore()}" th:id="'answer-' + ${answer.getId()} + '-score'"></div>
+                                <img sec:authorize="isAuthenticated()" th:src="'/img/icons/' + ${answer.getVoted(#authentication.getPrincipal(), 'downvote')}" class="vote-button" alt="upvote"
+                                     th:onclick="|doVote('downvote','answer','${answer.getId()}')|">
                             </div>
                         <div th:if="${answer.getIsBest()==1}" class="status-pill-questions self-end bg-answer">
                             <small>Melhor resposta</small>

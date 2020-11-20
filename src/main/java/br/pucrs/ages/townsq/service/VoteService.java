@@ -155,7 +155,7 @@ public class VoteService {
                     voteLogRepository.save(toSave);
                     return -2;
                 }
-                return 2;
+                return 1;
             }
         }
         return 0;

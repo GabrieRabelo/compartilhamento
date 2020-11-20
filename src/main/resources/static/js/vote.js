@@ -29,8 +29,6 @@ function updateFrontend(data){
     //[0] == upvote, [1] == downVote
     let icons = iconElements.querySelectorAll('img');
 
-    console.log(data)
-
     if(data.rollback){
         icons[0].src = '/img/icons/upvote.svg';
         icons[1].src = '/img/icons/downvote.svg';
@@ -45,7 +43,11 @@ function updateFrontend(data){
     }
 
     const current = parseInt(scoreElement.innerHTML);
+    const sum = (current + data.delta);
+    console.log(current)
+    console.log(data.delta)
     scoreElement.innerHTML = ''
-    scoreElement.innerHTML = (current + data.delta);
+    scoreElement.innerHTML = sum;
+
     showCustomToast('success', 'Voto registrado com sucesso!');
 }
