@@ -12,6 +12,14 @@
             <img src="/img/icons/error.svg" alt="error logo" />
             <p th:text="${error}"></p>
         </div>
+        <div class="toast toast-success custom-success">
+            <img src="/img/icons/done.svg" alt="done logo" />
+            <p></p>
+        </div>
+        <div class="toast toast-error custom-error">
+            <img src="/img/icons/error.svg" alt="error logo" />
+            <p></p>
+        </div>
         <div th:if="${info}" th:classappend="${info} ? 'toast-show' : ''" class="toast toast-info">
             <img src="/img/icons/help.svg" alt="help logo" />
             <p th:text="${info}"></p>
@@ -32,9 +40,24 @@
                 if (allShowed) {
                     setTimeout(() => {
                         allShowed.forEach(el => el.classList.remove("toast-show"));
-                    }, 4450)
+                    }, 2250)
                 }
             };
+
+            /**
+             * Shows a custom toast
+             * @param type error, success ...
+             * @param text Text message
+             */
+            function showCustomToast(type, text){
+                let div = document.querySelector(`.custom-${type}`);
+                let p = div.querySelector('p');
+                p.innerHTML = text;
+                div.classList.add("toast-show")
+                setTimeout(() => {
+                    div.classList.remove("toast-show")
+                }, 2250)
+            }
         </script>
     </div>
 </body>
