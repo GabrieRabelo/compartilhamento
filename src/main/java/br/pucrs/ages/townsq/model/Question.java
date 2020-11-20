@@ -73,6 +73,18 @@ public class Question {
         return comments.stream().filter(e -> e.getIsActive() == 1).collect(Collectors.toList());
     }
 
+    public String getVoted(User user, String type){
+        VoteLog vote = votes.stream().filter(e -> e.getUser().getId().equals(user.getId())).findFirst().orElse(null);
+        if(vote == null){
+            return type + ".svg";
+        }else{
+            if(vote.getEventType().equals(type.toUpperCase()))
+                return type + "ed.svg";
+            else
+                return type + ".svg";
+        }
+    }
+
     public List<Answer> getAllActiveAnswers(){
         return answers.stream().filter(e -> e.getIsActive() == 1).collect(Collectors.toList());
     }
