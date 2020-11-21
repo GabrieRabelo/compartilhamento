@@ -24,6 +24,12 @@ public class CommentController {
     private final QuestionService questionService;
     private final EmailService emailService;
 
+    private static final String INVALID_OPERATION = "Operação inválida.";
+    private static final String QUESTION = "redirect:/question/";
+    private static final String REDIRECT = "redirect:/";
+    private static final String ERROR = "error";
+    private static final String SUCCESS = "success";
+
 
     @Autowired
     public CommentController(CommentService commentService, QuestionService questionService, EmailService emailService){
@@ -52,21 +58,21 @@ public class CommentController {
                                     final RedirectAttributes redirectAttributes) {
         Question questionOfComment = questionService.getQuestionById(question.getId()).orElse(null);
         if(questionOfComment == null){
-            redirectAttributes.addFlashAttribute("error", "Operação inválida.");
-            return "redirect:/";
+            redirectAttributes.addFlashAttribute(ERROR, INVALID_OPERATION);
+            return REDIRECT;
         }
         if(bindingResult.hasErrors()){
-            redirectAttributes.addFlashAttribute("error", "Comentário inválido");
-            return "redirect:/question/" + questionOfComment.getId() + "/" + Slugify.toSlug(questionOfComment.getTitle());
+            redirectAttributes.addFlashAttribute(ERROR, "Comentário inválido");
+            return QUESTION + questionOfComment.getId() + "/" + Slugify.toSlug(questionOfComment.getTitle());
         }
         try{
             Comment createdComment = commentService.saveComment(comment, user, creator, creatorId);
             emailService.createEmail(createdComment);
-            redirectAttributes.addFlashAttribute("success", "Comentário cadastrado com sucesso.");
+            redirectAttributes.addFlashAttribute(SUCCESS, "Comentário cadastrado com sucesso.");
         }catch (Exception e){
-            redirectAttributes.addFlashAttribute("error", "Não foi possível cadastrar o comentário.");
+            redirectAttributes.addFlashAttribute(ERROR, "Não foi possível cadastrar o comentário.");
         }
-        return "redirect:/question/" + questionOfComment.getId() + "/" + Slugify.toSlug(questionOfComment.getTitle());
+        return QUESTION + questionOfComment.getId() + "/" + Slugify.toSlug(questionOfComment.getTitle());
     }
 
     /**
@@ -87,20 +93,20 @@ public class CommentController {
     ){
         Question questionFrom = questionService.getQuestionById(comment.getQuestion().getId()).orElse(null);
         if(questionFrom == null){
-            redirectAttributes.addFlashAttribute("error","Operação inválida.");
-            return "redirect:/";
+            redirectAttributes.addFlashAttribute(ERROR,INVALID_OPERATION);
+            return REDIRECT;
         }
         if(bindingResult.hasErrors()){
-            redirectAttributes.addFlashAttribute("error", "Comentário inválido.");
-            return "redirect:/question/" + questionFrom.getId() +  "/" + Slugify.toSlug(questionFrom.getTitle());
+            redirectAttributes.addFlashAttribute(ERROR, "Comentário inválido.");
+            return QUESTION + questionFrom.getId() +  "/" + Slugify.toSlug(questionFrom.getTitle());
         }
         try{
             commentService.editComment(comment.getText(),user,id);
-            redirectAttributes.addFlashAttribute("success","Comentário editado com sucesso.");
+            redirectAttributes.addFlashAttribute(SUCCESS,"Comentário editado com sucesso.");
         }catch (IllegalArgumentException e){
-            redirectAttributes.addFlashAttribute("error",e.getMessage());
+            redirectAttributes.addFlashAttribute(ERROR,e.getMessage());
         }
-        return "redirect:/question/" + questionFrom.getId() +  "/" + Slugify.toSlug(questionFrom.getTitle());
+        return QUESTION + questionFrom.getId() +  "/" + Slugify.toSlug(questionFrom.getTitle());
     }
 
     /**
@@ -118,22 +124,22 @@ public class CommentController {
                                    final RedirectAttributes redirectAttributes){
         Question question;
         if((question = questionService.getQuestionById(questionId).orElse(null)) == null){
-            redirectAttributes.addFlashAttribute("error", "Operação inválida.");
-            return "redirect:/";
+            redirectAttributes.addFlashAttribute(ERROR, INVALID_OPERATION);
+            return REDIRECT;
         }
         if(commentService.deleteComment(commentId, user)){
-            redirectAttributes.addFlashAttribute("success", "Comentário deletado com sucesso!");
+            redirectAttributes.addFlashAttribute(SUCCESS, "Comentário deletado com sucesso!");
         }
         else{
-            redirectAttributes.addFlashAttribute("error", "Não foi possível deletar o comentário.");
+            redirectAttributes.addFlashAttribute(ERROR, "Não foi possível deletar o comentário.");
         }
-        return "redirect:/question/" + question.getId() + "/" + Slugify.toSlug(question.getTitle());
+        return QUESTION + question.getId() + "/" + Slugify.toSlug(question.getTitle());
     }
 
     @ExceptionHandler({ BindException.class })
     public String handleException(final RedirectAttributes redirectAttributes) {
-        redirectAttributes.addFlashAttribute("error", "Comentário inválido.");
-        return "redirect:/";
+        redirectAttributes.addFlashAttribute(ERROR, "Comentário inválido.");
+        return REDIRECT;
     }
 
 }

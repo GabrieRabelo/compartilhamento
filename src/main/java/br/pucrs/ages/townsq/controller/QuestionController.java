@@ -30,6 +30,12 @@ public class QuestionController {
     private final QuestionService questionService;
     private final AnswerService answerService;
     private final BannerService bannerService;
+    
+    private static final String REDIRECT_QUESTION = "redirect:/question/";
+    private static final String QUESTION = "question";
+    private static final String REDIRECT = "redirect:/";
+    private static final String SUCCESS = "success";
+
 
     @Autowired
     public QuestionController(TopicService topicService, QuestionService questionService, AnswerService answerService, BannerService bannerService){
@@ -48,7 +54,7 @@ public class QuestionController {
     @GetMapping("/question/create")
     public String getQuestionCreatePage(Model m){
         m.addAttribute("topics", topicService.getAllTopicsByStatus(1));
-        m.addAttribute("question", new Question());
+        m.addAttribute(QUESTION, new Question());
         return "questionForm";
     }
 
@@ -67,17 +73,17 @@ public class QuestionController {
             Long questionId;
             if(question.getId() != null) {
                 questionId = questionService.edit(question, user).getId();
-                redirectAttributes.addFlashAttribute("success", "Pergunta editada com sucesso!");
+                redirectAttributes.addFlashAttribute(SUCCESS, "Pergunta editada com sucesso!");
             } else{
                 questionId = questionService.save(question, user).getId();
-                redirectAttributes.addFlashAttribute("success", "Pergunta cadastrada com sucesso!");
+                redirectAttributes.addFlashAttribute(SUCCESS, "Pergunta cadastrada com sucesso!");
                 redirectAttributes.addFlashAttribute("reputation", "Você ganhou 10 pontos!");
             }
-            return "redirect:/question/" + questionId + "/" + Slugify.toSlug(question.getTitle());
+            return REDIRECT_QUESTION + questionId + "/" + Slugify.toSlug(question.getTitle());
         } catch (Exception e) {
             System.out.println(e);
             redirectAttributes.addFlashAttribute("error", "Não foi possível cadastrar ou editar a pergunta.");
-            return "redirect:/";
+            return REDIRECT;
         }
     }
 
@@ -94,10 +100,10 @@ public class QuestionController {
                                          final RedirectAttributes redirectAttributes){
         boolean hasDeleted = questionService.delete(user, questionId);
         if(hasDeleted)
-            redirectAttributes.addFlashAttribute("success", "Pergunta deletada com sucesso!");
+            redirectAttributes.addFlashAttribute(SUCCESS, "Pergunta deletada com sucesso!");
         else
             redirectAttributes.addFlashAttribute("error", "Não foi possível deletar a pergunta.");
-        return "redirect:/";
+        return REDIRECT;
     }
 
     /**
@@ -119,15 +125,15 @@ public class QuestionController {
             String questionSlug = Slugify.toSlug(question.getTitle());
             if(slug == null || !slug.equals(questionSlug)){
                 request.setAttribute(View.RESPONSE_STATUS_ATTRIBUTE, HttpStatus.MOVED_PERMANENTLY);
-                return "redirect:/question/" + id + "/" + questionSlug;
+                return REDIRECT_QUESTION + id + "/" + questionSlug;
             }
             Banner banner = bannerService.getActiveBanner().orElse(null);
             model.addAttribute("banner", banner);
-            model.addAttribute("question", question);
+            model.addAttribute(QUESTION, question);
             model.addAttribute("topic", topic);
             model.addAttribute("answers", answerService.getQuestionAnswers(question));
             model.addAttribute("answer", new Answer());
-            return "question";
+            return QUESTION;
         }
         else throw new QuestionNotFoundException();
     }
@@ -149,10 +155,10 @@ public class QuestionController {
                     (question.getUser().getId().equals(user.getId())) ||
                         user.getAuthorities().stream().anyMatch(e -> e.getAuthority().equals("ROLE_MODERATOR"))){
                 model.addAttribute("topics", topicService.getAllTopics());
-                model.addAttribute("question", question);
+                model.addAttribute(QUESTION, question);
                 return "questionForm";
             }
-        return "redirect:/";
+        return REDIRECT;
     }
 
 }

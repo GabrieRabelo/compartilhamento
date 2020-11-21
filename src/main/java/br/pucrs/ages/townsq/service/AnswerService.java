@@ -20,6 +20,8 @@ public class AnswerService {
     private ReputationLogService reputationService;
     private QuestionService questionService;
 
+    private static final String ROLE_MODERATOR = "ROLE_MODERATOR";
+
     public AnswerService(AnswerRepository answerRepository, ReputationLogService reputationService, QuestionService questionService) {
         this.answerRepository = answerRepository;
         this.reputationService = reputationService;
@@ -46,8 +48,8 @@ public class AnswerService {
         Answer databaseAnswer = answerRepository.findById(id).orElse(null);
         if((StringUtils.isEmpty(answer.trim())
                 || databaseAnswer == null
-                || (databaseAnswer.getQuestion().getIsActive() == 0 && user.getAuthorities().stream().noneMatch(e -> e.getAuthority().equals("ROLE_MODERATOR")))
-                || user.getAuthorities().stream().noneMatch(e -> e.getAuthority().equals("ROLE_MODERATOR"))
+                || (databaseAnswer.getQuestion().getIsActive() == 0 && user.getAuthorities().stream().noneMatch(e -> e.getAuthority().equals(ROLE_MODERATOR)))
+                || user.getAuthorities().stream().noneMatch(e -> e.getAuthority().equals(ROLE_MODERATOR))
                 && !databaseAnswer.getUser().getId().equals(user.getId()))
         ){
             throw new IllegalArgumentException("Não foi possível editar a resposta.");
@@ -71,7 +73,7 @@ public class AnswerService {
             if(answer.getUser().getId().equals(user.getId())
                     && answer.getIsActive() == 1
                     && answer.getQuestion().getIsActive() == 1
-                    || user.getAuthorities().stream().anyMatch(e -> e.getAuthority().equals("ROLE_MODERATOR"))) {
+                    || user.getAuthorities().stream().anyMatch(e -> e.getAuthority().equals(ROLE_MODERATOR))) {
                 answer.setIsActive(0);
                 if(answer.getIsBest() == 1){
                     reputationService.disfavorBestAnswer(answer);

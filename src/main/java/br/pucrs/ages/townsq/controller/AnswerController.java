@@ -29,6 +29,10 @@ public class AnswerController {
     private final QuestionService questionService;
     private final EmailService emailService;
 
+    private static final String QUESTION = "redirect:/question/";
+    private static final String ERROR = "error";
+    private static final String SUCCESS = "success";
+
     public AnswerController(AnswerService answerService, QuestionService questionService, EmailService emailService) {
         this.answerService = answerService;
         this.questionService = questionService;
@@ -50,14 +54,14 @@ public class AnswerController {
             Answer createdAnswer = answerService.saveAnswer(answer, user, question);
             emailService.createEmail(createdAnswer);
 
-            redirectAttributes.addFlashAttribute("success", "Resposta criada com sucesso!");
-            return "redirect:/question/" + question.getId() + "/" + Slugify.toSlug(question.getTitle());
+            redirectAttributes.addFlashAttribute(SUCCESS, "Resposta criada com sucesso!");
+            return QUESTION + question.getId() + "/" + Slugify.toSlug(question.getTitle());
         } catch (IllegalArgumentException ie) {
-            redirectAttributes.addFlashAttribute("error", "Resposta não pode ser vazia");
-            return "redirect:/question/" + question.getId() + "/" + Slugify.toSlug(question.getTitle());
+            redirectAttributes.addFlashAttribute(ERROR, "Resposta não pode ser vazia");
+            return QUESTION + question.getId() + "/" + Slugify.toSlug(question.getTitle());
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Não foi possível cadastrar a resposta.");
-            return "redirect:/question/" + question.getId() + "/" + Slugify.toSlug(question.getTitle());
+            redirectAttributes.addFlashAttribute(ERROR, "Não foi possível cadastrar a resposta.");
+            return QUESTION + question.getId() + "/" + Slugify.toSlug(question.getTitle());
         }
     }
 
@@ -74,16 +78,16 @@ public class AnswerController {
         }
         Question questionFrom = questionService.getQuestionById(answer.getQuestion().getId()).orElse(null);
         if(questionFrom == null){
-            redirectAttributes.addFlashAttribute("error","Operação inválida.");
+            redirectAttributes.addFlashAttribute(ERROR,"Operação inválida.");
             return "redirect:/";
         }
         try{
             answerService.editAnswer(answer.getText(),user,id);
-            redirectAttributes.addFlashAttribute("success","Resposta editada com sucesso.");
+            redirectAttributes.addFlashAttribute(SUCCESS,"Resposta editada com sucesso.");
         }catch (IllegalArgumentException e){
-            redirectAttributes.addFlashAttribute("error",e.getMessage());
+            redirectAttributes.addFlashAttribute(ERROR,e.getMessage());
         }
-        return "redirect:/question/" + questionFrom.getId() +  "/" + Slugify.toSlug(questionFrom.getTitle());
+        return QUESTION + questionFrom.getId() +  "/" + Slugify.toSlug(questionFrom.getTitle());
     }
 
     /**
@@ -105,10 +109,10 @@ public class AnswerController {
 
             boolean hasDeleted = answerService.delete(user, answerId);
             if(hasDeleted)
-                redirectAttributes.addFlashAttribute("success", "Resposta deletada com sucesso!");
+                redirectAttributes.addFlashAttribute(SUCCESS, "Resposta deletada com sucesso!");
             else
-                redirectAttributes.addFlashAttribute("error", "Não foi possível deletar a resposta.");
-            return "redirect:/question/" + ansQuestion.getId() + "/" + Slugify.toSlug(ansQuestion.getTitle());
+                redirectAttributes.addFlashAttribute(ERROR, "Não foi possível deletar a resposta.");
+            return QUESTION + ansQuestion.getId() + "/" + Slugify.toSlug(ansQuestion.getTitle());
         }
         return "";
     }
@@ -124,18 +128,18 @@ public class AnswerController {
         if(optAnswer.isPresent()){
             Question questionFrom = questionService.getQuestionById(optAnswer.get().getQuestion().getId()).orElse(null);
             if(questionFrom == null){
-                redirectAttributes.addFlashAttribute("error","Operação inválida.");
+                redirectAttributes.addFlashAttribute(ERROR,"Operação inválida.");
                 return "redirect:/";
             }
             try {
                 answerService.favoriteAnswer(user, id, questionFrom);
-                redirectAttributes.addFlashAttribute("success", "Resposta favoritada com sucesso.");
+                redirectAttributes.addFlashAttribute(SUCCESS, "Resposta favoritada com sucesso.");
             } catch (SecurityException | NotFoundException | IllegalArgumentException  e ) {
-                redirectAttributes.addFlashAttribute("error", e.getMessage());
+                redirectAttributes.addFlashAttribute(ERROR, e.getMessage());
             }
 
 
-            return "redirect:/question/" + questionFrom.getId() + "/" + Slugify.toSlug(questionFrom.getTitle());
+            return QUESTION + questionFrom.getId() + "/" + Slugify.toSlug(questionFrom.getTitle());
         }
         return "";
     }

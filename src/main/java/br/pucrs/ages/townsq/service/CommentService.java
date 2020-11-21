@@ -34,7 +34,7 @@ public class CommentService {
     public Comment saveComment(Comment comment,
                                User user,
                                String creator,
-                               long creatorId) throws IllegalArgumentException{
+                               long creatorId) {
         if(StringUtils.isEmpty(comment.getText().trim()))
             throw new IllegalArgumentException("O texto do comentário não pode estar vazio.");
 
@@ -69,7 +69,7 @@ public class CommentService {
         Comment databaseComment = commentRepository.findById(id).orElse(null);
         if(StringUtils.isEmpty(comment.trim()) || databaseComment == null ||
                 (!databaseComment.getUser().getId().equals(user.getId()) &&
-                        !user.getAuthorities().stream().anyMatch(e -> e.getAuthority().equals("ROLE_MODERATOR")))){
+                        user.getAuthorities().stream().noneMatch(e -> e.getAuthority().equals("ROLE_MODERATOR")))){
             throw new IllegalArgumentException("Não foi possível editar o comentário.");
         }
         databaseComment.setText(comment);

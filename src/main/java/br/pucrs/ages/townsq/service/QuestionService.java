@@ -43,7 +43,7 @@ public class QuestionService {
         Question currentQuestion = repository.findById(question.getId()).orElse(null);
 
         if(currentQuestion == null || (!currentQuestion.getUser().getId().equals(user.getId()) &&
-                !user.getAuthorities().stream().anyMatch(e -> e.getAuthority().equals("ROLE_MODERATOR"))))
+                user.getAuthorities().stream().noneMatch(e -> e.getAuthority().equals("ROLE_MODERATOR"))))
             throw new IllegalArgumentException("Usuário não pode editar a pergunta.");
         currentQuestion.setTitle(question.getTitle());
         currentQuestion.setTopic((question.getTopic()));

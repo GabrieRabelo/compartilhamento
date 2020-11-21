@@ -22,6 +22,15 @@ public class EmailService {
 
     private final String urlQuestion = "http://" + InetAddress.getLoopbackAddress().getHostName() + ":8080/question/";
 
+
+    private static final String USER_EMAIL = "userEmail";
+    private static final String EMAIL_SUBJECT = "emailSubject";
+    private static final String EMAIL_TEXT_INITIAL = "emailTextInitial";
+    private static final String EMAIL_TEXT_END = "emailTextEnd";
+    private static final String QUESTION_URL = "questionUrl";
+    private static final String QUESTION_TITLE = "questionTitle";
+    private static final String USER_NAME = "userName";
+
     @Autowired
     private JavaMailSender javaMailSender;
 
@@ -37,9 +46,9 @@ public class EmailService {
             context.setVariables(templateEmailModel);
             String mailTemplate = springTemplateEngine.process("templateEmail", context);
 
-            message.setTo(templateEmailModel.get("userEmail").toString());
+            message.setTo(templateEmailModel.get(USER_EMAIL).toString());
             message.setFrom("c88b3da83e-981698@inbox.mailtrap.io");
-            message.setSubject(templateEmailModel.get("emailSubject").toString());
+            message.setSubject(templateEmailModel.get(EMAIL_SUBJECT).toString());
             message.setText(mailTemplate, true);
 
             javaMailSender.send(mail);
@@ -57,13 +66,13 @@ public class EmailService {
         if (object instanceof Answer) {
             Answer answer = (Answer) object;
 
-            templateEmailModel.put("emailTextInitial", "A sua pergunta " );
-            templateEmailModel.put("emailTextEnd", " tem uma nova resposta.");
-            templateEmailModel.put("questionUrl", urlQuestion + answer.getQuestion().getId());
-            templateEmailModel.put("emailSubject","TownSQ - Alguém respondeu sua pergunta");
-            templateEmailModel.put("questionTitle", answer.getQuestion().getTitle());
-            templateEmailModel.put("userName", answer.getQuestion().getUser().getName());
-            templateEmailModel.put("userEmail", answer.getQuestion().getUser().getEmail());
+            templateEmailModel.put(EMAIL_TEXT_INITIAL, "A sua pergunta " );
+            templateEmailModel.put(EMAIL_TEXT_END, " tem uma nova resposta.");
+            templateEmailModel.put(QUESTION_URL, urlQuestion + answer.getQuestion().getId());
+            templateEmailModel.put(EMAIL_SUBJECT,"TownSQ - Alguém respondeu sua pergunta");
+            templateEmailModel.put(QUESTION_TITLE, answer.getQuestion().getTitle());
+            templateEmailModel.put(USER_NAME, answer.getQuestion().getUser().getName());
+            templateEmailModel.put(USER_EMAIL, answer.getQuestion().getUser().getEmail());
 
 
             sendEmail();
@@ -72,22 +81,22 @@ public class EmailService {
 
             if (comment.getAnswer() != null) {
                 Answer answer = comment.getAnswer();
-                templateEmailModel.put("emailTextInitial", "A sua resposta na pergunta ");
-                templateEmailModel.put("questionTitle", answer.getQuestion().getTitle());
-                templateEmailModel.put("emailTextEnd", " tem um novo comentário.");
-                templateEmailModel.put("emailSubject","TownSQ - Alguém comentou sua resposta");
-                templateEmailModel.put("userName", answer.getUser().getName());
-                templateEmailModel.put("userEmail", answer.getUser().getEmail());
-                templateEmailModel.put("questionUrl", urlQuestion  + answer.getQuestion().getId());
+                templateEmailModel.put(EMAIL_TEXT_INITIAL, "A sua resposta na pergunta ");
+                templateEmailModel.put(QUESTION_TITLE, answer.getQuestion().getTitle());
+                templateEmailModel.put(EMAIL_TEXT_END, " tem um novo comentário.");
+                templateEmailModel.put(EMAIL_SUBJECT,"TownSQ - Alguém comentou sua resposta");
+                templateEmailModel.put(USER_NAME, answer.getUser().getName());
+                templateEmailModel.put(USER_EMAIL, answer.getUser().getEmail());
+                templateEmailModel.put(QUESTION_URL, urlQuestion  + answer.getQuestion().getId());
             } else if (comment.getQuestion() != null) {
                 Question question = comment.getQuestion();
-                templateEmailModel.put("emailTextInitial", "A sua pergunta " );
-                templateEmailModel.put("emailTextEnd", " tem um novo comentário.");
-                templateEmailModel.put("questionTitle", question.getTitle());
-                templateEmailModel.put("emailSubject","TownSQ - Alguém comentou a sua pergunta");
-                templateEmailModel.put("userName", question.getUser().getName());
-                templateEmailModel.put("userEmail", question.getUser().getEmail());
-                templateEmailModel.put("questionUrl", urlQuestion + question.getId());
+                templateEmailModel.put(EMAIL_TEXT_INITIAL, "A sua pergunta " );
+                templateEmailModel.put(EMAIL_TEXT_END, " tem um novo comentário.");
+                templateEmailModel.put(QUESTION_TITLE, question.getTitle());
+                templateEmailModel.put(EMAIL_SUBJECT,"TownSQ - Alguém comentou a sua pergunta");
+                templateEmailModel.put(USER_NAME, question.getUser().getName());
+                templateEmailModel.put(USER_EMAIL, question.getUser().getEmail());
+                templateEmailModel.put(QUESTION_URL, urlQuestion + question.getId());
             }
             sendEmail();
         }

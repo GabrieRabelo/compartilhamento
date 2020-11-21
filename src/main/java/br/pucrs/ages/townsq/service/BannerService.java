@@ -7,7 +7,7 @@ import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.Cookie;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;

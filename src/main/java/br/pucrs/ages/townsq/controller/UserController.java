@@ -33,6 +33,10 @@ public class UserController {
     private final UserService service;
     private final BannerService bannerService;
 
+    private static final String ERROR = "error";
+    private static final String SIGNUP = "signup";
+    private static final String USER_EDIT = "redirect:/user/edit";
+
     @Autowired
     public UserController(UserService service, BannerService adService){
         this.bannerService = adService;
@@ -50,24 +54,24 @@ public class UserController {
         try {
             service.save(user);
         } catch (DataIntegrityViolationException error) {
-            model.addAttribute("error", "E-mail já cadastrado.");
-            return "signup";
+            model.addAttribute(ERROR, "E-mail já cadastrado.");
+            return SIGNUP;
         } catch (ConstraintViolationException error) {
             ConstraintViolationImpl c = (ConstraintViolationImpl) error.getConstraintViolations().toArray()[0];
-            model.addAttribute("error", c.getMessage());
-            return "signup";
+            model.addAttribute(ERROR, c.getMessage());
+            return SIGNUP;
         } catch (IllegalArgumentException e) {
-            model.addAttribute("error", e.getMessage());
-            return "signup";
+            model.addAttribute(ERROR, e.getMessage());
+            return SIGNUP;
         } catch (Exception e) {
             System.out.println(e.toString());
-            model.addAttribute("error", "Erro ao processar cadastro.");
-            return "signup";
+            model.addAttribute(ERROR, "Erro ao processar cadastro.");
+            return SIGNUP;
         }
         try {
             request.login(user.getUsername(), pass);
         } catch (ServletException e) {
-            model.addAttribute("error", e.getMessage());
+            model.addAttribute(ERROR, e.getMessage());
         }
         redirectAttributes.addFlashAttribute("success", "Cadastro realizado com sucesso!");
         return "redirect:/";
@@ -107,7 +111,7 @@ public class UserController {
 
         User userEdit = service.getUserById(user.getId()).orElse(null);
         if (userEdit == null) {
-            redirectAttributes.addFlashAttribute("error", "Erro ao editar o usuário.");
+            redirectAttributes.addFlashAttribute(ERROR, "Erro ao editar o usuário.");
             return "redirect:/";
         }
         Integer completeProfile = userEdit.getHasCompletedProfile();
@@ -121,42 +125,42 @@ public class UserController {
             userPrincipal.setImage(user.getImage());
             model.addAttribute("user", user);
         } catch (MalformedURLException e) {
-            redirectAttributes.addFlashAttribute("error", "URL inválida!");
-            return "redirect:/user/edit";
+            redirectAttributes.addFlashAttribute(ERROR, "URL inválida!");
+            return USER_EDIT;
         } catch (IllegalArgumentException e) {
-            redirectAttributes.addFlashAttribute("error", e.getMessage());
-            return "redirect:/user/edit";
+            redirectAttributes.addFlashAttribute(ERROR, e.getMessage());
+            return USER_EDIT;
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Erro ao atualizar perfil.");
-            return "redirect:/user/edit";
+            redirectAttributes.addFlashAttribute(ERROR, "Erro ao atualizar perfil.");
+            return USER_EDIT;
         }
         if (!user.getHasCompletedProfile().equals(completeProfile)) {
             redirectAttributes.addFlashAttribute("reputation", "Você ganhou 20 pontos!");
         }
 
         redirectAttributes.addFlashAttribute("success", "Perfil atualizado!");
-        return "redirect:/user/edit";
+        return USER_EDIT;
     }
 
     public String singleFileUpload(@RequestParam("file") MultipartFile file, User user) {
-        String ROOT_TO_STATIC = "./src/main/resources/static";
-        String STATIC = "/img/users/";
+        String rootToStatic = "./src/main/resources/static";
+        String s = "/img/users/";
         String uniqueID = UUID.randomUUID().toString();
         if (file.isEmpty()) {
-            return ROOT_TO_STATIC + STATIC + "defaultUser.svg";
+            return rootToStatic + s + "defaultUser.svg";
         }
 
         Path path = null;
-        String strPath = STATIC + uniqueID + getFileExtension(file.getOriginalFilename());
+        String strPath = s + uniqueID + getFileExtension(file.getOriginalFilename());
         try {
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
-            path = Paths.get(ROOT_TO_STATIC + strPath);
+            path = Paths.get(rootToStatic + strPath);
             Files.write(path, bytes);
 
             String oldImage = user.getImage();
-            if (oldImage != null && !oldImage.equals(ROOT_TO_STATIC + STATIC + "defaultUser.svg")) {
-                Files.delete(Paths.get(ROOT_TO_STATIC + oldImage));
+            if (oldImage != null && !oldImage.equals(rootToStatic + s + "defaultUser.svg")) {
+                Files.delete(Paths.get(rootToStatic + oldImage));
             }
 
         } catch (IOException e) {

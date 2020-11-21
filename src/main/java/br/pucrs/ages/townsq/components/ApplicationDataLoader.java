@@ -22,8 +22,6 @@ import java.util.HashSet;
 @Profile("!test")
 public class ApplicationDataLoader {
 
-    private boolean done = true;
-
     @Autowired
     private UserRepository userRepository;
 
@@ -69,7 +67,6 @@ public class ApplicationDataLoader {
             admin.setPassword(encoder.encode("admin123"));
             admin.setRoles(new HashSet<>(Collections.singletonList(adminRole)));
             createUser(admin);
-            done = true;
         }
     }
 
