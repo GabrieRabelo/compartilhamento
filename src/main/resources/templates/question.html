@@ -4,11 +4,12 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
 <head>
+    <title th:text="${question.getTitle()} + ' - Compartilhamento de experiências'"></title>
+    <meta name="description" th:content="${question.getDescription()}">
     <div th:replace="fragments/head :: header"></div>
     <link rel="stylesheet" th:href="@{/css/question.css}">
     <link rel="stylesheet" th:href="@{/css/modal.css}">
 
-    <title th:text="${question.getTitle()} + ' - Townsq'"></title>
 </head>
 <body>
 <header th:replace="fragments/header.html :: header"></header>

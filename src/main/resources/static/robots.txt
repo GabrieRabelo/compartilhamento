@@ -1,0 +1,13 @@
+User-agent: *
+
+Allow: /
+Disallow: /admin
+Disallow: /answer
+Disallow: /comment
+Disallow: /user
+Disallow: /users
+Disallow: /signup
+Disallow: /signin
+Disallow: /css
+Allow: /question
+Allow: /question/*
