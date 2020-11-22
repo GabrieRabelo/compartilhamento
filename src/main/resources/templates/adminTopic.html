@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/head :: header"></div>
+    <title>Administrador</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+<body>
+<header th:replace="fragments/header.html :: header"></header>
+<div class="container">
+    <div class="col-12">
+        <div class="line"></div>
+        <div class="tabs">
+            <a class="tab-item" href="/admin/banner">Editar Propaganda</a>
+            <a class="tab-item" href="/admin/mods">Gerenciar Moderadores <span></span> </a>
+            <a class="tab-item" th:classappend="${active} ? 'active' : ''" href="/admin/topics">Gerenciar Tópicos</a>
+        </div>
+        <form role="form" th:action="@{/admin/topics/create}" th:method="post" th:object="${topic}">
+            <div class="form">
+                <h1 class="title">Adicione um tópico</h1>
+                <div class="topic-input form-control">
+                    <input type="text" name="name" id="name" required maxlength="80" placeholder="Nome do tópico"/>
+                </div>
+                <div class="row white-background">
+                    <button type="submit">Adicionar</button>
+                </div>
+            </div>
+        </form>
+
+        <h2 class="title-center">Lista de tópicos</h2>
+        <div class="topics">
+            <div class="topics-card" th:each="topic: ${topics}">
+                <p th:text="${topic.getName()}"></p>
+                <a class="remove-button" th:href="@{/admin/topics/delete/{id}(id=${topic.getId()})}">Remover</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/toast.html :: toasts">
+</div>
+</body>
+</html>

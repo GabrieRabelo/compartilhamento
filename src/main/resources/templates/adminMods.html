@@ -2,8 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
+    <title>Cadastro de moderadores - Compartilhamento de experiências</title>
     <div th:replace="fragments/head :: header"></div>
-    <title>Administrador</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/admin.css}">
 </head>
@@ -13,8 +13,9 @@
     <div class="col-6">
         <div class="line"></div>
         <div class="tabs">
-            <a class="prop" href="/admin/banner">Editar Propaganda</a>
-            <a class="mods" th:classappend="${active} ? 'active' : ''" href="/admin/mods">Gerenciar Moderadores <span></span> </a>
+            <a class="tab-item" href="/admin/banner">Editar Propaganda</a>
+            <a class="tab-item" th:classappend="${active} ? 'active' : ''" href="/admin/mods">Gerenciar Moderadores <span></span> </a>
+            <a class="tab-item" href="/admin/topics">Gerenciar Tópicos</a>
         </div>
         <form role="form" th:action="@{/admin/mods/getUser}" th:method="post">
             <div class="form">
@@ -44,7 +45,7 @@
             <div class="mod-card" th:each="moderator: ${moderators}">
                 <img src="/img/user.svg" alt="Imagem de perfil">
                 <p th:text="${moderator.getName()}"></p>
-                <a th:href="@{/admin/mods/delete/{id}(id=${moderator.getId()})}">Remover</a>
+                <a class="remove-button" th:href="@{/admin/mods/delete/{id}(id=${moderator.getId()})}">Remover</a>
             </div>
         </div>
 

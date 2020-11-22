@@ -22,7 +22,7 @@ public class Topic {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", unique = true)
+    @Column(name = "name", columnDefinition = "VARCHAR(80)", unique = true)
     @NotEmpty
     @NotNull
     private String name;

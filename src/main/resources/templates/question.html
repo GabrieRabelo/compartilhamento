@@ -4,12 +4,12 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
 <head>
+    <title th:text="${question.getTitle()} + ' - Compartilhamento de experiências'"></title>
+    <meta name="description" th:content="${question.getDescription()}">
     <div th:replace="fragments/head :: header"></div>
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/question.css}">
     <link rel="stylesheet" th:href="@{/css/modal.css}">
 
-    <title th:text="${question.getTitle()} + ' - Townsq'"></title>
     <meta th:name="_csrf" th:content="${_csrf.token}"/>
     <meta th:name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
@@ -80,7 +80,6 @@
                             <a th:href="@{/user/{id}(id=${question.getUser().getId()})}"
                                th:text="${question.getUser().getName()}"></a>
                             <small th:text="${question.getCreatedAtString()}"></small>
-<!--                            <small th:text="${question.getScore()}"></small>-->
                         </div>
                     </div>
                     <div th:if="${question.getIsActive() == 0}" class="status-pill-questions bg-success self-end" id="mobile-status">
@@ -197,7 +196,6 @@
                             <a th:href="@{/user/{id}(id=${answer.getUser().getId()})}"
                                th:text="${answer.getUser().getName()}"></a>
                             <small th:text="${answer.getCreatedAtString()}"></small>
-<!--                            <small th:text="${answer.getScore()}"></small>-->
                         </div>
                     </div>
                     <div class="answer-card-right">
