@@ -34,17 +34,18 @@ public class AnswerServiceTest {
 	@DisplayName("Test save answer should return saved answer")
 	@Test
 	public void testSaveAnswer() {
-		User user = User.builder().name("Juca").password("12345").email("juca@email.com").build();
+		User user = User.builder().name("Juca").id(2L).password("12345").email("juca@email.com").build();
+		User answerUser = User.builder().name("Juca").id(3L).password("12345").email("juca@email.com").build();
 		Question question = Question.builder().id(1L).title("Olá, isso é uma pergunta.").description("Essa fera ai meu!").user(user).build();
-		Answer answer = Answer.builder().id(1L).text("Text").isActive(1).isBest(1).build();
+		Answer answer = Answer.builder().id(1L).text("Text").isActive(1).isBest(1).user(answerUser).build();
 
 		when(answerRepository.save(any(Answer.class)))
 				.thenReturn(answer);
 
-		var result = answerService.saveAnswer(answer, user, question);
+		var result = answerService.saveAnswer(answer, answerUser, question);
 
 		assertEquals(result.getText(), answer.getText());
-		assertEquals(result.getUser().getId(), user.getId());
+		assertEquals(result.getUser().getId(), answerUser.getId());
 		assertEquals(result.getQuestion().getId(), question.getId());
 	}
 
