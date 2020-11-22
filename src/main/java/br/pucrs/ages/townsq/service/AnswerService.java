@@ -65,7 +65,6 @@ public class AnswerService {
     public boolean delete(User user, long answerId) {
         Answer answer = answerRepository.findById(answerId).orElse(null);
         if(answer != null) {
-
             if(answer.getUser().getId().equals(user.getId())
                     && answer.getIsActive() == 1
                     && answer.getQuestion().getIsActive() == 1
@@ -77,6 +76,7 @@ public class AnswerService {
                     questionService.openQuestion(answer.getQuestion());
                 }
                 answerRepository.save(answer);
+                reputationService.deleteAnswerLog(answer);
                 return true;
             }
             return false;
