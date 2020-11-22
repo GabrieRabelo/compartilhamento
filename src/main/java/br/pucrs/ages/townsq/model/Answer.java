@@ -1,5 +1,6 @@
 package br.pucrs.ages.townsq.model;
 
+import br.pucrs.ages.townsq.listeners.AnswerListener;
 import br.pucrs.ages.townsq.utils.Chronos;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Entity
+@EntityListeners(AnswerListener.class)
 @Table(name = "answers")
 @NoArgsConstructor
 @AllArgsConstructor
