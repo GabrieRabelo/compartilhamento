@@ -52,6 +52,8 @@ public class QuestionController {
         return "questionForm";
     }
 
+
+
     /**
      * Saves / edit the question.
      * @param user The user from the request
@@ -80,6 +82,7 @@ public class QuestionController {
             return "redirect:/";
         }
     }
+
 
     /**
      * Route to soft delete a question
@@ -148,7 +151,7 @@ public class QuestionController {
             if(question != null &&
                     (question.getUser().getId().equals(user.getId())) ||
                         user.getAuthorities().stream().anyMatch(e -> e.getAuthority().equals("ROLE_MODERATOR"))){
-                model.addAttribute("topics", topicService.getAllTopics());
+                model.addAttribute("topics", topicService.getAllTopicsByStatus(1));
                 model.addAttribute("question", question);
                 return "questionForm";
             }
