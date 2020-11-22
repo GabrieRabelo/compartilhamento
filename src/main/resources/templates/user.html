@@ -3,8 +3,9 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
+    <title th:text="'Perfil de ' + ${user.getName()} + ' - Compartilhamento de experiências'"></title>
+    <meta name="description" content="Compartilhe suas experiências e tire suas dúvidas sobre o mundo dos condomínios e síndicos.">
     <div th:replace="fragments/head :: header"></div>
-    <title>Usuário</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/user.css}">
 </head>
