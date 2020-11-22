@@ -105,8 +105,11 @@
                         </div>
                         <div class="vote-container col-1">
                             <div class="vote mt-4" th:id="'question-' + ${question.getId()} + '-score-actions'">
-                                <img sec:authorize="isAuthenticated()" th:src="'/img/icons/' + ${question.getVoted(#authentication.getPrincipal(), 'upvote')}" class="vote-button" alt="upvote"th:onclick="|doVote('upvote','question','${question.getId()}')|"/>
+                                <img sec:authorize="isAuthenticated()" th:src="'/img/icons/' + ${question.getVoted(#authentication.getPrincipal(), 'upvote')}" class="vote-button" alt="upvote"
+                                     th:onclick="|doVote('upvote','question','${question.getId()}')|"/>
+                                <img sec:authorize="isAnonymous()" th:src="'/img/icons/upvote.svg'" class="vote-button disabled" alt="upvote">
                                 <div class="vote-number" th:text="${question.getScore()}" th:id="'question-' + ${question.getId()} + '-score'"></div>
+                                <img sec:authorize="isAnonymous()" th:src="'/img/icons/downvote.svg'" class="vote-button disabled" alt="downvote">
                                 <img sec:authorize="isAuthenticated()" th:src="'/img/icons/' + ${question.getVoted(#authentication.getPrincipal(), 'downvote')}" class="vote-button" alt="downvote"
                                      th:onclick="|doVote('downvote','question','${question.getId()}')|"/>
                             </div>
@@ -216,9 +219,11 @@
                             </a>
                         </div>
                             <div class="vote align-self-end my-3" th:id="'answer-' + ${answer.getId()} + '-score-actions'">
+                                <img sec:authorize="isAnonymous()" th:src="'/img/icons/upvote.svg'" class="vote-button disabled" alt="upvote">
                                 <img sec:authorize="isAuthenticated()" th:src="'/img/icons/' + ${answer.getVoted(#authentication.getPrincipal(), 'upvote')}" class="vote-button" alt="upvote"
                                      th:onclick="|doVote('upvote','answer','${answer.getId()}')|">
                                 <div class="vote-number" th:text="${answer.getScore()}" th:id="'answer-' + ${answer.getId()} + '-score'"></div>
+                                <img sec:authorize="isAnonymous()" th:src="'/img/icons/downvote.svg'" class="vote-button disabled" alt="downvote">
                                 <img sec:authorize="isAuthenticated()" th:src="'/img/icons/' + ${answer.getVoted(#authentication.getPrincipal(), 'downvote')}" class="vote-button" alt="upvote"
                                      th:onclick="|doVote('downvote','answer','${answer.getId()}')|">
                             </div>

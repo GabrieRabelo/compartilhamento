@@ -423,6 +423,10 @@ hr{
     align-items: center;
 }
 
+.disabled{
+    cursor: default;
+}
+
 @media (min-width: 481px) and (max-width: 1025px) {
     .main-content{
         width: 80vw;
