@@ -29,27 +29,13 @@ public class VoteService {
             }
             VoteLog vote = voteLogRepository.getVoteLogByQuestionAndUser(question, user).orElse(null);
             if (vote == null) {
-                VoteLog toSave = VoteLog.builder()
-                        .user(user)
-                        .question(question)
-                        .eventType("UPVOTE")
-                        .score(1)
-                        .isActive(1)
-                        .build();
-                voteLogRepository.save(toSave);
+                voteLogRepository.save(_buildVoteLog("UPVOTE", 1, user, question, null));
                 return 1;
             }
             else {
                 voteLogRepository.delete(vote);
                 if(vote.getEventType().equals("DOWNVOTE")){
-                    VoteLog toSave = VoteLog.builder()
-                            .user(user)
-                            .question(question)
-                            .eventType("UPVOTE")
-                            .score(1)
-                            .isActive(1)
-                            .build();
-                    voteLogRepository.save(toSave);
+                    voteLogRepository.save(_buildVoteLog("UPVOTE", 1, user, question, null));
                     return 2;
                 }
                 return -1;
@@ -62,27 +48,13 @@ public class VoteService {
             }
             VoteLog vote = voteLogRepository.getVoteLogByAnswerAndUser(answer, user).orElse(null);
             if (vote == null) {
-                VoteLog toSave = VoteLog.builder()
-                        .user(user)
-                        .answer(answer)
-                        .eventType("UPVOTE")
-                        .score(1)
-                        .isActive(1)
-                        .build();
-                voteLogRepository.save(toSave);
+                voteLogRepository.save(_buildVoteLog("UPVOTE", 1, user, null, answer));
                 return 1;
             }
             else {
                 voteLogRepository.delete(vote);
                 if(vote.getEventType().equals("DOWNVOTE")){
-                    VoteLog toSave = VoteLog.builder()
-                            .user(user)
-                            .answer(answer)
-                            .eventType("UPVOTE")
-                            .score(1)
-                            .isActive(1)
-                            .build();
-                    voteLogRepository.save(toSave);
+                    voteLogRepository.save(_buildVoteLog("UPVOTE", 1, user, null, answer));
                     return 2;
                 }
                 return -1;
@@ -99,27 +71,13 @@ public class VoteService {
             }
             VoteLog vote = voteLogRepository.getVoteLogByQuestionAndUser(question, user).orElse(null);
             if (vote == null) {
-                VoteLog toSave = VoteLog.builder()
-                        .user(user)
-                        .question(question)
-                        .eventType("DOWNVOTE")
-                        .score(-1)
-                        .isActive(1)
-                        .build();
-                voteLogRepository.save(toSave);
+                voteLogRepository.save(_buildVoteLog("DOWNVOTE", -1, user, question, null));
                 return -1;
             }
             else {
                 voteLogRepository.delete(vote);
                 if(vote.getEventType().equals("UPVOTE")){
-                    VoteLog toSave = VoteLog.builder()
-                            .user(user)
-                            .question(question)
-                            .eventType("DOWNVOTE")
-                            .score(-1)
-                            .isActive(1)
-                            .build();
-                    voteLogRepository.save(toSave);
+                    voteLogRepository.save(_buildVoteLog("DOWNVOTE", -1, user, question, null));
                     return -2;
                 }
                 return 1;
@@ -132,33 +90,39 @@ public class VoteService {
             }
             VoteLog vote = voteLogRepository.getVoteLogByAnswerAndUser(answer, user).orElse(null);
             if (vote == null) {
-                VoteLog toSave = VoteLog.builder()
-                        .user(user)
-                        .answer(answer)
-                        .eventType("DOWNVOTE")
-                        .score(-1)
-                        .isActive(1)
-                        .build();
-                voteLogRepository.save(toSave);
+                voteLogRepository.save(_buildVoteLog("DOWNVOTE", -1, user, null, answer));
                 return -1;
             }
             else {
                 voteLogRepository.delete(vote);
                 if(vote.getEventType().equals("UPVOTE")){
-                    VoteLog toSave = VoteLog.builder()
-                            .user(user)
-                            .answer(answer)
-                            .eventType("DOWNVOTE")
-                            .score(-1)
-                            .isActive(1)
-                            .build();
-                    voteLogRepository.save(toSave);
+                    voteLogRepository.save(_buildVoteLog("DOWNVOTE", -1, user, null, answer));
                     return -2;
                 }
                 return 1;
             }
         }
         return 0;
+    }
+
+    /**
+     * Builds a VoteLog object
+     * @param eventType String
+     * @param score int
+     * @param user User
+     * @param question Question
+     * @param answer Answer
+     * @return VoteLog
+     */
+    private VoteLog _buildVoteLog(String eventType, int score, User user, Question question, Answer answer){
+        return VoteLog.builder()
+                .user(user)
+                .eventType(eventType)
+                .score(score)
+                .question(question)
+                .answer(answer)
+                .isActive(1)
+                .build();
     }
 
 }

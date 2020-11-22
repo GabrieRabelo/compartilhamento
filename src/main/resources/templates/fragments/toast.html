@@ -12,14 +12,6 @@
             <img src="/img/icons/error.svg" alt="error logo" />
             <p th:text="${error}"></p>
         </div>
-        <div class="toast toast-success custom-success">
-            <img src="/img/icons/done.svg" alt="done logo" />
-            <p></p>
-        </div>
-        <div class="toast toast-error custom-error">
-            <img src="/img/icons/error.svg" alt="error logo" />
-            <p></p>
-        </div>
         <div th:if="${info}" th:classappend="${info} ? 'toast-show' : ''" class="toast toast-info">
             <img src="/img/icons/help.svg" alt="help logo" />
             <p th:text="${info}"></p>
@@ -27,6 +19,14 @@
         <div th:if="${reputation}" th:classappend="${reputation} ? 'toast-show' : ''" class="toast toast-reputation">
             <img src="/img/icons/medal.svg" alt="medal logo" />
             <p th:text="${reputation}"></p>
+        </div>
+        <div class="toast toast-success custom-success">
+            <img src="/img/icons/done.svg" alt="done logo" />
+            <p></p>
+        </div>
+        <div class="toast toast-error custom-error">
+            <img src="/img/icons/error.svg" alt="error logo" />
+            <p></p>
         </div>
         <script th:inline="javascript">
             var error = [[${error}]];
