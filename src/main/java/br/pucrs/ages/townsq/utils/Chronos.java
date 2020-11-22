@@ -4,10 +4,11 @@ import org.ocpsoft.prettytime.PrettyTime;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Locale;
 
 public class Chronos {
 
-    private static final PrettyTime prettyTime = new PrettyTime();
+    private static final PrettyTime prettyTime = new PrettyTime().setLocale(new Locale("pt", "BR"));
 
     public static String dateToPrettyTimeString(Date date){
         return prettyTime.format(date);
