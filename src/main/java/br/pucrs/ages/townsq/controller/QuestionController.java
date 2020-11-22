@@ -52,6 +52,8 @@ public class QuestionController {
         return "questionForm";
     }
 
+
+
     /**
      * Saves / edit the question.
      * @param user The user from the request
@@ -80,6 +82,7 @@ public class QuestionController {
             return "redirect:/";
         }
     }
+
 
     /**
      * Route to soft delete a question

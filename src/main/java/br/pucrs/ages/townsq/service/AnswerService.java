@@ -128,4 +128,9 @@ public class AnswerService {
         questionService.closeQuestion(questionFrom);
         answerRepository.save(databaseAnswer);
     }
+
+    public void updateAnswerScore(Answer answer, int score){
+        answer.setScore(answer.getScore() + score);
+        answerRepository.save(answer);
+    }
 }

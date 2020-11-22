@@ -60,12 +60,27 @@ public class Answer {
     @OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL, mappedBy = "answer")
     private List<Comment> comments;
 
+    @OneToMany(targetEntity = VoteLog.class, cascade = CascadeType.ALL, mappedBy = "answer")
+    private List<VoteLog> votes;
+
     public String getCreatedAtString(){
         return Chronos.dateToPrettyTimeString(this.createdAt);
     }
 
     public List<Comment> getAllActiveComments(){
         return comments.stream().filter(e -> e.getIsActive() == 1).collect(Collectors.toList());
+    }
+
+    public String getVoted(User user, String type){
+        VoteLog vote = votes.stream().filter(e -> e.getUser().getId().equals(user.getId())).findFirst().orElse(null);
+        if(vote == null){
+            return type + ".svg";
+        }else{
+            if(vote.getEventType().equals(type.toUpperCase()))
+                return type + "d.svg";
+            else
+                return type + ".svg";
+        }
     }
 
 }
