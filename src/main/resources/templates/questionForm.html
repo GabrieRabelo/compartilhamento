@@ -15,7 +15,7 @@
     <form class="question-form" th:method="post" th:object="${question}" th:action="@{/question/save}">
         <div class="form-control form-big">
             <label for="title">Título da Pergunta</label>
-            <input th:value="*{title}" id= "title" type="text" name="title" required/>
+            <input th:value="*{title}" id= "title" type="text" name="title" required maxlength="50"/>
         </div>
         <div class="form-control form-big">
             <label for="topic">Tópico da Pergunta</label>
