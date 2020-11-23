@@ -1,9 +1,13 @@
 package br.pucrs.ages.townsq.controller;
 
+import br.pucrs.ages.townsq.model.*;
+import br.pucrs.ages.townsq.exception.QuestionNotFoundException;
 import br.pucrs.ages.townsq.model.Answer;
 import br.pucrs.ages.townsq.model.Question;
+import br.pucrs.ages.townsq.model.Topic;
 import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.service.AnswerService;
+import br.pucrs.ages.townsq.service.BannerService;
 import br.pucrs.ages.townsq.service.QuestionService;
 import br.pucrs.ages.townsq.service.TopicService;
 import br.pucrs.ages.townsq.utils.Slugify;
@@ -25,12 +29,14 @@ public class QuestionController {
     private final TopicService topicService;
     private final QuestionService questionService;
     private final AnswerService answerService;
+    private final BannerService bannerService;
 
     @Autowired
-    public QuestionController(TopicService topicService, QuestionService questionService, AnswerService answerService){
+    public QuestionController(TopicService topicService, QuestionService questionService, AnswerService answerService, BannerService bannerService){
         this.topicService = topicService;
         this.questionService = questionService;
         this.answerService = answerService;
+        this.bannerService = bannerService;
     }
 
     /**
@@ -46,6 +52,8 @@ public class QuestionController {
         return "questionForm";
     }
 
+
+
     /**
      * Saves / edit the question.
      * @param user The user from the request
@@ -58,7 +66,7 @@ public class QuestionController {
                                      @ModelAttribute Question question,
                                      final RedirectAttributes redirectAttributes){
         try {
-            Long questionId = null;
+            Long questionId;
             if(question.getId() != null) {
                 questionId = questionService.edit(question, user).getId();
                 redirectAttributes.addFlashAttribute("success", "Pergunta editada com sucesso!");
@@ -75,6 +83,7 @@ public class QuestionController {
         }
     }
 
+
     /**
      * Route to soft delete a question
      * @param user The authenticated user
@@ -86,7 +95,7 @@ public class QuestionController {
     public String getDeleteQuestionRoute(@AuthenticationPrincipal User user,
                                          @PathVariable long questionId,
                                          final RedirectAttributes redirectAttributes){
-        boolean hasDeleted = questionService.delete(user.getId(), questionId);
+        boolean hasDeleted = questionService.delete(user, questionId);
         if(hasDeleted)
             redirectAttributes.addFlashAttribute("success", "Pergunta deletada com sucesso!");
         else
@@ -107,19 +116,23 @@ public class QuestionController {
                               @PathVariable long id,
                               @PathVariable(required = false) String slug,
                               Model model){
-        Question question = questionService.getQuestionById(id).orElse(null);
+        Question question = questionService.getNonDeletedQuestionById(id).orElse(null);
         if(question != null){
+            Topic topic = question.getTopic();
             String questionSlug = Slugify.toSlug(question.getTitle());
             if(slug == null || !slug.equals(questionSlug)){
                 request.setAttribute(View.RESPONSE_STATUS_ATTRIBUTE, HttpStatus.MOVED_PERMANENTLY);
                 return "redirect:/question/" + id + "/" + questionSlug;
             }
+            Banner banner = bannerService.getActiveBanner().orElse(null);
+            model.addAttribute("banner", banner);
             model.addAttribute("question", question);
+            model.addAttribute("topic", topic);
             model.addAttribute("answers", answerService.getQuestionAnswers(question));
             model.addAttribute("answer", new Answer());
             return "question";
         }
-        return "question";
+        else throw new QuestionNotFoundException();
     }
 
     /**
@@ -134,9 +147,11 @@ public class QuestionController {
     public String editQuestionById(@AuthenticationPrincipal User user,
                                    @PathVariable long id,
                                    Model model){
-        Question question = questionService.getQuestionById(id).orElse(null);
-            if(question != null && question.getUser().getId().equals(user.getId())){
-                model.addAttribute("topics", topicService.getAllTopics());
+        Question question = questionService.getNonDeletedQuestionById(id).orElse(null);
+            if(question != null &&
+                    (question.getUser().getId().equals(user.getId())) ||
+                        user.getAuthorities().stream().anyMatch(e -> e.getAuthority().equals("ROLE_MODERATOR"))){
+                model.addAttribute("topics", topicService.getAllTopicsByStatus(1));
                 model.addAttribute("question", question);
                 return "questionForm";
             }

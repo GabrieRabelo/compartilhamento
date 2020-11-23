@@ -2,8 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
+    <title>Crie sua pergunta - Compartilhamento de experiências</title>
     <div th:replace="fragments/head :: header"></div>
-    <title>Usuário</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/questionCreate.css}">
 </head>
@@ -15,7 +15,7 @@
     <form class="question-form" th:method="post" th:object="${question}" th:action="@{/question/save}">
         <div class="form-control form-big">
             <label for="title">Título da Pergunta</label>
-            <input th:value="*{title}" id= "title" type="text" name="title" required/>
+            <input th:value="*{title}" id= "title" type="text" name="title" required maxlength="50"/>
         </div>
         <div class="form-control form-big">
             <label for="topic">Tópico da Pergunta</label>

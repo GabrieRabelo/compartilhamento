@@ -2,23 +2,24 @@ package br.pucrs.ages.townsq.controller;
 
 import br.pucrs.ages.townsq.model.Banner;
 import br.pucrs.ages.townsq.model.Role;
+import br.pucrs.ages.townsq.model.Topic;
 import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.service.BannerService;
+import br.pucrs.ages.townsq.service.TopicService;
 import br.pucrs.ages.townsq.service.UserService;
+import org.hibernate.exception.DataException;
 import org.hibernate.validator.internal.engine.ConstraintViolationImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolationException;
 import java.net.MalformedURLException;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -27,11 +28,13 @@ public class AdminController {
 
     private final UserService service;
     private final BannerService adService;
+    private final TopicService topicService;
 
     @Autowired
-    public AdminController(UserService service, BannerService adService){
+    public AdminController(UserService service, BannerService adService, TopicService topicService){
         this.service = service;
         this.adService = adService;
+        this.topicService = topicService;
     }
 
     @GetMapping("/admin")
@@ -53,6 +56,39 @@ public class AdminController {
         model.addAttribute("moderators", moderators);
         model.addAttribute("active", true);
         return  "adminMods";
+    }
+
+    @GetMapping("/admin/topics")
+    public String getAdminTopicsPage(Model model) {
+        List<Topic> topics = topicService.getAllTopicsByStatus(1);
+        model.addAttribute("topics",topics);
+        model.addAttribute("active", true);
+        return  "adminTopic";
+    }
+
+    @PostMapping("/admin/topics/create")
+    public String createNewTopic(Topic topic, final RedirectAttributes redirectAttributes){
+        try{
+            topicService.create(topic);
+            redirectAttributes.addFlashAttribute("success","Tópico criado com sucesso.");
+        } catch ( IllegalArgumentException e ){
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+        } catch ( DataIntegrityViolationException e) {
+            redirectAttributes.addFlashAttribute("error", "Não foi possível criar o tópico.");
+        }
+        return "redirect:/admin/topics";
+    }
+
+    @GetMapping("/admin/topics/delete/{id}")
+    public String removeTopic(@PathVariable long id, final RedirectAttributes redirectAttributes){
+        boolean deleted = topicService.setTopicToInactive(id);
+        if (deleted){
+            redirectAttributes.addFlashAttribute("success","Tópico removido com sucesso.");
+        }
+        else {
+            redirectAttributes.addFlashAttribute("error","Erro ao remover tópico.");
+        }
+        return "redirect:/admin/topics";
     }
 
     @PostMapping("/admin/mods/create")
@@ -140,7 +176,20 @@ public class AdminController {
         if (user == null) {
             redirectAttr.addFlashAttribute("error", "Usuário não encontrado.");
         } else {
-            redirectAttr.addFlashAttribute("user", user);
+
+            Set<Role> userRole = user.getRoles();
+
+            Role role = (Role) userRole.toArray()[0];
+
+            if (role.getName().equals("ROLE_MODERATOR")) {
+                redirectAttr.addFlashAttribute("error", "O usuário " + user.getName() + " já é um moderador.");
+                return "redirect:/admin/mods";
+            } else if (role.getName().equals("ROLE_ADMIN")) {
+                redirectAttr.addFlashAttribute("error", "Este usuário é um administrador.");
+                return "redirect:/admin/mods";
+            } else {
+                redirectAttr.addFlashAttribute("user", user);
+            }
         }
         return "redirect:/admin/mods";
     }

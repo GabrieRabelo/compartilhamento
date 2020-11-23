@@ -20,9 +20,6 @@ spring:
   liquibase:
     enabled: false
     change-log: database/db.changelog-dev.xml
-  servlet:
-    multipart:
-      max-file-size: 10MB
-      max-request-size: 10MB
-  resources:
-    static-locations: classpath:/static/,file:src/main/resources/static/
+
+misc:
+  root-url: http://localhost:8080/

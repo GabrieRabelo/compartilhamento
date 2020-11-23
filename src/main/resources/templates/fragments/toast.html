@@ -20,6 +20,14 @@
             <img src="/img/icons/medal.svg" alt="medal logo" />
             <p th:text="${reputation}"></p>
         </div>
+        <div class="toast toast-success custom-success">
+            <img src="/img/icons/done.svg" alt="done logo" />
+            <p></p>
+        </div>
+        <div class="toast toast-error custom-error">
+            <img src="/img/icons/error.svg" alt="error logo" />
+            <p></p>
+        </div>
         <script th:inline="javascript">
             var error = [[${error}]];
             var success = [[${success}]];
@@ -32,9 +40,24 @@
                 if (allShowed) {
                     setTimeout(() => {
                         allShowed.forEach(el => el.classList.remove("toast-show"));
-                    }, 4450)
+                    }, 2250)
                 }
             };
+
+            /**
+             * Shows a custom toast
+             * @param type error, success ...
+             * @param text Text message
+             */
+            function showCustomToast(type, text){
+                let div = document.querySelector(`.custom-${type}`);
+                let p = div.querySelector('p');
+                p.innerHTML = text;
+                div.classList.add("toast-show")
+                setTimeout(() => {
+                    div.classList.remove("toast-show")
+                }, 2250)
+            }
         </script>
     </div>
 </body>

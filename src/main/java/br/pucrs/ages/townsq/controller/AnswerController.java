@@ -4,13 +4,13 @@ import br.pucrs.ages.townsq.model.Answer;
 import br.pucrs.ages.townsq.model.Question;
 import br.pucrs.ages.townsq.model.User;
 import br.pucrs.ages.townsq.service.AnswerService;
+import br.pucrs.ages.townsq.service.EmailService;
 import br.pucrs.ages.townsq.service.QuestionService;
 import br.pucrs.ages.townsq.utils.Slugify;
+import javassist.NotFoundException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindException;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,10 +27,12 @@ public class AnswerController {
 
     private final AnswerService answerService;
     private final QuestionService questionService;
+    private final EmailService emailService;
 
-    public AnswerController(AnswerService answerService, QuestionService questionService) {
+    public AnswerController(AnswerService answerService, QuestionService questionService, EmailService emailService) {
         this.answerService = answerService;
         this.questionService = questionService;
+        this.emailService = emailService;
     }
 
     /**
@@ -43,11 +45,14 @@ public class AnswerController {
                                    @ModelAttribute Answer answer,
                                    @ModelAttribute Question question,
                                    final RedirectAttributes redirectAttributes
-                                   ) {
-        try{
-              answerService.saveAnswer(answer, user, question);
-              redirectAttributes.addFlashAttribute("success", "Resposta criada com sucesso!");
-              return "redirect:/question/" + question.getId() + "/" + Slugify.toSlug(question.getTitle());
+    ) {
+        try {
+            Answer createdAnswer = answerService.saveAnswer(answer, user, question);
+            emailService.createEmail(createdAnswer);
+
+            redirectAttributes.addFlashAttribute("success", "Resposta criada com sucesso!");
+            redirectAttributes.addFlashAttribute("reputation", "Você ganhou 10 pontos!");
+            return "redirect:/question/" + question.getId() + "/" + Slugify.toSlug(question.getTitle());
         } catch (IllegalArgumentException ie) {
             redirectAttributes.addFlashAttribute("error", "Resposta não pode ser vazia");
             return "redirect:/question/" + question.getId() + "/" + Slugify.toSlug(question.getTitle());
@@ -94,17 +99,44 @@ public class AnswerController {
                                        @PathVariable long answerId,
                                        final RedirectAttributes redirectAttributes) {
         Optional<Answer> optAnswer = answerService.findById(answerId);
-        Question ansQuestion = null;
+        Question ansQuestion;
         if(optAnswer.isPresent()) {
             Answer answer = optAnswer.get();
             ansQuestion = answer.getQuestion();
 
-            boolean hasDeleted = answerService.delete(user.getId(), answerId);
+            boolean hasDeleted = answerService.delete(user, answerId);
             if(hasDeleted)
                 redirectAttributes.addFlashAttribute("success", "Resposta deletada com sucesso!");
             else
                 redirectAttributes.addFlashAttribute("error", "Não foi possível deletar a resposta.");
             return "redirect:/question/" + ansQuestion.getId() + "/" + Slugify.toSlug(ansQuestion.getTitle());
+        }
+        return "";
+    }
+
+    @GetMapping("/answer/favorite/{id}")
+    public String favoriteAnswer(
+          @AuthenticationPrincipal User user,
+          @PathVariable long id,
+          final RedirectAttributes redirectAttributes
+    )  {
+        Optional<Answer> optAnswer = answerService.findById(id);
+
+        if(optAnswer.isPresent()){
+            Question questionFrom = questionService.getQuestionById(optAnswer.get().getQuestion().getId()).orElse(null);
+            if(questionFrom == null){
+                redirectAttributes.addFlashAttribute("error","Operação inválida.");
+                return "redirect:/";
+            }
+            try {
+                answerService.favoriteAnswer(user, id, questionFrom);
+                redirectAttributes.addFlashAttribute("success", "Resposta favoritada com sucesso.");
+            } catch (SecurityException | NotFoundException | IllegalArgumentException  e ) {
+                redirectAttributes.addFlashAttribute("error", e.getMessage());
+            }
+
+
+            return "redirect:/question/" + questionFrom.getId() + "/" + Slugify.toSlug(questionFrom.getTitle());
         }
         return "";
     }

@@ -1,6 +1,7 @@
 package br.pucrs.ages.townsq.controller;
 
 import br.pucrs.ages.townsq.model.Banner;
+import br.pucrs.ages.townsq.model.Topic;
 import br.pucrs.ages.townsq.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;

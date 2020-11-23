@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Entity
@@ -33,6 +34,8 @@ public class Question {
     @NotEmpty(message = "Descrição não pode ser vazia.")
     @Column(name = "description", columnDefinition = "VARCHAR(512)", nullable =  false)
     private String description;
+    @Column(name = "score")
+    private int score = 0;
     @Column(name = "isActive")
     private int isActive = 1;
     @UpdateTimestamp
@@ -53,6 +56,8 @@ public class Question {
     private List<Comment> comments;
     @OneToMany(targetEntity = Answer.class, cascade = CascadeType.ALL, mappedBy = "question")
     private List<Answer> answers;
+    @OneToMany(targetEntity = VoteLog.class, cascade = CascadeType.ALL, mappedBy = "question")
+    private List<VoteLog> votes;
 
     public void setUser(User u){
         if(this.user == null){
@@ -68,6 +73,18 @@ public class Question {
         return comments.stream().filter(e -> e.getIsActive() == 1).collect(Collectors.toList());
     }
 
+    public String getVoted(User user, String type){
+        VoteLog vote = votes.stream().filter(e -> e.getUser().getId().equals(user.getId())).findFirst().orElse(null);
+        if(vote == null){
+            return type + ".svg";
+        }else{
+            if(vote.getEventType().equals(type.toUpperCase()))
+                return type + "d.svg";
+            else
+                return type + ".svg";
+        }
+    }
+
     public List<Answer> getAllActiveAnswers(){
         return answers.stream().filter(e -> e.getIsActive() == 1).collect(Collectors.toList());
     }
@@ -76,6 +93,10 @@ public class Question {
         int count = getAllActiveComments().size();
         if (count == 1) return "1 comentário";
         return count + " comentários";
+    }
+
+    public Optional<Answer> getFavoriteAnswer() {
+        return answers.stream().filter(e -> e.getIsBest() == 1).findFirst();
     }
 
 }

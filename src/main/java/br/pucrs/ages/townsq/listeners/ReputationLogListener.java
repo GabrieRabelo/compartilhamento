@@ -12,6 +12,8 @@ import javax.persistence.PostPersist;
 @Component
 public class ReputationLogListener {
 
+    public ReputationLogListener(){}
+
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -20,7 +22,7 @@ public class ReputationLogListener {
 
     @PostPersist
     public void updateUserScore(ReputationLog repLog){
-        userService.updateUserScore(repLog.getToUser(), repLog.getPoints());
+        userService.updateUserScore(repLog);
     }
 
 }
