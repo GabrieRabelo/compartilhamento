@@ -1,0 +1,11 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-4.0.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+    <changeSet author="gguer (generated)" id="1606102051653-1">
+        <addColumn tableName="reputation_logs">
+            <column name="answer_id" type="int8"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="gguer (generated)" id="1606102051653-2">
+        <addForeignKeyConstraint baseColumnNames="answer_id" baseTableName="reputation_logs" constraintName="FKpf6k37mjgmdbnw0xaxbv6ehxe" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="answers" validate="true"/>
+    </changeSet>
+</databaseChangeLog>
