@@ -12,6 +12,8 @@ import javax.persistence.PostPersist;
 @Component
 public class ReputationLogListener {
 
+    public ReputationLogListener(){}
+
     @PersistenceContext
     private EntityManager entityManager;
 

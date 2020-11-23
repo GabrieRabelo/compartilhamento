@@ -1,9 +1,6 @@
 package br.pucrs.ages.townsq.service;
 
-import br.pucrs.ages.townsq.model.Answer;
-import br.pucrs.ages.townsq.model.Question;
-import br.pucrs.ages.townsq.model.User;
-import br.pucrs.ages.townsq.model.VoteLog;
+import br.pucrs.ages.townsq.model.*;
 import br.pucrs.ages.townsq.repository.VoteLogRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,12 +10,14 @@ public class VoteService {
     private final QuestionService questionService;
     private final AnswerService answerService;
     private final VoteLogRepository voteLogRepository;
+    private final ReputationLogService reputationLogService;
 
     @Autowired
-    public VoteService(QuestionService questionService, VoteLogRepository voteLogRepository, AnswerService answerService) {
+    public VoteService(QuestionService questionService, VoteLogRepository voteLogRepository, AnswerService answerService, ReputationLogService reputationLogService) {
         this.questionService = questionService;
         this.voteLogRepository = voteLogRepository;
         this.answerService = answerService;
+        this.reputationLogService = reputationLogService;
     }
 
     public int upVote(String type, long id, User user) {
@@ -29,15 +28,18 @@ public class VoteService {
             }
             VoteLog vote = voteLogRepository.getVoteLogByQuestionAndUser(question, user).orElse(null);
             if (vote == null) {
-                voteLogRepository.save(_buildVoteLog("UPVOTE", 1, user, question, null));
+                VoteLog log = voteLogRepository.save(_buildVoteLog("UPVOTE", 1, user, question, null));
+                reputationLogService.voteLog(log, 1, question.getUser());
                 return 1;
             }
             else {
                 voteLogRepository.delete(vote);
                 if(vote.getEventType().equals("DOWNVOTE")){
-                    voteLogRepository.save(_buildVoteLog("UPVOTE", 1, user, question, null));
+                    VoteLog log = voteLogRepository.save(_buildVoteLog("UPVOTE", 1, user, question, null));
+                    reputationLogService.voteLog(log, 2, question.getUser());
                     return 2;
                 }
+                reputationLogService.voteLog(vote, -1, question.getUser());
                 return -1;
             }
         }
@@ -48,15 +50,18 @@ public class VoteService {
             }
             VoteLog vote = voteLogRepository.getVoteLogByAnswerAndUser(answer, user).orElse(null);
             if (vote == null) {
-                voteLogRepository.save(_buildVoteLog("UPVOTE", 1, user, null, answer));
+                VoteLog log = voteLogRepository.save(_buildVoteLog("UPVOTE", 1, user, null, answer));
+                reputationLogService.voteLog(log, 1, answer.getUser());
                 return 1;
             }
             else {
                 voteLogRepository.delete(vote);
                 if(vote.getEventType().equals("DOWNVOTE")){
-                    voteLogRepository.save(_buildVoteLog("UPVOTE", 1, user, null, answer));
+                    VoteLog log = voteLogRepository.save(_buildVoteLog("UPVOTE", 1, user, null, answer));
+                    reputationLogService.voteLog(log, 1, answer.getUser());
                     return 2;
                 }
+                reputationLogService.voteLog(vote, -1, answer.getUser());
                 return -1;
             }
         }
@@ -71,15 +76,18 @@ public class VoteService {
             }
             VoteLog vote = voteLogRepository.getVoteLogByQuestionAndUser(question, user).orElse(null);
             if (vote == null) {
-                voteLogRepository.save(_buildVoteLog("DOWNVOTE", -1, user, question, null));
+                VoteLog log = voteLogRepository.save(_buildVoteLog("DOWNVOTE", -1, user, question, null));
+                reputationLogService.voteLog(log, -1, question.getUser());
                 return -1;
             }
             else {
                 voteLogRepository.delete(vote);
                 if(vote.getEventType().equals("UPVOTE")){
-                    voteLogRepository.save(_buildVoteLog("DOWNVOTE", -1, user, question, null));
+                    VoteLog log = voteLogRepository.save(_buildVoteLog("DOWNVOTE", -1, user, question, null));
+                    reputationLogService.voteLog(log, -2, question.getUser());
                     return -2;
                 }
+                reputationLogService.voteLog(vote, 1, question.getUser());
                 return 1;
             }
         }
@@ -90,15 +98,18 @@ public class VoteService {
             }
             VoteLog vote = voteLogRepository.getVoteLogByAnswerAndUser(answer, user).orElse(null);
             if (vote == null) {
-                voteLogRepository.save(_buildVoteLog("DOWNVOTE", -1, user, null, answer));
+                VoteLog log = voteLogRepository.save(_buildVoteLog("DOWNVOTE", -1, user, null, answer));
+                reputationLogService.voteLog(log, -1, answer.getUser());
                 return -1;
             }
             else {
                 voteLogRepository.delete(vote);
                 if(vote.getEventType().equals("UPVOTE")){
-                    voteLogRepository.save(_buildVoteLog("DOWNVOTE", -1, user, null, answer));
+                    VoteLog log = voteLogRepository.save(_buildVoteLog("DOWNVOTE", -1, user, null, answer));
+                    reputationLogService.voteLog(log, -2, answer.getUser());
                     return -2;
                 }
+                reputationLogService.voteLog(vote, -2, answer.getUser());
                 return 1;
             }
         }

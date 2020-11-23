@@ -10,6 +10,8 @@ import javax.persistence.*;
 @Component
 public class QuestionListener {
 
+    public QuestionListener(){}
+
     @PersistenceContext
     private EntityManager entityManager;
 

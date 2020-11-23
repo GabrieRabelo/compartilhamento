@@ -123,4 +123,19 @@ public class ReputationLogService {
                 .build();
         reputationRepository.save(toPersist);
     }
+
+    public void voteLog(VoteLog vote, int points, User toUser){
+        ReputationLog toPersist = ReputationLog.builder()
+                .eventType(vote.getEventType())
+                .points(points)
+                .isActive(1)
+                .question(vote.getQuestion())
+                .answer(vote.getAnswer())
+                .toUser(toUser)
+                .fromUser(vote.getUser())
+                .build();
+        reputationRepository.save(toPersist);
+    }
+
+
 }
