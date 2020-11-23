@@ -109,7 +109,7 @@ public class VoteService {
                     reputationLogService.voteLog(log, -2, answer.getUser());
                     return -2;
                 }
-                reputationLogService.voteLog(vote, -2, answer.getUser());
+                reputationLogService.voteLog(vote, 1, answer.getUser());
                 return 1;
             }
         }
