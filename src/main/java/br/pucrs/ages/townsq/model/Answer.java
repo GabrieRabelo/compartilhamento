@@ -83,4 +83,11 @@ public class Answer {
         }
     }
 
+    public String getEditedString(){
+        if(!this.createdAt.equals(this.updatedAt)){
+            return "Editada " + Chronos.dateToPrettyTimeString(this.updatedAt);
+        }
+        return "";
+    }
+
 }

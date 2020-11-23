@@ -99,4 +99,11 @@ public class Question {
         return answers.stream().filter(e -> e.getIsBest() == 1).findFirst();
     }
 
+    public String getEditedString(){
+        if(!this.createdAt.equals(this.updatedAt)){
+            return "Editada " +  Chronos.dateToPrettyTimeString(this.updatedAt);
+        }
+        return "";
+    }
+
 }
