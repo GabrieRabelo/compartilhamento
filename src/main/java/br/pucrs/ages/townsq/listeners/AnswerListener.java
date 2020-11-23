@@ -22,6 +22,9 @@ public class AnswerListener {
         this.reputationService = service;
     }
 
+    public AnswerListener() {
+    }
+
     @PostPersist
     public void updateAnswerCreatorScore(Answer answer) {
         this.reputationService.createdAnswerLog(answer);

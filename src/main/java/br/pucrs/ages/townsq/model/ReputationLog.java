@@ -44,6 +44,10 @@ public class ReputationLog {
     @JoinColumn(name = "questionId")
     private Question question;
 
+    @ManyToOne
+    @JoinColumn(name = "answerId")
+    private Answer answer;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "toUserId", nullable = false)
     private User toUser;
