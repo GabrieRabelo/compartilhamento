@@ -255,6 +255,10 @@ aside {
     }
 }
 
+.filter-form{
+    margin-bottom: 8px;
+}
+
 @media (min-width: 320px) and (max-width: 480px) {
 
     aside {

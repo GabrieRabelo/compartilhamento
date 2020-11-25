@@ -7,10 +7,12 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, Long> {
 
 	List<Question> findTop10ByStatusEqualsOrderByCreatedAtDesc(int status);
 	List<Question> findTop10ByStatusEqualsAndTopicInOrderByCreatedAtDesc(int status, Collection<Topic> topics);
+	Optional<Question> findByIdEqualsAndStatusEquals(long id, int status);
 }

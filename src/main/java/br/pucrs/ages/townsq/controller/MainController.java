@@ -1,8 +1,8 @@
 package br.pucrs.ages.townsq.controller;
 
 import br.pucrs.ages.townsq.model.Banner;
-import br.pucrs.ages.townsq.model.Topic;
 import br.pucrs.ages.townsq.service.QuestionService;
+import br.pucrs.ages.townsq.service.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -21,12 +21,13 @@ public class MainController {
 
     private final QuestionService questionService;
     private final BannerService bannerService;
-
+    private final TopicService topicService;
 
     @Autowired
-    public MainController(QuestionService qService, BannerService adService){
+    public MainController(QuestionService qService, BannerService adService, TopicService topicService){
         this.bannerService = adService;
         this.questionService = qService;
+        this.topicService = topicService;
     }
 
     /**
@@ -38,6 +39,7 @@ public class MainController {
         Banner banner = bannerService.getActiveBanner().orElse(null);
 
         model.addAttribute("banner", banner);
+        model.addAttribute("topics", topicService.getAllTopics());
         model.addAttribute("questions", questionService.getIndexQuestions(params));
         return "index";
     }
