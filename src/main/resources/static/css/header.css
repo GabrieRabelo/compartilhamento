@@ -107,7 +107,7 @@ header nav img{
         text-transform: uppercase;
     }
 
-    header nav button{
+    #btn-question {
         display: none;
     }
 
