@@ -3,6 +3,7 @@ package br.pucrs.ages.townsq.model;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -41,5 +42,15 @@ public class Topic {
      */
     @Column(name = "status")
     private int status = 1;
+
+    /**
+     * Checks if the topic is selected on the frontend filter for the index page
+     * @param topic String topic id param
+     * @return boolean
+     */
+    public boolean isTopicSelectedForFilter(String topic){
+        if(topic == null || StringUtils.isEmpty(topic)) return false;
+        return Long.valueOf(topic).equals(this.id);
+    }
 
 }

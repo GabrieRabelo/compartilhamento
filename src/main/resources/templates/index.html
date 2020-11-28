@@ -33,6 +33,17 @@
     <main class="main-content">
         <img src="img/logo.svg" id="mobile-icon" alt="Logo da TownSq"/>
         <h1>Confira as perguntas mais recentes</h1>
+        <h3>Filtrar as perguntas por tópico</h3>
+        <form class="filter-form">
+            <select name="topic" id="topic">
+                <option value="">Todos</option>
+                <option th:each="topic : ${topics}"
+                        th:value="${topic.getId()}"
+                        th:text="${topic.getName()}"
+                        th:selected="(${param.topic != null} and ${param.topic[0] != null}) ? ${topic.isTopicSelectedForFilter(param.topic[0])} : false" />
+            </select>
+            <button type="submit" class="button-green-ease">Filtrar</button>
+        </form>
         <div class="banner" th:if="${banner != null} and ${questions.size() == 0}" id="banner-mobile">
             <div th:replace="fragments/banner.html :: banner"></div>
         </div>
