@@ -96,7 +96,7 @@ public class AnswerService {
      * @return List of answers
      */
     public List<Answer> getQuestionAnswers(Question question) {
-        return answerRepository.findByIsActiveAndQuestionEqualsOrderByCreatedAtDesc(1, question)
+        return answerRepository.findByIsActiveAndQuestionEqualsOrderByScoreDescCreatedAtDesc(1, question)
                 .stream()
                 .sorted(Comparator.comparing(Answer::getIsBest).reversed())
                 .collect(Collectors.toList());
