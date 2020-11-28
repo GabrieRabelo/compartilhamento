@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import br.pucrs.ages.townsq.service.BannerService;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -73,6 +75,11 @@ public class MainController {
     @GetMapping("/signup")
     public String getUserSignupPage(){
         return "signup";
+    }
+
+    @ExceptionHandler({ MethodArgumentTypeMismatchException.class })
+    public String handleException() {
+        return "redirect:/";
     }
 
 }
