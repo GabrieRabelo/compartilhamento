@@ -19,11 +19,13 @@ public class AnswerService {
     private final AnswerRepository answerRepository;
     private final ReputationLogService reputationService;
     private final QuestionService questionService;
+    private final EmailService emailService;
 
-    public AnswerService(AnswerRepository answerRepository, ReputationLogService reputationService, QuestionService questionService) {
+    public AnswerService(AnswerRepository answerRepository, ReputationLogService reputationService, QuestionService questionService, EmailService emailService) {
         this.answerRepository = answerRepository;
         this.reputationService = reputationService;
         this.questionService = questionService;
+        this.emailService = emailService;
     }
 
     /**
@@ -126,7 +128,8 @@ public class AnswerService {
         databaseAnswer.setIsBest(1);
         reputationService.favoriteBestAnswer(databaseAnswer);
         questionService.closeQuestion(questionFrom);
-        answerRepository.save(databaseAnswer);
+        databaseAnswer = answerRepository.save(databaseAnswer);
+        emailService.createEmail(databaseAnswer);
     }
 
     public void updateAnswerScore(Answer answer, int score){
