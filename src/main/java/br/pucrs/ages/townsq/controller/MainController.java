@@ -1,31 +1,35 @@
 package br.pucrs.ages.townsq.controller;
 
 import br.pucrs.ages.townsq.model.Banner;
-import br.pucrs.ages.townsq.model.Topic;
 import br.pucrs.ages.townsq.service.QuestionService;
+import br.pucrs.ages.townsq.service.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import br.pucrs.ages.townsq.service.BannerService;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class MainController {
 
     private final QuestionService questionService;
     private final BannerService bannerService;
-
+    private final TopicService topicService;
 
     @Autowired
-    public MainController(QuestionService qService, BannerService adService){
+    public MainController(QuestionService qService, BannerService adService, TopicService topicService){
         this.bannerService = adService;
         this.questionService = qService;
+        this.topicService = topicService;
     }
 
     /**
@@ -33,11 +37,12 @@ public class MainController {
      * @return index page
      */
     @GetMapping("/")
-    public String getIndex(Model model){
+    public String getIndex(Model model, @RequestParam(value="topic", required = false) List<Long> params){
         Banner banner = bannerService.getActiveBanner().orElse(null);
 
         model.addAttribute("banner", banner);
-        model.addAttribute("questions", questionService.getIndexQuestions());
+        model.addAttribute("topics", topicService.getAllTopics());
+        model.addAttribute("questions", questionService.getIndexQuestions(params));
         return "index";
     }
 
@@ -70,6 +75,11 @@ public class MainController {
     @GetMapping("/signup")
     public String getUserSignupPage(){
         return "signup";
+    }
+
+    @ExceptionHandler({ MethodArgumentTypeMismatchException.class })
+    public String handleException() {
+        return "redirect:/";
     }
 
 }

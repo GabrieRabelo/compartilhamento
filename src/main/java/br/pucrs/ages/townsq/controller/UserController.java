@@ -13,6 +13,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -169,6 +170,11 @@ public class UserController {
     private String getFileExtension(String filename) {
         String[] arr = filename.split("\\.");
         return "." + arr[arr.length - 1];
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public String exceptionHandler(){
+        return "redirect:/";
     }
 
 }

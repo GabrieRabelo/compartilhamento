@@ -56,7 +56,7 @@ class QuestionServiceTest {
 		when(questionRepository.findTop10ByStatusEqualsOrderByCreatedAtDesc(1))
 				.thenReturn(questionList);
 
-		var result = questionService.getIndexQuestions();
+		var result = questionService.getIndexQuestions(new ArrayList<>());
 
 		assertEquals(10, result.size());
 	}
