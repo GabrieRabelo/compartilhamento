@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface AnswerRepository extends JpaRepository<Answer, Long> {
 
-    List<Answer> findByIsActiveAndQuestionEqualsOrderByCreatedAtDesc(int isActive, Question question);
+    List<Answer> findByIsActiveAndQuestionEqualsOrderByScoreDescCreatedAtDesc(int isActive, Question question);
 }
