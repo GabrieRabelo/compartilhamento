@@ -10,7 +10,6 @@ public enum ReputationPoints {
     FAVORED_ANSWER(50),
     UNFAVORED_ANSWER(-50);
 
-
     private final int value;
 
     ReputationPoints(int value) {
