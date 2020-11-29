@@ -28,14 +28,14 @@ public class VoteService {
             }
             VoteLog vote = voteLogRepository.getVoteLogByQuestionAndUser(question, user).orElse(null);
             if (vote == null) {
-                VoteLog log = voteLogRepository.save(_buildVoteLog("UPVOTE", 1, user, question, null));
+                VoteLog log = voteLogRepository.save(_buildVoteLog(ReputationEventType.UPVOTE.getValue(), 1, user, question, null));
                 reputationLogService.voteLog(log, 1, question.getUser());
                 return 1;
             }
             else {
                 voteLogRepository.delete(vote);
                 if(vote.getEventType().equals("DOWNVOTE")){
-                    VoteLog log = voteLogRepository.save(_buildVoteLog("UPVOTE", 1, user, question, null));
+                    VoteLog log = voteLogRepository.save(_buildVoteLog(ReputationEventType.UPVOTE.getValue(), 1, user, question, null));
                     reputationLogService.voteLog(log, 2, question.getUser());
                     return 2;
                 }
@@ -50,14 +50,14 @@ public class VoteService {
             }
             VoteLog vote = voteLogRepository.getVoteLogByAnswerAndUser(answer, user).orElse(null);
             if (vote == null) {
-                VoteLog log = voteLogRepository.save(_buildVoteLog("UPVOTE", 1, user, null, answer));
+                VoteLog log = voteLogRepository.save(_buildVoteLog(ReputationEventType.UPVOTE.getValue(), 1, user, null, answer));
                 reputationLogService.voteLog(log, 1, answer.getUser());
                 return 1;
             }
             else {
                 voteLogRepository.delete(vote);
                 if(vote.getEventType().equals("DOWNVOTE")){
-                    VoteLog log = voteLogRepository.save(_buildVoteLog("UPVOTE", 1, user, null, answer));
+                    VoteLog log = voteLogRepository.save(_buildVoteLog(ReputationEventType.UPVOTE.getValue(), 1, user, null, answer));
                     reputationLogService.voteLog(log, 1, answer.getUser());
                     return 2;
                 }
@@ -76,14 +76,14 @@ public class VoteService {
             }
             VoteLog vote = voteLogRepository.getVoteLogByQuestionAndUser(question, user).orElse(null);
             if (vote == null) {
-                VoteLog log = voteLogRepository.save(_buildVoteLog("DOWNVOTE", -1, user, question, null));
+                VoteLog log = voteLogRepository.save(_buildVoteLog(ReputationEventType.DOWNVOTE.getValue(), -1, user, question, null));
                 reputationLogService.voteLog(log, -1, question.getUser());
                 return -1;
             }
             else {
                 voteLogRepository.delete(vote);
                 if(vote.getEventType().equals("UPVOTE")){
-                    VoteLog log = voteLogRepository.save(_buildVoteLog("DOWNVOTE", -1, user, question, null));
+                    VoteLog log = voteLogRepository.save(_buildVoteLog(ReputationEventType.DOWNVOTE.getValue(), -1, user, question, null));
                     reputationLogService.voteLog(log, -2, question.getUser());
                     return -2;
                 }
@@ -98,14 +98,14 @@ public class VoteService {
             }
             VoteLog vote = voteLogRepository.getVoteLogByAnswerAndUser(answer, user).orElse(null);
             if (vote == null) {
-                VoteLog log = voteLogRepository.save(_buildVoteLog("DOWNVOTE", -1, user, null, answer));
+                VoteLog log = voteLogRepository.save(_buildVoteLog(ReputationEventType.DOWNVOTE.getValue(), -1, user, null, answer));
                 reputationLogService.voteLog(log, -1, answer.getUser());
                 return -1;
             }
             else {
                 voteLogRepository.delete(vote);
                 if(vote.getEventType().equals("UPVOTE")){
-                    VoteLog log = voteLogRepository.save(_buildVoteLog("DOWNVOTE", -1, user, null, answer));
+                    VoteLog log = voteLogRepository.save(_buildVoteLog(ReputationEventType.DOWNVOTE.getValue(), -1, user, null, answer));
                     reputationLogService.voteLog(log, -2, answer.getUser());
                     return -2;
                 }
