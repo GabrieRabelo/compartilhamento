@@ -56,23 +56,29 @@ public class EmailService {
     @Async
     public void createEmail(Object object) {
         templateEmailModel = new HashMap<>();
-
         if (object instanceof Answer) {
             Answer answer = (Answer) object;
-
-            templateEmailModel.put("emailTextInitial", "A sua pergunta " );
-            templateEmailModel.put("emailTextEnd", " tem uma nova resposta.");
-            templateEmailModel.put("questionUrl", env.getProperty("misc.root-url") + "question/" + answer.getQuestion().getId());
-            templateEmailModel.put("emailSubject","TownSQ - Alguém respondeu sua pergunta");
-            templateEmailModel.put("questionTitle", answer.getQuestion().getTitle());
-            templateEmailModel.put("userName", answer.getQuestion().getUser().getName());
-            templateEmailModel.put("userEmail", answer.getQuestion().getUser().getEmail());
-
-
+            if(answer.getIsBest() == 1){
+                templateEmailModel.put("emailTextInitial", "A sua resposta na pergunta ");
+                templateEmailModel.put("questionTitle", answer.getQuestion().getTitle());
+                templateEmailModel.put("emailTextEnd", " foi marcada como a melhor.");
+                templateEmailModel.put("questionUrl", env.getProperty("misc.root-url") + "question/" + answer.getQuestion().getId());
+                templateEmailModel.put("emailSubject","TownSQ - Alguém favoritou sua resposta");
+                templateEmailModel.put("userName", answer.getQuestion().getUser().getName());
+                templateEmailModel.put("userEmail", answer.getQuestion().getUser().getEmail());
+            }
+            else{
+                templateEmailModel.put("emailTextInitial", "A sua pergunta " );
+                templateEmailModel.put("emailTextEnd", " tem uma nova resposta.");
+                templateEmailModel.put("questionUrl", env.getProperty("misc.root-url") + "question/" + answer.getQuestion().getId());
+                templateEmailModel.put("emailSubject","TownSQ - Alguém respondeu sua pergunta");
+                templateEmailModel.put("questionTitle", answer.getQuestion().getTitle());
+                templateEmailModel.put("userName", answer.getQuestion().getUser().getName());
+                templateEmailModel.put("userEmail", answer.getQuestion().getUser().getEmail());
+            }
             sendEmail();
         } else if (object instanceof Comment) {
             Comment comment = (Comment) object;
-
             if (comment.getAnswer() != null) {
                 Answer answer = comment.getAnswer();
                 templateEmailModel.put("emailTextInitial", "A sua resposta na pergunta ");

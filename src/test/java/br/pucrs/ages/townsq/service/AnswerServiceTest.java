@@ -22,13 +22,15 @@ public class AnswerServiceTest {
 	private AnswerRepository answerRepository;
 	private ReputationLogService reputationService;
 	private QuestionService questionService;
+	private EmailService emailService;
 
 	@BeforeEach
 	void setUp() {
 		this.answerRepository = mock(AnswerRepository.class);
 		this.reputationService = mock(ReputationLogService.class);
 		this.questionService = mock(QuestionService.class);
-		this.answerService = new AnswerService(answerRepository, reputationService, questionService);
+		this.emailService = mock(EmailService.class);
+		this.answerService = new AnswerService(answerRepository, reputationService, questionService, emailService);
 	}
 
 	@DisplayName("Test save answer should return saved answer")
