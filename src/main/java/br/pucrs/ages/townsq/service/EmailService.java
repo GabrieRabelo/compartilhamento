@@ -64,8 +64,8 @@ public class EmailService {
                 templateEmailModel.put("emailTextEnd", " foi marcada como a melhor.");
                 templateEmailModel.put("questionUrl", env.getProperty("misc.root-url") + "question/" + answer.getQuestion().getId());
                 templateEmailModel.put("emailSubject","TownSQ - Alguém favoritou sua resposta");
-                templateEmailModel.put("userName", answer.getQuestion().getUser().getName());
-                templateEmailModel.put("userEmail", answer.getQuestion().getUser().getEmail());
+                templateEmailModel.put("userName", answer.getUser().getName());
+                templateEmailModel.put("userEmail", answer.getUser().getEmail());
             }
             else{
                 templateEmailModel.put("emailTextInitial", "A sua pergunta " );
