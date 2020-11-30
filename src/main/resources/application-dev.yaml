@@ -20,6 +20,8 @@ spring:
   liquibase:
     enabled: false
     change-log: database/db.changelog-dev.xml
+  resources:
+    static-locations: classpath:/static/,file:src/main/resources/static/
 
 misc:
   root-url: http://localhost:8080/
